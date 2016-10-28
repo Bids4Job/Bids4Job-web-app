@@ -2,7 +2,7 @@ package simple_user;
 
 public class SimpleUser {
 
-	private final int simpleUserID;
+	private int simpleUserID;
 	private String firstName;
 	private String lastName;
 	private String location;
@@ -15,6 +15,13 @@ public class SimpleUser {
 
 	public SimpleUser(String firstName, String lastName, String location) {
 		this();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.location = location;
+	}
+	
+	public SimpleUser(int simpleUserID, String firstName, String lastName, String location) {
+		this.simpleUserID = simpleUserID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.location = location;
@@ -49,6 +56,6 @@ public class SimpleUser {
 	}
 	
 	public String toString() {
-		return this.getClass().getName() + " " + this.simpleUserID + ": " + this.firstName + " " + this.lastName + ", " + this.location;
+		return "SimpleUser" + " " + this.simpleUserID + ": " + this.firstName + " " + this.lastName + ", " + this.location;
 	}
 }

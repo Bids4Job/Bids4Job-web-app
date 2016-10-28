@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class SimpleUserDB {
 
@@ -109,5 +110,28 @@ public class SimpleUserDB {
 			this.closeConnection();
 		}
 		return highestID;
+	}
+
+	public ArrayList<SimpleUser> getAllSimpleUsers() {
+		ArrayList<SimpleUser> simpleUsers = new ArrayList<>();
+		this.openConnection();
+		try {
+			String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + ";";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				simpleUsers.add(new SimpleUser(
+						rs.getInt("simple_user_ID"),
+						rs.getString("first_name"),
+						rs.getString("last_name"),
+						rs.getString("location")
+						));
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			this.closeConnection();
+		}
+		return simpleUsers;
 	}
 }
