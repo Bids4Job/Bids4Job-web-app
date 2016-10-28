@@ -10,6 +10,13 @@ public class SimpleUserListTester {
 	public static void main(String[] args) {
 		SimpleUserList simpleUserList = new SimpleUserList();
 		
+		// Register a new SimpleUser
+		simpleUserList.registerSimpleUser(new SimpleUser(
+				simpleUserList.getNextSimpleUserID(),
+				"George",
+				"Spyridakis",
+				"Athens"));
+		
 		// Get all SimpleUsers
 		ArrayList<SimpleUser> simpleUsers = simpleUserList.getAllSimpleUsers();
 		for (SimpleUser simpleUser : simpleUsers) {
