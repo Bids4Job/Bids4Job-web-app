@@ -1,5 +1,6 @@
 package testers;
 
+import simple_user.SimpleUser;
 import simple_user.SimpleUserDB;
 
 public class SimpleUserDBTester {
@@ -12,6 +13,9 @@ public class SimpleUserDBTester {
 		System.out.println("\nTry to open and close the connection once again");
 		simpleUserDB.openConnection();
 		simpleUserDB.closeConnection();
+		
+		System.out.println("\nTest insert into statement");
+		System.out.println(simpleUserDB.insertSimpleUser(new SimpleUser("Dimitris", "Dimitriou", "Zografou")));
 	}
 
 }

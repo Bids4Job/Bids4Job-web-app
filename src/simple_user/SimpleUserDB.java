@@ -18,16 +18,15 @@ public class SimpleUserDB {
 
 	// Necessary fields to connect to DB, execute queries and store the result
 	// sets.
+	private static final String SIMPLE_USER_TABLE = "Simple_User";
 	private static Connection conn;
 	private Statement stmt;
 	private ResultSet rs;
 
 	public SimpleUserDB() {
-		
+
 	}
 
-	
-	
 	public void openConnection() {
 		try {
 			// Register JDBC driver
@@ -43,7 +42,7 @@ public class SimpleUserDB {
 			System.out.println("Connection established!");
 		}
 	}
-	
+
 	public void closeConnection() {
 		System.out.println("Closing connection...");
 		try {
@@ -57,5 +56,22 @@ public class SimpleUserDB {
 			se.printStackTrace();
 		}
 		System.out.println("Resources were closed!");
+	}
+
+	public boolean insertSimpleUser(SimpleUser simpleUser) {
+		this.openConnection();
+		try {
+			String sql = "INSERT INTO " + SIMPLE_USER_TABLE + " (`first_name`, `last_name`, `location`) " + "VALUES"
+					+ "('" + simpleUser.getFirstName() + "', '" + simpleUser.getLastName() + "', '"
+					+ simpleUser.getLocation() + "')";
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return false;
+		} finally {
+			this.closeConnection();
+		}
+		return true;
 	}
 }
