@@ -104,9 +104,8 @@ public class SimpleUserDB {
 		SimpleUser simpleUserFound = null;
 		this.openConnection();
 		try {
-			String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " Simple_User WHERE " + SIMPLE_USER_TABLE
-					+ ".simple_user_ID = " + simpleUserID + ";";
-			System.out.println(sql);
+			String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + SIMPLE_USER_TABLE + ".simple_user_ID = "
+					+ simpleUserID + ";";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -170,6 +169,26 @@ public class SimpleUserDB {
 			this.closeConnection();
 		}
 		return highestID;
+	}
+
+	public ArrayList<SimpleUser> selectSimpleUsers(String location) {
+		ArrayList<SimpleUser> simpleUsersFound = new ArrayList<>();
+		this.openConnection();
+		try {
+			String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + SIMPLE_USER_TABLE + ".location = '"
+					+ location + "';";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				simpleUsersFound.add(new SimpleUser(rs.getInt("simple_user_ID"), rs.getString("first_name"),
+						rs.getString("last_name"), rs.getString("location")));
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			this.closeConnection();
+		}
+		return simpleUsersFound;
 	}
 
 	public ArrayList<SimpleUser> selectAllSimpleUsers() {
