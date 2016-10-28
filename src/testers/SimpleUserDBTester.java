@@ -28,6 +28,10 @@ public class SimpleUserDBTester {
 		System.out.println("\nTest update statement");
 		System.out.println("SimpleUser updated: " + simpleUserDB.updateSimpleUser(new SimpleUser(2, "George", "Spyridakis", "Athens")));
 
+		// SELECT SIMPLE USER BY ID
+		System.out.println("\nTest select simple user by id");
+		System.out.println(simpleUserDB.selectSimpleUser(4).toString());
+		
 		// DELETE
 		System.out.println("\nTest delete statement");
 		System.out.println("SimpleUser deleted: " + simpleUserDB.deleteSimpleUser(user1));
@@ -42,7 +46,7 @@ public class SimpleUserDBTester {
 		
 		// SELECT ALL SIMPLE USERS
 		System.out.println("\nGet all Simple Users");
-		ArrayList<SimpleUser> simpleUsers = simpleUserDB.getAllSimpleUsers();
+		ArrayList<SimpleUser> simpleUsers = simpleUserDB.selectAllSimpleUsers();
 		for (SimpleUser simpleUser : simpleUsers) {
 			System.out.println(simpleUser.toString());
 		}

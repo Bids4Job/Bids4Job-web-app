@@ -100,6 +100,27 @@ public class SimpleUserDB {
 		return rowsUpdated;
 	}
 
+	public SimpleUser selectSimpleUser(int simpleUserID) {
+		SimpleUser simpleUserFound = null;
+		this.openConnection();
+		try {
+			String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " Simple_User WHERE " + SIMPLE_USER_TABLE
+					+ ".simple_user_ID = " + simpleUserID + ";";
+			System.out.println(sql);
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				simpleUserFound = new SimpleUser(rs.getInt("simple_user_ID"), rs.getString("first_name"),
+						rs.getString("last_name"), rs.getString("location"));
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			this.closeConnection();
+		}
+		return simpleUserFound;
+	}
+
 	public int deleteSimpleUser(SimpleUser simpleUser) {
 		int rowsDeleted = 0;
 		this.openConnection();
@@ -151,7 +172,7 @@ public class SimpleUserDB {
 		return highestID;
 	}
 
-	public ArrayList<SimpleUser> getAllSimpleUsers() {
+	public ArrayList<SimpleUser> selectAllSimpleUsers() {
 		ArrayList<SimpleUser> simpleUsers = new ArrayList<>();
 		this.openConnection();
 		try {
