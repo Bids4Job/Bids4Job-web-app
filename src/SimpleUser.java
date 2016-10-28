@@ -46,4 +46,8 @@ public class SimpleUser {
 	public String getLocation() {
 		return this.location;
 	}
+	
+	public String toString() {
+		return this.getClass().getName() + " " + this.simpleUserID + ": " + this.firstName + " " + this.lastName + ", " + this.location;
+	}
 }
