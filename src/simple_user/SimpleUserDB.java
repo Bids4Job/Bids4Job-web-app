@@ -1,3 +1,5 @@
+package simple_user;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,6 +26,8 @@ public class SimpleUserDB {
 		
 	}
 
+	
+	
 	public void openConnection() {
 		try {
 			// Register JDBC driver

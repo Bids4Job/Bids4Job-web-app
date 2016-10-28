@@ -1,3 +1,6 @@
+package testers;
+
+import simple_user.SimpleUser;
 
 public class SimpleUserTester {
 

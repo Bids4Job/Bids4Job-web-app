@@ -1,3 +1,4 @@
+package simple_user;
 
 public class SimpleUser {
 
