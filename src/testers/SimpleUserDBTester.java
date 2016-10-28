@@ -15,7 +15,12 @@ public class SimpleUserDBTester {
 		simpleUserDB.closeConnection();
 		
 		System.out.println("\nTest insert into statement");
-		System.out.println(simpleUserDB.insertSimpleUser(new SimpleUser("Dimitris", "Dimitriou", "Zografou")));
+		SimpleUser user1 = new SimpleUser("Dimitris", "Dimitriou", "Zografou");
+		System.out.println(simpleUserDB.insertSimpleUser(user1));
+		System.out.println(user1.getSimpleUserID());
+		
+		System.out.println("\nTest delete statement");
+		System.out.println(simpleUserDB.deleteSimpleUser(user1));
 	}
 
 }

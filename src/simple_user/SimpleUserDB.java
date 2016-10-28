@@ -2,6 +2,7 @@ package simple_user;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,6 +22,7 @@ public class SimpleUserDB {
 	private static final String SIMPLE_USER_TABLE = "Simple_User";
 	private static Connection conn;
 	private Statement stmt;
+	private PreparedStatement preStmt;
 	private ResultSet rs;
 
 	public SimpleUserDB() {
@@ -73,5 +75,21 @@ public class SimpleUserDB {
 			this.closeConnection();
 		}
 		return true;
+	}
+	
+	public boolean deleteSimpleUser(SimpleUser simpleUser) {
+		this.openConnection();
+		try {
+			String sql = "DELETE FROM " + SIMPLE_USER_TABLE + " WHERE `simple_user_ID` = ?";
+            preStmt = conn.prepareStatement(sql);
+            preStmt.setInt(1, simpleUser.getSimpleUserID());
+            preStmt.executeUpdate();
+        } catch (SQLException se) {
+            se.printStackTrace();
+            return false;
+        } finally {
+        	this.closeConnection();
+        }
+        return true;
 	}
 }
