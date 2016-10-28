@@ -130,6 +130,23 @@ public class SimpleUserDB {
 		}
 		return highestID;
 	}
+	
+	public int countSimpleUsers() {
+		int highestID = 0;
+		this.openConnection();
+		try {
+			String sql = "SELECT COUNT(*) FROM " + SIMPLE_USER_TABLE + ";";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if (rs.next())
+				highestID = rs.getInt(1);
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			this.closeConnection();
+		}
+		return highestID;
+	}
 
 	public ArrayList<SimpleUser> getAllSimpleUsers() {
 		ArrayList<SimpleUser> simpleUsers = new ArrayList<>();

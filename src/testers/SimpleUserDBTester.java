@@ -36,6 +36,10 @@ public class SimpleUserDBTester {
 		System.out.println("\nGet the highest ID in Simple_User table");
 		System.out.println(simpleUserDB.getHighestID());
 
+		// COUNT ALL
+		System.out.println("\nCount all registered SimpleUsers");
+		System.out.println(simpleUserDB.countSimpleUsers());
+		
 		// SELECT ALL SIMPLE USERS
 		System.out.println("\nGet all Simple Users");
 		ArrayList<SimpleUser> simpleUsers = simpleUserDB.getAllSimpleUsers();
