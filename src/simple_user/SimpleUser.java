@@ -51,6 +51,6 @@ public class SimpleUser {
 	}
 	
 	public String toString() {
-		return "SimpleUser" + " " + this.simpleUserID + ": " + this.firstName + " " + this.lastName + ", " + this.location;
+		return "SimpleUser " + this.simpleUserID + ": " + this.firstName + " " + this.lastName + ", " + this.location;
 	}
 }

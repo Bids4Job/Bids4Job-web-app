@@ -78,6 +78,25 @@ public class SimpleUserDB {
 		return true;
 	}
 
+	public boolean updateSimpleUser(SimpleUser simpleUser) {
+		this.openConnection();
+		try {
+			String sql = "UPDATE " + SIMPLE_USER_TABLE + " SET `first_name`=?, `last_name`=?, `location`=? WHERE `simple_user_ID`=?";
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setString(1, simpleUser.getFirstName());
+			preStmt.setString(2, simpleUser.getLastName());
+			preStmt.setString(3, simpleUser.getLocation());
+			preStmt.setInt(4, simpleUser.getSimpleUserID());
+			preStmt.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return false;
+		} finally {
+			this.closeConnection();
+		}
+		return true;
+	}
+
 	public boolean deleteSimpleUser(SimpleUser simpleUser) {
 		this.openConnection();
 		try {
@@ -120,12 +139,8 @@ public class SimpleUserDB {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				simpleUsers.add(new SimpleUser(
-						rs.getInt("simple_user_ID"),
-						rs.getString("first_name"),
-						rs.getString("last_name"),
-						rs.getString("location")
-						));
+				simpleUsers.add(new SimpleUser(rs.getInt("simple_user_ID"), rs.getString("first_name"),
+						rs.getString("last_name"), rs.getString("location")));
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
