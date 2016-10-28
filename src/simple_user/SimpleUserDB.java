@@ -76,20 +76,38 @@ public class SimpleUserDB {
 		}
 		return true;
 	}
-	
+
 	public boolean deleteSimpleUser(SimpleUser simpleUser) {
 		this.openConnection();
 		try {
 			String sql = "DELETE FROM " + SIMPLE_USER_TABLE + " WHERE `simple_user_ID` = ?";
-            preStmt = conn.prepareStatement(sql);
-            preStmt.setInt(1, simpleUser.getSimpleUserID());
-            preStmt.executeUpdate();
-        } catch (SQLException se) {
-            se.printStackTrace();
-            return false;
-        } finally {
-        	this.closeConnection();
-        }
-        return true;
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setInt(1, simpleUser.getSimpleUserID());
+			preStmt.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return false;
+		} finally {
+			this.closeConnection();
+		}
+		return true;
+	}
+
+	public int getHighestID() {
+		int highestID = 0;
+		this.openConnection();
+		try {
+			String sql = "SELECT " + SIMPLE_USER_TABLE + ".`simple_user_ID` FROM " + SIMPLE_USER_TABLE + " ORDER BY "
+					+ SIMPLE_USER_TABLE + ".`simple_user_ID` DESC LIMIT 1;";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if (rs.next())
+				highestID = rs.getInt("simple_user_ID");
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			this.closeConnection();
+		}
+		return highestID;
 	}
 }

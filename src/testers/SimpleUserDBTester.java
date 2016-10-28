@@ -21,6 +21,9 @@ public class SimpleUserDBTester {
 		
 		System.out.println("\nTest delete statement");
 		System.out.println(simpleUserDB.deleteSimpleUser(user1));
+		
+		System.out.println("\nGet the highest ID in Simple_User table");
+		System.out.println(simpleUserDB.getHighestID());
 	}
 
 }
