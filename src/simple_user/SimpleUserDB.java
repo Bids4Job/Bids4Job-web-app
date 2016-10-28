@@ -61,56 +61,59 @@ public class SimpleUserDB {
 		System.out.println("Resources were closed!");
 	}
 
-	public boolean insertSimpleUser(SimpleUser simpleUser) {
+	public int insertSimpleUser(SimpleUser simpleUser) {
+		int rowsInserted = 0;
 		this.openConnection();
 		try {
-			String sql = "INSERT INTO " + SIMPLE_USER_TABLE + " (`first_name`, `last_name`, `location`) " + "VALUES"
-					+ "('" + simpleUser.getFirstName() + "', '" + simpleUser.getLastName() + "', '"
-					+ simpleUser.getLocation() + "')";
-			stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
+			String sql = "INSERT INTO " + SIMPLE_USER_TABLE
+					+ " (`first_name`, `last_name`, `location`) VALUES (?, ?, ?);";
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setString(1, simpleUser.getFirstName());
+			preStmt.setString(2, simpleUser.getLastName());
+			preStmt.setString(3, simpleUser.getLocation());
+			rowsInserted = preStmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();
-			return false;
 		} finally {
 			this.closeConnection();
 		}
-		return true;
+		return rowsInserted;
 	}
 
-	public boolean updateSimpleUser(SimpleUser simpleUser) {
+	public int updateSimpleUser(SimpleUser simpleUser) {
+		int rowsUpdated = 0;
 		this.openConnection();
 		try {
-			String sql = "UPDATE " + SIMPLE_USER_TABLE + " SET `first_name`=?, `last_name`=?, `location`=? WHERE `simple_user_ID`=?";
+			String sql = "UPDATE " + SIMPLE_USER_TABLE
+					+ " SET `first_name`=?, `last_name`=?, `location`=? WHERE `simple_user_ID`=?";
 			preStmt = conn.prepareStatement(sql);
 			preStmt.setString(1, simpleUser.getFirstName());
 			preStmt.setString(2, simpleUser.getLastName());
 			preStmt.setString(3, simpleUser.getLocation());
 			preStmt.setInt(4, simpleUser.getSimpleUserID());
-			preStmt.executeUpdate();
+			rowsUpdated = preStmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();
-			return false;
 		} finally {
 			this.closeConnection();
 		}
-		return true;
+		return rowsUpdated;
 	}
 
-	public boolean deleteSimpleUser(SimpleUser simpleUser) {
+	public int deleteSimpleUser(SimpleUser simpleUser) {
+		int rowsDeleted = 0;
 		this.openConnection();
 		try {
 			String sql = "DELETE FROM " + SIMPLE_USER_TABLE + " WHERE `simple_user_ID` = ?";
 			preStmt = conn.prepareStatement(sql);
 			preStmt.setInt(1, simpleUser.getSimpleUserID());
-			preStmt.executeUpdate();
+			rowsDeleted = preStmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();
-			return false;
 		} finally {
 			this.closeConnection();
 		}
-		return true;
+		return rowsDeleted;
 	}
 
 	public int getHighestID() {
@@ -130,7 +133,7 @@ public class SimpleUserDB {
 		}
 		return highestID;
 	}
-	
+
 	public int countSimpleUsers() {
 		int highestID = 0;
 		this.openConnection();

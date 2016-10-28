@@ -20,17 +20,17 @@ public class SimpleUserDBTester {
 
 		// INSERT INTO
 		System.out.println("\nTest insert into statement");
-		SimpleUser user1 = new SimpleUser("Dimitris", "Dimitriou", "Zografou");
-		System.out.println(simpleUserDB.insertSimpleUser(user1));
+		SimpleUser user1 = new SimpleUser(simpleUserDB.getHighestID() + 1, "Dimitris", "Dimitriou", "Zografou");
+		System.out.println("SimpleUser registered: " + simpleUserDB.insertSimpleUser(user1));
 		System.out.println(user1.getSimpleUserID());
 
 		// UPDATE
 		System.out.println("\nTest update statement");
-		System.out.println(simpleUserDB.updateSimpleUser(new SimpleUser(2, "George", "Spyridakis", "Athens")));
+		System.out.println("SimpleUser updated: " + simpleUserDB.updateSimpleUser(new SimpleUser(2, "George", "Spyridakis", "Athens")));
 
 		// DELETE
 		System.out.println("\nTest delete statement");
-		System.out.println(simpleUserDB.deleteSimpleUser(user1));
+		System.out.println("SimpleUser deleted: " + simpleUserDB.deleteSimpleUser(user1));
 
 		// GET THE HIGHEST SIMPLE_USER_ID
 		System.out.println("\nGet the highest ID in Simple_User table");
