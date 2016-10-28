@@ -6,7 +6,7 @@ public class SimpleUserTester {
 
 	public static void main(String[] args) {
 		// User 1
-		SimpleUser george = new SimpleUser("George", "Spyridakis", "Zografou");
+		SimpleUser george = new SimpleUser(1, "George", "Spyridakis", "Zografou");
 		System.out.println(george.toString());
 		System.out.println(george.getSimpleUserID());
 		System.out.println(george.getFirstName());

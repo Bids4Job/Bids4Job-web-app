@@ -6,15 +6,10 @@ public class SimpleUser {
 	private String firstName;
 	private String lastName;
 	private String location;
-	public static int counterID = 0;
 
-	public SimpleUser() {
-		counterID++;
-		this.simpleUserID = counterID;
-	}
+	public SimpleUser() {}
 
 	public SimpleUser(String firstName, String lastName, String location) {
-		this();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.location = location;
