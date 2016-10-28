@@ -191,6 +191,26 @@ public class SimpleUserDB {
 		return simpleUsersFound;
 	}
 
+	public ArrayList<SimpleUser> selectSimpleUsers(String firstName, String lastName) {
+		ArrayList<SimpleUser> simpleUsersFound = new ArrayList<>();
+		this.openConnection();
+		try {
+			String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + SIMPLE_USER_TABLE + ".`first_name` = '"
+					+ firstName + "' AND " + SIMPLE_USER_TABLE + ".`last_name` = '" + lastName + "';";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				simpleUsersFound.add(new SimpleUser(rs.getInt("simple_user_ID"), rs.getString("first_name"),
+						rs.getString("last_name"), rs.getString("location")));
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			this.closeConnection();
+		}
+		return simpleUsersFound;
+	}
+	
 	public ArrayList<SimpleUser> selectAllSimpleUsers() {
 		ArrayList<SimpleUser> simpleUsers = new ArrayList<>();
 		this.openConnection();

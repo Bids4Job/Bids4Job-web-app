@@ -52,6 +52,13 @@ public class SimpleUserDBTester {
 			System.out.println(simpleUser.toString());
 		}
 
+		// SELECT SIMPLE USERS BASED ON NAME (FIRST & LAST)
+		System.out.println("\nTEST: select all Simple Users named George Spyridakis");
+		ArrayList<SimpleUser> simpleUsersByName = simpleUserDB.selectSimpleUsers("George", "Spyridakis");
+		for (SimpleUser simpleUser : simpleUsersByName) {
+			System.out.println(simpleUser.toString());
+		}
+
 		// SELECT ALL SIMPLE USERS
 		System.out.println("\nTEST: select all Simple Users");
 		ArrayList<SimpleUser> simpleUsers = simpleUserDB.selectAllSimpleUsers();
