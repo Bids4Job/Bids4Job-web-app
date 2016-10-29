@@ -1,4 +1,6 @@
-package simple_user;
+package dao;
+
+import domain.SimpleUser;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class SimpleUserDB {
+public class SimpleUserDAO {
 
 	// JDBC driver name and database URL
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -26,7 +28,7 @@ public class SimpleUserDB {
 	private PreparedStatement preStmt;
 	private ResultSet rs;
 
-	public SimpleUserDB() {
+	public SimpleUserDAO() {
 
 	}
 

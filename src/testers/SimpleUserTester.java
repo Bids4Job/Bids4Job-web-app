@@ -1,6 +1,6 @@
 package testers;
 
-import simple_user.SimpleUser;
+import domain.SimpleUser;
 
 public class SimpleUserTester {
 

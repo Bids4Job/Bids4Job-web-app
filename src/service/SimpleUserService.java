@@ -1,14 +1,17 @@
-package simple_user;
+package service;
+
+import dao.SimpleUserDAO;
+import domain.SimpleUser;
 
 import java.util.ArrayList;
 
-public class SimpleUserList {
+public class SimpleUserService {
 
 	private ArrayList<SimpleUser> simpleUsers;
-	private SimpleUserDB simpleUserDB;
+	private SimpleUserDAO simpleUserDAO;
 	
-	public SimpleUserList() {
-		this.simpleUserDB = new SimpleUserDB();
+	public SimpleUserService() {
+		this.simpleUserDAO = new SimpleUserDAO();
 	}
 	
 	public void setSimpleUsers(ArrayList<SimpleUser> simpleUsers) {
@@ -20,7 +23,7 @@ public class SimpleUserList {
 	}
 	
 	public boolean registerSimpleUser(SimpleUser simpleUser) {
-		if (this.simpleUserDB.insertSimpleUser(simpleUser) == 1) {
+		if (this.simpleUserDAO.insertSimpleUser(simpleUser) == 1) {
 			System.out.println("Registration Succeeded!");
 			return true;
 		} else {
@@ -30,7 +33,7 @@ public class SimpleUserList {
 	}
 	
 	public boolean updateSimpleUser(SimpleUser simpleUser) {
-		if (this.simpleUserDB.updateSimpleUser(simpleUser) == 1) {
+		if (this.simpleUserDAO.updateSimpleUser(simpleUser) == 1) {
 			System.out.println("Update Succeeded!");
 			return true;
 		} else {
@@ -44,11 +47,11 @@ public class SimpleUserList {
 	}
 	
 	public SimpleUser findSimpleUser(int simpleUserID) {
-		return this.simpleUserDB.selectSimpleUser(simpleUserID);
+		return this.simpleUserDAO.selectSimpleUser(simpleUserID);
 	}
 	
 	public boolean unregisterSimpleUser(SimpleUser simpleUser) {
-		if (this.simpleUserDB.deleteSimpleUser(simpleUser) == 1) {
+		if (this.simpleUserDAO.deleteSimpleUser(simpleUser) == 1) {
 			System.out.println("Deletion Succeeded!");
 			return true;
 		} else {
@@ -58,11 +61,11 @@ public class SimpleUserList {
 	}
 	
 	public int getNextSimpleUserID() {
-		return this.simpleUserDB.getHighestID() + 1;
+		return this.simpleUserDAO.getHighestID() + 1;
 	}
 	
 	public int getNumberOfSimpleUsers() {
-		return this.simpleUserDB.countSimpleUsers();
+		return this.simpleUserDAO.countSimpleUsers();
 	}
 	
 	public boolean checkByLocation(String location) {
@@ -70,7 +73,7 @@ public class SimpleUserList {
 	}
 	
 	public ArrayList<SimpleUser> getSimpleUsers(String location) {
-		return this.simpleUserDB.selectSimpleUsers(location);
+		return this.simpleUserDAO.selectSimpleUsers(location);
 	}
 	
 	public boolean checkByName(String firstName, String lastName) {
@@ -78,10 +81,10 @@ public class SimpleUserList {
 	}
 	
 	public ArrayList<SimpleUser> getSimpleUsers(String firstName, String lastName) {
-		return this.simpleUserDB.selectSimpleUsers(firstName, lastName);
+		return this.simpleUserDAO.selectSimpleUsers(firstName, lastName);
 	}
 	
 	public ArrayList<SimpleUser> getAllSimpleUsers() {
-		return this.simpleUserDB.selectAllSimpleUsers();
+		return this.simpleUserDAO.selectAllSimpleUsers();
 	}
 }

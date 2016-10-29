@@ -1,0 +1,1 @@
+# A data access object (DAO) is used to provide some specific data operations without exposing details of the database.

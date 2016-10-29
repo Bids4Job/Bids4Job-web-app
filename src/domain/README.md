@@ -1,0 +1,1 @@
+# Entity objects correspond to database tables.

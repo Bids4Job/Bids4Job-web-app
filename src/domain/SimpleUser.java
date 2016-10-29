@@ -1,4 +1,4 @@
-package simple_user;
+package domain;
 
 public class SimpleUser {
 
