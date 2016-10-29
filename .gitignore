@@ -1,5 +1,8 @@
 /bin/
+
+# Intellij IDEA
 .idea
 .classpath
 .project
 *.iml
+out
