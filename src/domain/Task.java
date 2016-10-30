@@ -15,10 +15,6 @@ public class Task {
 	private String workField;
 	private int simpleUserId;
 
-	public Task() {
-
-	}
-
 	public int getTaskId() {
 		return this.taskId;
 	}
