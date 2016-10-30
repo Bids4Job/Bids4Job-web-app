@@ -1,5 +1,7 @@
 import com.sun.jmx.snmp.Timestamp;
 
+import dao.TaskQueries;
+
 public class Tester {
 
 	public static void main(String[] args) {
