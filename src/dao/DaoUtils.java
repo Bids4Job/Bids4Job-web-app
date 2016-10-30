@@ -9,7 +9,6 @@ import java.sql.SQLException;
  * Utility class used for retrieving database connection
  * 
  * @author Dimitris
- *
  */
 public class DaoUtils {
 	private static final String databaseUrl = "jdbc:mysql://localhost/bids4job_db?useSSL=false";
