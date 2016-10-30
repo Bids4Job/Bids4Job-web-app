@@ -21,35 +21,44 @@ public class SimpleUser {
 		this.lastName = lastName;
 		this.location = location;
 	}
+	
+	public SimpleUser setSimpleUserID(int simpleUserID) {
+		this.simpleUserID = simpleUserID;
+		return this;
+	}
 
 	public int getSimpleUserID() {
 		return this.simpleUserID;
 	}
 	
-	public void setFirstName(String firstName) {
+	public SimpleUser setFirstName(String firstName) {
 		this.firstName = firstName;
+		return this;
 	}
 
 	public String getFirstName() {
 		return this.firstName;
 	}
 
-	public void setLastName(String lastName) {
+	public SimpleUser setLastName(String lastName) {
 		this.lastName = lastName;
+		return this;
 	}
 
 	public String getLastName() {
 		return this.lastName;
 	}
 
-	public void setLocation(String location) {
+	public SimpleUser setLocation(String location) {
 		this.location = location;
+		return this;
 	}
 
 	public String getLocation() {
 		return this.location;
 	}
 	
+	@Override
 	public String toString() {
 		return "SimpleUser " + this.simpleUserID + ": " + this.firstName + " " + this.lastName + ", " + this.location;
 	}
