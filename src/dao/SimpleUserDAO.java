@@ -255,7 +255,7 @@ public class SimpleUserDAO {
 	 * Utility method that takes a result set and returns a SimpleUser object.
 	 *
 	 * @param resultSet
-	 * @return
+	 * @return A SimpleUser object
 	 * @throws SQLException
 	 */
 	private static SimpleUser populate(ResultSet resultSet) throws SQLException {
