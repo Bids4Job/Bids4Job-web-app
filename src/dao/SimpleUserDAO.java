@@ -71,7 +71,7 @@ public class SimpleUserDAO {
 	}
 
 	/**
-	 * Find all existing Simple Users in the database.
+	 * Finds all existing Simple Users in the database.
 	 *
 	 * @return A list with all SimpleUsers
 	 * @throws ClassNotFoundException
@@ -99,7 +99,7 @@ public class SimpleUserDAO {
 	}
 
 	/**
-	 * Add a new Simple User in the database.
+	 * Adds a new Simple User in the database.
 	 * 
 	 * @param simpleUser
 	 * @return The SimpleUser object that was added in database
@@ -131,7 +131,7 @@ public class SimpleUserDAO {
 	}
 
 	/**
-	 * Update a Simple User in database based on ID.
+	 * Updates a Simple User in database based on ID.
 	 * 
 	 * @param simpleUser
 	 * @return True if the update operation was succeeded, else false
@@ -164,7 +164,7 @@ public class SimpleUserDAO {
 	}
 
 	/**
-	 * Delete a SimpleUser from database based on ID.
+	 * Deletes a SimpleUser from database based on ID.
 	 * 
 	 * @param simpleUser
 	 * @return True if the delete operation was succeeded, else false
@@ -193,7 +193,7 @@ public class SimpleUserDAO {
 	}
 
 	/**
-	 * Find Simple Users based on given location.
+	 * Finds Simple Users based on given location.
 	 * 
 	 * @param location
 	 * @return A list with SimpleUsers from the specified location
@@ -222,7 +222,7 @@ public class SimpleUserDAO {
 	}
 
 	/**
-	 * Find Simple Users that have unsigned Task.
+	 * Finds Simple Users that have unsigned Task.
 	 * 
 	 * @param location
 	 * @return A list with SimpleUsers that have at least one unsigned Task
