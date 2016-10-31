@@ -45,7 +45,13 @@ public class SimpleUserDAOTester {
 			} catch (NullPointerException e) {
 				System.out.println("User not found!");
 			}
-			
+			// findByLocation
+			System.out.println("\nfindByLocation()");
+			simpleUsers = simpleUserDAO.findByLocation("Zografou");
+			for (SimpleUser eachSimpleUser : simpleUsers) {
+				System.out.println(eachSimpleUser.toString());
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

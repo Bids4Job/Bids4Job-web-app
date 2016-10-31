@@ -164,7 +164,7 @@ public class SimpleUserDAO {
 	}
 
 	/**
-	 * Delete a SimpleUser from database based on ID. 
+	 * Delete a SimpleUser from database based on ID.
 	 * 
 	 * @param simpleUser
 	 * @return True if the delete operation was succeeded, else false
@@ -173,7 +173,8 @@ public class SimpleUserDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean delete(SimpleUser simpleUser) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+	public boolean delete(SimpleUser simpleUser)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		int rowsAffected = 0;
 		String sql = "DELETE FROM " + SIMPLE_USER_TABLE + " WHERE " + SIMPLE_USER_ID + "=?;";
 		this.prepareResources();
@@ -192,6 +193,34 @@ public class SimpleUserDAO {
 	}
 
 	/**
+	 * Find all existing Simple Users based on given location.
+	 * 
+	 * @param location
+	 * @return A list with SimpleUsers from the specified location
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<SimpleUser> findByLocation(String location) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		List<SimpleUser> simpleUsers = new ArrayList<>();
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + LOCATION + "=?;";
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setString(1, location);
+			rs = preStmt.executeQuery();
+			while (rs.next()) {
+				SimpleUser simpleUser = SimpleUserDAO.populate(rs);
+				simpleUsers.add(simpleUser);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return simpleUsers;
+	}
+	
+	/**
 	 * Utility method that takes a result set and returns a SimpleUser object.
 	 *
 	 * @param resultSet
@@ -203,166 +232,4 @@ public class SimpleUserDAO {
 				.setFirstName(resultSet.getString(FIRST_NAME)).setLastName(resultSet.getString(LAST_NAME))
 				.setLocation(resultSet.getString(LOCATION));
 	}
-
-	// public int insertSimpleUser(SimpleUser simpleUser) {
-	// int rowsInserted = 0;
-	// this.openConnection();
-	// try {
-	// String sql = "INSERT INTO " + SIMPLE_USER_TABLE
-	// + " (`first_name`, `last_name`, `location`) VALUES (?, ?, ?);";
-	// preStmt = conn.prepareStatement(sql);
-	// preStmt.setString(1, simpleUser.getFirstName());
-	// preStmt.setString(2, simpleUser.getLastName());
-	// preStmt.setString(3, simpleUser.getLocation());
-	// rowsInserted = preStmt.executeUpdate();
-	// } catch (SQLException se) {
-	// se.printStackTrace();
-	// } finally {
-	// this.closeConnection();
-	// }
-	// return rowsInserted;
-	// }
-	//
-	// public int updateSimpleUser(SimpleUser simpleUser) {
-	// int rowsUpdated = 0;
-	// this.openConnection();
-	// try {
-	// String sql = "UPDATE " + SIMPLE_USER_TABLE
-	// + " SET `first_name`=?, `last_name`=?, `location`=? WHERE
-	// `simple_user_ID`=?";
-	// preStmt = conn.prepareStatement(sql);
-	// preStmt.setString(1, simpleUser.getFirstName());
-	// preStmt.setString(2, simpleUser.getLastName());
-	// preStmt.setString(3, simpleUser.getLocation());
-	// preStmt.setInt(4, simpleUser.getSimpleUserID());
-	// rowsUpdated = preStmt.executeUpdate();
-	// } catch (SQLException se) {
-	// se.printStackTrace();
-	// } finally {
-	// this.closeConnection();
-	// }
-	// return rowsUpdated;
-	// }
-	//
-	// public SimpleUser selectSimpleUser(int simpleUserID) {
-	// SimpleUser simpleUserFound = null;
-	// this.openConnection();
-	// try {
-	// String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " +
-	// SIMPLE_USER_TABLE + ".simple_user_ID = "
-	// + simpleUserID + ";";
-	// stmt = conn.createStatement();
-	// rs = stmt.executeQuery(sql);
-	// while (rs.next()) {
-	// simpleUserFound = new SimpleUser(rs.getInt("simple_user_ID"),
-	// rs.getString("first_name"),
-	// rs.getString("last_name"), rs.getString("location"));
-	// }
-	// } catch (SQLException se) {
-	// se.printStackTrace();
-	// } finally {
-	// this.closeConnection();
-	// }
-	// return simpleUserFound;
-	// }
-	//
-	// public int deleteSimpleUser(SimpleUser simpleUser) {
-	// int rowsDeleted = 0;
-	// this.openConnection();
-	// try {
-	// String sql = "DELETE FROM " + SIMPLE_USER_TABLE + " WHERE
-	// `simple_user_ID` = ?";
-	// preStmt = conn.prepareStatement(sql);
-	// preStmt.setInt(1, simpleUser.getSimpleUserID());
-	// rowsDeleted = preStmt.executeUpdate();
-	// } catch (SQLException se) {
-	// se.printStackTrace();
-	// } finally {
-	// this.closeConnection();
-	// }
-	// return rowsDeleted;
-	// }
-	//
-	// public int countSimpleUsers() {
-	// int highestID = 0;
-	// this.openConnection();
-	// try {
-	// String sql = "SELECT COUNT(*) FROM " + SIMPLE_USER_TABLE + ";";
-	// stmt = conn.createStatement();
-	// rs = stmt.executeQuery(sql);
-	// if (rs.next())
-	// highestID = rs.getInt(1);
-	// } catch (SQLException se) {
-	// se.printStackTrace();
-	// } finally {
-	// this.closeConnection();
-	// }
-	// return highestID;
-	// }
-	//
-	// public ArrayList<SimpleUser> selectSimpleUsers(String location) {
-	// ArrayList<SimpleUser> simpleUsersFound = new ArrayList<>();
-	// this.openConnection();
-	// try {
-	// String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " +
-	// SIMPLE_USER_TABLE + ".location = '"
-	// + location + "';";
-	// stmt = conn.createStatement();
-	// rs = stmt.executeQuery(sql);
-	// while (rs.next()) {
-	// simpleUsersFound.add(new SimpleUser(rs.getInt("simple_user_ID"),
-	// rs.getString("first_name"),
-	// rs.getString("last_name"), rs.getString("location")));
-	// }
-	// } catch (SQLException se) {
-	// se.printStackTrace();
-	// } finally {
-	// this.closeConnection();
-	// }
-	// return simpleUsersFound;
-	// }
-	//
-	// public ArrayList<SimpleUser> selectSimpleUsers(String firstName, String
-	// lastName) {
-	// ArrayList<SimpleUser> simpleUsersFound = new ArrayList<>();
-	// this.openConnection();
-	// try {
-	// String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " +
-	// SIMPLE_USER_TABLE + ".`first_name` = '"
-	// + firstName + "' AND " + SIMPLE_USER_TABLE + ".`last_name` = '" +
-	// lastName + "';";
-	// stmt = conn.createStatement();
-	// rs = stmt.executeQuery(sql);
-	// while (rs.next()) {
-	// simpleUsersFound.add(new SimpleUser(rs.getInt("simple_user_ID"),
-	// rs.getString("first_name"),
-	// rs.getString("last_name"), rs.getString("location")));
-	// }
-	// } catch (SQLException se) {
-	// se.printStackTrace();
-	// } finally {
-	// this.closeConnection();
-	// }
-	// return simpleUsersFound;
-	// }
-	//
-	// public ArrayList<SimpleUser> selectAllSimpleUsers() {
-	// ArrayList<SimpleUser> simpleUsers = new ArrayList<>();
-	// this.openConnection();
-	// try {
-	// String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + ";";
-	// stmt = conn.createStatement();
-	// rs = stmt.executeQuery(sql);
-	// while (rs.next()) {
-	// simpleUsers.add(new SimpleUser(rs.getInt("simple_user_ID"),
-	// rs.getString("first_name"),
-	// rs.getString("last_name"), rs.getString("location")));
-	// }
-	// } catch (SQLException se) {
-	// se.printStackTrace();
-	// } finally {
-	// this.closeConnection();
-	// }
-	// return simpleUsers;
-	// }
 }
