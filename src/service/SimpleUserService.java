@@ -3,88 +3,114 @@ package service;
 import dao.SimpleUserDAO;
 import domain.SimpleUser;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.List;
 
 public class SimpleUserService {
 
-	private ArrayList<SimpleUser> simpleUsers;
-	private SimpleUserDAO simpleUserDAO;
+	private SimpleUserDAO simpleUserDAO = new SimpleUserDAO();
 	
-	public SimpleUserService() {
-		this.simpleUserDAO = new SimpleUserDAO();
+	/**
+	 * Finds the Simple User with the given ID.
+	 * 
+	 * @param simpleUserID
+	 * @return The SimpleUser with the specified ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public SimpleUser findOne(int simpleUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		return simpleUserDAO.findOne(simpleUserID);
 	}
 	
-	public void setSimpleUsers(ArrayList<SimpleUser> simpleUsers) {
-		this.simpleUsers = simpleUsers;
+	/**
+	 * Find all existing Simple Users in the database.
+	 *
+	 * @return A list with all SimpleUsers
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public List<SimpleUser> findAll()
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		return simpleUserDAO.findAll();
 	}
 	
-	public ArrayList<SimpleUser> getSimpleUsers() {
-		return this.simpleUsers;
+	/**
+	 * Add a new Simple User in the database.
+	 * 
+	 * @param simpleUser
+	 * @return The SimpleUser object that was added in database
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public SimpleUser create(SimpleUser simpleUser)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		return simpleUserDAO.create(simpleUser);
 	}
 	
-	public boolean registerSimpleUser(SimpleUser simpleUser) {
-		if (this.simpleUserDAO.insertSimpleUser(simpleUser) == 1) {
-			System.out.println("Registration Succeeded!");
-			return true;
-		} else {
-			System.out.println("Registration Failed!");
-			return false;
-		}
+	/**
+	 * Update a Simple User in database based on ID.
+	 * 
+	 * @param simpleUser
+	 * @return True if the update operation was succeeded, else false
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public boolean update(SimpleUser simpleUser)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		return simpleUserDAO.update(simpleUser);
 	}
 	
-	public boolean updateSimpleUser(SimpleUser simpleUser) {
-		if (this.simpleUserDAO.updateSimpleUser(simpleUser) == 1) {
-			System.out.println("Update Succeeded!");
-			return true;
-		} else {
-			System.out.println("Update Failed!");
-			return false;
-		}
+	/**
+	 * Delete a SimpleUser from database based on ID.
+	 * 
+	 * @param simpleUser
+	 * @return True if the delete operation was succeeded, else false
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public boolean delete(SimpleUser simpleUser)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		return simpleUserDAO.delete(simpleUser);
 	}
 	
-	public boolean isRegistered(int simpleUserID) {
-		return (this.findSimpleUser(simpleUserID) != null) ? true : false;
+	/**
+	 * Find Simple Users based on given location.
+	 * 
+	 * @param location
+	 * @return A list with SimpleUsers from the specified location
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<SimpleUser> findByLocation(String location)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		return simpleUserDAO.findByLocation(location);
 	}
 	
-	public SimpleUser findSimpleUser(int simpleUserID) {
-		return this.simpleUserDAO.selectSimpleUser(simpleUserID);
-	}
-	
-	public boolean unregisterSimpleUser(SimpleUser simpleUser) {
-		if (this.simpleUserDAO.deleteSimpleUser(simpleUser) == 1) {
-			System.out.println("Deletion Succeeded!");
-			return true;
-		} else {
-			System.out.println("Deletion Failed!");
-			return false;
-		}
-	}
-	
-	public int getNextSimpleUserID() {
-		return this.simpleUserDAO.getHighestID() + 1;
-	}
-	
-	public int getNumberOfSimpleUsers() {
-		return this.simpleUserDAO.countSimpleUsers();
-	}
-	
-	public boolean checkByLocation(String location) {
-		return !this.getSimpleUsers(location).isEmpty();
-	}
-	
-	public ArrayList<SimpleUser> getSimpleUsers(String location) {
-		return this.simpleUserDAO.selectSimpleUsers(location);
-	}
-	
-	public boolean checkByName(String firstName, String lastName) {
-		return !this.getSimpleUsers(firstName,lastName).isEmpty();
-	}
-	
-	public ArrayList<SimpleUser> getSimpleUsers(String firstName, String lastName) {
-		return this.simpleUserDAO.selectSimpleUsers(firstName, lastName);
-	}
-	
-	public ArrayList<SimpleUser> getAllSimpleUsers() {
-		return this.simpleUserDAO.selectAllSimpleUsers();
+	/**
+	 * Find Simple Users that have unsigned Task.
+	 * 
+	 * @param location
+	 * @return A list with SimpleUsers that have at least one unsigned Task
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<SimpleUser> findWithUnsignedTask()
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		return simpleUserDAO.findWithUnsignedTask();
 	}
 }
