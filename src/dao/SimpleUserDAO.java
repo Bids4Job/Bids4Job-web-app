@@ -193,7 +193,7 @@ public class SimpleUserDAO {
 	}
 
 	/**
-	 * Find all existing Simple Users based on given location.
+	 * Find Simple Users based on given location.
 	 * 
 	 * @param location
 	 * @return A list with SimpleUsers from the specified location
@@ -202,7 +202,8 @@ public class SimpleUserDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<SimpleUser> findByLocation(String location) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+	public List<SimpleUser> findByLocation(String location)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		List<SimpleUser> simpleUsers = new ArrayList<>();
 		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + LOCATION + "=?;";
 		try {
@@ -219,7 +220,37 @@ public class SimpleUserDAO {
 		}
 		return simpleUsers;
 	}
-	
+
+	/**
+	 * Find Simple Users that have unsigned Task.
+	 * 
+	 * @param location
+	 * @return A list with SimpleUsers that have at least one unsigned Task
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<SimpleUser> findWithUnsignedTask()
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		List<SimpleUser> simpleUsers = new ArrayList<>();
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " INNER JOIN Task ON " + SIMPLE_USER_TABLE + "."
+				+ SIMPLE_USER_ID
+				+ " = Task.simple_user_ID WHERE Task.task_ID NOT IN (SELECT Contract.task_ID FROM Contract);";
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			rs = preStmt.executeQuery();
+			while (rs.next()) {
+				SimpleUser simpleUser = SimpleUserDAO.populate(rs);
+				simpleUsers.add(simpleUser);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return simpleUsers;
+	}
+
 	/**
 	 * Utility method that takes a result set and returns a SimpleUser object.
 	 *

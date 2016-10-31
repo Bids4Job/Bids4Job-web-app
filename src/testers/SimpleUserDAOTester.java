@@ -51,6 +51,12 @@ public class SimpleUserDAOTester {
 			for (SimpleUser eachSimpleUser : simpleUsers) {
 				System.out.println(eachSimpleUser.toString());
 			}
+			// findWithUnsignedTask
+			System.out.println("\nfindWithUnsignedTask()");
+			simpleUsers = simpleUserDAO.findWithUnsignedTask();
+			for (SimpleUser eachSimpleUser : simpleUsers) {
+				System.out.println(eachSimpleUser.toString());
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
