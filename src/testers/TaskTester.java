@@ -1,12 +1,14 @@
 package testers;
+
 import com.sun.jmx.snmp.Timestamp;
 
 import dao.TaskDao;
+import domain.Task;
 
-public class Tester {
+public class TaskTester {
 
 	public static void main(String[] args) {
-		System.out.println("Hello Team!");
-
+		Task task1 = new Task();
+		
 	}
 }
