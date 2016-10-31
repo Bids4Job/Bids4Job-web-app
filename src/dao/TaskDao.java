@@ -98,7 +98,7 @@ public class TaskDao {
 	 */
 	public Task create(Task task)
 			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-		String query = "INSERT INTO TASK (deadline, work_field, simple_user_id) VALUES (?,?,?,)"; // taskId
+		String query = "INSERT INTO TASK (deadline, work_field, simple_user_id) VALUES (?,?,?)"; // taskId
 																									// is
 																									// auto
 																									// incremented.
