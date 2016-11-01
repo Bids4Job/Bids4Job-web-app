@@ -69,7 +69,7 @@ public class TaskService {
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 */
-	public boolean updatae(Task task)
+	public boolean update(Task task)
 			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
 		return dao.update(task);
 	}
@@ -84,7 +84,7 @@ public class TaskService {
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 */
-	public boolean detele(Task task)
+	public boolean delete(Task task)
 			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
 		return dao.delete(task);
 	}
