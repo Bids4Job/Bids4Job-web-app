@@ -1,6 +1,7 @@
 package domain;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /**
  * 
@@ -14,6 +15,17 @@ public class Bid {
     private double amount;
     private int proUserId;
     private int taskId;
+    
+    public Bid(){}
+    
+    public Bid(int bidId, Timestamp bidTime, double amount, int proUserId, int taskId){
+	this.bidId = bidId;
+	this.bidTime = bidTime;
+	this.amount = amount;
+	this.proUserId = proUserId;
+	this.taskId = taskId;
+    }
+    
 
     public int getBidId() {
         return bidId;
@@ -78,8 +90,9 @@ public class Bid {
 
     @Override
     public String toString() {
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return "\nBid" + this.bidId + 
-		"\nBid Time: " + this.bidTime + 
+		"\nBid Time: " +simpleDateFormat.format(this.bidTime) + 
 		"\nTask Id: " + this.taskId + 
 		"\nProfessional User ID: " + this.proUserId +
 		"\nAmount: " + this.amount +

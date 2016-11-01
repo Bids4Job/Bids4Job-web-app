@@ -47,7 +47,7 @@ public class BidDAO {
      * @throws InstantiationException
      */
     public Bid create(Bid bid) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-	String query = "INSERT INTO" + BID_TABLE + "(" + TASK_ID + ", " + PRO_USER_ID + ", " + AMOUNT + ", " + BID_TIME + ") VALUES (?, ?, ?, ?)";
+	String query = "INSERT INTO " + BID_TABLE + "(" + TASK_ID + ", " + PRO_USER_ID + ", " + AMOUNT + ", " + BID_TIME + ") VALUES (?, ?, ?, ?)";
 	this.prepareResources();
 	try {
 	    connection = DaoUtils.getConnection();
