@@ -11,13 +11,38 @@ import java.util.*;
  */
 public class ProfessionalUserDao {
     
+    private static final String PROFFESIONAL_USER_TABLE = "pro_user";
+    private static final String PRO_USER_ID = "pro_user_ID";
+    private static final String FIRST_NAME = "first_name";
+    private static final String LAST_NAME = "last_name";
+    private static final String LOCATION = "location";
+    private static final String PROFESSION = "profession";
+    private Connection connection;
+    private PreparedStatement statement;
+    private ResultSet resultSet;
+    
+    /**
+     * Sets the connection, the preparedStatement and the resultSet to null.
+     */
+    private void prepareResources() {
+	this.connection = null;
+	this.statement = null;
+	this.resultSet = null;
+    }
     
     
-    public void update (ProfessionalUser professionalUser) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-	String query = "UPDATE pro_user SET first_name = ?, last_name = ?, location = ?, profession = ? WHERE pro_user_ID =?";
-	Connection connection = null;
-	PreparedStatement statement = null;
-	ResultSet resultSet = null;
+    /**
+     * Update a specific Professional User
+     * @param professionalUser
+     * @return
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     */
+    public boolean update (ProfessionalUser professionalUser) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
+	String query = "UPDATE " + PROFFESIONAL_USER_TABLE + "SET " + FIRST_NAME +  "= ?, " + LAST_NAME + "= ?, " + LOCATION + "= ?, " + PROFESSION + "= ? WHERE " + PRO_USER_ID +  "=?";
+	this.prepareResources();
 	try {
 	    connection = DaoUtils.getConnection();
 	    statement = connection.prepareStatement(query);
@@ -27,39 +52,39 @@ public class ProfessionalUserDao {
 	    statement.setString(4, professionalUser.getProfession());
 	    statement.setInt(5, professionalUser.getProUserId());
 	    int affectedRows = statement.executeUpdate();
-	    if (affectedRows == 0){
-		System.out.println("Professional User: " + professionalUser.getProUserId()+ " not updated");
+	    if (affectedRows == 1){
+		return true;
 	    }
 	} finally {
-	    closeResources(resultSet, statement, connection);
+	    DaoUtils.closeResources(resultSet, statement, connection);
 	}
+	return false;
     }
     
     
     /**
-     * Remove a specific Professional User fro proUserid
+     * Remove a specific Professional User
      * @param proUserid
      * @throws SQLException
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      * @throws InstantiationException
      */
-    public void remove(int proUserid) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-	String query = "DELETE FROM pro_user WHERE pro_user_ID = ?";
-	Connection connection = null;
-	PreparedStatement statement = null;
-	ResultSet resultSet = null;
+    public boolean remove(ProfessionalUser professionalUser) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
+	String query = "DELETE FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + PRO_USER_ID + " = ?";
+	this.prepareResources();
 	try {
 	    connection = DaoUtils.getConnection();
 	    statement = connection.prepareStatement(query);
-	    statement.setInt(1, proUserid);
+	    statement.setInt(1, professionalUser.getProUserId());
 	    int affectedRows = statement.executeUpdate();
-	    if (affectedRows == 0){
-		System.out.println("Professional User: " + proUserid + " not found");
+	    if (affectedRows == 1){
+		return true;
 	    }
 	} finally {
-	    closeResources(resultSet, statement, connection);
+	    DaoUtils.closeResources(resultSet, statement, connection);
 	}
+	return false;
     }
     
             
@@ -73,10 +98,8 @@ public class ProfessionalUserDao {
      * @throws InstantiationException
      */
     public ProfessionalUser create(ProfessionalUser professionalUser) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-	String query = "INSERT INTO pro_user (first_name, last_name, location, profession) VALUES (?, ?, ?, ?)";
-	Connection connection = null;
-	PreparedStatement statement = null;
-	ResultSet resultSet = null;
+	String query = "INSERT INTO " + PROFFESIONAL_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION + ", " + PROFESSION + ") VALUES (?, ?, ?, ?)";
+	this.prepareResources();;
 	try {
 	    connection = DaoUtils.getConnection();
 	    statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -90,7 +113,7 @@ public class ProfessionalUserDao {
 		professionalUser.setProUSerId(resultSet.getInt(1));
 	    }
 	} finally {
-	    closeResources(resultSet, statement, connection);
+	    DaoUtils.closeResources(resultSet, statement, connection);
 	}
 	return professionalUser;
     }
@@ -107,10 +130,8 @@ public class ProfessionalUserDao {
      */
     public List<ProfessionalUser> findFromLocation(String location) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
 	List<ProfessionalUser> professionalUsers = new ArrayList<>();
-	String query = "SELECT * FROM pro_user WHERE location = ?";
-	Connection connection = null;
-	PreparedStatement statement = null;
-	ResultSet resultSet = null;
+	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + LOCATION + " = ?";
+	this.prepareResources();
 	try {
 	    connection = DaoUtils.getConnection();
 	    statement = connection.prepareStatement(query);
@@ -121,7 +142,7 @@ public class ProfessionalUserDao {
 		professionalUsers.add(professionalUser);
 	    }
 	} finally {
-	    closeResources(resultSet, statement, connection);
+	    DaoUtils.closeResources(resultSet, statement, connection);
 	}
 	return professionalUsers;
     }
@@ -138,10 +159,8 @@ public class ProfessionalUserDao {
      */
     public ProfessionalUser findOne(int proUserid) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
 	ProfessionalUser professionalUser = null;
-	String query = "SELECT * FROM pro_user WHERE pro_user_ID = ?";
-	Connection connection = null;
-	PreparedStatement statement = null;
-	ResultSet resultSet = null;
+	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + PRO_USER_ID + " = ?";
+	this.prepareResources();
 	try {
 	    connection = DaoUtils.getConnection();
 	    statement = connection.prepareStatement(query);
@@ -151,7 +170,7 @@ public class ProfessionalUserDao {
 		professionalUser = populate(resultSet);
 	    }
 	} finally {
-	    closeResources(resultSet, statement, connection);
+	    DaoUtils.closeResources(resultSet, statement, connection);
 	}
 	return professionalUser;
     }
@@ -167,10 +186,8 @@ public class ProfessionalUserDao {
      */
     public List<ProfessionalUser> fiandAll() throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
 	 List<ProfessionalUser> professionalUsers = new ArrayList<>();
-	 String query = "SELECT * FROM pro_user";
-	 Connection connection = null;
-	 PreparedStatement statement = null;
-	 ResultSet resultSet = null;
+	 String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE;
+	 this.prepareResources();
 	 try {
 	     connection = DaoUtils.getConnection();
 	     statement = connection.prepareStatement(query);
@@ -180,7 +197,7 @@ public class ProfessionalUserDao {
 		 professionalUsers.add(professionalUser);
 	     }
 	 } finally {
-	     closeResources(resultSet, statement, connection);
+	     DaoUtils.closeResources(resultSet, statement, connection);
 	 }
 	 return professionalUsers;
     }
@@ -199,21 +216,6 @@ public class ProfessionalUserDao {
 		.setLastName(resultSet.getString("last_name"))
 		.setLocation(resultSet.getString("location"))
 		.setProfession(resultSet.getString("profession"));
-    }
-    
-    
-    /**
-     *  Utility method for closing open database resources.
-     * @param resultSet
-     * @param statement
-     * @param connection
-     * @throws SQLException
-     */
-    private void closeResources(ResultSet resultSet, PreparedStatement statement, Connection connection) throws SQLException {
-	if (resultSet != null) resultSet.close();
-	if (statement != null) statement.close();
-	if (connection != null) connection.close();
-    }
-
+    }   
     
 }

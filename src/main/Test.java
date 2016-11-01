@@ -75,7 +75,8 @@ public class Test {
 //	}
    	
 	
-	System.out.println("Type the Professional User id to update");
+	System.out.println("sdfdsf");
+	//System.out.println("Type the Professional User id to update");
 	inputINT = scan1.nextInt();
 	System.out.println("Type the new location");
 	inputSTRING1 = scan1.nextLine();
