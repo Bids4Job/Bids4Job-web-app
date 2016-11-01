@@ -21,7 +21,7 @@ public class DaoUtils {
 
 	// Database credentials
 	private static final String USER = "root";
-	private static final String PASS = "pass";
+	private static final String PASS = "@dc@v@j0@";
 
 	/**
 	 * Attempts to establish a connection to the database.

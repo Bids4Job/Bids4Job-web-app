@@ -41,7 +41,7 @@ public class ProfessionalUserDao {
      * @throws InstantiationException
      */
     public boolean update (ProfessionalUser professionalUser) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-	String query = "UPDATE " + PROFFESIONAL_USER_TABLE + "SET " + FIRST_NAME +  "= ?, " + LAST_NAME + "= ?, " + LOCATION + "= ?, " + PROFESSION + "= ? WHERE " + PRO_USER_ID +  "=?";
+	String query = "UPDATE " + PROFFESIONAL_USER_TABLE + " SET " + FIRST_NAME +  "= ?, " + LAST_NAME + "= ?, " + LOCATION + "= ?, " + PROFESSION + "= ? WHERE " + PRO_USER_ID +  "=?";
 	this.prepareResources();
 	try {
 	    connection = DaoUtils.getConnection();

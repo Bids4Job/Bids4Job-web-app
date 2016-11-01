@@ -1,4 +1,5 @@
-package main;
+
+
 
 import domain.ProfessionalUser;
 import service.ProfessionalUserService;
@@ -16,7 +17,7 @@ public class Test {
         
     private static Scanner scan1;
     
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) {
 	
 	
 	scan1 = new Scanner (System.in);
@@ -75,8 +76,7 @@ public class Test {
 //	}
    	
 	
-	System.out.println("sdfdsf");
-	//System.out.println("Type the Professional User id to update");
+	System.out.println("Type the Professional User id to update");
 	inputINT = scan1.nextInt();
 	System.out.println("Type the new location");
 	inputSTRING1 = scan1.nextLine();

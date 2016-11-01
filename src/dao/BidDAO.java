@@ -16,7 +16,7 @@ import java.util.List;
  * @author Ioannis
  *
  */
-public class BidDao {
+public class BidDAO {
     
     private static final String BID_TABLE = "bid";
     private static final String BID_ID = "bid_ID";
@@ -150,7 +150,14 @@ public class BidDao {
 	return bid;
     } 
     
-    
+    /**
+     * Find all Bids
+     * @return
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     */
     public List<Bid> findAll()  throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
 	List<Bid> bids = new ArrayList<>();
 	String query = "SELECT * FROM " + BID_TABLE;
@@ -169,16 +176,68 @@ public class BidDao {
 	return bids;
     }
     
+    /**
+     * Find a specidic Bid from a Professional User Id
+     * @param proUserId
+     * @return
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     */
+    public List<Bid> findFromProfessionalUserId (int proUserId) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
+	List<Bid> bids = new ArrayList<>();
+	String query = "SELECT * FROM " + BID_TABLE + " WHERE " + PRO_USER_ID + "= ?";
+	this.prepareResources();
+	try {
+	    connection = DaoUtils.getConnection();
+	    statement = connection.prepareStatement(query);
+	    statement.setInt(1, proUserId);
+	    resultSet = statement.executeQuery();
+	    while (resultSet.next()){
+		Bid bid = populate(resultSet);
+		bids.add(bid);
+	    }
+	} finally {
+	    DaoUtils.closeResources(resultSet, statement, connection);
+	}
+	return bids;
+    }
     
+    /**
+     * Find a specific bid from taskId
+     * @param taskId
+     * @return
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     */
+    public List<Bid> findFromTaskId (int taskId) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
+	List<Bid> bids = new ArrayList<>();
+	String query = "SELECT * FROM " + BID_TABLE + " WHERE " + TASK_ID + "= ?";
+	this.prepareResources();
+	try {
+	    connection = DaoUtils.getConnection();
+	    statement = connection.prepareStatement(query);
+	    statement.setInt(1, taskId);
+	    resultSet = statement.executeQuery();
+	    while (resultSet.next()){
+		Bid bid = populate(resultSet);
+		bids.add(bid);
+	    }
+	} finally {
+	    DaoUtils.closeResources(resultSet, statement, connection);
+	}
+	return bids;
+    }  
     
-    
-    
-    
-    
-    
-    
-    
-    
+    /**
+     * Utility method that takes a result set and returns a Bid object.
+     * @param resultSet
+     * @return
+     * @throws SQLException
+     */
     private Bid populate(ResultSet resultSet) throws SQLException {
 	return new Bid()
 		.setBidId(resultSet.getInt("bid_ID"))
