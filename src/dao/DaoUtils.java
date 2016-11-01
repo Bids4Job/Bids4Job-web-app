@@ -26,7 +26,7 @@ public class DaoUtils {
 	/**
 	 * Attempts to establish a connection to the database.
 	 * 
-	 * @return
+	 * @return A connection to the DB_URL
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
