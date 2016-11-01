@@ -19,6 +19,13 @@ public class SimpleUserTester {
 		dimitris.setLastName("Theodoropoulos");
 		dimitris.setLocation("Neo Irakleio");
 		System.out.println(dimitris.toString());
+		// User 3 - Low Dependency from Constructor
+		SimpleUser giannis = new SimpleUser()
+				.setLastName("Kranas")
+				.setFirstName("Giannis")
+				.setSimpleUserID(1)
+				.setLocation("Faliro");
+		System.out.println(giannis.toString());
 	}
 	
 }
