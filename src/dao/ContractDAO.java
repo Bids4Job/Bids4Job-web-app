@@ -263,7 +263,7 @@ public class ContractDAO {
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		List<Contract> contracts = new ArrayList<>();
 		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Bid ON Bid.bid_ID = "
-				+ BID_ID + " WHERE pro_user_ID = ?;";
+				+ CONTRACT_TABLE + "." + BID_ID + " WHERE Bid.pro_user_ID = ?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -293,7 +293,7 @@ public class ContractDAO {
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		List<Contract> contracts = new ArrayList<>();
 		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Task ON Task.task_ID = "
-				+ TASK_ID + " WHERE simple_user_ID = ?;";
+				+ CONTRACT_TABLE + "." + TASK_ID + " WHERE Task.simple_user_ID = ?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -323,7 +323,7 @@ public class ContractDAO {
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		List<Contract> contracts = new ArrayList<>();
 		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Task ON Task.task_ID = "
-				+ TASK_ID + " INNER JOIN Simple_User ON Simple_User.simple_user_ID = Task.simple_user_ID"
+				+ CONTRACT_TABLE + "." + TASK_ID + " INNER JOIN Simple_User ON Simple_User.simple_user_ID = Task.simple_user_ID"
 				+ " WHERE Simple_User.location = ?;";
 		this.prepareResources();
 		try {
