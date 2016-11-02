@@ -97,7 +97,7 @@ public class ContractDAO {
 		}
 		return contracts;
 	}
-	
+
 	/**
 	 * Adds a new Contract in the database.
 	 * 
@@ -202,7 +202,8 @@ public class ContractDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public Contract findByBidID(int bidID) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+	public Contract findByBidID(int bidID)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		Contract contract = null;
 		String sql = "SELECT * FROM " + CONTRACT_TABLE + " WHERE " + BID_ID + " = ?;";
 		this.prepareResources();
@@ -219,7 +220,7 @@ public class ContractDAO {
 		}
 		return contract;
 	}
-	
+
 	/**
 	 * Finds the Contract with the given task ID.
 	 * 
@@ -230,7 +231,8 @@ public class ContractDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public Contract findByTaskID(int taskID) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+	public Contract findByTaskID(int taskID)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		Contract contract = null;
 		String sql = "SELECT * FROM " + CONTRACT_TABLE + " WHERE " + TASK_ID + " = ?;";
 		this.prepareResources();
@@ -247,7 +249,7 @@ public class ContractDAO {
 		}
 		return contract;
 	}
-	
+
 	/**
 	 * Finds all Contracts in the database from a specified Professional User.
 	 *
@@ -260,7 +262,8 @@ public class ContractDAO {
 	public List<Contract> findByProUserID(int proUserID)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		List<Contract> contracts = new ArrayList<>();
-		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Bid ON Bid.bid_ID = " + BID_ID + " WHERE pro_user_ID = ?;";
+		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Bid ON Bid.bid_ID = "
+				+ BID_ID + " WHERE pro_user_ID = ?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -276,7 +279,7 @@ public class ContractDAO {
 		}
 		return contracts;
 	}
-	
+
 	/**
 	 * Finds all Contracts in the database from a specified Simple User.
 	 *
@@ -289,7 +292,8 @@ public class ContractDAO {
 	public List<Contract> findBySimpleUserID(int simpleUserID)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		List<Contract> contracts = new ArrayList<>();
-		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Task ON Task.task_ID = " + TASK_ID + " WHERE simple_user_ID = ?;";
+		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Task ON Task.task_ID = "
+				+ TASK_ID + " WHERE simple_user_ID = ?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -305,7 +309,7 @@ public class ContractDAO {
 		}
 		return contracts;
 	}
-	
+
 	/**
 	 * Finds all Contracts in the database from a specified location.
 	 *
@@ -318,9 +322,8 @@ public class ContractDAO {
 	public List<Contract> findByLocation(String location)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		List<Contract> contracts = new ArrayList<>();
-		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE 
-				+ " INNER JOIN Task ON Task.task_ID = " + TASK_ID 
-				+ " INNER JOIN Simple_User ON Simple_User.simple_user_ID = Task.simple_user_ID"
+		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Task ON Task.task_ID = "
+				+ TASK_ID + " INNER JOIN Simple_User ON Simple_User.simple_user_ID = Task.simple_user_ID"
 				+ " WHERE Simple_User.location = ?;";
 		this.prepareResources();
 		try {
@@ -337,7 +340,37 @@ public class ContractDAO {
 		}
 		return contracts;
 	}
-	
+
+	/**
+	 * Finds all Contracts that were signed later than the specified contract
+	 * time.
+	 *
+	 * @return A list with all Contracts based on contract time
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public List<Contract> findByContractTime(String timestampStr)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		List<Contract> contracts = new ArrayList<>();
+		String sql = "SELECT * FROM " + CONTRACT_TABLE + " WHERE " + CONTRACT_TIME + " > ?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setString(1, timestampStr);
+			rs = preStmt.executeQuery();
+			while (rs.next()) {
+				Contract simpleUser = ContractDAO.populate(rs);
+				contracts.add(simpleUser);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return contracts;
+	}
+
 	/**
 	 * Utility method that takes a result set and returns a Contract object.
 	 *
