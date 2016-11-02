@@ -16,6 +16,9 @@ public class BidDAOTester {
 	Bid bid;
 	List<Bid> bids;
 	
+	
+	
+	
 	try {
 	    //finOne()
 	    bid = bidDAO.findOne(1);
@@ -28,13 +31,13 @@ public class BidDAOTester {
 		System.out.println(b);
 	    }
 	    //create()
-	    System.out.println("\ncreate();");
+	    System.out.println("\ncreate()");
 	    try {
 		bid = bidDAO.create(new Bid().setBidTime(new Timestamp(System.currentTimeMillis()))
-			.setAmount(300).setProUserId(10).setTaskId(10));
+			.setAmount(300).setProUserId(10).setTaskId(9));
 		System.out.println(bid);
 	    } catch (MySQLIntegrityConstraintViolationException e) {
-		System.out.println("Something Wrong.");
+		System.out.println(e.getMessage());
 	    }
 	    
 	    //update()
@@ -45,6 +48,8 @@ public class BidDAOTester {
 	}  catch (Exception e) {
 		e.printStackTrace();
 	}
+	
+	
 	
 	
 	

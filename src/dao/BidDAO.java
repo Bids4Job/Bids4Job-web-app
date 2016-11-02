@@ -77,7 +77,7 @@ public class BidDAO {
      * @throws InstantiationException
      */
     public boolean update(Bid bid) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-	String query = "UPDATE " + BID_TABLE + " SET " + TASK_ID + "=?, " + PRO_USER_ID + "=? " + AMOUNT + "?= " + BID_TIME + "=? WHERE " + BID_ID + "=?";
+	String query = "UPDATE " + BID_TABLE + " SET " + TASK_ID + "=?, " + PRO_USER_ID + "=?, " + AMOUNT + "= ?, " + BID_TIME + "=? WHERE " + BID_ID + "=?";
 	this.prepareResources();
 	try{
 	    connection = DaoUtils.getConnection();
