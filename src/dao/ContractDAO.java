@@ -249,6 +249,64 @@ public class ContractDAO {
 	}
 	
 	/**
+	 * Finds all Contracts in the database from a specified Professional User.
+	 *
+	 * @return A list with all Contracts based on pro user ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public List<Contract> findByProUserID(int proUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		List<Contract> contracts = new ArrayList<>();
+		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Bid ON Bid.bid_ID = " + BID_ID + " WHERE pro_user_ID = ?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setInt(1, proUserID);
+			rs = preStmt.executeQuery();
+			while (rs.next()) {
+				Contract simpleUser = ContractDAO.populate(rs);
+				contracts.add(simpleUser);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return contracts;
+	}
+	
+	/**
+	 * Finds all Contracts in the database from a specified Simple User.
+	 *
+	 * @return A list with all Contracts based on simple user ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public List<Contract> findBySimpleUserID(int simpleUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		List<Contract> contracts = new ArrayList<>();
+		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Task ON Task.task_ID = " + TASK_ID + " WHERE simple_user_ID = ?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setInt(1, simpleUserID);
+			rs = preStmt.executeQuery();
+			while (rs.next()) {
+				Contract simpleUser = ContractDAO.populate(rs);
+				contracts.add(simpleUser);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return contracts;
+	}
+	
+	/**
 	 * Utility method that takes a result set and returns a Contract object.
 	 *
 	 * @param resultSet
