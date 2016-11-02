@@ -192,6 +192,61 @@ public class ContractDAO {
 		return false;
 	}
 
+	/**
+	 * Finds the Contract with the given bid ID.
+	 * 
+	 * @param bidID
+	 * @return The Contract with the specified bid ID
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public Contract findByBidID(int bidID) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		Contract contract = null;
+		String sql = "SELECT * FROM " + CONTRACT_TABLE + " WHERE " + BID_ID + " = ?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setInt(1, bidID);
+			rs = preStmt.executeQuery();
+			if (rs.next()) {
+				contract = ContractDAO.populate(rs);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return contract;
+	}
+	
+	/**
+	 * Finds the Contract with the given task ID.
+	 * 
+	 * @param bidID
+	 * @return The Contract with the specified task ID
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public Contract findByTaskID(int taskID) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		Contract contract = null;
+		String sql = "SELECT * FROM " + CONTRACT_TABLE + " WHERE " + TASK_ID + " = ?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setInt(1, taskID);
+			rs = preStmt.executeQuery();
+			if (rs.next()) {
+				contract = ContractDAO.populate(rs);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return contract;
+	}
 	
 	/**
 	 * Utility method that takes a result set and returns a Contract object.
