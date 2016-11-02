@@ -307,6 +307,38 @@ public class ContractDAO {
 	}
 	
 	/**
+	 * Finds all Contracts in the database from a specified location.
+	 *
+	 * @return A list with all Contracts based on location
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public List<Contract> findByLocation(String location)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		List<Contract> contracts = new ArrayList<>();
+		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE 
+				+ " INNER JOIN Task ON Task.task_ID = " + TASK_ID 
+				+ " INNER JOIN Simple_User ON Simple_User.simple_user_ID = Task.simple_user_ID"
+				+ " WHERE Simple_User.location = ?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setString(1, location);
+			rs = preStmt.executeQuery();
+			while (rs.next()) {
+				Contract simpleUser = ContractDAO.populate(rs);
+				contracts.add(simpleUser);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return contracts;
+	}
+	
+	/**
 	 * Utility method that takes a result set and returns a Contract object.
 	 *
 	 * @param resultSet
