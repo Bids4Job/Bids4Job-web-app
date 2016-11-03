@@ -31,8 +31,8 @@ public class ProfessionalUserService {
   	return dao.create(professionalUser);
     }
     
-    public void remove(int proUserid) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-	 dao.remove(proUserid);
+    public void remove(ProfessionalUser professionalUser) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	 dao.remove(professionalUser);
     }
 
     public void update(ProfessionalUser professionalUser) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {

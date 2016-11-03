@@ -1,234 +1,266 @@
 package dao;
 
-import domain.SimpleUser;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
+import domain.SimpleUser;
+
+/**
+ * Class for accessing database data regarding SimpleUsers.
+ * 
+ * @author george
+ *
+ */
 public class SimpleUserDAO {
-
-	// JDBC driver name and database URL
-	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://localhost/bids4job_db?useSSL=false";
-
-	// Database credentials
-	private static final String USER = "root";
-	private static final String PASS = "pass";
 
 	// Necessary fields to connect to DB, execute queries and store the result
 	// sets.
 	private static final String SIMPLE_USER_TABLE = "Simple_User";
-	private static Connection conn;
-	private Statement stmt;
+	private static final String SIMPLE_USER_ID = "simple_user_ID";
+	private static final String FIRST_NAME = "first_name";
+	private static final String LAST_NAME = "last_name";
+	private static final String LOCATION = "location";
+	private Connection conn;
 	private PreparedStatement preStmt;
 	private ResultSet rs;
 
 	public SimpleUserDAO() {
-
 	}
 
-	public void openConnection() {
-		try {
-			// Register JDBC driver
-			Class.forName(JDBC_DRIVER);
-			// Open a connection
-			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-		} catch (ClassNotFoundException e) {
-			System.out.println("Check if MySQL Connector/J driver exists." + e.getMessage());
-		} catch (SQLException e) {
-			System.out.println("Wrong credentials or database url: " + e.getMessage());
-		} finally {
-			System.out.println("Connection established!");
-		}
+	/**
+	 * Sets the connection, the preparedStatement and the resultSet to null.
+	 */
+	private void prepareResources() {
+		this.conn = null;
+		this.preStmt = null;
+		this.rs = null;
 	}
 
-	public void closeConnection() {
-		System.out.println("Closing connection...");
+	// CRUD operations
+	/**
+	 * Finds the Simple User with the given ID.
+	 * 
+	 * @param simpleUserID
+	 * @return The SimpleUser with the specified ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public SimpleUser findOne(int simpleUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		SimpleUser simpleUser = null;
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + SIMPLE_USER_ID + " = ?;";
+		this.prepareResources();
 		try {
-			if (stmt != null)
-				stmt.close();
-			if (conn != null)
-				conn.close();
-			if (rs != null)
-				rs.close();
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
-		System.out.println("Resources were closed!");
-	}
-
-	public int insertSimpleUser(SimpleUser simpleUser) {
-		int rowsInserted = 0;
-		this.openConnection();
-		try {
-			String sql = "INSERT INTO " + SIMPLE_USER_TABLE
-					+ " (`first_name`, `last_name`, `location`) VALUES (?, ?, ?);";
+			conn = DaoUtils.getConnection();
 			preStmt = conn.prepareStatement(sql);
+			preStmt.setInt(1, simpleUserID);
+			rs = preStmt.executeQuery();
+			if (rs.next()) {
+				simpleUser = SimpleUserDAO.populate(rs);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return simpleUser;
+	}
+
+	/**
+	 * Finds all existing Simple Users in the database.
+	 *
+	 * @return A list with all SimpleUsers
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public List<SimpleUser> findAll()
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		List<SimpleUser> simpleUsers = new ArrayList<>();
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + ";";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			rs = preStmt.executeQuery();
+			while (rs.next()) {
+				SimpleUser simpleUser = SimpleUserDAO.populate(rs);
+				simpleUsers.add(simpleUser);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return simpleUsers;
+	}
+
+	/**
+	 * Adds a new Simple User in the database.
+	 * 
+	 * @param simpleUser
+	 * @return The SimpleUser object that was added in database
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public SimpleUser create(SimpleUser simpleUser)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		String sql = "INSERT INTO " + SIMPLE_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION
+				+ ") VALUES (?, ?, ?);";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			preStmt.setString(1, simpleUser.getFirstName());
 			preStmt.setString(2, simpleUser.getLastName());
 			preStmt.setString(3, simpleUser.getLocation());
-			rowsInserted = preStmt.executeUpdate();
-		} catch (SQLException se) {
-			se.printStackTrace();
+			preStmt.executeUpdate();
+			rs = preStmt.getGeneratedKeys();
+			if (rs.next()) {
+				simpleUser.setSimpleUserID(rs.getInt(1));
+			}
 		} finally {
-			this.closeConnection();
+			DaoUtils.closeResources(rs, preStmt, conn);
 		}
-		return rowsInserted;
+		return simpleUser;
 	}
 
-	public int updateSimpleUser(SimpleUser simpleUser) {
-		int rowsUpdated = 0;
-		this.openConnection();
+	/**
+	 * Updates a Simple User in database based on ID.
+	 * 
+	 * @param simpleUser
+	 * @return True if the update operation was succeeded, else false
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public boolean update(SimpleUser simpleUser)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		int rowsAffected = 0;
+		String sql = "UPDATE " + SIMPLE_USER_TABLE + " SET " + FIRST_NAME + "=?, " + LAST_NAME + "=?, " + LOCATION
+				+ "=? WHERE " + SIMPLE_USER_ID + "=?;";
+		this.prepareResources();
 		try {
-			String sql = "UPDATE " + SIMPLE_USER_TABLE
-					+ " SET `first_name`=?, `last_name`=?, `location`=? WHERE `simple_user_ID`=?";
+			conn = DaoUtils.getConnection();
 			preStmt = conn.prepareStatement(sql);
 			preStmt.setString(1, simpleUser.getFirstName());
 			preStmt.setString(2, simpleUser.getLastName());
 			preStmt.setString(3, simpleUser.getLocation());
 			preStmt.setInt(4, simpleUser.getSimpleUserID());
-			rowsUpdated = preStmt.executeUpdate();
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} finally {
-			this.closeConnection();
-		}
-		return rowsUpdated;
-	}
-
-	public SimpleUser selectSimpleUser(int simpleUserID) {
-		SimpleUser simpleUserFound = null;
-		this.openConnection();
-		try {
-			String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + SIMPLE_USER_TABLE + ".simple_user_ID = "
-					+ simpleUserID + ";";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				simpleUserFound = new SimpleUser(rs.getInt("simple_user_ID"), rs.getString("first_name"),
-						rs.getString("last_name"), rs.getString("location"));
+			rowsAffected = preStmt.executeUpdate();
+			if (rowsAffected == 1) {
+				return true;
 			}
-		} catch (SQLException se) {
-			se.printStackTrace();
 		} finally {
-			this.closeConnection();
+			DaoUtils.closeResources(rs, preStmt, conn);
 		}
-		return simpleUserFound;
+		return false;
 	}
 
-	public int deleteSimpleUser(SimpleUser simpleUser) {
-		int rowsDeleted = 0;
-		this.openConnection();
+	/**
+	 * Deletes a SimpleUser from database based on ID.
+	 * 
+	 * @param simpleUser
+	 * @return True if the delete operation was succeeded, else false
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public boolean delete(SimpleUser simpleUser)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		int rowsAffected = 0;
+		String sql = "DELETE FROM " + SIMPLE_USER_TABLE + " WHERE " + SIMPLE_USER_ID + "=?;";
+		this.prepareResources();
 		try {
-			String sql = "DELETE FROM " + SIMPLE_USER_TABLE + " WHERE `simple_user_ID` = ?";
+			conn = DaoUtils.getConnection();
 			preStmt = conn.prepareStatement(sql);
 			preStmt.setInt(1, simpleUser.getSimpleUserID());
-			rowsDeleted = preStmt.executeUpdate();
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} finally {
-			this.closeConnection();
-		}
-		return rowsDeleted;
-	}
-
-	public int getHighestID() {
-		int highestID = 0;
-		this.openConnection();
-		try {
-			String sql = "SELECT " + SIMPLE_USER_TABLE + ".`simple_user_ID` FROM " + SIMPLE_USER_TABLE + " ORDER BY "
-					+ SIMPLE_USER_TABLE + ".`simple_user_ID` DESC LIMIT 1;";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			if (rs.next())
-				highestID = rs.getInt("simple_user_ID");
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} finally {
-			this.closeConnection();
-		}
-		return highestID;
-	}
-
-	public int countSimpleUsers() {
-		int highestID = 0;
-		this.openConnection();
-		try {
-			String sql = "SELECT COUNT(*) FROM " + SIMPLE_USER_TABLE + ";";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			if (rs.next())
-				highestID = rs.getInt(1);
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} finally {
-			this.closeConnection();
-		}
-		return highestID;
-	}
-
-	public ArrayList<SimpleUser> selectSimpleUsers(String location) {
-		ArrayList<SimpleUser> simpleUsersFound = new ArrayList<>();
-		this.openConnection();
-		try {
-			String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + SIMPLE_USER_TABLE + ".location = '"
-					+ location + "';";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				simpleUsersFound.add(new SimpleUser(rs.getInt("simple_user_ID"), rs.getString("first_name"),
-						rs.getString("last_name"), rs.getString("location")));
+			rowsAffected = preStmt.executeUpdate();
+			if (rowsAffected == 1) {
+				return true;
 			}
-		} catch (SQLException se) {
-			se.printStackTrace();
 		} finally {
-			this.closeConnection();
+			DaoUtils.closeResources(rs, preStmt, conn);
 		}
-		return simpleUsersFound;
+		return false;
 	}
 
-	public ArrayList<SimpleUser> selectSimpleUsers(String firstName, String lastName) {
-		ArrayList<SimpleUser> simpleUsersFound = new ArrayList<>();
-		this.openConnection();
+	/**
+	 * Finds Simple Users based on given location.
+	 * 
+	 * @param location
+	 * @return A list with SimpleUsers from the specified location
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<SimpleUser> findByLocation(String location)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		List<SimpleUser> simpleUsers = new ArrayList<>();
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + LOCATION + "=?;";
 		try {
-			String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + SIMPLE_USER_TABLE + ".`first_name` = '"
-					+ firstName + "' AND " + SIMPLE_USER_TABLE + ".`last_name` = '" + lastName + "';";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setString(1, location);
+			rs = preStmt.executeQuery();
 			while (rs.next()) {
-				simpleUsersFound.add(new SimpleUser(rs.getInt("simple_user_ID"), rs.getString("first_name"),
-						rs.getString("last_name"), rs.getString("location")));
+				SimpleUser simpleUser = SimpleUserDAO.populate(rs);
+				simpleUsers.add(simpleUser);
 			}
-		} catch (SQLException se) {
-			se.printStackTrace();
 		} finally {
-			this.closeConnection();
-		}
-		return simpleUsersFound;
-	}
-	
-	public ArrayList<SimpleUser> selectAllSimpleUsers() {
-		ArrayList<SimpleUser> simpleUsers = new ArrayList<>();
-		this.openConnection();
-		try {
-			String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + ";";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				simpleUsers.add(new SimpleUser(rs.getInt("simple_user_ID"), rs.getString("first_name"),
-						rs.getString("last_name"), rs.getString("location")));
-			}
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} finally {
-			this.closeConnection();
+			DaoUtils.closeResources(rs, preStmt, conn);
 		}
 		return simpleUsers;
+	}
+
+	/**
+	 * Finds Simple Users that have unsigned Task.
+	 * 
+	 * @param location
+	 * @return A list with SimpleUsers that have at least one unsigned Task
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<SimpleUser> findWithUnsignedTask()
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		List<SimpleUser> simpleUsers = new ArrayList<>();
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " INNER JOIN Task ON " + SIMPLE_USER_TABLE + "."
+				+ SIMPLE_USER_ID
+				+ " = Task.simple_user_ID WHERE Task.task_ID NOT IN (SELECT Contract.task_ID FROM Contract);";
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			rs = preStmt.executeQuery();
+			while (rs.next()) {
+				SimpleUser simpleUser = SimpleUserDAO.populate(rs);
+				simpleUsers.add(simpleUser);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return simpleUsers;
+	}
+
+	/**
+	 * Utility method that takes a result set and returns a SimpleUser object.
+	 *
+	 * @param resultSet
+	 * @return A SimpleUser object
+	 * @throws SQLException
+	 */
+	private static SimpleUser populate(ResultSet resultSet) throws SQLException {
+		return new SimpleUser().setSimpleUserID(resultSet.getInt(SIMPLE_USER_ID))
+				.setFirstName(resultSet.getString(FIRST_NAME)).setLastName(resultSet.getString(LAST_NAME))
+				.setLocation(resultSet.getString(LOCATION));
 	}
 }

@@ -1,4 +1,6 @@
+# Eclipse
 /bin/
+.settings
 
 # Intellij IDEA
 .idea

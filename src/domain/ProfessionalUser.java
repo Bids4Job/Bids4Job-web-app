@@ -13,6 +13,16 @@ public class ProfessionalUser {
     private String location;
     private String profession;
     
+    public ProfessionalUser(){}
+    
+    public ProfessionalUser(int proUserid, String firstName, String lastName, String location, String profession){
+	this.proUserid = proUserid;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.location = location;
+	this.profession = profession;
+    }
+    
     public int getProUserId(){
 	return this.proUserid;
     }

@@ -1,4 +1,5 @@
-package main;
+
+
 
 import domain.ProfessionalUser;
 import service.ProfessionalUserService;
@@ -16,7 +17,7 @@ public class Test {
         
     private static Scanner scan1;
     
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) {
 	
 	
 	scan1 = new Scanner (System.in);
