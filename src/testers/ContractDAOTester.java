@@ -1,6 +1,8 @@
 package testers;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
@@ -14,11 +16,12 @@ public class ContractDAOTester {
 		ContractDAO contractDAO = new ContractDAO();
 		Contract contract;
 		List<Contract> contracts;
-
+		DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
 		try {
 			/* CRUD operations */
 			// findOne
-			contract = contractDAO.findOne(4);
+			contract = contractDAO.findOne(20);
 			System.out.println("findOne()\n" + contract.toString());
 			// findAll
 			System.out.println("\nfindAll()");
@@ -52,6 +55,48 @@ public class ContractDAOTester {
 				System.out.println("findOne()\n" + contract.toString());
 			} catch (NullPointerException e) {
 				System.out.println("Contract not found!");
+			}
+			// findByBidID
+			System.out.println("\nfindByBidID()");
+			contract = contractDAO.findByBidID(6);
+//			contract = contractDAO.findByBidID(60);
+			try {
+				System.out.println(contract.toString());
+			} catch (NullPointerException e) {
+				System.out.println("Contract not found!");
+			}
+			// findByTaskID
+			System.out.println("\nfindByTaskID()");
+			contract = contractDAO.findByTaskID(3);
+//			contract = contractDAO.findByBidID(60);
+			try {
+				System.out.println(contract.toString());
+			} catch (NullPointerException e) {
+				System.out.println("Contract not found!");
+			}
+			// findByProUserID
+			System.out.println("\nfindByProUserID()");
+			contracts = contractDAO.findByProUserID(2);
+			for (Contract c : contracts) {
+				System.out.println(c);
+			}
+			// findBySimpleUserID
+			System.out.println("\nfindBySimpleUserID()");
+			contracts = contractDAO.findBySimpleUserID(2);
+			for (Contract c : contracts) {
+				System.out.println(c);
+			}
+			// findByLocation
+			System.out.println("\nfindByLocation()");
+			contracts = contractDAO.findByLocation("Faliro");
+			for (Contract c : contracts) {
+				System.out.println(c);
+			}
+			// findByContractTime
+			System.out.println("\nfindByContractTime()");
+			contracts = contractDAO.findByContractTime(simpleDateFormat.format(new Timestamp(simpleDateFormat.parse("2016-11-01").getTime())));
+			for (Contract c : contracts) {
+				System.out.println(c);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
