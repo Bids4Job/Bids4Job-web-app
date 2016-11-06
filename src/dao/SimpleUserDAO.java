@@ -19,7 +19,7 @@ public class SimpleUserDAO {
 
 	// Necessary fields to connect to DB, execute queries and store the result
 	// sets.
-	private static final String SIMPLE_USER_TABLE = "Simple_User";
+	private static final String SIMPLE_USER_TABLE = "simple_user";
 	private static final String SIMPLE_USER_ID = "simple_user_ID";
 	private static final String FIRST_NAME = "first_name";
 	private static final String LAST_NAME = "last_name";

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -56,7 +57,7 @@ public class CreateSimpleUserServlet extends HttpServlet {
 		
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();
-
+		
 		// Prepare an error message & error counter
 		String errorMessage = "";
 
@@ -73,7 +74,14 @@ public class CreateSimpleUserServlet extends HttpServlet {
 			response.getWriter().append(errorMessage);
 		}
 
+		// Create the SimpleUser to be stored
 		SimpleUser simpleUser = new SimpleUser().setFirstName(firstName).setLastName(lastName).setLocation(location);
+		try {
+			simpleUser = simpleUserService.create(simpleUser);
+		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// Set SimpleUser to request
 		request.setAttribute("simpleUser", simpleUser);
 		successDispatcher.forward(request, response);

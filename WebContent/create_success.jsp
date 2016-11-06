@@ -55,13 +55,13 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><%= "simpleUser.getSimpleUserID()"%></td>
-						<td><%= "simpleUser.getFirstName()"%></td>
-						<td><%= "simpleUser.getLastName()"%></td>
+						<td><%= simpleUser.getSimpleUserID()%></td>
+						<td><%= simpleUser.getFirstName()%></td>
+						<td><%= simpleUser.getLastName()%></td>
 						<td><%= "notSupported"%></td>
 						<td><%= "notSupported"%></td>
 						<td><%= "notSupported"%></td>
-						<td><%= "simpleUser.getLocation()"%></td>
+						<td><%= simpleUser.getLocation()%></td>
 					</tr>
 				</tbody>
 			</table>
