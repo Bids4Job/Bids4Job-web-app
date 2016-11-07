@@ -76,9 +76,9 @@
 			<div class="row page-header-details">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 align-left">
 					<p>
-						<a class="btn btn-info btn-lg" href="simple_user_index.html"
+						<!-- <a class="btn btn-info btn-lg" href="simple_user_index.html"
 							role="button">Refresh Image <span
-							class="glyphicon glyphicon-refresh"></span></a> <a
+							class="glyphicon glyphicon-refresh"></span></a> --><a
 							class="btn btn-success btn-lg" href="#create" role="button">Getting
 							Started <span class="glyphicon glyphicon-console"></span>
 						</a>
@@ -98,11 +98,11 @@
 				<form action="CreateSimpleUser" method="POST">
 					<div class="form-group">
 						<label for="name">Name:</label> <input type="text"
-							class="form-control" id="name" name="firstName">
+							class="form-control" id="name" name="firstName"required>
 					</div>
 					<div class="form-group">
 						<label for="surname">Surname:</label> <input type="text"
-							class="form-control" id="surname" name="lastName">
+							class="form-control" id="surname" name="lastName" required>
 					</div>
 					<div class="form-group">
 						<label for="email">Email:</label> <input type="email"
@@ -118,7 +118,7 @@
 					</div>
 					<div class="form-group">
 						<label for="location">Location:</label> <input type="text"
-							class="form-control" id="location" name="location">
+							class="form-control" id="location" name="location" required>
 					</div>
 					<div class="form-button">
 						<button type="submit" class="btn btn-lg btn-success"
@@ -143,7 +143,7 @@
 						<label class="control-label col-sm-2" for="simple_user_id">ID:</label>
 						<div class="col-sm-10">
 							<input type="number" class="form-control" id="simple_user_id"
-								placeholder="Enter existing ID" name="simpleUserID">
+								placeholder="Enter existing ID" name="simpleUserID" required>
 						</div>
 					</div>
 					<div class="form-group">
@@ -210,7 +210,7 @@
 				<form method="POST" action="DeleteSimpleUser">
 					<div class="form-group has-danger">
 						<label for="simple_user_id">ID:</label> <input type="number"
-							class="form-control" id="simple_user_id" name="simpleUserID">
+							class="form-control" id="simple_user_id" name="simpleUserID" required>
 					</div>
 					<div class="form-group has-danger">
 						<label for="username">Username:</label> <input type="text"
@@ -243,7 +243,7 @@
 				<form method="GET" action="FindOneSimpleUser">
 					<div class="form-group has-sucess">
 						<label for="simple_user_id">ID:</label> <input type="number"
-							class="form-control" id="simple_user_id" name="simpleUserID">
+							class="form-control" id="simple_user_id" name="simpleUserID" required>
 					</div>
 					<div class="form-button">
 						<button type="submit" class="btn btn-lg btn-info" value="findOne">
@@ -286,7 +286,7 @@
 				<form method="GET" action="FindSimpleUsersByLocation">
 					<div class="form-group">
 						<label for="location">Location:</label> <input type="text"
-							class="form-control" id="location" name="location">
+							class="form-control" id="location" name="location" required>
 					</div>
 					<div class="form-button">
 						<button type="submit" class="btn btn-lg btn-info"
