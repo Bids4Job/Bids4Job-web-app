@@ -57,7 +57,7 @@ public class CreateSimpleUserServlet extends HttpServlet {
 
 		// RequestDispatcher to forward in created and stored successfully in
 		// database
-		RequestDispatcher successDispatcher = getServletContext().getRequestDispatcher("/create_success.jsp");
+		RequestDispatcher successDispatcher = getServletContext().getRequestDispatcher("/single_result.jsp");
 
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();

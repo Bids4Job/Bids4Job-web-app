@@ -41,7 +41,7 @@ public class FindAllSimpleUsersServlet extends HttpServlet {
 
 		// RequestDispatcher to forward in created and stored successfully in
 		// database
-		RequestDispatcher resultDispatcher = getServletContext().getRequestDispatcher("/find_all_results.jsp");
+		RequestDispatcher resultDispatcher = getServletContext().getRequestDispatcher("/list_results.jsp");
 		
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();
