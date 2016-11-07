@@ -16,18 +16,16 @@ import domain.SimpleUser;
 import service.SimpleUserService;
 
 /**
- * Servlet implementation class FindSimpleUsersByLocation
+ * Servlet implementation class FindWithUnsignedTaskServlet
  */
-@WebServlet("/FindSimpleUsersByLocation")
-public class FindSimpleUsersByLocation extends HttpServlet {
+@WebServlet("/FindWithUnsignedTask")
+public class FindWithUnsignedTaskServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private static final String LOCATION = "location";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FindSimpleUsersByLocation() {
+	public FindWithUnsignedTaskServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -43,33 +41,22 @@ public class FindSimpleUsersByLocation extends HttpServlet {
 
 		// RequestDispatcher to forward in created and stored successfully in
 		// database
-		RequestDispatcher successDispatcher = getServletContext().getRequestDispatcher("/list_results.jsp");
+		RequestDispatcher resultDispatcher = getServletContext().getRequestDispatcher("/list_results.jsp");
 
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();
 
-		// Prepare an error message & error counter
-		String errorMessage;
-
-		// Get parameters from the request
-		String location = request.getParameter(LOCATION);
-
-		if (location == null || location.length() == 0) {
-			System.out.println("Location is null");
-		}
-
-		// A List to store all SimpleUsers from the specified location
+		// A List to store SimpleUsers with unsigned tasks
 		List<SimpleUser> simpleUsers = new ArrayList<SimpleUser>();
 
 		try {
-			simpleUsers = simpleUserService.findByLocation(location);
+			simpleUsers = simpleUserService.findWithUnsignedTask();
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-
 		// Set SimpleUser to request
 		request.setAttribute("simpleUsers", simpleUsers);
-		successDispatcher.forward(request, response);
+		resultDispatcher.forward(request, response);
 	}
 
 	/**

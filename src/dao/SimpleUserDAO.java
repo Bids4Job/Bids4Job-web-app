@@ -234,9 +234,9 @@ public class SimpleUserDAO {
 	public List<SimpleUser> findWithUnsignedTask()
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		List<SimpleUser> simpleUsers = new ArrayList<>();
-		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " INNER JOIN Task ON " + SIMPLE_USER_TABLE + "."
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " INNER JOIN task ON " + SIMPLE_USER_TABLE + "."
 				+ SIMPLE_USER_ID
-				+ " = Task.simple_user_ID WHERE Task.task_ID NOT IN (SELECT Contract.task_ID FROM Contract);";
+				+ " = task.simple_user_ID WHERE task.task_ID NOT IN (SELECT contract.task_ID FROM contract);";
 		try {
 			conn = DaoUtils.getConnection();
 			preStmt = conn.prepareStatement(sql);
