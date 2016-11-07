@@ -85,7 +85,6 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 
 		// Create the SimpleUser to be stored
 		SimpleUser simpleUser = new SimpleUser().setSimpleUserID(simpleUserID).setFirstName(firstName).setLastName(lastName).setLocation(location);
-		System.out.println(simpleUser.toString());
 		try {
 			updated = simpleUserService.update(simpleUser);
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
