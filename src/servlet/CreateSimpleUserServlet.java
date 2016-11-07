@@ -52,14 +52,15 @@ public class CreateSimpleUserServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// RequestDispatcher to forward in created and stored successfully in database
+		// RequestDispatcher to forward in created and stored successfully in
+		// database
 		RequestDispatcher successDispatcher = getServletContext().getRequestDispatcher("/create_success.jsp");
-		
+
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();
-		
+
 		// Prepare an error message & error counter
-		String errorMessage = "";
+		String errorMessage;
 
 		// Get parameters from the request
 		String firstName = request.getParameter(FIRST_NAME);
@@ -70,7 +71,7 @@ public class CreateSimpleUserServlet extends HttpServlet {
 		String location = request.getParameter(LOCATION);
 
 		errorMessage = checkNullity(firstName, lastName, email, username, password, location);
-		if (errorMessage.equals("")) {
+		if (errorMessage != null) {
 			response.getWriter().append(errorMessage);
 		}
 
@@ -79,7 +80,6 @@ public class CreateSimpleUserServlet extends HttpServlet {
 		try {
 			simpleUser = simpleUserService.create(simpleUser);
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// Set SimpleUser to request
