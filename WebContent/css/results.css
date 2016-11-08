@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+
+html {
+	height: 100%;
+}
+
+body {
+	min-height: 100%;
+	background-color: #dae5c7;
+}
+
+h2 {
+	margin-top: 60px;
+	text-align: center;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	background: #222222;
+	width: 100%;
+	min-height: 100px;
+	text-align: center;
+}
+
+.footer-copyright {
+	margin: 5px;
+	font-size: 20px;
+}
+
+.footer-list {
+	list-style-type: none;
+}

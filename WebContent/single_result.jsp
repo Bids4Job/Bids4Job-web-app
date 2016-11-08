@@ -24,7 +24,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
 	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="css/simple_user_main.css">
+<link rel="stylesheet" href="css/results.css">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,6 +35,21 @@
 </head>
 
 <body>
+	<!-- Nav Bar - fixed to top -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#servicesNavbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="simple_user_index.html">SimpleUser
+				Services</a>
+		</div>
+	</div>
+	</nav>
+
 	<div class="container">
 		<h2>Operation Succeeded</h2>
 		<div class="table-responsive">
