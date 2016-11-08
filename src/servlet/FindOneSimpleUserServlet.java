@@ -40,6 +40,8 @@ public class FindOneSimpleUserServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 
+		// RequestDispatcher object to forward any errors
+		RequestDispatcher errorDispatcher = getServletContext().getRequestDispatcher("/error_printer.jsp");
 		// RequestDispatcher to forward in created and stored successfully in
 		// database
 		RequestDispatcher successDispatcher = getServletContext().getRequestDispatcher("/single_result.jsp");
@@ -47,8 +49,8 @@ public class FindOneSimpleUserServlet extends HttpServlet {
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();
 
-		// Prepare an error message & error counter
-		String errorMessage = "";
+		// Prepare an error message
+		String errorMessage;
 
 		// Get parameters from the request
 		int simpleUserID = 0;
@@ -56,7 +58,8 @@ public class FindOneSimpleUserServlet extends HttpServlet {
 
 		errorMessage = checkID(simpleUserIDStr);
 		if (errorMessage != null) {
-			response.getWriter().append(errorMessage);
+			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
 		} else {
 			simpleUserID = Integer.parseInt(simpleUserIDStr);
 		}
@@ -66,7 +69,9 @@ public class FindOneSimpleUserServlet extends HttpServlet {
 		try {
 			simpleUser = simpleUserService.findOne(simpleUserID);
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			errorMessage = e.getMessage();
+			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
 		}
 
 		// Set SimpleUser to request

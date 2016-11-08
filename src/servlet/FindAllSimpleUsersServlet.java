@@ -39,20 +39,27 @@ public class FindAllSimpleUsersServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 
+		// RequestDispatcher object to forward any errors
+		RequestDispatcher errorDispatcher = getServletContext().getRequestDispatcher("/error_printer.jsp");
 		// RequestDispatcher to forward in created and stored successfully in
 		// database
 		RequestDispatcher resultDispatcher = getServletContext().getRequestDispatcher("/list_results.jsp");
+
+		// Stores the error message to be printed
+		String errorMessage;
 		
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();
 
 		// A List to store all existing SimpleUsers
 		List<SimpleUser> simpleUsers = new ArrayList<SimpleUser>();
-		
+
 		try {
 			simpleUsers = simpleUserService.findAll();
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			errorMessage = e.getMessage();
+			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
 		}
 		// Set SimpleUser to request
 		request.setAttribute("simpleUsers", simpleUsers);

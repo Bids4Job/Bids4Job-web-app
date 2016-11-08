@@ -39,9 +39,14 @@ public class FindWithUnsignedTaskServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 
+		// RequestDispatcher object to forward any errors
+		RequestDispatcher errorDispatcher = getServletContext().getRequestDispatcher("/error_printer.jsp");
 		// RequestDispatcher to forward in created and stored successfully in
 		// database
 		RequestDispatcher resultDispatcher = getServletContext().getRequestDispatcher("/list_results.jsp");
+
+		// Declare the error message
+		String errorMessage;
 
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();
@@ -52,7 +57,9 @@ public class FindWithUnsignedTaskServlet extends HttpServlet {
 		try {
 			simpleUsers = simpleUserService.findWithUnsignedTask();
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			errorMessage = e.getMessage();
+			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
 		}
 		// Set SimpleUser to request
 		request.setAttribute("simpleUsers", simpleUsers);

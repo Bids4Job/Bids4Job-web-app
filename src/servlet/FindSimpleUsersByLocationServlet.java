@@ -41,6 +41,8 @@ public class FindSimpleUsersByLocationServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 
+		// RequestDispatcher object to forward any errors
+		RequestDispatcher errorDispatcher = getServletContext().getRequestDispatcher("/error_printer.jsp");
 		// RequestDispatcher to forward in created and stored successfully in
 		// database
 		RequestDispatcher successDispatcher = getServletContext().getRequestDispatcher("/list_results.jsp");
@@ -55,7 +57,9 @@ public class FindSimpleUsersByLocationServlet extends HttpServlet {
 		String location = request.getParameter(LOCATION);
 
 		if (location == null || location.length() == 0) {
-			System.out.println("Location is null");
+			errorMessage = "Location field is empty";
+			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
 		}
 
 		// A List to store all SimpleUsers from the specified location
@@ -64,7 +68,9 @@ public class FindSimpleUsersByLocationServlet extends HttpServlet {
 		try {
 			simpleUsers = simpleUserService.findByLocation(location);
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			errorMessage = e.getMessage();
+			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
 		}
 
 		// Set SimpleUser to request

@@ -55,6 +55,8 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 
+		// RequestDispatcher object to forward any errors
+		RequestDispatcher errorDispatcher = getServletContext().getRequestDispatcher("/error_printer.jsp");
 		// RequestDispatcher to forward in created and stored successfully in
 		// database
 		RequestDispatcher successDispatcher = getServletContext().getRequestDispatcher("/single_result.jsp");
@@ -63,13 +65,13 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 		SimpleUserService simpleUserService = new SimpleUserService();
 		// Boolean representing the result of the update
 		boolean updated = false;
-		
+
 		// Prepare an error message & error counter
-		String errorMessage = "";
+		String errorMessage;
 
 		// Get parameters from the request
 		int simpleUserID = 0;
-		String simpleUserIDStr = request.getParameter(SIMPLE_USER_ID);	
+		String simpleUserIDStr = request.getParameter(SIMPLE_USER_ID);
 		String firstName = request.getParameter(FIRST_NAME);
 		String lastName = request.getParameter(LAST_NAME);
 		String email = request.getParameter(EMAIL);
@@ -78,37 +80,45 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 
 		errorMessage = checkID(simpleUserIDStr);
 		if (errorMessage != null) {
-			response.getWriter().append(errorMessage);
+			request.setAttribute("errorMessage", errorMessage);
 		} else {
 			simpleUserID = Integer.parseInt(simpleUserIDStr);
 		}
 
 		// Create the SimpleUser to be stored
-		SimpleUser simpleUser = new SimpleUser().setSimpleUserID(simpleUserID).setFirstName(firstName).setLastName(lastName).setLocation(location);
+		SimpleUser simpleUser = new SimpleUser().setSimpleUserID(simpleUserID).setFirstName(firstName)
+				.setLastName(lastName).setLocation(location);
 		try {
 			updated = simpleUserService.update(simpleUser);
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			errorMessage = e.getMessage();
+			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
 		}
-		
+
 		if (updated) {
 			try {
 				simpleUser = simpleUserService.findOne(simpleUserID);
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-				e.printStackTrace();
+				errorMessage = e.getMessage();
+				request.setAttribute("errorMessage", errorMessage);
+				errorDispatcher.forward(request, response);
 			}
 			// Set SimpleUser to request
 			request.setAttribute("simpleUser", simpleUser);
 			successDispatcher.forward(request, response);
 		} else {
-			// Nothing was updated in database
+			errorMessage = "SimpleUser not found and not updated";
+			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
 		}
 	}
 
 	/**
 	 * Checks if the given string could be an ID
 	 * 
-	 * @param id The String to be checked
+	 * @param id
+	 *            The String to be checked
 	 * @return The Error Message or null if the given String can be an ID
 	 */
 	private static String checkID(String id) {
