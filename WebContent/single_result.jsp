@@ -35,20 +35,9 @@
 </head>
 
 <body>
-	<!-- Nav Bar - fixed to top -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#servicesNavbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="simple_user_index.html">SimpleUser
-				Services</a>
-		</div>
-	</div>
-	</nav>
+
+	<!-- Navigation Bar - fixed to top -->
+	<%@include file="nav_bar.jsp"%>
 
 	<div class="container">
 		<h2>Operation Succeeded</h2>

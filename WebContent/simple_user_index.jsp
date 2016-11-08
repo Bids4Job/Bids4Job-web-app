@@ -34,36 +34,9 @@
 
 <body>
 	<section id="top"></section>
-	<!-- Nav Bar - fixed to top -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#servicesNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#top">SimpleUser Services</a>
-			</div>
-			<div class="collapse navbar-collapse" id="servicesNavbar">
-				<ul class="nav navbar-nav">
-					<li><a href="#create">Create</a></li>
-					<li><a href="#update">Update</a></li>
-					<li><a href="#delete">Delete</a></li>
-					<li><a href="#findOne">Find One</a></li>
-					<li><a href="#findAll">Find All</a></li>
-					<li><a href="#findByLocation">Find by Location</a></li>
-					<li><a href="#findWithUnsignedTask">FindWithUnsignedTask</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-							Sign Up</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
-							Login</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+
+	<!-- Navigation Bar - fixed to top -->
+	<%@include file="nav_bar.jsp"%>
 
 	<!-- Jumbotron -->
 	<div class="jumbotron">

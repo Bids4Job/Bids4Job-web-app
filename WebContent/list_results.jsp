@@ -36,6 +36,10 @@
 </head>
 
 <body>
+
+	<!-- Navigation Bar - fixed to top -->
+	<%@include file="nav_bar.jsp"%>
+
 	<div class="container">
 		<h2>Search Results</h2>
 		<div class="table-responsive">
