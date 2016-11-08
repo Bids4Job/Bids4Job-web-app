@@ -25,7 +25,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
 	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="css/simple_user_main.css">
+<link rel="stylesheet" href="css/result_page.css">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,9 +40,16 @@
 	<!-- Navigation Bar - fixed to top -->
 	<%@include file="nav_bar.jsp"%>
 
-	<div class="container">
-		<h2>Search Results</h2>
-		<div class="table-responsive">
+	<!-- container -->
+	<div class="container-fluid" id="wrapper">
+
+		<!-- header -->
+		<div id="header">
+			<h2>Search Results</h2>
+		</div>
+
+		<!-- main-content -->
+		<div class="table-responsive" id="main-content">
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>
@@ -81,9 +88,11 @@
 				}
 			%>
 		</div>
-	</div>
 
-	<!-- footer -->
-	<%@include file="footer.jsp"%>
+		<!-- footer -->
+		<div id="footer">
+			<%@include file="footer.jsp"%>
+		</div>
+	</div>
 </body>
 </html>
