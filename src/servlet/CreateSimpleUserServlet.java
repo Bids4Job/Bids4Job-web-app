@@ -95,6 +95,13 @@ public class CreateSimpleUserServlet extends HttpServlet {
 		successDispatcher.forward(request, response);
 	}
 
+	/**
+	 * Checks if the given string could be an ID
+	 * 
+	 * @param id
+	 *            The String to be checked
+	 * @return The Error Message or null if the given String can be an ID
+	 */
 	private String checkNullity(String name, String surname, String email, String username, String password,
 			String location) {
 		StringBuilder errorBuilder = new StringBuilder();
@@ -116,7 +123,7 @@ public class CreateSimpleUserServlet extends HttpServlet {
 		if (location == null || location.length() == 0) {
 			errorBuilder.append(LOCATION).append(" field is empty").append("\n");
 		}
-		return errorBuilder.toString();
+		return errorBuilder.toString().length() != 0 ? errorBuilder.toString() : null;
 	}
 
 }
