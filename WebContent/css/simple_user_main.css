@@ -29,7 +29,7 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
-    background: #000 url("https://unsplash.it/1600/800/?random") center center;
+    background: #000 url("https://source.unsplash.com/random/1600x900") center center;
     background-size: cover;
     display: flex;
     align-items: center;
