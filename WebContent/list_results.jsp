@@ -78,5 +78,8 @@
 			%>
 		</div>
 	</div>
+
+	<!-- footer -->
+	<%@include file="footer.jsp"%>
 </body>
 </html>

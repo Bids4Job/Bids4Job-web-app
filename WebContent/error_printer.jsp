@@ -37,7 +37,8 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="simple_user_index.html">SimpleUser Services</a>
+			<a class="navbar-brand" href="simple_user_index.html">SimpleUser
+				Services</a>
 		</div>
 	</div>
 	</nav>
@@ -62,6 +63,9 @@
 			}
 		%>
 	</div>
+
+	<!-- footer -->
+	<%@include file="footer.jsp"%>
 </body>
 </html>
 

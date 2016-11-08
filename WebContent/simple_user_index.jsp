@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,8 +80,8 @@
 					<p>
 						<!-- <a class="btn btn-info btn-lg" href="simple_user_index.html"
 							role="button">Refresh Image <span
-							class="glyphicon glyphicon-refresh"></span></a> --><a
-							class="btn btn-success btn-lg" href="#create" role="button">Getting
+							class="glyphicon glyphicon-refresh"></span></a> -->
+						<a class="btn btn-success btn-lg" href="#create" role="button">Getting
 							Started <span class="glyphicon glyphicon-console"></span>
 						</a>
 					</p>
@@ -100,7 +100,7 @@
 				<form action="CreateSimpleUser" method="POST">
 					<div class="form-group">
 						<label for="name">Name:</label> <input type="text"
-							class="form-control" id="name" name="firstName"required>
+							class="form-control" id="name" name="firstName" required>
 					</div>
 					<div class="form-group">
 						<label for="surname">Surname:</label> <input type="text"
@@ -212,7 +212,8 @@
 				<form method="POST" action="DeleteSimpleUser">
 					<div class="form-group has-danger">
 						<label for="simple_user_id">ID:</label> <input type="number"
-							class="form-control" id="simple_user_id" name="simpleUserID" required>
+							class="form-control" id="simple_user_id" name="simpleUserID"
+							required>
 					</div>
 					<div class="form-group has-danger">
 						<label for="username">Username:</label> <input type="text"
@@ -245,7 +246,8 @@
 				<form method="GET" action="FindOneSimpleUser">
 					<div class="form-group has-sucess">
 						<label for="simple_user_id">ID:</label> <input type="number"
-							class="form-control" id="simple_user_id" name="simpleUserID" required>
+							class="form-control" id="simple_user_id" name="simpleUserID"
+							required>
 					</div>
 					<div class="form-button">
 						<button type="submit" class="btn btn-lg btn-info" value="findOne">
@@ -321,23 +323,8 @@
 		</div>
 	</section>
 
-	<footer class="footer">
-		<div class="container">
-			<div class="row">
-				<p class="text-muted footer-copyright">
-					<span class="glyphicon glyphicon-copyright-mark"></span> 2016
-					Bids4Job S.A.
-				<ul class="footer-list">
-					<li><a href="#">Privacy</a></li>
-					<li><a href="#">Terms</a></li>
-				</ul>
-			</div>
-		</div>
-	</footer>
-
-	<!-- <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-    </footer> -->
+	<!-- footer -->
+	<%@include file="footer.jsp"%>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script

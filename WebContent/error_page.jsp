@@ -38,7 +38,8 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="simple_user_index.html">SimpleUser Services</a>
+			<a class="navbar-brand" href="simple_user_index.html">SimpleUser
+				Services</a>
 		</div>
 	</div>
 	</nav>
@@ -51,9 +52,11 @@
 		<div class="page-header">
 			<h2>An error occurred</h2>
 		</div>
-		<div class="alert alert-danger" role="alert"><%= exception.getMessage() %></div>
+		<div class="alert alert-danger" role="alert"><%=exception.getMessage()%></div>
 	</div>
 
+	<!-- footer -->
+	<%@include file="footer.jsp"%>
 </body>
 </html>
 
