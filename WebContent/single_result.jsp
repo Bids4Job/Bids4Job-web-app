@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page errorPage="error_page.jsp"%>
 <%@ page import="domain.SimpleUser"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,17 +56,19 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><%= simpleUser.getSimpleUserID()%></td>
-						<td><%= simpleUser.getFirstName()%></td>
-						<td><%= simpleUser.getLastName()%></td>
-						<td><%= "notSupported"%></td>
-						<td><%= "notSupported"%></td>
-						<td><%= "notSupported"%></td>
-						<td><%= simpleUser.getLocation()%></td>
+						<td><%=simpleUser.getSimpleUserID()%></td>
+						<td><%=simpleUser.getFirstName()%></td>
+						<td><%=simpleUser.getLastName()%></td>
+						<td><%="notSupported"%></td>
+						<td><%="notSupported"%></td>
+						<td><%="notSupported"%></td>
+						<td><%=simpleUser.getLocation()%></td>
 					</tr>
 				</tbody>
 			</table>
-			<% } %>
+			<%
+				}
+			%>
 		</div>
 	</div>
 </body>

@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+body {
+    background-color: #dae5c7;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.navbar .navbar-header .navbar-brand {
+    border-bottom: 2px solid #4caf50;
+    border-right: 2px solid #4caf50;
+    color: #4caf50;
+}
+
+.jumbotron {
+	text-align: center;
+}
