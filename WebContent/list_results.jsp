@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>All SimpleUsers</title>
+<title>SimpleUsers</title>
 
 <!-- Bootstrap -->
 <!-- Latest compiled and minified CSS -->
@@ -37,7 +37,7 @@
 
 <body>
 	<div class="container">
-		<h2>All Existing SimpleUsers</h2>
+		<h2>Search Results</h2>
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover">
 				<thead>

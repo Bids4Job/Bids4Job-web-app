@@ -36,7 +36,7 @@
 
 <body>
 	<div class="container">
-		<h2>SimpleUser Created Successfully</h2>
+		<h2>Operation Succeeded</h2>
 		<div class="table-responsive">
 			<%
 				SimpleUser simpleUser = (SimpleUser) request.getAttribute("simpleUser");
