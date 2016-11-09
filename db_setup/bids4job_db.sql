@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `simple_user` (
   PRIMARY KEY (`simple_user_id`))
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `task`
 -- -----------------------------------------------------
@@ -71,7 +70,6 @@ CREATE TABLE IF NOT EXISTS `pro_user` (
   PRIMARY KEY (`pro_user_id`))
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `bid`
 -- -----------------------------------------------------
@@ -95,7 +93,6 @@ CREATE TABLE IF NOT EXISTS `bid` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `contract`
