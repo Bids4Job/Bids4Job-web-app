@@ -95,3 +95,27 @@ CREATE TABLE IF NOT EXISTS `bid` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `contract`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `contract` (
+  `contract_id` INT NOT NULL AUTO_INCREMENT,
+  `bid_id` INT NOT NULL,
+  `task_id` INT NOT NULL,
+  `contract_time` TIMESTAMP(0) NOT NULL,
+  `rating` DOUBLE NULL,
+  PRIMARY KEY (`contract_id`),
+  INDEX `fk_contract_tasks1_idx` (`task_id` ASC),
+  CONSTRAINT `fk_bid_to_contract_1`
+    FOREIGN KEY (`bid_id`)
+    REFERENCES `bid` (`bid_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_task_to_contract_1`
+    FOREIGN KEY (`task_id`)
+    REFERENCES `task` (`task_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
