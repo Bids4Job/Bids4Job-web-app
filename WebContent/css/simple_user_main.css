@@ -37,6 +37,8 @@ body {
 }
 
 #main-header {
+	font-family: 'Lobster', cursive;
+	text-shadow: 4px 4px 4px #222222;
 	text-align: center;
 	color: #4caf50;
 }
@@ -51,6 +53,12 @@ body {
 
 .jumbotron .page-header p {
 	color: #AAAAAA;
+}
+
+mark {
+	border-radius: 20px;
+	background-color: rgba(76, 175, 80, .2);
+	color: #BBBBBB;
 }
 
 .well {

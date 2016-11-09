@@ -16,15 +16,16 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-
 <!-- Optional theme -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
 	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
 	crossorigin="anonymous">
+<!-- Custom themes -->
 <link rel="stylesheet" href="css/simple_user_main.css">
 <link rel="stylesheet" href="css/nav_bar.css">
 <link rel="stylesheet" href="css/footer.css">
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,10 +46,10 @@
 		<div class="container">
 			<div class="page-header col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<h1 id="main-header">
-					Simple User <small>services</small>
+					SimpleUser <small>services</small>
 				</h1>
-				<p>An administration panel for creating, updating, deleting and
-					finding Simple Users in Bids4Job web platform.</p>
+				<p>An administration panel for <mark>creating</mark>, <mark>updating</mark>, <mark>deleting</mark> and
+					<mark>finding</mark> Simple Users in Bids4Job web platform.</p>
 			</div>
 			<div class="row page-header-details">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 align-left">
