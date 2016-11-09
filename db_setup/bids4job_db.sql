@@ -21,25 +21,31 @@ CREATE SCHEMA IF NOT EXISTS `bids4job_db` DEFAULT CHARACTER SET utf8 ;
 USE `bids4job_db` ;
 
 -- -----------------------------------------------------
--- Table `Simple_User`
+-- Table `simple_user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `simple_user` (
   `simple_user_id` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `location` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `active_account` BOOLEAN NOT NULL,
   PRIMARY KEY (`simple_user_id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Task`
+-- Table `task`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `task` (
   `task_id` INT NOT NULL AUTO_INCREMENT,
   `deadline` TIMESTAMP(0) NOT NULL,
   `work_field` VARCHAR(45) NOT NULL,
   `simple_user_id` INT NOT NULL,
+  `description` VARCHAR(200) NOT NULL,
+  `active_task` BOOLEAN NOT NULL,
   PRIMARY KEY (`task_id`),
   INDEX `fk_task_1_idx` (`simple_user_id` ASC),
   CONSTRAINT `fk_simple_user_to_task_1`
@@ -50,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `task` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `Pro_User`
+-- Table `pro_user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pro_user` (
   `pro_user_id` INT NOT NULL AUTO_INCREMENT,
@@ -58,12 +64,16 @@ CREATE TABLE IF NOT EXISTS `pro_user` (
   `last_name` VARCHAR(45) NOT NULL,
   `location` VARCHAR(45) NOT NULL,
   `profession` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `active_account` BOOLEAN NOT NULL,
   PRIMARY KEY (`pro_user_id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Bid`
+-- Table `bid`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bid` (
   `bid_id` INT NOT NULL AUTO_INCREMENT,
@@ -80,29 +90,6 @@ CREATE TABLE IF NOT EXISTS `bid` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_task_to_bid_1`
-    FOREIGN KEY (`task_id`)
-    REFERENCES `task` (`task_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Contract`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `contract` (
-  `contract_id` INT NOT NULL AUTO_INCREMENT,
-  `bid_id` INT NOT NULL,
-  `task_id` INT NOT NULL,
-  `contract_time` TIMESTAMP(0) NOT NULL,
-  PRIMARY KEY (`contract_id`),
-  INDEX `fk_contract_tasks1_idx` (`task_id` ASC),
-  CONSTRAINT `fk_bid_to_contract_1`
-    FOREIGN KEY (`bid_id`)
-    REFERENCES `bid` (`bid_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_task_to_contract_1`
     FOREIGN KEY (`task_id`)
     REFERENCES `task` (`task_id`)
     ON DELETE NO ACTION
