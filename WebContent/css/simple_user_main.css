@@ -3,16 +3,6 @@ body {
 	background-color: #dae5c7;
 }
 
-.navbar {
-	margin-bottom: 0px;
-}
-
-.navbar .navbar-header .navbar-brand {
-	border-bottom: 2px solid #4caf50;
-	border-right: 2px solid #4caf50;
-	color: #4caf50;
-}
-
 .to-top-btn {
 	position: fixed;
 	bottom: 20px;
@@ -90,19 +80,4 @@ form {
 
 .form-button {
 	text-align: center;
-}
-
-footer {
-	background: #222222;
-	min-height: 100px;
-	text-align: center;
-}
-
-.footer-copyright {
-	margin: 5px;
-	font-size: 20px;
-}
-
-.footer-list {
-	list-style-type: none;
 }
