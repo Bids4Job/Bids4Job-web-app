@@ -31,23 +31,32 @@
 </head>
 
 <body>
-
 	<!-- Navigation Bar - fixed to top -->
 	<%@include file="nav_bar.jsp"%>
-	
-	<div class="container theme-showcase" role="main">
-		<!-- Main jumbotron for a primary marketing message or call to action -->
-		<div class="jumbotron">
-			<h1>SimpleUser Services</h1>
-		</div>
-		<div class="page-header">
-			<h2>An error occurred</h2>
-		</div>
-		<div class="alert alert-danger" role="alert"><%=exception.getMessage()%></div>
-	</div>
 
-	<!-- footer -->
-	<%@include file="footer.jsp"%>
+	<!-- container -->
+	<div class="container-fluid theme-showcase" id="wrapper" role="main">
+
+		<!-- header -->
+		<div id="header">
+			<div class="jumbotron">
+				<h1>Error Page</h1>
+			</div>
+			<div class="page-header">
+				<h2>An error occurred</h2>
+			</div>
+		</div>
+
+		<!-- main-content -->
+		<div id="main-content">
+			<div class="alert alert-danger" role="alert"><%=exception.getMessage()%></div>
+		</div>
+
+		<!-- footer -->
+		<div id="footer">
+			<%@include file="footer.jsp"%>
+		</div>
+	</div>
 </body>
 </html>
 
