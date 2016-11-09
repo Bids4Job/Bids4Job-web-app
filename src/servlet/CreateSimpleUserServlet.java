@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import domain.SimpleUser;
 import service.SimpleUserService;
 
@@ -65,7 +67,7 @@ public class CreateSimpleUserServlet extends HttpServlet {
 		SimpleUserService simpleUserService = new SimpleUserService();
 
 		// Prepare an error message
-		String errorMessage;
+		String errorMessage = "";
 
 		// Get parameters from the request
 		String firstName = request.getParameter(FIRST_NAME);
@@ -75,10 +77,14 @@ public class CreateSimpleUserServlet extends HttpServlet {
 		String password = request.getParameter(PASSWORD);
 		String location = request.getParameter(LOCATION);
 
-		errorMessage = checkNullity(firstName, lastName, email, username, password, location);
-		if (errorMessage != null) {
+		// Check for error in input values
+		errorMessage += checkNullity(firstName, lastName, email, username, password, location);
+		errorMessage += checkAlphaDashes(firstName, lastName, location);
+		errorMessage += checkAlphanumericDashes(username, password);
+		if (errorMessage.length() > 0) {
 			request.setAttribute("errorMessage", errorMessage);
 			errorDispatcher.forward(request, response);
+			return;
 		}
 
 		// Create the SimpleUser to be stored
@@ -96,10 +102,20 @@ public class CreateSimpleUserServlet extends HttpServlet {
 	}
 
 	/**
-	 * Checks if the given string could be an ID
+	 * Checks if the given string values are null or empty
 	 * 
-	 * @param id
-	 *            The String to be checked
+	 * @param name
+	 *            The name of the new SimpleUser
+	 * @param surname
+	 *            The surname of the new SimpleUser
+	 * @param email
+	 *            The email of the new SimpleUser
+	 * @param username
+	 *            The username of the new SimpleUser
+	 * @param password
+	 *            The password of the new SimpleUser
+	 * @param location
+	 *            The location of the new SimpleUser
 	 * @return The Error Message or null if the given String can be an ID
 	 */
 	private String checkNullity(String name, String surname, String email, String username, String password,
@@ -123,7 +139,52 @@ public class CreateSimpleUserServlet extends HttpServlet {
 		if (location == null || location.length() == 0) {
 			errorBuilder.append(LOCATION).append(" field is empty").append("\n");
 		}
-		return errorBuilder.toString().length() != 0 ? errorBuilder.toString() : null;
+		return errorBuilder.toString();
 	}
 
+	/**
+	 * Checks if the name, surname and location contain only Unicode letters and
+	 * hyphens.
+	 * 
+	 * @param name
+	 *            The name of the new SimpleUser
+	 * @param surname
+	 *            The surname of the new SimpleUser
+	 * @param location
+	 *            The location of the new SimpleUser
+	 * @return Error message if there is an error, otherwise null
+	 */
+	private String checkAlphaDashes(String name, String surname, String location) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphaSpace(name.replace('-', ' '))) {
+			errorBuilder.append(FIRST_NAME).append(" should contain only letters and hyphens").append("\n");
+		}
+		if (!StringUtils.isAlphaSpace(surname.replace('-', ' '))) {
+			errorBuilder.append(LAST_NAME).append(" should contain only letters and hyphens").append("\n");
+		}
+		if (!StringUtils.isAlphaSpace(surname.replace('-', ' '))) {
+			errorBuilder.append(LOCATION).append(" should contain only letters and hyphens").append("\n");
+		}
+		return errorBuilder.toString();
+	}
+
+	/**
+	 * Checks if the name and surname contain only Unicode letters, numbers and hyphens.
+	 * 
+	 * @param username
+	 *            The username of the new SimpleUser
+	 * @param password
+	 *            The password of the new SimpleUser
+	 * @return Error message if there is an error, otherwise an empty message
+	 */
+	private String checkAlphanumericDashes(String username, String password) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphanumericSpace(username.replace('-', ' '))) {
+			errorBuilder.append(USERNAME).append(" should contain only letters, numbers and hyphens").append("\n");
+		}
+		if (!StringUtils.isAlphanumericSpace(password.replace('-', ' '))) {
+			errorBuilder.append(PASSWORD).append(" should contain only letters, numbers and hyphens").append("\n");
+		}
+		return errorBuilder.toString();
+	}
 }

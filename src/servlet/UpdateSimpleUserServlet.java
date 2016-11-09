@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import domain.SimpleUser;
 import service.SimpleUserService;
 
@@ -66,8 +68,8 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 		// Boolean representing the result of the update
 		boolean updated = false;
 
-		// Prepare an error message & error counter
-		String errorMessage;
+		// Prepare an error message
+		String errorMessage = "";
 
 		// Get parameters from the request
 		int simpleUserID = 0;
@@ -78,9 +80,13 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 		String password = request.getParameter(PASSWORD);
 		String location = request.getParameter(LOCATION);
 
-		errorMessage = checkID(simpleUserIDStr);
-		if (errorMessage != null) {
+		errorMessage += checkID(simpleUserIDStr);
+		errorMessage += checkAlphaDashes(firstName, lastName, location);
+		errorMessage += checkAlphanumericDashes(password);
+		if (errorMessage.length() > 0) {
 			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
+			return;
 		} else {
 			simpleUserID = Integer.parseInt(simpleUserIDStr);
 		}
@@ -119,7 +125,8 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 	 * 
 	 * @param id
 	 *            The String to be checked
-	 * @return The Error Message or null if the given String can be an ID
+	 * @return The Error Message or an empty message if the given String can be
+	 *         an ID
 	 */
 	private static String checkID(String id) {
 		StringBuilder errorBuilder = new StringBuilder();
@@ -128,6 +135,48 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 		} else if (!id.matches("[0-9]+")) {
 			errorBuilder.append("Simple User ID must be a number.");
 		}
-		return errorBuilder.toString().length() != 0 ? errorBuilder.toString() : null;
+		return errorBuilder.toString();
 	}
+
+	/**
+	 * Checks if the name, surname and location contain only Unicode letters and
+	 * hyphens.
+	 * 
+	 * @param name
+	 *            The new name of the SimpleUser
+	 * @param surname
+	 *            The new surname of the SimpleUser
+	 * @param location
+	 *            The new location of the SimpleUser
+	 * @return Error message if there is an error, otherwise null
+	 */
+	private String checkAlphaDashes(String name, String surname, String location) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphaSpace(name.replace('-', ' '))) {
+			errorBuilder.append(FIRST_NAME).append(" should contain only letters and hyphens").append("\n");
+		}
+		if (!StringUtils.isAlphaSpace(surname.replace('-', ' '))) {
+			errorBuilder.append(LAST_NAME).append(" should contain only letters and hyphens").append("\n");
+		}
+		if (!StringUtils.isAlphaSpace(surname.replace('-', ' '))) {
+			errorBuilder.append(LOCATION).append(" should contain only letters and hyphens").append("\n");
+		}
+		return errorBuilder.toString();
+	}
+
+	/**
+	 * Checks if the password contain only Unicode letters, numbers and hyphens.
+	 * 
+	 * @param password
+	 *            The new password of the SimpleUser
+	 * @return Error message if there is an error, otherwise an empty message
+	 */
+	private String checkAlphanumericDashes(String password) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphanumericSpace(password.replace('-', ' '))) {
+			errorBuilder.append(PASSWORD).append(" should contain only letters, numbers and hyphens").append("\n");
+		}
+		return errorBuilder.toString();
+	}
+
 }
