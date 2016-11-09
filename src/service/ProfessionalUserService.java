@@ -19,6 +19,10 @@ public class ProfessionalUserService {
 	return dao.findOne(proUserid);
     }
     
+    public List<ProfessionalUser> findActive(boolean active) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	return dao.findActive(active);
+    }
+    
     public List<ProfessionalUser> findFromLocation(String location) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
   	return dao.findFromLocation(location);
     }
@@ -31,11 +35,11 @@ public class ProfessionalUserService {
   	return dao.create(professionalUser);
     }
     
-    public void remove(ProfessionalUser professionalUser) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-	 dao.remove(professionalUser);
+    public boolean remove(ProfessionalUser professionalUser) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	return dao.remove(professionalUser);
     }
 
-    public void update(ProfessionalUser professionalUser) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-	 dao.update(professionalUser);
+    public boolean update(ProfessionalUser professionalUser) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	return dao.update(professionalUser);
    }
 }
