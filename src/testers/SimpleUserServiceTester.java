@@ -22,7 +22,7 @@ public class SimpleUserServiceTester {
 				System.out.println(s);
 			}
 			// create
-			simpleUser = new SimpleUser("Kostas", "Georgiou", "Faliro");
+			simpleUser = new SimpleUser().setFirstName("Kostas").setLastName("Georgiou").setLocation("Faliro");
 			System.out.println("\ncreate()\n"+ simpleUserService.create(simpleUser));
 			// update
 			System.out.println("\nupdate()\n"+ simpleUserService.update(simpleUser.setFirstName("George")));
