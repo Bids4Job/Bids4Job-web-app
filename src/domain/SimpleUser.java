@@ -1,27 +1,23 @@
 package domain;
 
+/**
+ * @author george
+ *
+ */
 public class SimpleUser {
 
 	private int simpleUserID;
 	private String firstName;
 	private String lastName;
 	private String location;
+	private String username;
+	private String password;
+	private String email;
+	private boolean active_account;
 
-	public SimpleUser() {}
+	public SimpleUser() {
+	}
 
-	public SimpleUser(String firstName, String lastName, String location) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.location = location;
-	}
-	
-	public SimpleUser(int simpleUserID, String firstName, String lastName, String location) {
-		this.simpleUserID = simpleUserID;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.location = location;
-	}
-	
 	public SimpleUser setSimpleUserID(int simpleUserID) {
 		this.simpleUserID = simpleUserID;
 		return this;
@@ -30,7 +26,7 @@ public class SimpleUser {
 	public int getSimpleUserID() {
 		return this.simpleUserID;
 	}
-	
+
 	public SimpleUser setFirstName(String firstName) {
 		this.firstName = firstName;
 		return this;
@@ -57,9 +53,52 @@ public class SimpleUser {
 	public String getLocation() {
 		return this.location;
 	}
+
+	public SimpleUser setUsername(String username) {
+		this.username = username;
+		return this;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public SimpleUser setPassword(String password) {
+		this.password = password;
+		return this;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public SimpleUser setEmail(String email) {
+		this.email = email;
+		return this;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public SimpleUser setActiveAccount(boolean active_account) {
+		this.active_account = active_account;
+		return this;
+	}
+
+	public boolean getActiveAccount() {
+		return this.active_account;
+	}
 	
 	@Override
+	public int hashCode() {
+		return this.simpleUserID;
+	}
+
+	@Override
 	public String toString() {
-		return "SimpleUser " + this.simpleUserID + ": " + this.firstName + " " + this.lastName + ", " + this.location;
+		return "Simple User" + " ID: " + this.simpleUserID + "\nFirst Name: " + this.firstName + "\nLast Name: "
+				+ this.lastName + "\nUsername: " + this.username + "\nPassword: " + this.password + "\nEmail: "
+				+ this.email + "\nLocation: " + this.location + "\nActive: " + this.active_account;
 	}
 }
