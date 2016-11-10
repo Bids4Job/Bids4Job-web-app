@@ -265,6 +265,36 @@ public class SimpleUserDAO {
 	}
 
 	/**
+	 * Finds Simple Users based on given account status.
+	 * 
+	 * @param active_account
+	 *            Represents if the account is active or not
+	 * @return A List of SimpleUsers that have the specified account status
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<SimpleUser> findByActiveAccount(boolean active_account)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		List<SimpleUser> simpleUsers = new ArrayList<>();
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + ACTIVE_ACCOUNT + "=?;";
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setBoolean(1, active_account);
+			rs = preStmt.executeQuery();
+			while (rs.next()) {
+				SimpleUser simpleUser = SimpleUserDAO.populate(rs);
+				simpleUsers.add(simpleUser);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return simpleUsers;
+	}
+
+	/**
 	 * Utility method that takes a result set and returns a SimpleUser object.
 	 *
 	 * @param resultSet
