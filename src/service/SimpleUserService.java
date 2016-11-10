@@ -9,7 +9,7 @@ import java.util.List;
 public class SimpleUserService {
 
 	private SimpleUserDAO simpleUserDAO = new SimpleUserDAO();
-	
+
 	/**
 	 * Finds the Simple User with the given ID.
 	 * 
@@ -24,7 +24,7 @@ public class SimpleUserService {
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		return simpleUserDAO.findOne(simpleUserID);
 	}
-	
+
 	/**
 	 * Find all existing Simple Users in the database.
 	 *
@@ -38,7 +38,7 @@ public class SimpleUserService {
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		return simpleUserDAO.findAll();
 	}
-	
+
 	/**
 	 * Add a new Simple User in the database.
 	 * 
@@ -53,7 +53,7 @@ public class SimpleUserService {
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		return simpleUserDAO.create(simpleUser);
 	}
-	
+
 	/**
 	 * Update a Simple User in database based on ID.
 	 * 
@@ -68,7 +68,7 @@ public class SimpleUserService {
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		return simpleUserDAO.update(simpleUser);
 	}
-	
+
 	/**
 	 * Delete a SimpleUser from database based on ID.
 	 * 
@@ -83,7 +83,7 @@ public class SimpleUserService {
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		return simpleUserDAO.delete(simpleUser);
 	}
-	
+
 	/**
 	 * Find Simple Users based on given location.
 	 * 
@@ -98,7 +98,7 @@ public class SimpleUserService {
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		return simpleUserDAO.findByLocation(location);
 	}
-	
+
 	/**
 	 * Find Simple Users that have unsigned Task.
 	 * 
@@ -112,5 +112,21 @@ public class SimpleUserService {
 	public List<SimpleUser> findWithUnsignedTask()
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		return simpleUserDAO.findWithUnsignedTask();
+	}
+
+	/**
+	 * Finds Simple Users based on given account status.
+	 * 
+	 * @param active_account
+	 *            Represents if the account is active or not
+	 * @return A List of SimpleUsers that have the specified account status
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<SimpleUser> findByActiveAccount(boolean active_account)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		return simpleUserDAO.findByActiveAccount(active_account);
 	}
 }
