@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import domain.SimpleUser;
 import service.SimpleUserService;
 
@@ -63,8 +65,8 @@ public class DeleteSimpleUserServlet extends HttpServlet {
 		// Boolean representing the result of the delete service
 		boolean deleted = false;
 
-		// Prepare an error message & error counter
-		String errorMessage;
+		// Prepare an error message
+		String errorMessage = "";
 
 		// Get parameters from the request
 		int simpleUserID = 0;
@@ -73,10 +75,14 @@ public class DeleteSimpleUserServlet extends HttpServlet {
 		String firstName = request.getParameter(FIRST_NAME);
 		String lastName = request.getParameter(LAST_NAME);
 
-		errorMessage = checkID(simpleUserIDStr);
-		if (errorMessage != null) {
+		// Check for any errors in input values
+		errorMessage += checkID(simpleUserIDStr);
+		errorMessage += checkAlphaDashes(firstName, lastName);
+		errorMessage += checkAlphanumericDashes(username);
+		if (errorMessage.length() > 0) {
 			request.setAttribute("errorMessage", errorMessage);
 			errorDispatcher.forward(request, response);
+			return;
 		} else {
 			simpleUserID = Integer.parseInt(simpleUserIDStr);
 		}
@@ -120,8 +126,9 @@ public class DeleteSimpleUserServlet extends HttpServlet {
 	 * Checks if the given string could be an ID
 	 * 
 	 * @param id
-	 *            The String to be checked
-	 * @return The Error Message or null if the given String can be an ID
+	 *            The ID in string format to be checked
+	 * @return The Error Message or an empty message if the given String can be
+	 *         an ID
 	 */
 	private static String checkID(String id) {
 		StringBuilder errorBuilder = new StringBuilder();
@@ -130,7 +137,45 @@ public class DeleteSimpleUserServlet extends HttpServlet {
 		} else if (!id.matches("[0-9]+")) {
 			errorBuilder.append("Simple User ID must be a number.");
 		}
-		return errorBuilder.toString().length() != 0 ? errorBuilder.toString() : null;
+		return errorBuilder.toString();
+	}
+
+	/**
+	 * Checks if the name and surname contain only Unicode letters and hyphens.
+	 * 
+	 * @param name
+	 *            The new name of the SimpleUser
+	 * @param surname
+	 *            The new surname of the SimpleUser
+	 * @param location
+	 *            The new location of the SimpleUser
+	 * @return Error message if there is an error, otherwise null
+	 */
+	private String checkAlphaDashes(String name, String surname) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphaSpace(name.replace('-', ' '))) {
+			errorBuilder.append(FIRST_NAME).append(" should contain only letters and hyphens").append("\n");
+		}
+		if (!StringUtils.isAlphaSpace(surname.replace('-', ' '))) {
+			errorBuilder.append(LAST_NAME).append(" should contain only letters and hyphens").append("\n");
+		}
+		return errorBuilder.toString();
+	}
+
+	/**
+	 * Checks if the username contains only Unicode letters, numbers and
+	 * hyphens.
+	 * 
+	 * @param username
+	 *            The usename of the SimpleUser to be deleted
+	 * @return Error message if there is an error, otherwise an empty message
+	 */
+	private String checkAlphanumericDashes(String username) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphanumericSpace(username.replace('-', ' '))) {
+			errorBuilder.append(USERNAME).append(" should contain only letters, numbers and hyphens").append("\n");
+		}
+		return errorBuilder.toString();
 	}
 
 }

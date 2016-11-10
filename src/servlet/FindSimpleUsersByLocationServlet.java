@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import domain.SimpleUser;
 import service.SimpleUserService;
 
@@ -50,8 +52,8 @@ public class FindSimpleUsersByLocationServlet extends HttpServlet {
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();
 
-		// Prepare an error message & error counter
-		String errorMessage;
+		// Prepare an error message
+		String errorMessage = "";
 
 		// Get parameters from the request
 		String location = request.getParameter(LOCATION);
@@ -60,6 +62,14 @@ public class FindSimpleUsersByLocationServlet extends HttpServlet {
 			errorMessage = "Location field is empty";
 			request.setAttribute("errorMessage", errorMessage);
 			errorDispatcher.forward(request, response);
+			return;
+		} 
+
+		errorMessage = checkAlphaDashes(location);
+		if (errorMessage.length() > 0) {
+			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
+			return;
 		}
 
 		// A List to store all SimpleUsers from the specified location
@@ -71,6 +81,7 @@ public class FindSimpleUsersByLocationServlet extends HttpServlet {
 			errorMessage = e.getMessage();
 			request.setAttribute("errorMessage", errorMessage);
 			errorDispatcher.forward(request, response);
+			return;
 		}
 
 		// Set SimpleUser to request
@@ -86,6 +97,22 @@ public class FindSimpleUsersByLocationServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+
+	/**
+	 * Checks if the location contains only Unicode letters and
+	 * hyphens.
+	 * 
+	 * @param location
+	 *            The new location of the SimpleUser
+	 * @return Error message if there is an error, otherwise null
+	 */
+	private String checkAlphaDashes(String location) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphaSpace(location.replace('-', ' '))) {
+			errorBuilder.append(LOCATION).append(" should contain only letters and hyphens").append("<br>");
+		}
+		return errorBuilder.toString();
 	}
 
 }

@@ -80,6 +80,7 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 		String password = request.getParameter(PASSWORD);
 		String location = request.getParameter(LOCATION);
 
+		// Check for any errors in input values
 		errorMessage += checkID(simpleUserIDStr);
 		errorMessage += checkAlphaDashes(firstName, lastName, location);
 		errorMessage += checkAlphanumericDashes(password);
@@ -100,6 +101,7 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 			errorMessage = e.getMessage();
 			request.setAttribute("errorMessage", errorMessage);
 			errorDispatcher.forward(request, response);
+			return;
 		}
 
 		if (updated) {
@@ -109,6 +111,7 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 				errorMessage = e.getMessage();
 				request.setAttribute("errorMessage", errorMessage);
 				errorDispatcher.forward(request, response);
+				return;
 			}
 			// Set SimpleUser to request
 			request.setAttribute("simpleUser", simpleUser);
@@ -124,7 +127,7 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 	 * Checks if the given string could be an ID
 	 * 
 	 * @param id
-	 *            The String to be checked
+	 *            The ID in string format to be checked
 	 * @return The Error Message or an empty message if the given String can be
 	 *         an ID
 	 */
@@ -153,19 +156,19 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 	private String checkAlphaDashes(String name, String surname, String location) {
 		StringBuilder errorBuilder = new StringBuilder();
 		if (!StringUtils.isAlphaSpace(name.replace('-', ' '))) {
-			errorBuilder.append(FIRST_NAME).append(" should contain only letters and hyphens").append("\n");
+			errorBuilder.append(FIRST_NAME).append(" should contain only letters and hyphens").append("<br>");
 		}
 		if (!StringUtils.isAlphaSpace(surname.replace('-', ' '))) {
-			errorBuilder.append(LAST_NAME).append(" should contain only letters and hyphens").append("\n");
+			errorBuilder.append(LAST_NAME).append(" should contain only letters and hyphens").append("<br>");
 		}
-		if (!StringUtils.isAlphaSpace(surname.replace('-', ' '))) {
-			errorBuilder.append(LOCATION).append(" should contain only letters and hyphens").append("\n");
+		if (!StringUtils.isAlphaSpace(location.replace('-', ' '))) {
+			errorBuilder.append(LOCATION).append(" should contain only letters and hyphens").append("<br>");
 		}
 		return errorBuilder.toString();
 	}
 
 	/**
-	 * Checks if the password contain only Unicode letters, numbers and hyphens.
+	 * Checks if the password contains only Unicode letters, numbers and hyphens.
 	 * 
 	 * @param password
 	 *            The new password of the SimpleUser
@@ -174,7 +177,7 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 	private String checkAlphanumericDashes(String password) {
 		StringBuilder errorBuilder = new StringBuilder();
 		if (!StringUtils.isAlphanumericSpace(password.replace('-', ' '))) {
-			errorBuilder.append(PASSWORD).append(" should contain only letters, numbers and hyphens").append("\n");
+			errorBuilder.append(PASSWORD).append(" should contain only letters, numbers and hyphens").append("<br>");
 		}
 		return errorBuilder.toString();
 	}

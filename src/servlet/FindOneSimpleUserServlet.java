@@ -60,6 +60,7 @@ public class FindOneSimpleUserServlet extends HttpServlet {
 		if (errorMessage != null) {
 			request.setAttribute("errorMessage", errorMessage);
 			errorDispatcher.forward(request, response);
+			return;
 		} else {
 			simpleUserID = Integer.parseInt(simpleUserIDStr);
 		}

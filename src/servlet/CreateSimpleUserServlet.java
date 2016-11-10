@@ -77,7 +77,7 @@ public class CreateSimpleUserServlet extends HttpServlet {
 		String password = request.getParameter(PASSWORD);
 		String location = request.getParameter(LOCATION);
 
-		// Check for error in input values
+		// Check for any errors in input values
 		errorMessage += checkNullity(firstName, lastName, email, username, password, location);
 		errorMessage += checkAlphaDashes(firstName, lastName, location);
 		errorMessage += checkAlphanumericDashes(username, password);
@@ -122,22 +122,22 @@ public class CreateSimpleUserServlet extends HttpServlet {
 			String location) {
 		StringBuilder errorBuilder = new StringBuilder();
 		if (name == null || name.length() == 0) {
-			errorBuilder.append(FIRST_NAME).append(" field is empty").append("\n");
+			errorBuilder.append(FIRST_NAME).append(" field is empty").append("<br>");
 		}
 		if (surname == null || surname.length() == 0) {
-			errorBuilder.append(LAST_NAME).append(" field is empty").append("\n");
+			errorBuilder.append(LAST_NAME).append(" field is empty").append("<br>");
 		}
 		if (email == null || email.length() == 0) {
-			errorBuilder.append(EMAIL).append(" field is empty").append("\n");
+			errorBuilder.append(EMAIL).append(" field is empty").append("<br>");
 		}
 		if (username == null || username.length() == 0) {
-			errorBuilder.append(USERNAME).append(" field is empty").append("\n");
+			errorBuilder.append(USERNAME).append(" field is empty").append("<br>");
 		}
 		if (password == null || password.length() == 0) {
-			errorBuilder.append(PASSWORD).append(" field is empty").append("\n");
+			errorBuilder.append(PASSWORD).append(" field is empty").append("<br>");
 		}
 		if (location == null || location.length() == 0) {
-			errorBuilder.append(LOCATION).append(" field is empty").append("\n");
+			errorBuilder.append(LOCATION).append(" field is empty").append("<br>");
 		}
 		return errorBuilder.toString();
 	}
@@ -157,13 +157,13 @@ public class CreateSimpleUserServlet extends HttpServlet {
 	private String checkAlphaDashes(String name, String surname, String location) {
 		StringBuilder errorBuilder = new StringBuilder();
 		if (!StringUtils.isAlphaSpace(name.replace('-', ' '))) {
-			errorBuilder.append(FIRST_NAME).append(" should contain only letters and hyphens").append("\n");
+			errorBuilder.append(FIRST_NAME).append(" should contain only letters and hyphens").append("<br>");
 		}
 		if (!StringUtils.isAlphaSpace(surname.replace('-', ' '))) {
-			errorBuilder.append(LAST_NAME).append(" should contain only letters and hyphens").append("\n");
+			errorBuilder.append(LAST_NAME).append(" should contain only letters and hyphens").append("<br>");
 		}
-		if (!StringUtils.isAlphaSpace(surname.replace('-', ' '))) {
-			errorBuilder.append(LOCATION).append(" should contain only letters and hyphens").append("\n");
+		if (!StringUtils.isAlphaSpace(location.replace('-', ' '))) {
+			errorBuilder.append(LOCATION).append(" should contain only letters and hyphens").append("<br>");
 		}
 		return errorBuilder.toString();
 	}
@@ -180,10 +180,10 @@ public class CreateSimpleUserServlet extends HttpServlet {
 	private String checkAlphanumericDashes(String username, String password) {
 		StringBuilder errorBuilder = new StringBuilder();
 		if (!StringUtils.isAlphanumericSpace(username.replace('-', ' '))) {
-			errorBuilder.append(USERNAME).append(" should contain only letters, numbers and hyphens").append("\n");
+			errorBuilder.append(USERNAME).append(" should contain only letters, numbers and hyphens").append("<br>");
 		}
 		if (!StringUtils.isAlphanumericSpace(password.replace('-', ' '))) {
-			errorBuilder.append(PASSWORD).append(" should contain only letters, numbers and hyphens").append("\n");
+			errorBuilder.append(PASSWORD).append(" should contain only letters, numbers and hyphens").append("<br>");
 		}
 		return errorBuilder.toString();
 	}
