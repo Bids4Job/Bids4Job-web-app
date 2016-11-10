@@ -19,11 +19,15 @@ public class SimpleUserDAO {
 
 	// Necessary fields to connect to DB, execute queries and store the result
 	// sets.
-	private static final String SIMPLE_USER_TABLE = "Simple_User";
+	private static final String SIMPLE_USER_TABLE = "simple_user";
 	private static final String SIMPLE_USER_ID = "simple_user_ID";
 	private static final String FIRST_NAME = "first_name";
 	private static final String LAST_NAME = "last_name";
 	private static final String LOCATION = "location";
+	private static final String USERNAME = "username";
+	private static final String PASSWORD = "password";
+	private static final String EMAIL = "email";
+	private static final String ACTIVE_ACCOUNT = "active_account";
 	private Connection conn;
 	private PreparedStatement preStmt;
 	private ResultSet rs;
@@ -110,8 +114,8 @@ public class SimpleUserDAO {
 	 */
 	public SimpleUser create(SimpleUser simpleUser)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
-		String sql = "INSERT INTO " + SIMPLE_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION
-				+ ") VALUES (?, ?, ?);";
+		String sql = "INSERT INTO " + SIMPLE_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION + ", "
+				+ USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE_ACCOUNT + ") VALUES (?, ?, ?, ?, ?, ?, ?);";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -119,6 +123,10 @@ public class SimpleUserDAO {
 			preStmt.setString(1, simpleUser.getFirstName());
 			preStmt.setString(2, simpleUser.getLastName());
 			preStmt.setString(3, simpleUser.getLocation());
+			preStmt.setString(4, simpleUser.getUsername());
+			preStmt.setString(5, simpleUser.getPassword());
+			preStmt.setString(6, simpleUser.getEmail());
+			preStmt.setBoolean(7, simpleUser.getActiveAccount());
 			preStmt.executeUpdate();
 			rs = preStmt.getGeneratedKeys();
 			if (rs.next()) {
@@ -144,7 +152,8 @@ public class SimpleUserDAO {
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		int rowsAffected = 0;
 		String sql = "UPDATE " + SIMPLE_USER_TABLE + " SET " + FIRST_NAME + "=?, " + LAST_NAME + "=?, " + LOCATION
-				+ "=? WHERE " + SIMPLE_USER_ID + "=?;";
+				+ "=?," + USERNAME + "=?, " + PASSWORD + "=?, " + EMAIL + "=?, " + ACTIVE_ACCOUNT + "=? WHERE "
+				+ SIMPLE_USER_ID + "=?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -152,7 +161,11 @@ public class SimpleUserDAO {
 			preStmt.setString(1, simpleUser.getFirstName());
 			preStmt.setString(2, simpleUser.getLastName());
 			preStmt.setString(3, simpleUser.getLocation());
-			preStmt.setInt(4, simpleUser.getSimpleUserID());
+			preStmt.setString(4, simpleUser.getUsername());
+			preStmt.setString(5, simpleUser.getPassword());
+			preStmt.setString(6, simpleUser.getEmail());
+			preStmt.setBoolean(7, simpleUser.getActiveAccount());
+			preStmt.setInt(8, simpleUser.getSimpleUserID());
 			rowsAffected = preStmt.executeUpdate();
 			if (rowsAffected == 1) {
 				return true;
@@ -234,9 +247,9 @@ public class SimpleUserDAO {
 	public List<SimpleUser> findWithUnsignedTask()
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		List<SimpleUser> simpleUsers = new ArrayList<>();
-		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " INNER JOIN Task ON " + SIMPLE_USER_TABLE + "."
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " INNER JOIN task ON " + SIMPLE_USER_TABLE + "."
 				+ SIMPLE_USER_ID
-				+ " = Task.simple_user_ID WHERE Task.task_ID NOT IN (SELECT Contract.task_ID FROM Contract);";
+				+ " = task.simple_user_ID WHERE task.task_ID NOT IN (SELECT contract.task_ID FROM contract);";
 		try {
 			conn = DaoUtils.getConnection();
 			preStmt = conn.prepareStatement(sql);
@@ -261,6 +274,8 @@ public class SimpleUserDAO {
 	private static SimpleUser populate(ResultSet resultSet) throws SQLException {
 		return new SimpleUser().setSimpleUserID(resultSet.getInt(SIMPLE_USER_ID))
 				.setFirstName(resultSet.getString(FIRST_NAME)).setLastName(resultSet.getString(LAST_NAME))
-				.setLocation(resultSet.getString(LOCATION));
+				.setLocation(resultSet.getString(LOCATION)).setUsername(resultSet.getString(USERNAME))
+				.setPassword(resultSet.getString(PASSWORD)).setEmail(resultSet.getString(EMAIL))
+				.setActiveAccount(resultSet.getBoolean(ACTIVE_ACCOUNT));
 	}
 }
