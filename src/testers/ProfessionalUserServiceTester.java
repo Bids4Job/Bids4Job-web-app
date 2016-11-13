@@ -23,7 +23,7 @@ public class ProfessionalUserServiceTester {
 		System.out.println(p);
 	    }
 	    //create()
-	    pro = new ProfessionalUser(21, "Antonis", "Antoniou", "Cyprous", "teacher");
+	    pro = new ProfessionalUser(21, "Antonis", "Antoniou", "Cyprous", "teacher", "ant-ant", "ant123password!", "antoniou@example.com", true);
 	    System.out.println("\ncreate()\n" + proService.create(pro));
 	    //update()
 	    System.out.println("\nupdate()\n");  

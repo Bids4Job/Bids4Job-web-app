@@ -4,6 +4,8 @@ import domain.ProfessionalUser;
 import java.sql.*;
 import java.util.*;
 
+//import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
+
 /**
  * 
  * @author Ioannis
@@ -17,6 +19,10 @@ public class ProfessionalUserDao {
     private static final String LAST_NAME = "last_name";
     private static final String LOCATION = "location";
     private static final String PROFESSION = "profession";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String EMAIL = "email";
+    private static final String ACTIVE = "active";
     private Connection connection;
     private PreparedStatement statement;
     private ResultSet resultSet;
@@ -41,7 +47,7 @@ public class ProfessionalUserDao {
      * @throws InstantiationException
      */
     public boolean update (ProfessionalUser professionalUser) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-	String query = "UPDATE " + PROFFESIONAL_USER_TABLE + " SET " + FIRST_NAME +  "= ?, " + LAST_NAME + "= ?, " + LOCATION + "= ?, " + PROFESSION + "= ? WHERE " + PRO_USER_ID +  "=?";
+	String query = "UPDATE " + PROFFESIONAL_USER_TABLE + " SET " + FIRST_NAME +  "= ?, " + LAST_NAME + "= ?, " + LOCATION + "= ?, " + PROFESSION + "= ?, " + USERNAME + "= ?, " + PASSWORD + "= ?, " + EMAIL + "= ?, " + ACTIVE + "= ? WHERE " + PRO_USER_ID +  "=?";
 	this.prepareResources();
 	try {
 	    connection = DaoUtils.getConnection();
@@ -50,7 +56,11 @@ public class ProfessionalUserDao {
 	    statement.setString(2, professionalUser.getLastName());
 	    statement.setString(3, professionalUser.getLocation());
 	    statement.setString(4, professionalUser.getProfession());
-	    statement.setInt(5, professionalUser.getProUserId());
+	    statement.setString(5, professionalUser.getUsername());
+	    statement.setString(6, professionalUser.getPassword());
+	    statement.setString(7, professionalUser.getEmail());
+	    statement.setBoolean(8, professionalUser.getActive());
+	    statement.setInt(9, professionalUser.getProUserId());
 	    int affectedRows = statement.executeUpdate();
 	    if (affectedRows == 1){
 		return true;
@@ -98,7 +108,7 @@ public class ProfessionalUserDao {
      * @throws InstantiationException
      */
     public ProfessionalUser create(ProfessionalUser professionalUser) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-	String query = "INSERT INTO " + PROFFESIONAL_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION + ", " + PROFESSION + ") VALUES (?, ?, ?, ?)";
+	String query = "INSERT INTO " + PROFFESIONAL_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION + ", " + PROFESSION + ", " + USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	this.prepareResources();;
 	try {
 	    connection = DaoUtils.getConnection();
@@ -107,6 +117,10 @@ public class ProfessionalUserDao {
 	    statement.setString(2, professionalUser.getLastName());
 	    statement.setString(3, professionalUser.getLocation());
 	    statement.setString(4, professionalUser.getProfession());
+	    statement.setString(5, professionalUser.getUsername());
+	    statement.setString(6, professionalUser.getPassword());
+	    statement.setString(7, professionalUser.getEmail());
+	    statement.setBoolean(8, professionalUser.getActive());
 	    statement.executeUpdate();
 	    resultSet = statement.getGeneratedKeys();
 	    if (resultSet.next()) {
@@ -148,6 +162,27 @@ public class ProfessionalUserDao {
     }
     
     
+    public List<ProfessionalUser> findActive(boolean active)  throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
+	List<ProfessionalUser> activeProfessionalUsers = new ArrayList<>();
+	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + ACTIVE + " = ?";
+	this.prepareResources();
+	try {
+	    connection = DaoUtils.getConnection();
+	    statement = connection.prepareStatement(query);
+	    statement.setBoolean(1, active);
+	    resultSet = statement.executeQuery();
+	    while (resultSet.next()){
+		ProfessionalUser professionalUser = populate(resultSet);
+		activeProfessionalUsers.add(professionalUser);
+	    }
+	} finally {
+	    DaoUtils.closeResources(resultSet, statement, connection);
+	}
+	return activeProfessionalUsers;
+	
+    }
+    
+    
     /**
      * Find specific Professional User from Professional User ID
      * @param proUserid
@@ -174,6 +209,7 @@ public class ProfessionalUserDao {
 	}
 	return professionalUser;
     }
+    
     
     
     /**
@@ -215,7 +251,11 @@ public class ProfessionalUserDao {
 		.setFirstName(resultSet.getString("first_name"))
 		.setLastName(resultSet.getString("last_name"))
 		.setLocation(resultSet.getString("location"))
-		.setProfession(resultSet.getString("profession"));
+		.setProfession(resultSet.getString("profession"))
+		.setUsername(resultSet.getString("username"))
+		.setPassword(resultSet.getString("password"))
+		.setEmail(resultSet.getString("email"))
+		.setActive(resultSet.getBoolean("active"));
     }   
     
 }

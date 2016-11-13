@@ -28,9 +28,12 @@ CREATE TABLE IF NOT EXISTS `simple_user` (
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `location` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `active_account` BOOLEAN NOT NULL,
   PRIMARY KEY (`simple_user_id`))
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `task`
@@ -40,6 +43,8 @@ CREATE TABLE IF NOT EXISTS `task` (
   `deadline` TIMESTAMP(0) NOT NULL,
   `work_field` VARCHAR(45) NOT NULL,
   `simple_user_id` INT NOT NULL,
+  `description` VARCHAR(200) NOT NULL,
+  `active_task` BOOLEAN NOT NULL,
   PRIMARY KEY (`task_id`),
   INDEX `fk_task_1_idx` (`simple_user_id` ASC),
   CONSTRAINT `fk_simple_user_to_task_1`
@@ -58,9 +63,12 @@ CREATE TABLE IF NOT EXISTS `pro_user` (
   `last_name` VARCHAR(45) NOT NULL,
   `location` VARCHAR(45) NOT NULL,
   `profession` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `active_account` BOOLEAN NOT NULL,
   PRIMARY KEY (`pro_user_id`))
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `bid`
@@ -86,7 +94,6 @@ CREATE TABLE IF NOT EXISTS `bid` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `contract`
 -- -----------------------------------------------------
@@ -95,6 +102,7 @@ CREATE TABLE IF NOT EXISTS `contract` (
   `bid_id` INT NOT NULL,
   `task_id` INT NOT NULL,
   `contract_time` TIMESTAMP(0) NOT NULL,
+  `rating` DOUBLE NULL,
   PRIMARY KEY (`contract_id`),
   INDEX `fk_contract_tasks1_idx` (`task_id` ASC),
   CONSTRAINT `fk_bid_to_contract_1`
@@ -113,144 +121,158 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Fill in table `simple_user`
 -- -----------------------------------------------------
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('1', 'John', 'Kranas', 'Faliro');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('2', 'George', 'Bartzis', 'Chalandri');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('3', 'Dimitris', 'Theodoropoulos', 'Neo Iraklio');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('4', 'George', 'Spyridakis', 'Zografou');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('5', 'Petros', 'Petrou', 'Kolonaki');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('6', 'Maria', 'Ioannou', 'Faliro');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('7', 'Marialena', 'Rossetou', 'Glyfada');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('8', 'Dimitris', 'Kranas', 'Glyfada');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('9', 'Eleni', 'Mavridou', 'Rafina');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('10', 'Xristina', 'Kontou', 'Zografou');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('11', 'Spyros', 'Koletsis', 'Faliro');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('12', 'Marios', 'Palaiologos', 'Marousi');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('13', 'Eleni', 'Palouki', 'Glyfada');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('14', 'George', 'Varkas', 'Zografou');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('15', 'Theodoris', 'Tzanoudakis', 'Glyfada');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('16', 'Rania', 'Karpathi', 'Argyroupoli');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('17', 'Katerina', 'Kontou', 'Alimos');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('18', 'Sofia', 'Andreou', 'Zografou');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('19', 'Maria', 'Chatzi', 'Alimos');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('20', 'Alexia', 'Psylaki', 'Kifisia');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('21', 'John', 'Alexiou', 'Thessaloniki');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('22', 'Marianna', 'Markou', 'Faliro');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('23', 'Eleni', 'Papadopoulou', 'Argyroupoli');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('24', 'Anna', 'Zeta', 'Kifisia');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('25', 'George', 'Kakos', 'Alimos');
-INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`) VALUES ('26', 'Dimitris', 'Dimitriou', 'Chalandri');
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('1', 'John', 'Kranas', 'Faliro', 'username1', 'pass1', 'example1@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('2', 'George', 'Bartzis', 'Chalandri', 'username2', 'pass2', 'example2@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('3', 'Dimitris', 'Theodoropoulos', 'Neo Iraklio', 'username3', 'pass3', 'example3@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('4', 'George', 'Spyridakis', 'Zografou', 'username4', 'pass4', 'example4@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('5', 'Petros', 'Petrou', 'Kolonaki', 'username5', 'pass5', 'example5@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('6', 'Maria', 'Ioannou', 'Faliro', 'username6', 'pass6', 'example6@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('7', 'Marialena', 'Rossetou', 'Glyfada', 'username7', 'pass7', 'example7@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('8', 'Dimitris', 'Kranas', 'Glyfada', 'username8', 'pass8', 'example8@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('9', 'Eleni', 'Mavridou', 'Rafina', 'username9', 'pass9', 'example9@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('10', 'Xristina', 'Kontou', 'Zografou', 'username10', 'pass10', 'example10@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('11', 'Spyros', 'Koletsis', 'Faliro', 'username11', 'pass11', 'example11@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('12', 'Marios', 'Palaiologos', 'Marousi', 'username12', 'pass12', 'example12@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('13', 'Eleni', 'Palouki', 'Glyfada', 'username13', 'pass13', 'example13@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('14', 'George', 'Varkas', 'Zografou', 'username14', 'pass14', 'example14@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('15', 'Theodoris', 'Tzanoudakis', 'Glyfada', 'username15', 'pass15', 'example15@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('16', 'Rania', 'Karpathi', 'Argyroupoli', 'username16', 'pass16', 'example16@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('17', 'Katerina', 'Kontou', 'Alimos', 'username17', 'pass17', 'example17@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('18', 'Sofia', 'Andreou', 'Zografou', 'username18', 'pass18', 'example18@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('19', 'Maria', 'Chatzi', 'Alimos', 'username19', 'pass19', 'example19@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('20', 'Alexia', 'Psylaki', 'Kifisia', 'username20', 'pass20', 'example20@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('21', 'John', 'Alexiou', 'Thessaloniki', 'username21', 'pass21', 'example21@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('22', 'Marianna', 'Markou', 'Faliro', 'username22', 'pass22', 'example22@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('23', 'Eleni', 'Papadopoulou', 'Argyroupoli', 'username23', 'pass23', 'example23@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('24', 'Anna', 'Zeta', 'Kifisia', 'username24', 'pass24', 'example24@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('25', 'George', 'Kakos', 'Alimos', 'username25', 'pass25', 'example25@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('26', 'Dimitris', 'Dimitriou', 'Chalandri', 'username26', 'pass26', 'example26@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('27', 'Eleanna', 'Papazoglou', 'Argyroupoli', 'username27', 'pass27', 'example27@mail.com', FALSE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('28', 'Anna', 'Zetakou', 'Kifisia', 'username28', 'pass28', 'example28@mail.com', FALSE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('29', 'George', 'Loukakos', 'Alimos', 'username29', 'pass29', 'example29@mail.com', FALSE);
+INSERT INTO `bids4job_db`.`simple_user` (`simple_user_id`, `first_name`, `last_name`, `location`, `username`, `password`, `email`, `active_account`) VALUES ('30', 'Dimitris', 'Dimitropoulos', 'Chalandri', 'username30', 'pass30', 'example30@mail.com', FALSE);
 
 -- -----------------------------------------------------
 -- Fill in table `pro_user`
 -- -----------------------------------------------------
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('1', 'John', 'Kranas', 'Faliro', 'Developer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('2', 'Petros', 'Petrou', 'Alimos', 'Barber');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('3', 'Dimitris', 'Kranas', 'Glyfada', 'Banker');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('4', 'Maria', 'Ioannou', 'Faliro', 'Dancer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('5', 'Marialena', 'Rossetou', 'Chania', 'Designer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('6', 'Apostolis', 'Chatzignatiou', 'Agios Dimitrios', 'Logistics');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('7', 'Kostas', 'Chatzinathanail', 'Argyroupoli', 'Personal Trainer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('8', 'George', 'Chondrogiannis', 'Zografou', 'Barber');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('9', 'Chris', 'Stefanou', 'Kallithea', 'Developer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('10', 'Pavlos', 'Kranas', 'Kentro', 'Developer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('11', 'Athanasia', 'Gerontiou', 'Glyfada', 'Barber');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('12', 'Petros', 'Tsoulis', 'Alimos', 'Designer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('13', 'Vasilis', 'Makakis', 'Kentro', 'Engineer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('14', 'Achilleas', 'Tasoulis', 'Glyfada', 'Banker');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('15', 'Tasos', 'Petroulis', 'Zografou', 'Plumber');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('16', 'Makis', 'Spyridakis', 'Alimos', 'Designer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('17', 'Sotiris', 'Petrou', 'Argyroupoli', 'Plumber');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('18', 'John', 'Tsaousis', 'Exarcheia', 'Developer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('19', 'Dimitris', 'Theodoropoulos', 'Neo Iraklio', 'Developer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('20', 'George', 'Bartzis', 'Chalandri', 'Developer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('21', 'Nick', 'Vrimonis', 'Chalandri', 'Developer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('22', 'Olga', 'Maki', 'Exarcheia', 'Personal Trainer');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('23', 'Fotis', 'Stefanou', 'Faliro', 'Plumber');
-INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`) VALUES ('24', 'Maria', 'Kostala', 'Chalandri', 'Designer');
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('1', 'John', 'Kranas', 'Faliro', 'Developer', 'username1', 'pass1', 'example1@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('2', 'Petros', 'Petrou', 'Alimos', 'Barber', 'username2', 'pass2', 'example2@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('3', 'Dimitris', 'Kranas', 'Glyfada', 'Banker', 'username3', 'pass3', 'example3@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('4', 'Maria', 'Ioannou', 'Faliro', 'Dancer', 'username4', 'pass4', 'example4@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('5', 'Marialena', 'Rossetou', 'Chania', 'Designer', 'username5', 'pass5', 'example5@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('6', 'Apostolis', 'Chatzignatiou', 'Agios Dimitrios', 'Logistics', 'username6', 'pass6', 'example6@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('7', 'Kostas', 'Chatzinathanail', 'Argyroupoli', 'Personal Trainer', 'username7', 'pass7', 'example7@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('8', 'George', 'Chondrogiannis', 'Zografou', 'Barber', 'username8', 'pass8', 'example8@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('9', 'Chris', 'Stefanou', 'Kallithea', 'Developer', 'username9', 'pass9', 'example9@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('10', 'Pavlos', 'Kranas', 'Kentro', 'Developer', 'username10', 'pass10', 'example10@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('11', 'Athanasia', 'Gerontiou', 'Glyfada', 'Barber', 'username11', 'pass11', 'example11@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('12', 'Petros', 'Tsoulis', 'Alimos', 'Designer', 'username12', 'pass12', 'example12@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('13', 'Vasilis', 'Makakis', 'Kentro', 'Engineer', 'username13', 'pass13', 'example13@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('14', 'Achilleas', 'Tasoulis', 'Glyfada', 'Banker', 'username14', 'pass14', 'example14@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('15', 'Tasos', 'Petroulis', 'Zografou', 'Plumber', 'username15', 'pass15', 'example15@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('16', 'Makis', 'Spyridakis', 'Alimos', 'Designer', 'username16', 'pass16', 'example16@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('17', 'Sotiris', 'Petrou', 'Argyroupoli', 'Plumber', 'username17', 'pass17', 'example17@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('18', 'John', 'Tsaousis', 'Exarcheia', 'Developer', 'username18', 'pass18', 'example18@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('19', 'Dimitris', 'Theodoropoulos', 'Neo Iraklio', 'Developer', 'username19', 'pass19', 'example19@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('20', 'George', 'Bartzis', 'Chalandri', 'Developer', 'username20', 'pass20', 'example20@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('21', 'Nick', 'Vrimonis', 'Chalandri', 'Developer', 'username21', 'pass21', 'example21@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('22', 'Olga', 'Maki', 'Exarcheia', 'Personal Trainer', 'username22', 'pass22', 'example22@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('23', 'Fotis', 'Stefanou', 'Faliro', 'Plumber', 'username23', 'pass23', 'example23@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('24', 'Maria', 'Kostala', 'Chalandri', 'Designer', 'username24', 'pass24', 'example24@mail.com', TRUE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('25', 'Kostas', 'Bartzis', 'Chalandri', 'Developer', 'username25', 'pass25', 'example25@mail.com', FALSE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('26', 'Nikos', 'Vrimonis', 'Chalandri', 'Developer', 'username26', 'pass26', 'example26@mail.com', FALSE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('27', 'Athanasia', 'Maki', 'Exarcheia', 'Personal Trainer', 'username27', 'pass27', 'example27@mail.com', FALSE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('28', 'Sotiris', 'Stefanou', 'Faliro', 'Plumber', 'username28', 'pass28', 'example28@mail.com', FALSE);
+INSERT INTO `bids4job_db`.`pro_user` (`pro_user_id`, `first_name`, `last_name`, `location`, `profession`, `username`, `password`, `email`, `active_account`) VALUES ('29', 'Marianna', 'Kostala', 'Chalandri', 'Designer', 'username29', 'pass29', 'example29@mail.com', FALSE);
 
 -- -----------------------------------------------------
 -- Fill in table `task`
 -- -----------------------------------------------------
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('1', '2016:1:09', 'Barber', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('2', '2016:1:10', 'Barber', '4');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('3', '2016:1:12', 'Barber', '6');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('4', '2016:1:12', 'Barber', '8');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('5', '2016:1:12', 'Barber', '11');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('6', '2016:1:13', 'Developer', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('7', '2016:1:13', 'Developer', '3');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('8', '2016:1:13', 'Developer', '7');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('9', '2016:1:13', 'Plumber', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('10', '2016:1:13', 'Plumber', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('11', '2016:1:13', 'Designer', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('12', '2016:2:1', 'Plumber', '20');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('13', '2016:2:1', 'Designer', '20');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('14', '2016:2:15', 'Developer', '13');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('15', '2016:2:27', 'Barber', '19');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('16', '2016:3:7', 'Developer', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('17', '2016:3:7', 'Developer', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('18', '2016:3:30', 'Barber', '11');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('19', '2016:3:30', 'Developer', '6');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('20', '2016:4:9', 'Plumber', '6');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('21', '2016:4:9', 'Barber', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('22', '2016:4:19', 'Plumber', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('23', '2016:4:20', 'Developer', '17');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('24', '2016:4:22', 'Barber', '17');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('25', '2016:10:9', 'Developer', '17');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('26', '2016:10:9', 'Developer', '4');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('27', '2016:10:9', 'Barber', '5');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('28', '2016:10:9', 'Plumber', '5');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('29', '2016:10:10', 'Plumber', '7');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('30', '2016:10:10', 'Barber', '8');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('31', '2016:10:10', 'Barber', '9');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('32', '2016:10:10', 'Barber', '18');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('33', '2016:10:10', 'Plumber', '5');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('34', '2016:10:10', 'Developer', '5');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('35', '2016:10:10', 'Barber', '15');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('36', '2016:10:10', 'Plumber', '15');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('37', '2016:10:10', 'Barber', '15');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('38', '2016:10:10', 'Developer', '13');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('39', '2016:10:10', 'Barber', '11');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('40', '2016:11:1', 'Designer', '6');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('41', '2016:11:1', 'Developer', '8');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('42', '2016:11:1', 'Barber', '4');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('43', '2016:11:1', 'Barber', '3');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('44', '2016:11:1', 'Barber', '2');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('45', '2016:11:2', 'Developer', '2');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('46', '2016:11:2', 'Developer', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('47', '2016:11:2', 'Developer', '7');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('48', '2016:11:2', 'Developer', '9');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('49', '2016:11:2', 'Developer', '2');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('50', '2016:11:3', 'Developer', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('51', '2016:11:3', 'Developer', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('52', '2016-12-03 00:00:00', 'Barber', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('53', '2016-12-03 00:00:00', 'Barber', '3');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('54', '2016-12-03 00:00:00', 'Barber', '5');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('55', '2016-12-03 00:00:00', 'Engineer', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('56', '2016-12-03 00:00:00', 'Plumber', '13');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('57', '2017-1-23 00:00:00', 'Barber', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('58', '2017-1-23 00:00:00', 'Engineer', '13');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('59', '2017-1-23 00:00:00', 'Barber', '6');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('60', '2017-2-7 00:00:00', 'Driver', '5');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('61', '2017-2-23 00:00:00', 'Driver', '5');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('62', '2017-1-7 00:00:00', 'Engineer', '8');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('63', '2017-4-14 00:00:00', 'Barber', '11');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('64', '2017-4-24 00:00:00', 'Barber', '12');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('65', '2017-5-5 00:00:00', 'Barber', '15');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('66', '2017-5-24 00:00:00', 'Plumber', '11');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('67', '2017-1-4 00:00:00', 'Plumber', '20');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('68', '2017-1-11 00:00:00', 'Designer', '15');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('69', '2017-1-1 00:00:00', 'Developer', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('70', '2017-1-11 00:00:00', 'Plumber', '12');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('71', '2017-2-2 00:00:00', 'Barber', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('72', '2017-2-2 00:00:00', 'Barber', '2');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('73', '2017-1-4 00:00:00', 'Designer', '6');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('74', '2017-1-4 00:00:00', 'Driver', '5');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('75', '2017-1-4 00:00:00', 'Driver', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('76', '2017-1-14 00:00:00', 'Developer', '15');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('77', '2017-1-23 00:00:00', 'Barber', '8');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('78', '2017-1-23 00:00:00', 'Plumber', '19');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('79', '2017-1-12 00:00:00', 'Designer', '1');
-INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`) VALUES ('80', '2017-2-3 00:00:00', 'Developer', '1');
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('1', '2016:1:09', 'Barber', '1', 'Description for Task1', TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('2', '2016:1:10', 'Barber', '4', 'Description for Task2',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('3', '2016:1:12', 'Barber', '6', 'Description for Task3',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('4', '2016:1:12', 'Barber', '8', 'Description for Task4',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('5', '2016:1:12', 'Barber', '11', 'Description for Task5',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('6', '2016:1:13', 'Developer', '1', 'Description for Task6',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('7', '2016:1:13', 'Developer', '3', 'Description for Task7',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('8', '2016:1:13', 'Developer', '7', 'Description for Task8',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('9', '2016:1:13', 'Plumber', '1', 'Description for Task9',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('10', '2016:1:13', 'Plumber', '1', 'Description for Task10',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('11', '2016:1:13', 'Designer', '1', 'Description for Task11',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('12', '2016:2:1', 'Plumber', '20', 'Description for Task12',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('13', '2016:2:1', 'Designer', '20', 'Description for Task13',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('14', '2016:2:15', 'Developer', '13', 'Description for Task14',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('15', '2016:2:27', 'Barber', '19', 'Description for Task15',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('16', '2016:3:7', 'Developer', '1', 'Description for Task16',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('17', '2016:3:7', 'Developer', '1', 'Description for Task17',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('18', '2016:3:30', 'Barber', '11', 'Description for Task18',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('19', '2016:3:30', 'Developer', '6', 'Description for Task19',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('20', '2016:4:9', 'Plumber', '6', 'Description for Task20',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('21', '2016:4:9', 'Barber', '1', 'Description for Task21',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('22', '2016:4:19', 'Plumber', '1', 'Description for Task22',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('23', '2016:4:20', 'Developer', '17', 'Description for Task23',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('24', '2016:4:22', 'Barber', '17', 'Description for Task24',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('25', '2016:10:9', 'Developer', '17', 'Description for Task25',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('26', '2016:10:9', 'Developer', '4', 'Description for Task26',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('27', '2016:10:9', 'Barber', '5', 'Description for Task127',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('28', '2016:10:9', 'Plumber', '5', 'Description for Task28',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('29', '2016:10:10', 'Plumber', '7', 'Description for Task29',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('30', '2016:10:10', 'Barber', '8', 'Description for Task30',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('31', '2016:10:10', 'Barber', '9', 'Description for Task31',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('32', '2016:10:10', 'Barber', '18', 'Description for Task32',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('33', '2016:10:10', 'Plumber', '5', 'Description for Task33',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('34', '2016:10:10', 'Developer', '5', 'Description for Task34',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('35', '2016:10:10', 'Barber', '15', 'Description for Task35',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('36', '2016:10:10', 'Plumber', '15', 'Description for Task36',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('37', '2016:10:10', 'Barber', '15', 'Description for Task37',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('38', '2016:10:10', 'Developer', '13', 'Description for Task38',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('39', '2016:10:10', 'Barber', '11', 'Description for Task39',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('40', '2016:11:1', 'Designer', '6', 'Description for Task40',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('41', '2016:11:1', 'Developer', '8', 'Description for Task41',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('42', '2016:11:1', 'Barber', '4', 'Description for Task42',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('43', '2016:11:1', 'Barber', '3', 'Description for Task43',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('44', '2016:11:1', 'Barber', '2', 'Description for Task44',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('45', '2016:11:2', 'Developer', '2', 'Description for Task45',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('46', '2016:11:2', 'Developer', '1', 'Description for Task46',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('47', '2016:11:2', 'Developer', '7', 'Description for Task47',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('48', '2016:11:2', 'Developer', '9', 'Description for Task48',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('49', '2016:11:2', 'Developer', '2', 'Description for Task49',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('50', '2016:11:3', 'Developer', '1', 'Description for Task50',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('51', '2016:11:3', 'Developer', '1', 'Description for Task51',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('52', '2016-12-03 00:00:00', 'Barber', '1', 'Description for Task52',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('53', '2016-12-03 00:00:00', 'Barber', '3', 'Description for Task53',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('54', '2016-12-03 00:00:00', 'Barber', '5', 'Description for Task54',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('55', '2016-12-03 00:00:00', 'Engineer', '1', 'Description for Task55',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('56', '2016-12-03 00:00:00', 'Plumber', '13', 'Description for Task56',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('57', '2017-1-23 00:00:00', 'Barber', '1', 'Description for Task57',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('58', '2017-1-23 00:00:00', 'Engineer', '13', 'Description for Task58',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('59', '2017-1-23 00:00:00', 'Barber', '6', 'Description for Task59',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('60', '2017-2-7 00:00:00', 'Driver', '5', 'Description for Task60',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('61', '2017-2-23 00:00:00', 'Driver', '5', 'Description for Task61',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('62', '2017-1-7 00:00:00', 'Engineer', '8', 'Description for Task62',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('63', '2017-4-14 00:00:00', 'Barber', '11', 'Description for Task63',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('64', '2017-4-24 00:00:00', 'Barber', '12', 'Description for Task64',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('65', '2017-5-5 00:00:00', 'Barber', '15', 'Description for Task65',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('66', '2017-5-24 00:00:00', 'Plumber', '11', 'Description for Task66',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('67', '2017-1-4 00:00:00', 'Plumber', '20', 'Description for Task67',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('68', '2017-1-11 00:00:00', 'Designer', '15', 'Description for Task68',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('69', '2017-1-1 00:00:00', 'Developer', '1', 'Description for Task69',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('70', '2017-1-11 00:00:00', 'Plumber', '12', 'Description for Task70',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('71', '2017-2-2 00:00:00', 'Barber', '1', 'Description for Task71',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('72', '2017-2-2 00:00:00', 'Barber', '2', 'Description for Task72',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('73', '2017-1-4 00:00:00', 'Designer', '6', 'Description for Task73',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('74', '2017-1-4 00:00:00', 'Driver', '5', 'Description for Task74',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('75', '2017-1-4 00:00:00', 'Driver', '1', 'Description for Task75',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('76', '2017-1-14 00:00:00', 'Developer', '15', 'Description for Task76',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('77', '2017-1-23 00:00:00', 'Barber', '8', 'Description for Task77',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('78', '2017-1-23 00:00:00', 'Plumber', '19', 'Description for Task78',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('79', '2017-1-12 00:00:00', 'Designer', '1', 'Description for Task79',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('80', '2017-2-3 00:00:00', 'Developer', '1', 'Description for Task80',  TRUE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('81', '2017-1-14 00:00:00', 'Developer', '15', 'Description for Task81',  FALSE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('82', '2017-1-23 00:00:00', 'Barber', '8', 'Description for Task82',  FALSE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('83', '2017-1-23 00:00:00', 'Plumber', '19', 'Description for Task83',  FALSE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('84', '2017-1-12 00:00:00', 'Designer', '1', 'Description for Task84',  FALSE);
+INSERT INTO `bids4job_db`.`task` (`task_id`, `deadline`, `work_field`, `simple_user_id`, `description`, `active_task`) VALUES ('85', '2017-2-3 00:00:00', 'Developer', '1', 'Description for Task85',  FALSE);
 
 -- -----------------------------------------------------
 -- Fill in table `bid`
@@ -310,10 +332,10 @@ INSERT INTO `bids4job_db`.`bid` (`bid_id`, `task_id`, `pro_user_id`, `amount`, `
 -- -----------------------------------------------------
 -- Fill in table `contract`
 -- -----------------------------------------------------
-INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`) VALUES ('1', '3', '1', '2016-01-05 15:30:00');
-INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`) VALUES ('2', '10', '3', '2016-01-09 22:00:00');
-INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`) VALUES ('3', '17', '15', '2016-02-20 17:30:00');
-INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`) VALUES ('4', '31', '17', '2016-02-11 16:00:00');
-INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`) VALUES ('5', '33', '73', '2017-01-02 10:00:00');
-INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`) VALUES ('6', '41', '79', '2017-01-08 08:00:00');
-INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`) VALUES ('7', '51', '77', '2017-01-03 23:30:00');
+INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`, `rating`) VALUES ('1', '3', '1', '2016-01-05 15:30:00', NULL);
+INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`, `rating`) VALUES ('2', '10', '3', '2016-01-09 22:00:00', 4.5);
+INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`, `rating`) VALUES ('3', '17', '15', '2016-02-20 17:30:00', 5);
+INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`, `rating`) VALUES ('4', '31', '17', '2016-02-11 16:00:00', 4.5);
+INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`, `rating`) VALUES ('5', '33', '73', '2017-01-02 10:00:00', 3.5);
+INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`, `rating`) VALUES ('6', '41', '79', '2017-01-08 08:00:00', NULL);
+INSERT INTO `bids4job_db`.`contract` (`contract_id`, `bid_id`, `task_id`, `contract_time`, `rating`) VALUES ('7', '51', '77', '2017-01-03 23:30:00', 2);

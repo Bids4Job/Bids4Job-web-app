@@ -24,6 +24,10 @@ public class SimpleUserDAO {
 	private static final String FIRST_NAME = "first_name";
 	private static final String LAST_NAME = "last_name";
 	private static final String LOCATION = "location";
+	private static final String USERNAME = "username";
+	private static final String PASSWORD = "password";
+	private static final String EMAIL = "email";
+	private static final String ACTIVE_ACCOUNT = "active_account";
 	private Connection conn;
 	private PreparedStatement preStmt;
 	private ResultSet rs;
@@ -110,8 +114,8 @@ public class SimpleUserDAO {
 	 */
 	public SimpleUser create(SimpleUser simpleUser)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
-		String sql = "INSERT INTO " + SIMPLE_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION
-				+ ") VALUES (?, ?, ?);";
+		String sql = "INSERT INTO " + SIMPLE_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION + ", "
+				+ USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE_ACCOUNT + ") VALUES (?, ?, ?, ?, ?, ?, ?);";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -119,6 +123,10 @@ public class SimpleUserDAO {
 			preStmt.setString(1, simpleUser.getFirstName());
 			preStmt.setString(2, simpleUser.getLastName());
 			preStmt.setString(3, simpleUser.getLocation());
+			preStmt.setString(4, simpleUser.getUsername());
+			preStmt.setString(5, simpleUser.getPassword());
+			preStmt.setString(6, simpleUser.getEmail());
+			preStmt.setBoolean(7, simpleUser.getActiveAccount());
 			preStmt.executeUpdate();
 			rs = preStmt.getGeneratedKeys();
 			if (rs.next()) {
@@ -144,7 +152,8 @@ public class SimpleUserDAO {
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		int rowsAffected = 0;
 		String sql = "UPDATE " + SIMPLE_USER_TABLE + " SET " + FIRST_NAME + "=?, " + LAST_NAME + "=?, " + LOCATION
-				+ "=? WHERE " + SIMPLE_USER_ID + "=?;";
+				+ "=?," + USERNAME + "=?, " + PASSWORD + "=?, " + EMAIL + "=?, " + ACTIVE_ACCOUNT + "=? WHERE "
+				+ SIMPLE_USER_ID + "=?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -152,7 +161,11 @@ public class SimpleUserDAO {
 			preStmt.setString(1, simpleUser.getFirstName());
 			preStmt.setString(2, simpleUser.getLastName());
 			preStmt.setString(3, simpleUser.getLocation());
-			preStmt.setInt(4, simpleUser.getSimpleUserID());
+			preStmt.setString(4, simpleUser.getUsername());
+			preStmt.setString(5, simpleUser.getPassword());
+			preStmt.setString(6, simpleUser.getEmail());
+			preStmt.setBoolean(7, simpleUser.getActiveAccount());
+			preStmt.setInt(8, simpleUser.getSimpleUserID());
 			rowsAffected = preStmt.executeUpdate();
 			if (rowsAffected == 1) {
 				return true;
@@ -252,6 +265,36 @@ public class SimpleUserDAO {
 	}
 
 	/**
+	 * Finds Simple Users based on given account status.
+	 * 
+	 * @param active_account
+	 *            Represents if the account is active or not
+	 * @return A List of SimpleUsers that have the specified account status
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<SimpleUser> findByActiveAccount(boolean active_account)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		List<SimpleUser> simpleUsers = new ArrayList<>();
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + ACTIVE_ACCOUNT + "=?;";
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setBoolean(1, active_account);
+			rs = preStmt.executeQuery();
+			while (rs.next()) {
+				SimpleUser simpleUser = SimpleUserDAO.populate(rs);
+				simpleUsers.add(simpleUser);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return simpleUsers;
+	}
+
+	/**
 	 * Utility method that takes a result set and returns a SimpleUser object.
 	 *
 	 * @param resultSet
@@ -261,6 +304,8 @@ public class SimpleUserDAO {
 	private static SimpleUser populate(ResultSet resultSet) throws SQLException {
 		return new SimpleUser().setSimpleUserID(resultSet.getInt(SIMPLE_USER_ID))
 				.setFirstName(resultSet.getString(FIRST_NAME)).setLastName(resultSet.getString(LAST_NAME))
-				.setLocation(resultSet.getString(LOCATION));
+				.setLocation(resultSet.getString(LOCATION)).setUsername(resultSet.getString(USERNAME))
+				.setPassword(resultSet.getString(PASSWORD)).setEmail(resultSet.getString(EMAIL))
+				.setActiveAccount(resultSet.getBoolean(ACTIVE_ACCOUNT));
 	}
 }
