@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="css/simple_user_main.css">
 <link rel="stylesheet" href="css/nav_bar.css">
 <link rel="stylesheet" href="css/footer.css">
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
