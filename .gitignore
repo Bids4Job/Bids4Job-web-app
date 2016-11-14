@@ -11,5 +11,8 @@
 /out/
 
 # Maven
-/target/
+/target
 /src/main/resources/config.properties
+
+# MAC_OS
+.DS_Store
