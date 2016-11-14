@@ -12,3 +12,4 @@
 
 # Maven
 /target/
+/src/main/resources/config.properties
