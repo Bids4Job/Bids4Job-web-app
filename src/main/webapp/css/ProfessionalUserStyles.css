@@ -1,0 +1,23 @@
+.nav>li {
+	font-size: 1.2em;
+	text-align: center;
+}
+
+header {
+	text-align: center;
+	background-color: #e0e0e0;
+}
+
+body {
+      position: relative;
+      background: linear-gradient(#000000, #ffffff);
+  }
+  
+  #results {color: #fff; background-color: #000000;}
+  #foot {background: linear-gradient(#d5d4e6, #ffffff);}
+  #create {padding-top:30px;height:400px;}
+  #update {padding-top:30px;height:470;}
+  #remove {padding-top:40px;height:300px;}
+  #findOne {padding-top:40px;height:300px;}
+  #findFromLocation {padding-top:40px;height:300px;}
+  #findAll {padding-top:80px;height:300px;}
