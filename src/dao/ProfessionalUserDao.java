@@ -161,7 +161,15 @@ public class ProfessionalUserDao {
 	return professionalUsers;
     }
     
-    
+    /**
+     * Find all active Professional Users
+     * @param active
+     * @return
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     */
     public List<ProfessionalUser> findActive(boolean active)  throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
 	List<ProfessionalUser> activeProfessionalUsers = new ArrayList<>();
 	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + ACTIVE + " = ?";
