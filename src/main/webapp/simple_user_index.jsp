@@ -23,8 +23,8 @@
 	crossorigin="anonymous">
 <!-- Custom themes -->
 <link rel="stylesheet" href="css/simple_user_main.css">
-<link rel="stylesheet" href="css/nav_bar.css">
-<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/simple_user_nav_bar.css">
+<link rel="stylesheet" href="css/simple_user_footer.css">
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
@@ -40,7 +40,7 @@
 	<section id="top"></section>
 
 	<!-- Navigation Bar - fixed to top -->
-	<%@include file="nav_bar.jsp"%>
+	<%@include file="simple_user_nav_bar.jsp"%>
 
 	<!-- Jumbotron -->
 	<div class="jumbotron">
@@ -74,7 +74,7 @@
 			<div
 				class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
 				<h2>Create</h2>
-				<form action="CreateSimpleUser" method="POST">
+				<form action="simple_user_create" method="POST">
 					<div class="form-group">
 						<label for="name">Name:</label> <input type="text"
 							class="form-control" id="name" name="firstName" required>
@@ -116,7 +116,7 @@
 			<div
 				class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
 				<h2>Update</h2>
-				<form class="form-horizontal" action="UpdateSimpleUser"
+				<form class="form-horizontal" action="simple_user_update"
 					method="POST">
 					<div class="form-group has-success">
 						<label class="control-label col-sm-2" for="simple_user_id">ID:</label>
@@ -186,7 +186,7 @@
 			<div
 				class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
 				<h2>Delete</h2>
-				<form method="POST" action="DeleteSimpleUser">
+				<form method="POST" action="simple_user_delete">
 					<div class="form-group has-danger">
 						<label for="simple_user_id">ID:</label> <input type="number"
 							class="form-control" id="simple_user_id" name="simpleUserID"
@@ -220,7 +220,7 @@
 			<div
 				class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
 				<h2>Find One</h2>
-				<form method="GET" action="FindOneSimpleUser">
+				<form method="GET" action="simple_user_find_one">
 					<div class="form-group has-sucess">
 						<label for="simple_user_id">ID:</label> <input type="number"
 							class="form-control" id="simple_user_id" name="simpleUserID"
@@ -242,7 +242,7 @@
 			<div
 				class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
 				<h2>Find All</h2>
-				<form action="FindAllSimpleUsers" method="GET">
+				<form action="simple_user_find_all" method="GET">
 					<div class="form-group has-success">
 						<label for="disabledInput">All IDs:</label> <input type="number"
 							class="form-control" id="disabledInput" data-toggle="tooltip"
@@ -264,7 +264,7 @@
 			<div
 				class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
 				<h2>Find by Location</h2>
-				<form method="GET" action="FindSimpleUsersByLocation">
+				<form method="GET" action="simple_user_find_by_location">
 					<div class="form-group">
 						<label for="location">Location:</label> <input type="text"
 							class="form-control" id="location" name="location" required>
@@ -287,7 +287,7 @@
 			<div
 				class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
 				<h2>Find with Unsigned Task</h2>
-				<form method="GET" action="FindWithUnsignedTask">
+				<form method="GET" action="simple_user_find_by_unsigned_task">
 					<div class="form-button">
 						<button type="submit" class="btn btn-lg btn-info"
 							value="findWithUnsignedTask">
@@ -301,7 +301,7 @@
 	</section>
 
 	<!-- footer -->
-	<%@include file="footer.jsp"%>
+	<%@include file="simple_user_footer.jsp"%>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script

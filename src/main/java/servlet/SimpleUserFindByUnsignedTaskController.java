@@ -12,24 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
-
 import domain.SimpleUser;
 import service.SimpleUserService;
 
 /**
- * Servlet implementation class FindSimpleUsersByLocation
+ * Servlet implementation class FindWithUnsignedTaskServlet
  */
-@WebServlet("/FindSimpleUsersByLocation")
-public class FindSimpleUsersByLocationServlet extends HttpServlet {
+@WebServlet("/simple_user_find_by_unsigned_task")
+public class SimpleUserFindByUnsignedTaskController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private static final String LOCATION = "location";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FindSimpleUsersByLocationServlet() {
+	public SimpleUserFindByUnsignedTaskController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -44,49 +40,30 @@ public class FindSimpleUsersByLocationServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// RequestDispatcher object to forward any errors
-		RequestDispatcher errorDispatcher = getServletContext().getRequestDispatcher("/error_printer.jsp");
+		RequestDispatcher errorDispatcher = getServletContext().getRequestDispatcher("/simple_user_error_printer.jsp");
 		// RequestDispatcher to forward in created and stored successfully in
 		// database
-		RequestDispatcher successDispatcher = getServletContext().getRequestDispatcher("/list_results.jsp");
+		RequestDispatcher resultDispatcher = getServletContext().getRequestDispatcher("/simple_user_list_results.jsp");
+
+		// Declare the error message
+		String errorMessage;
 
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();
 
-		// Prepare an error message
-		String errorMessage = "";
-
-		// Get parameters from the request
-		String location = request.getParameter(LOCATION);
-
-		if (location == null || location.length() == 0) {
-			errorMessage = "Location field is empty";
-			request.setAttribute("errorMessage", errorMessage);
-			errorDispatcher.forward(request, response);
-			return;
-		} 
-
-		errorMessage = checkAlphaDashes(location);
-		if (errorMessage.length() > 0) {
-			request.setAttribute("errorMessage", errorMessage);
-			errorDispatcher.forward(request, response);
-			return;
-		}
-
-		// A List to store all SimpleUsers from the specified location
+		// A List to store SimpleUsers with unsigned tasks
 		List<SimpleUser> simpleUsers = new ArrayList<SimpleUser>();
 
 		try {
-			simpleUsers = simpleUserService.findByLocation(location);
+			simpleUsers = simpleUserService.findWithUnsignedTask();
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			errorMessage = e.getMessage();
 			request.setAttribute("errorMessage", errorMessage);
 			errorDispatcher.forward(request, response);
-			return;
 		}
-
 		// Set SimpleUser to request
 		request.setAttribute("simpleUsers", simpleUsers);
-		successDispatcher.forward(request, response);
+		resultDispatcher.forward(request, response);
 	}
 
 	/**
@@ -97,22 +74,6 @@ public class FindSimpleUsersByLocationServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
-
-	/**
-	 * Checks if the location contains only Unicode letters and
-	 * hyphens.
-	 * 
-	 * @param location
-	 *            The new location of the SimpleUser
-	 * @return Error message if there is an error, otherwise null
-	 */
-	private String checkAlphaDashes(String location) {
-		StringBuilder errorBuilder = new StringBuilder();
-		if (!StringUtils.isAlphaSpace(location.replace('-', ' '))) {
-			errorBuilder.append(LOCATION).append(" should contain only letters and hyphens").append("<br>");
-		}
-		return errorBuilder.toString();
 	}
 
 }

@@ -18,8 +18,8 @@ import service.SimpleUserService;
 /**
  * Servlet implementation class UpdateSimpleUserServlet
  */
-@WebServlet("/UpdateSimpleUser")
-public class UpdateSimpleUserServlet extends HttpServlet {
+@WebServlet("/simple_user_update")
+public class SimpleUserUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// Parameter names
@@ -33,7 +33,7 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UpdateSimpleUserServlet() {
+	public SimpleUserUpdateController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -58,10 +58,10 @@ public class UpdateSimpleUserServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// RequestDispatcher object to forward any errors
-		RequestDispatcher errorDispatcher = getServletContext().getRequestDispatcher("/error_printer.jsp");
+		RequestDispatcher errorDispatcher = getServletContext().getRequestDispatcher("/simple_user_error_printer.jsp");
 		// RequestDispatcher to forward in created and stored successfully in
 		// database
-		RequestDispatcher successDispatcher = getServletContext().getRequestDispatcher("/single_result.jsp");
+		RequestDispatcher successDispatcher = getServletContext().getRequestDispatcher("/simple_user_single_result.jsp");
 
 		// Instantiate a service for SimpleUser database operations
 		SimpleUserService simpleUserService = new SimpleUserService();

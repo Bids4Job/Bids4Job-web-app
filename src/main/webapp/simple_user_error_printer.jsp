@@ -17,9 +17,9 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <!-- Custom themes -->
-<link rel="stylesheet" href="css/error_page.css">
-<link rel="stylesheet" href="css/nav_bar.css">
-<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/simple_user_error_page.css">
+<link rel="stylesheet" href="css/simple_user_nav_bar.css">
+<link rel="stylesheet" href="css/simple_user_footer.css">
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
@@ -33,7 +33,7 @@
 
 <body>
 	<!-- Navigation Bar - fixed to top -->
-	<%@include file="nav_bar.jsp"%>
+	<%@include file="simple_user_nav_bar.jsp"%>
 
 	<!-- container -->
 	<div class="container-fluid theme-showcase" id="wrapper" role="main">
@@ -65,7 +65,7 @@
 
 		<!-- footer -->
 		<div id="footer">
-			<%@include file="footer.jsp"%>
+			<%@include file="simple_user_footer.jsp"%>
 		</div>
 	</div>
 </body>
