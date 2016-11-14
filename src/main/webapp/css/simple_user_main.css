@@ -1,0 +1,91 @@
+body {
+	min-height: 100%;
+	background-color: #dae5c7;
+}
+
+.to-top-btn {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	border: 5px solid white;
+	border-radius: 50px;
+	background: green;
+}
+
+.to-top-btn .glyphicon {
+	color: white;
+}
+
+.jumbotron {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	background: #000 url("https://source.unsplash.com/random/1600x900")
+		center center;
+	background-size: cover;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	margin-bottom: 0px;
+}
+
+.jumbotron>.container {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: rgba(0, 0, 0, .5);
+}
+
+#main-header {
+	font-family: 'Lobster', cursive;
+	text-shadow: 4px 4px 4px #222222;
+	text-align: center;
+	color: #4caf50;
+}
+
+#main-header>small {
+	color: inherit;
+}
+
+.jumbotron p {
+	text-align: center;
+}
+
+.jumbotron .page-header p {
+	color: #AAAAAA;
+}
+
+mark {
+	border-radius: 20px;
+	background-color: rgba(76, 175, 80, .2);
+	color: #BBBBBB;
+}
+
+.well {
+	padding-top: 34px;
+	padding-bottom: 34px;
+	padding-left: 0px;
+	margin-bottom: 0px;
+}
+
+.well-light {
+	background: rgba(255, 255, 255, 0.6);
+}
+
+.well-dark {
+	background: rgba(255, 255, 255, 0.4);
+}
+
+h2 {
+	text-align: center;
+}
+
+form {
+	padding: 10px;
+	border: 2px solid #222222;
+	border-radius: 20px;
+}
+
+.form-button {
+	text-align: center;
+}

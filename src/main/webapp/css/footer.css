@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+.footer {
+	background: #222222;
+	min-height: 100px;
+	text-align: center;
+}
+
+.footer-copyright {
+	margin: 5px;
+	font-size: 20px;
+}
+
+.footer-list {
+	list-style-type: none;
+}
