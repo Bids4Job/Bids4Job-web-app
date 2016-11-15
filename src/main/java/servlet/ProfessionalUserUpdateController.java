@@ -46,7 +46,7 @@ public class ProfessionalUserUpdateController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		
-		RequestDispatcher errors = getServletContext().getRequestDispatcher("/ProfessionalUserErrorPage.jsp");
+		RequestDispatcher errors = getServletContext().getRequestDispatcher("/professional_user_error_page.jsp");
 		
 		//Get the "option" from submit button (create/update/remove)
 		
@@ -131,7 +131,7 @@ public class ProfessionalUserUpdateController extends HttpServlet {
 			
 			request.setAttribute("pro", pro);
 			request.setAttribute("check", check);
-			RequestDispatcher succdis = getServletContext().getRequestDispatcher("/ProfessionalUserUpdateResults.jsp");
+			RequestDispatcher succdis = getServletContext().getRequestDispatcher("/professional_user_update_results.jsp");
 			succdis.forward(request, response);
 		
 		    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {

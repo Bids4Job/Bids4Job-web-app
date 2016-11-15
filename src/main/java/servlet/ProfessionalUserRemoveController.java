@@ -46,7 +46,7 @@ public class ProfessionalUserRemoveController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		
-		RequestDispatcher errors = getServletContext().getRequestDispatcher("/ProfessionalUserErrorPage.jsp");		
+		RequestDispatcher errors = getServletContext().getRequestDispatcher("/professional_user_error_page.jsp");		
 		
 		//initialization
 		ProfessionalUserService service = new ProfessionalUserService();
@@ -88,7 +88,7 @@ public class ProfessionalUserRemoveController extends HttpServlet {
 			
 			request.setAttribute("pro", pro);
 			request.setAttribute("check", check);  
-			RequestDispatcher succdis = getServletContext().getRequestDispatcher("/ProfessionalUserRemoveResults.jsp");
+			RequestDispatcher succdis = getServletContext().getRequestDispatcher("/professional_user_remove_results.jsp");
 			succdis.forward(request, response);
 			
 		    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {

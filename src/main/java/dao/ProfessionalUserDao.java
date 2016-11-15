@@ -22,7 +22,7 @@ public class ProfessionalUserDao {
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     private static final String EMAIL = "email";
-    private static final String ACTIVE = "active";
+    private static final String ACTIVE = "active_account";
     private Connection connection;
     private PreparedStatement statement;
     private ResultSet resultSet;
@@ -255,15 +255,15 @@ public class ProfessionalUserDao {
      */
     private ProfessionalUser populate(ResultSet resultSet) throws SQLException {
 	return new ProfessionalUser()
-		.setProUSerId(resultSet.getInt("pro_user_ID"))
-		.setFirstName(resultSet.getString("first_name"))
-		.setLastName(resultSet.getString("last_name"))
-		.setLocation(resultSet.getString("location"))
-		.setProfession(resultSet.getString("profession"))
-		.setUsername(resultSet.getString("username"))
-		.setPassword(resultSet.getString("password"))
-		.setEmail(resultSet.getString("email"))
-		.setActive(resultSet.getBoolean("active"));
+		.setProUSerId(resultSet.getInt(PRO_USER_ID))
+		.setFirstName(resultSet.getString(FIRST_NAME))
+		.setLastName(resultSet.getString(LAST_NAME))
+		.setLocation(resultSet.getString(LOCATION))
+		.setProfession(resultSet.getString(PROFESSION))
+		.setUsername(resultSet.getString(USERNAME))
+		.setPassword(resultSet.getString(PASSWORD))
+		.setEmail(resultSet.getString(EMAIL))
+		.setActive(resultSet.getBoolean(ACTIVE));
     }   
     
 }
