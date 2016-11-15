@@ -41,7 +41,7 @@
 			class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4"
 			id="center">
 			<form class="navbar-form navbar-left" role="search"
-				action="showfind.jsp"
+				action="task_find_one_result.jsp"
 				method="post">
 				<div class="form-group">
 					<input name="taskId" type="number" class="form-control"
@@ -57,7 +57,7 @@
 	<br />
 	<br />
 	<div style="position: fixed; bottom: 5%; right: 0;">
-		<a href="Index.jsp"><button type="button"
+		<a href="task_index.jsp"><button type="button"
 				class="btn btn-default btn-lg">
 				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>Return
 				to Home!

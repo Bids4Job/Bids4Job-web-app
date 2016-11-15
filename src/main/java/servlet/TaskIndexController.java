@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
  * @author Dimitris
  */
 @WebServlet("/index")
-public class IndexServlet extends HttpServlet {
+public class TaskIndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public IndexServlet() {
+	public TaskIndexController() {
 		super();
 	}
 
@@ -34,7 +34,7 @@ public class IndexServlet extends HttpServlet {
         @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("Index.jsp").forward(request, response);
+		request.getRequestDispatcher("task_index.jsp").forward(request, response);
 	}
 
 	/**

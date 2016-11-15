@@ -18,14 +18,14 @@ import service.TaskService;
  * @author Dimitris
  */
 @WebServlet("/create")
-public class CreateServlet extends HttpServlet {
+public class TaskCreateController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateServlet() {
+    public TaskCreateController() {
         super();
     }
 
@@ -40,7 +40,7 @@ public class CreateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/Create.jsp").forward(request, response);
+        request.getRequestDispatcher("/task_create.jsp").forward(request, response);
     }
 
     /**
@@ -71,6 +71,6 @@ public class CreateServlet extends HttpServlet {
         Task task1;
         task1 = mService.create(task);
         request.setAttribute("newTask", task1);
-        request.getRequestDispatcher("/Index.jsp").forward(request, response);
+        request.getRequestDispatcher("/task_index.jsp").forward(request, response);
     }
 }

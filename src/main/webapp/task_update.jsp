@@ -11,14 +11,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>Create A Task</title>
+<title>Update A Task</title>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="css/create.css">
+<link rel="stylesheet" href="css/update.css">
+
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -32,13 +33,30 @@
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	%>
 	<div class="container">
+		<%
+			if (request.getAttribute("msg") != null) {
+		%>
+		<div
+			class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">
+			<ul class="list-group">
+				<li class="list-group-item list-group-item-danger"><%=request.getAttribute("msg").toString()%></li>
+			</ul>
+		</div>
+
+		<%
+			}
+		%>
+
 		<div
 			class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4"
 			id="center">
-			<form class="navbar-form navbar-left" action="create" method="post">
+			<form class="navbar-form navbar-left" role="search" action="update"
+				method="post">
 				<div class="form-group">
-					<input name="fieldOfWork" type="text" class="form-control"
-						placeholder="Field Of Work" required><br /> <span
+					<input name="taskId" type="number" class="form-control"
+						placeholder="Enter the Task's ID" required><br /> <input
+						name="workField" type="text" class="form-control"
+						placeholder="Enter the field of work" required><br /> <span
 						style="color: yellow;">Deadline:</span><br /> <input type="date"
 						name="date" class="form-control" required
 						min="<%=dateFormat.format(date)%>"><br />
@@ -51,7 +69,7 @@
 		</div>
 	</div>
 	<div style="position: fixed; bottom: 5%; right: 0;">
-		<a href="Index.jsp"><button type="button"
+		<a href="task_index.jsp"><button type="button"
 				class="btn btn-default btn-lg">
 				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>Return
 				to Home!

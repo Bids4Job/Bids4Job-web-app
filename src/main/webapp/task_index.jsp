@@ -36,7 +36,7 @@
 			<nav>
 				<ul class="nav nav-justified">
 					<li class="active"><a href="list">Show All Tasks</a></li>
-					<li><a href="find.jsp">Find Specific Task</a></li>
+					<li><a href="task_find_one.jsp">Find Specific Task</a></li>
 					<li><a href="create">Create Your Task</a></li>
 					<li><a href="update">Update A Task</a></li>
 					<li><a href="delete">Delete A Task</a></li>

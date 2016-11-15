@@ -18,14 +18,14 @@ import service.TaskService;
  * @author Dimitris
  */
 @WebServlet("/update")
-public class UpdateServlet extends HttpServlet {
+public class TaskUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TaskService mService = new TaskService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UpdateServlet() {
+	public TaskUpdateController() {
 		super();
 	}
 
@@ -40,7 +40,7 @@ public class UpdateServlet extends HttpServlet {
         @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("update.jsp").forward(request, response);
+		request.getRequestDispatcher("task_update.jsp").forward(request, response);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class UpdateServlet extends HttpServlet {
 		if (task == null) {
 			String msg = "The Task you would like to update does not exist. Please give a new Task Id!";
 			request.setAttribute("msg", msg);
-			request.getRequestDispatcher("update.jsp").forward(request, response);
+			request.getRequestDispatcher("task_update.jsp").forward(request, response);
 		} else {
 			if (mService.update(task.setDeadline(deadline).setWorkField(workField))) {
 				response.sendRedirect("index");

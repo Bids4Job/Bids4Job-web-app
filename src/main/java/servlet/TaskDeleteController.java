@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,19 +11,19 @@ import domain.Task;
 import service.TaskService;
 
 /**
- * Servlet implementation class ListServlet
+ * Servlet implementation class DeleteServlet
  *
  * @author Dimitris
  */
-@WebServlet("/list")
-public class TaskListServlet extends HttpServlet {
+@WebServlet("/delete")
+public class TaskDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final TaskService mService = new TaskService();
+	TaskService mService = new TaskService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public TaskListServlet() {
+	public TaskDeleteController() {
 		super();
 	}
 
@@ -40,15 +38,7 @@ public class TaskListServlet extends HttpServlet {
         @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Task> tasks = mService.findAll();
-		if (tasks == null) {
-			response.getWriter().append("Error!");
-			return;
-		}
-
-		request.setAttribute("task_list", tasks);
-		getServletContext().getRequestDispatcher("/TaskList.jsp").forward(request, response);
-
+		request.getRequestDispatcher("/task_delete.jsp").forward(request, response);
 	}
 
 	/**
@@ -62,7 +52,23 @@ public class TaskListServlet extends HttpServlet {
         @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		int id = Integer.parseInt(request.getParameter("deleteId"));
+		Task task = mService.findOne(id);
+		// Check if the requested Task does not exists.
+		if (task == null) {
+			String msg = "This Task does not exist. Please try again!";
+			request.setAttribute("msg", msg);
+			request.getRequestDispatcher("task_delete.jsp").forward(request, response);
+			return;
+		}
+		if (mService.delete(task)) {
+			response.sendRedirect("index");
+		} else {
+			response.getWriter()
+					.append("You cannot delete this Task because the primary key of this Task is a foreign key in other tables"
+							+ " and we have not decide yet what to do in the team project in case of delete!"
+							+ "This personal project, the manipulation of Tasks is part of a team project, as it is declared in the project description file in github!"
+							+ " Thank you for your understanding!");
+		}
 	}
-
 }
