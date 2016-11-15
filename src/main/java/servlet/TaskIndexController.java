@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * 
  * @author Dimitris
  */
-@WebServlet("/index")
+@WebServlet("/task_index")
 public class TaskIndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

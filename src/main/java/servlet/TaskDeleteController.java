@@ -15,7 +15,7 @@ import service.TaskService;
  *
  * @author Dimitris
  */
-@WebServlet("/delete")
+@WebServlet("/task_delete")
 public class TaskDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TaskService mService = new TaskService();
@@ -62,7 +62,7 @@ public class TaskDeleteController extends HttpServlet {
 			return;
 		}
 		if (mService.delete(task)) {
-			response.sendRedirect("index");
+			response.sendRedirect("task_index");
 		} else {
 			response.getWriter()
 					.append("You cannot delete this Task because the primary key of this Task is a foreign key in other tables"
