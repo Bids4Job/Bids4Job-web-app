@@ -4,7 +4,7 @@ charset=utf-8"
 <%@ page import="domain.ProfessionalUser"%>
 <%@ page import="service.ProfessionalUserService"%>
 
-<%@ include file="ProfessionalUserHeaderResult.html" %>
+<%@ include file="professional_user_header_results.html" %>
 
 	<div class="container"  align="center" id="results">
 		<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-1" >
@@ -20,6 +20,10 @@ charset=utf-8"
 		               				<td>Second Name</td>
 		                			<td>Location</td>
 		                			<td>Profession</td>
+		                			<td>Username</td>
+		                			<td>Password</td>
+		                			<td>Email</td>
+		                			<td>Active</td>
 		                		</tr>
 		                		<tr>
 		                			<td><%= pro.getProUserId() %></td>
@@ -27,6 +31,10 @@ charset=utf-8"
 		                			<td><%= pro.getLastName() %></td>
 		                			<td><%= pro.getLocation() %></td>
 		                			<td><%= pro.getProfession() %></td>
+		                			<td><%= pro.getUsername() %></td>
+		                			<td><%= pro.getPassword() %></td>
+		                			<td><%= pro.getEmail() %></td>
+		                			<td><%= pro.getActive() %></td>
 		                		</tr>		
 		                	</table>
 				 	</div>
@@ -35,4 +43,4 @@ charset=utf-8"
 		</div>
 	</div>
 	
-<%@ include file="ProfessionalUserFooter.html"%>
+<%@ include file="professional_user_footer.html"%>
