@@ -17,7 +17,7 @@ import service.TaskService;
  *
  * @author Dimitris
  */
-@WebServlet("/update")
+@WebServlet("/task_update")
 public class TaskUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TaskService mService = new TaskService();
@@ -67,7 +67,7 @@ public class TaskUpdateController extends HttpServlet {
 			request.getRequestDispatcher("task_update.jsp").forward(request, response);
 		} else {
 			if (mService.update(task.setDeadline(deadline).setWorkField(workField))) {
-				response.sendRedirect("index");
+				response.sendRedirect("task_index");
 			} else {
 				response.getWriter().append("An error occured");
 			}
