@@ -1,0 +1,80 @@
+#searchForm {
+	position:absolute;
+  	top:40%;
+}
+
+.social-media-icons {
+	list-style: none;
+}
+
+/* Login Modal */
+
+.login-tab-clr {
+  background: #D2D2D2;
+}
+
+#Individual {
+  background: #FFFFFF;
+}
+
+#Professional {
+  background: #FFFFFF;
+}
+
+.login-or-signup {
+  text-align: center;
+}
+
+/* Tabs */
+.full-width-tabs > ul.nav.nav-tabs {
+    
+    width: 100%;
+    border-radius: 3px;
+}
+.full-width-tabs > ul.nav.nav-tabs > li {
+    float: none;
+    
+}
+.full-width-tabs > ul.nav.nav-tabs > li > a {
+    text-align: center;
+}
+/* End of Tabs*/
+
+/* Login form */
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+/* End of Login form */ 
+
+/* End of Login Modal */
