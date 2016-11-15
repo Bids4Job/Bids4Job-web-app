@@ -3,7 +3,7 @@ package domain;
 import java.sql.Timestamp;
 
 /**
- * 
+ *
  * @author Dimitris
  */
 
@@ -13,6 +13,8 @@ public class Task {
 	private Timestamp deadline;
 	private String workField;
 	private int simpleUserId;
+	private int active_task;
+	private String description;
 
 	public int getTaskId() {
 		return this.taskId;
@@ -47,6 +49,24 @@ public class Task {
 
 	public Task setSimpleUserId(int simpleUserId) {
 		this.simpleUserId = simpleUserId;
+		return this;
+	}
+
+	public int getActive_task() {
+		return active_task;
+	}
+
+	public Task setActive_task(int active_task) {
+		this.active_task = active_task;
+		return this;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public Task setDescription(String description) {
+		this.description = description;
 		return this;
 	}
 

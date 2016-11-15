@@ -13,80 +13,82 @@ import java.util.List;
  */
 public class TaskService {
 
-	private TaskDao dao = new TaskDao();
+	private final TaskDao dao = new TaskDao();
 
 	/**
 	 * Finds specific Task by id.
-	 * 
+	 *
 	 * @param taskId
 	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
 	 */
-	public Task findOne(int taskId)
-			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-		return dao.findOne(taskId);
+	public Task findOne(int taskId) {
+		try {
+			return dao.findOne(taskId);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+
 	}
 
 	/**
 	 * Find all existing Tasks in database.
-	 * 
+	 *
 	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
 	 */
-	public List<Task> findAll()
-			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-		return dao.findAll();
+	public List<Task> findAll() {
+		try {
+			return dao.findAll();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 
 	/**
 	 * Add a new Task in the database.
-	 * 
+	 *
 	 * @param task
 	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
 	 */
-	public Task create(Task task)
-			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-		return dao.create(task);
+	public Task create(Task task) {
+		try {
+			return dao.create(task);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+
 	}
 
 	/**
 	 * Updates one or more columns in a Task record in database.
-	 * 
+	 *
 	 * @param task
-	 * @return
-	 * @throws SQLException
-	 * @throws IllegalAccessException
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
+	 * @return boolean.
+	 *
 	 */
-	public boolean update(Task task)
-			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-		return dao.update(task);
+	public boolean update(Task task) {
+		try {
+			return dao.update(task);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
 
 	/**
 	 * Deletes a Task record in database.
-	 * 
+	 *
 	 * @param task
 	 * @return
-	 * @throws SQLException
-	 * @throws IllegalAccessException
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
 	 */
-	public boolean delete(Task task)
-			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-		return dao.delete(task);
+	public boolean delete(Task task) {
+		try {
+			return dao.delete(task);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
-
 }
