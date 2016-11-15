@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+body {
+	background-image: url("../images/show.jpg");
+}
+
+.nicelooking {
+	font-weight: bold;
+	color: blue !important;
+	text-align: center;
+}
+
+.tableheading {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.footer {
+	position: absolute !important;
+	bottom: 0 !important;
+	width: 100% !important;
+	height: 20px !important;
+	background-color: #f5f5f5 !important;
+}

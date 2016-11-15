@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+
+#center {
+	position: absolute;
+	top: 30%;
+}
+
+body {
+	background-image: url("../images/test2.jpg");
+}
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 20px;
+	background-color: #f5f5f5;
+}
