@@ -46,7 +46,7 @@ public class ProfessionalUserCreateController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		
-		RequestDispatcher errors = getServletContext().getRequestDispatcher("/ProfessionalUserErrorPage.jsp");
+		RequestDispatcher errors = getServletContext().getRequestDispatcher("/professional_user_error_page.jsp");
 	
 		ProfessionalUserService service = new ProfessionalUserService();
 		String errormsg = "";
@@ -70,6 +70,7 @@ public class ProfessionalUserCreateController extends HttpServlet {
 		username = request.getParameter("username");
 		password = request.getParameter("password");
 		email = request.getParameter("email");
+		//active = request.getParameter("active");
 			    
 		    try {
 			
@@ -121,7 +122,7 @@ public class ProfessionalUserCreateController extends HttpServlet {
 			
 			 pro = service.create(pro);
 			 request.setAttribute("pro", pro);    
-			 RequestDispatcher succdis = getServletContext().getRequestDispatcher("/ProfessionalUserCreateResults.jsp");
+			 RequestDispatcher succdis = getServletContext().getRequestDispatcher("/professional_user_create_results.jsp");
 			 succdis.forward(request, response);
 			 
 		    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {

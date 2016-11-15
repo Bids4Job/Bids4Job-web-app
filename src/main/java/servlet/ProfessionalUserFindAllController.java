@@ -40,7 +40,7 @@ public class ProfessionalUserFindAllController extends HttpServlet {
 		
 		
 		//define RequestDispatcher object to forward any errors
-		RequestDispatcher errors = getServletContext().getRequestDispatcher("/ProfessionalUserErrorPage.jsp");
+		RequestDispatcher errors = getServletContext().getRequestDispatcher("/professional_user_error_page.jsp");
 
 		
 		//Initialization
@@ -52,7 +52,7 @@ public class ProfessionalUserFindAllController extends HttpServlet {
 			users = service.findAll();
 			request.setAttribute("users", users);
 			
-			RequestDispatcher succdis = getServletContext().getRequestDispatcher("/ProfessionalUserFindAllResults.jsp");
+			RequestDispatcher succdis = getServletContext().getRequestDispatcher("/professional_user_find_all_results.jsp");
 			succdis.forward(request, response);
 			
 		    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {

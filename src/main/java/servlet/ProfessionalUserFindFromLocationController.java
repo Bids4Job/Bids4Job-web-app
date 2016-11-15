@@ -40,7 +40,7 @@ public class ProfessionalUserFindFromLocationController extends HttpServlet {
 		
 		
 		//define RequestDispatcher object to forward any errors
-		RequestDispatcher errors = getServletContext().getRequestDispatcher("/ProfessionalUserErrorPage.jsp");
+		RequestDispatcher errors = getServletContext().getRequestDispatcher("/professional_user_error_page.jsp");
 		
 		ProfessionalUserService service = new ProfessionalUserService();
 		String location = null;
@@ -65,7 +65,7 @@ public class ProfessionalUserFindFromLocationController extends HttpServlet {
 			
 			request.setAttribute("location", location);
 			request.setAttribute("users", users);
-			RequestDispatcher succdis = getServletContext().getRequestDispatcher("/ProfessionalUserFindFromLocationResults.jsp");
+			RequestDispatcher succdis = getServletContext().getRequestDispatcher("/professional_user_find_from_location_results.jsp");
 			succdis.forward(request, response);
 			
 		    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {

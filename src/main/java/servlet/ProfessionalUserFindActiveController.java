@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +15,16 @@ import domain.ProfessionalUser;
 import service.ProfessionalUserService;
 
 /**
- * Servlet implementation class FindOneController
+ * Servlet implementation class ProfessionalUserFindActive
  */
-@WebServlet("/ProfessionalUserFindOne")
-public class ProfessionalUserFindOneController extends HttpServlet {
+@WebServlet("/ProfessionalUserFindActive")
+public class ProfessionalUserFindActiveController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProfessionalUserFindOneController() {
+    public ProfessionalUserFindActiveController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,45 +33,36 @@ public class ProfessionalUserFindOneController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	    	// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
 		
 		//define RequestDispatcher object to forward any errors
 		RequestDispatcher errors = getServletContext().getRequestDispatcher("/professional_user_error_page.jsp");
+
 		
 		//Initialization
 		ProfessionalUserService service = new ProfessionalUserService();
-		int proUserId = 0;
+		boolean active = true;
 		String errormsg = "";
-		//int ercounter = 0;
+		List<ProfessionalUser> users = null;
 		
-		//Checks if the user type numbers and not characters
-		if (request.getParameter("proUserId").matches("[0-9]+")){
-		    proUserId = Integer.parseInt(request.getParameter("proUserId"));
-		} else {
-		    errormsg = "Wrong input. Ids have only numbers, not characters";
-		    request.setAttribute("errormessage", errormsg);
-		    errors.forward(request, response);
-		    return;
-		}
-
-		    try {
+		try {
 			
-			ProfessionalUser pro = service.findOne(proUserId);
+			users = service.findActive(active);
 			
-			//Check if Professional User Id does not belong to a Professional User.
-			if (pro == null){
-			    errormsg = "The user with id: " + proUserId + " does not exist.\nPlease try again.";
+			//Check if Professional User Location does not exist.
+			if (users.isEmpty()) {
+			    errormsg = "There are na active professional users.\nPlease try again.";
 			    request.setAttribute("errormessage", errormsg);
 			    errors.forward(request, response);
 			    return;
 			}
 			
-			request.setAttribute("pro", pro);
-			RequestDispatcher succdis = getServletContext().getRequestDispatcher("/professional_user_find_one_results.jsp");
+			request.setAttribute("users", users);
+			RequestDispatcher succdis = getServletContext().getRequestDispatcher("/professional_user_find_active_results.jsp");
 			succdis.forward(request, response);
 			
 		    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
@@ -79,7 +71,7 @@ public class ProfessionalUserFindOneController extends HttpServlet {
 			request.setAttribute("errormessage", e.getMessage());
 			errors.forward(request, response);
 		    }
-	    
+		
 	}
 
 	/**
