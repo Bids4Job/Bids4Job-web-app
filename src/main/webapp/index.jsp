@@ -51,7 +51,7 @@
         <div id="navbar" class="navbar-collapse collapse"><!--start un-collapsed navbar-->
           <div class="navbar-form navbar-right">
             <a href="#" data-toggle="modal" data-target="#login-modal" class="btn btn-info" role="button">Log in</a>
-            <a href="signup.html" class="btn btn-info" role="button">Sign up</a>
+            <a href="signup.jsp" class="btn btn-info" role="button">Sign up</a>
           </div>
         </div><!-- end un-collapsed navbar-->
       </div>
