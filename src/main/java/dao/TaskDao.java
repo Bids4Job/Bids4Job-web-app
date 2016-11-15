@@ -1,5 +1,6 @@
 package dao;
 
+import domain.SimpleUser;
 import domain.Task;
 
 import java.sql.Connection;
@@ -11,10 +12,11 @@ import java.util.List;
 
 /**
  * Class for accessing database data regarding Tasks.
- * 
+ *
  * @author Dimitris
  */
 public class TaskDao {
+
 	private Connection connection;
 	private PreparedStatement statement;
 	private ResultSet resultSet;
@@ -30,7 +32,7 @@ public class TaskDao {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param taskId
 	 * @return an object of Task type, the one that was founded.
 	 * @throws ClassNotFoundException
@@ -41,7 +43,7 @@ public class TaskDao {
 	public Task findOne(int taskId)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		Task task = null;
-		String query = "SELECT * FROM TASK WHERE TASK_ID = ?";
+		String query = "SELECT * FROM task WHERE task_id = ?";
 		prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -52,16 +54,14 @@ public class TaskDao {
 				task = populate(resultSet);
 			}
 
-		} finally
-
-		{
-			closeResources(resultSet, statement, connection);
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
 		}
 		return task;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return A List of objects type Task, the whole records.
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -71,7 +71,7 @@ public class TaskDao {
 	public List<Task> findAll()
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		List<Task> tasks = new ArrayList<>();
-		String query = "SELECT * FROM TASK";
+		String query = "SELECT * FROM task";
 		prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -82,13 +82,13 @@ public class TaskDao {
 				tasks.add(task);
 			}
 		} finally {
-			closeResources(resultSet, statement, connection);
+			DaoUtils.closeResources(resultSet, statement, connection);
 		}
 		return tasks;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param task
 	 * @return An object of type Task, the one that was created.
 	 * @throws SQLException
@@ -98,10 +98,10 @@ public class TaskDao {
 	 */
 	public Task create(Task task)
 			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-		String query = "INSERT INTO TASK (deadline, work_field, simple_user_id) VALUES (?,?,?)"; // taskId
-																									// is
-																									// auto
-																									// incremented.
+		String query = "INSERT INTO task (deadline, work_field, simple_user_ID, description, active_task) VALUES (?,?,?,?,?)"; // taskId
+		// is
+		// auto
+		// incremented.
 		prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -109,19 +109,22 @@ public class TaskDao {
 			statement.setTimestamp(1, task.getDeadline());
 			statement.setString(2, task.getWorkField());
 			statement.setInt(3, task.getSimpleUserId());
+			statement.setString(4, task.getDescription());
+			statement.setInt(5, task.getActive_task());
+			System.out.println(statement.toString());
 			statement.executeUpdate();
 			resultSet = statement.getGeneratedKeys();
 			if (resultSet.next()) {
 				task.setTaskId(resultSet.getInt(1));
 			}
 		} finally {
-			closeResources(resultSet, statement, connection);
+			DaoUtils.closeResources(resultSet, statement, connection);
 		}
 		return task;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param task
 	 * @return true if the update took place or false if nothing changed.
 	 * @throws SQLException
@@ -131,8 +134,8 @@ public class TaskDao {
 	 */
 	public boolean update(Task task)
 			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-		int rowsAffected = 0;
-		String query = "UPDATE TASK SET DEADLINE = ?, WORK_FIELD = ?, SIMPLE_USER_ID = ? WHERE TASK_ID = ?";
+		int rowsAffected;
+		String query = "UPDATE task SET deadline = ?, work_field = ?, simple_user_ID = ? WHERE task_ID = ?";
 		prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -146,13 +149,13 @@ public class TaskDao {
 				return true;
 			}
 		} finally {
-			closeResources(resultSet, statement, connection);
+			DaoUtils.closeResources(resultSet, statement, connection);
 		}
 		return false;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param task
 	 * @return true if the task was deleted, else false.
 	 * @throws SQLException
@@ -163,7 +166,7 @@ public class TaskDao {
 	public boolean delete(Task task)
 			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
 		int rowsAffected;
-		String query = "DELETE FROM TASK WHERE TASK_ID = ?";
+		String query = "DELETE FROM task WHERE task_ID = ?";
 		prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -174,41 +177,270 @@ public class TaskDao {
 				return true;
 			}
 		} finally {
-			closeResources(resultSet, statement, connection);
+			DaoUtils.closeResources(resultSet, statement, connection);
 		}
 		return false;
 	}
 
 	/**
-	 * Utility method that takes a resultSet and returns a Task object.
 	 * 
-	 * @param resultSet
-	 * @return
+	 * @param task
+	 * @param sm
+	 * @return The Task object that serves the user's criteria.
 	 * @throws SQLException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
 	 */
-	public Task populate(ResultSet resultSet) throws SQLException {
-		return new Task().setTaskId(resultSet.getInt("task_id")).setDeadline(resultSet.getTimestamp("deadline"))
-				.setWorkField(resultSet.getString("work_field")).setSimpleUserId(resultSet.getInt("simple_user_id"));
+	public List<Task> findByAll(Task task, SimpleUser sm)
+			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
+		List<Task> tasks = new ArrayList<>();
+		String query = "SELECT * FROM task inner join simple_user on simple_user.simple_user_id = task.simple_user_id where location = ? and deadline = ? and work_field = ?";
+		prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, sm.getLocation());
+			statement.setString(2, task.getDeadline().toString());
+			statement.setString(3, task.getWorkField());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Task task1 = populate(resultSet);
+				tasks.add(task1);
+			}
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return tasks;
 	}
 
 	/**
-	 * Utility method for closing open database resources.
 	 * 
-	 * @param resultSet
-	 * @param statement
-	 * @param connection
+	 * @param task
+	 * @param sm
+	 * @return All tasks by the location the users selects.
 	 * @throws SQLException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
 	 */
-	private void closeResources(ResultSet resultSet, PreparedStatement statement, Connection connection)
-			throws SQLException {
-		// The order for closing the resources is from the last opened inside
-		// each method (lifo logic).
-		if (resultSet != null)
-			resultSet.close();
-		if (statement != null)
-			statement.close();
-		if (connection != null)
-			connection.close();
+	public List<Task> findByLocation(Task task, SimpleUser sm)
+			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
+		List<Task> tasks = new ArrayList<>();
+		String query = "SELECT * FROM task inner join simple_user on simple_user.simple_user_id = task.simple_user_id where location = ?";
+		prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, sm.getLocation());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Task task1 = populate(resultSet);
+				tasks.add(task1);
+			}
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return tasks;
+	}
+
+	/**
+	 * 
+	 * @param task
+	 * @return All the tasks based on field of work.
+	 * @throws SQLException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 */
+	public List<Task> findByProfession(Task task)
+			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
+		List<Task> tasks = new ArrayList<>();
+		String query = "SELECT * FROM task where work_field = ?";
+		prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, task.getWorkField());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Task task1 = populate(resultSet);
+				tasks.add(task1);
+			}
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return tasks;
+	}
+
+	/**
+	 * 
+	 * @param sm
+	 * @return All tasks posted by the same user.
+	 * @throws SQLException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 */
+	public List<Task> findByUserId(SimpleUser sm)
+			throws SQLException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+		List<Task> tasks = new ArrayList<>();
+		String query = "SELECT * FROM task where simple_user_id = ?";
+		prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, sm.getSimpleUserID());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Task task1 = populate(resultSet);
+				tasks.add(task1);
+			}
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return tasks;
+
+	}
+
+	/**
+	 * 
+	 * @param task
+	 * @return All the tasks with specified deadline.
+	 * @throws SQLException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 */
+	public List<Task> findByDeadline(Task task)
+			throws SQLException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+		List<Task> tasks = new ArrayList<>();
+		String query = "SELECT * FROM task where deadline = ?";
+		prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setTimestamp(1, task.getDeadline());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Task task1 = populate(resultSet);
+				tasks.add(task1);
+			}
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return tasks;
+
+	}
+
+	/**
+	 * 
+	 * @param task
+	 * @param sm
+	 * @return All the tasks based on location and profession.
+	 * @throws SQLException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 */
+	public List<Task> findByLocationProfession(Task task, SimpleUser sm)
+			throws SQLException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+		List<Task> tasks = new ArrayList<>();
+		String query = "SELECT * FROM task inner join simple_user on task.simple_user_id = simple_user.simple_user_id where location = ? and work_field = ?";
+		prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, sm.getLocation());
+			statement.setString(2, task.getWorkField());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Task task1 = populate(resultSet);
+				tasks.add(task1);
+			}
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return tasks;
+	}
+
+	/**
+	 * 
+	 * @param task
+	 * @param sm
+	 * @return All the tasks based on location and deadline.
+	 * @throws SQLException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 */
+	public List<Task> findByLocationDeadline(Task task, SimpleUser sm)
+			throws SQLException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+		List<Task> tasks = new ArrayList<>();
+		String query = "SELECT * FROM task inner join simple_user on task.simple_user_id = simple_user.simple_user_id where location = ? and deadline = ?";
+		prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, sm.getLocation());
+			statement.setTimestamp(2, task.getDeadline());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Task task1 = populate(resultSet);
+				tasks.add(task1);
+			}
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return tasks;
+	}
+
+	/**
+	 * 
+	 * @param task
+	 * @return All the tasks based on field of work and deadline.
+	 * @throws SQLException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 */
+	public List<Task> findByProfessionDeadline(Task task)
+			throws SQLException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+		List<Task> tasks = new ArrayList<>();
+		String query = "SELECT * FROM task where work_field = ? and deadline = ?";
+		prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, task.getWorkField());
+			statement.setTimestamp(2, task.getDeadline());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Task task1 = populate(resultSet);
+				tasks.add(task1);
+			}
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return tasks;
+	}
+
+	/**
+	 * Utility method that takes a resultSet and returns a Task object.
+	 *
+	 * @param resultSet
+	 * @return
+	 */
+	public Task populate(ResultSet resultSet) {
+		try {
+
+			return new Task().setTaskId(resultSet.getInt("task_ID")).setDeadline(resultSet.getTimestamp("deadline"))
+					.setWorkField(resultSet.getString("work_field")).setSimpleUserId(resultSet.getInt("simple_user_ID"))
+					.setDescription(resultSet.getString("description")).setActive_task(resultSet.getInt("active_task"));
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 
 }
