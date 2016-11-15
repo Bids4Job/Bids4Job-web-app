@@ -74,7 +74,7 @@
             <div class="carousel-caption">
               <h1>Get a quote for your need!</h1>
               <p>Sign-Up and start getting quotes for any task you need from our network of affiliated professionals!</p>
-              <p><a class="btn btn-lg btn-primary" href="signup.html" role="button">Sign up today</a></p>
+              <p><a class="btn btn-lg btn-primary" href="signup.jsp" role="button">Sign up today</a></p>
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
             <h5 class="login-or-signup">-OR-</h5>
-            <a href="signup.html" class="btn btn-lg btn-primary btn-block" role="button">Sign up</a>
+            <a href="signup.jsp" class="btn btn-lg btn-primary btn-block" role="button">Sign up</a>
           </form>
         </div><!-- End of #Individual -->
         <div id="Professional" class="tab-pane fade">
