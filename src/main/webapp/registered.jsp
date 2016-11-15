@@ -39,28 +39,29 @@
       <div class="page-header">
 			<h1>Sign Up Succeeded!</h1>
 		</div>
+  
+<%-- <% --%>
+// 		User user = (User)request.getAttribute("user-object");
 
-<%
-		User user = (User)request.getAttribute("user-object");
+// 		if(user == null) {
+// 			request.setAttribute("errormessage", "Bad request");
+<%-- %> --%>
 
-		if(user == null) {
-			request.setAttribute("errormessage", "Bad request");
-%>
+<%-- 			<jsp:forward page="errorprinter.jsp" /> --%>
 
-			<jsp:forward page="errorprinter.jsp" />
+<%-- <%		} else { %> --%>
 
-<%		} else { %>
+<!-- 		<div class="alert alert-success" role="alert"> -->
+<!-- 			<ol> -->
+<%-- 				<li><b>Username:</b> <%= user.getUsername() %></li> --%>
+<%-- 				<li><b>First Name:</b> <%= user.getFname() %></li> --%>
+<%-- 				<li><b>Surname:</b> <%= user.getSname() %></li> --%>
+<%--         <li><b>Email:</b> <%= user.getEmail() %></li> --%>
+<%--         <li><b>Location:</b> <%= user.getLocation() %></li> --%>
+<!-- 			</ol> -->
+<!-- 		</div> -->
+<%-- <% 		} %> --%>
 
-		<div class="alert alert-success" role="alert">
-			<ol>
-				<li><b>Username:</b> <%= user.getUsername() %></li>
-				<li><b>First Name:</b> <%= user.getFname() %></li>
-				<li><b>Surname:</b> <%= user.getSname() %></li>
-        <li><b>Email:</b> <%= user.getEmail() %></li>
-        <li><b>Location:</b> <%= user.getLocation() %></li>
-			</ol>
-		</div>
-<% 		} %>
     </div> <!-- /container -->
 
 
