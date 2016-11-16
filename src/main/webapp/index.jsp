@@ -54,7 +54,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a href="index.html"> <img alt="Brand" src="images/logo.png">
+				<a href="index.jsp"> <img alt="Brand" src="images/logo.png">
 					<!--Brand logo image-->
 				</a>
 			</div>
@@ -192,15 +192,15 @@
 					</div>
 					<!-- End of #Individual -->
 					<div id="Professional" class="tab-pane fade">
-						<form class="form-signin">
+						<form class="form-signin" method="POST" action="login_professional">
 							<h2 class="form-signin-heading login-or-signup">Please Log
 								in</h2>
 							<label for="inputEmail" class="sr-only">Email address</label> <input
 								type="email" id="inputEmail" class="form-control"
-								placeholder="Email address" required autofocus> <label
+								placeholder="Email address" required autofocus name="email"> <label
 								for="inputPassword" class="sr-only">Password</label> <input
 								type="password" id="inputPassword" class="form-control"
-								placeholder="Password" required>
+								placeholder="Password" required name="password">
 							<div class="checkbox">
 								<label> <input type="checkbox" value="remember-me">
 									Remember me

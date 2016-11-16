@@ -36,9 +36,15 @@ public class ProfessionalUserDAOTester {
 	    //update()
 	    System.out.println("\nupdate()");
 	    System.out.println(pro.toString() + "updated: 0" + proDao.update(pro.setFirstName("Petros")) + "\nto" + pro.toString());
-	    //remove()
-	    System.out.println("\nremove()");
-	    System.out.println(proDao.remove(pro));
+//	    //remove()
+//	    System.out.println("\nremove()");
+//	    System.out.println(proDao.remove(pro));
+	    
+	    pro = proDao.findByEmailPassword("example1@mail.com", "pass1");
+	    System.out.println("Authenticate user 1" + pro.toString());
+	    pro = proDao.findByEmailPassword("example1@mail.com", "pass");
+	    System.out.println("Authenticate don't work" + pro.toString());
+	    
 	    
 	} catch (Exception e) {
 		e.printStackTrace();

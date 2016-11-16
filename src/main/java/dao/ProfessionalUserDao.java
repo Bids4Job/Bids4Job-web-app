@@ -245,6 +245,27 @@ public class ProfessionalUserDao {
 	 }
 	 return professionalUsers;
     }
+    
+    public ProfessionalUser findByEmailPassword(String email, String password) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+	
+	ProfessionalUser pro = null;
+	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + EMAIL + " =? AND " + PASSWORD + "=?;";
+	this.prepareResources();
+	try {
+	    connection = DaoUtils.getConnection();
+	    statement = connection.prepareStatement(query);
+	    statement.setString(1, email);
+	    statement.setString(2, password);
+	    resultSet = statement.executeQuery();
+	    if (resultSet.next()) {
+		pro = populate(resultSet);
+	    }
+	    
+	} finally {
+		DaoUtils.closeResources(resultSet, statement, connection);
+	}
+	return pro;
+    }
         
               
     /**
