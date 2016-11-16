@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,24 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import domain.SimpleUser;
 import service.SimpleUserService;
 
 /**
- * Servlet implementation class RegisterSimpleController
+ * Servlet implementation class LoginSimpleController
  */
-@WebServlet("/register_simple")
-public class RegisterSimpleController extends HttpServlet {
+@WebServlet("/LoginSimpleController")
+public class LoginSimpleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// Parameter names
-	private static final String FIRST_NAME = "firstname";
-	private static final String LAST_NAME = "surname";
 	private static final String EMAIL = "email";
-	private static final String USERNAME = "uname";
 	private static final String PASSWORD = "upass";
-	private static final String LOCATION = "location";
 
 	// A service for SimpleUser database operations
 	private SimpleUserService simpleUserService;
@@ -38,7 +33,7 @@ public class RegisterSimpleController extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RegisterSimpleController() {
+	public LoginSimpleController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -50,7 +45,7 @@ public class RegisterSimpleController extends HttpServlet {
 
 		// Define RequestDispatcher object to forward if data are correct and
 		// successfully stored in database
-		registeredDispatcher = getServletContext().getRequestDispatcher("/registered.jsp");
+		registeredDispatcher = getServletContext().getRequestDispatcher("/temp_logedin.jsp");
 
 		// Instantiate a SimpleUser service object
 		simpleUserService = new SimpleUserService();
@@ -72,29 +67,13 @@ public class RegisterSimpleController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Read parameters from request
-		String username = request.getParameter(USERNAME);
-		String password = request.getParameter(PASSWORD);
+		// Get the credentials from the login form
 		String email = request.getParameter(EMAIL);
-		String firstName = request.getParameter(FIRST_NAME);
-		String lastName = request.getParameter(LAST_NAME);
-		String location = request.getParameter(LOCATION);
-
-		// Create the SimpleUser to be stored
-		SimpleUser simpleUser = new SimpleUser().setFirstName(firstName).setLastName(lastName).setLocation(location)
-				.setUsername(username).setPassword(password).setEmail(email);
-
-		try {
-			simpleUser = simpleUserService.create(simpleUser);
-		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-			request.setAttribute("errorMessage", e.getMessage());
-			errorDispatcher.forward(request, response);
-		}
+		String password = request.getParameter(PASSWORD);
+		// Get the HttpSession that is associated with this request
+		HttpSession session = request.getSession();
 		
-		// Set SimpleUser to request
-		request.setAttribute("simpleUser", simpleUser);
-		registeredDispatcher.forward(request, response);
+		// TODO authenticate user
 	}
 
 }
