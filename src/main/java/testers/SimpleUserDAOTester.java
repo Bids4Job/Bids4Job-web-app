@@ -83,7 +83,24 @@ public class SimpleUserDAOTester {
 			for (SimpleUser eachSimpleUser : simpleUsers) {
 				System.out.println(eachSimpleUser.toString() + "\n");
 			}
-
+			// findByEmailPassword - existing combination
+			System.out.println(
+					"\n==============================================\nfindByEmailPassword()\n==============================================");
+			simpleUser = simpleUserDAO.findByEmailPassword("example4@mail.com", "pass4");
+			try {
+				System.out.println(simpleUser.toString());
+			} catch (NullPointerException e) {
+				System.out.println("User not authenticated!");
+			}
+			// findByEmailPassword - not existing combination
+			System.out.println(
+					"\n==============================================\nfindByEmailPassword()\n==============================================");
+			simpleUser = simpleUserDAO.findByEmailPassword("example4@mail.com", "pass3");
+			try {
+				System.out.println(simpleUser.toString());
+			} catch (NullPointerException e) {
+				System.out.println("User not authenticated!");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
