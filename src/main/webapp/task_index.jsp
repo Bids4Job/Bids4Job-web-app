@@ -18,7 +18,7 @@
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
 
-<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/task_index.css">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -35,11 +35,11 @@
 		<div class="masthead">
 			<nav>
 				<ul class="nav nav-justified">
-					<li class="active"><a href="list">Show All Tasks</a></li>
+					<li class="active"><a href="task_find_all_result">Show All Tasks</a></li>
 					<li><a href="task_find_one.jsp">Find Specific Task</a></li>
-					<li><a href="create">Create Your Task</a></li>
-					<li><a href="update">Update A Task</a></li>
-					<li><a href="delete">Delete A Task</a></li>
+					<li><a href="task_create">Create Your Task</a></li>
+					<li><a href="task_update">Update A Task</a></li>
+					<li><a href="task_delete">Delete A Task</a></li>
 					<!--<li><a href="#">Contact</a></li>-->
 				</ul>
 			</nav>
@@ -56,7 +56,7 @@
 			</p>
 			<p>
 				<a class="btn btn-lg btn-success"
-					href="create" role="button">Create
+					href="task_create" role="button">Create
 					Your Task!</a>
 			</p>
 		</div>

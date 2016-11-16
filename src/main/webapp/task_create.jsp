@@ -18,7 +18,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="css/create.css">
+<link rel="stylesheet" href="css/task_create.css">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -35,7 +35,7 @@
 		<div
 			class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4"
 			id="center">
-			<form class="navbar-form navbar-left" action="create" method="post">
+			<form class="navbar-form navbar-left" action="task_create" method="post">
 				<div class="form-group">
 					<input name="fieldOfWork" type="text" class="form-control"
 						placeholder="Field Of Work" required><br /> <span

@@ -17,7 +17,7 @@ import service.TaskService;
  *
  * @author Dimitris
  */
-@WebServlet("/create")
+@WebServlet("/task_create")
 public class TaskCreateController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

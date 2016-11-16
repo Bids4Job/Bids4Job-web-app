@@ -51,6 +51,9 @@ public class SimpleUserService {
 	 */
 	public SimpleUser create(SimpleUser simpleUser)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		// Set the account_active attribute always to true while a new
+		// SimpleUser is created
+		simpleUser.setActiveAccount(true);
 		return simpleUserDAO.create(simpleUser);
 	}
 

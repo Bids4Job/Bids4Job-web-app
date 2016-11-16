@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import="domain.SimpleUser" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,30 +40,33 @@
 			<h1>Sign Up Succeeded!</h1>
 		</div>
 
+
 <%-- <%
 		User user = (User)request.getAttribute("user-object");
 
-		if(user == null) {
+  
+<%
+		SimpleUser simpleUser = (SimpleUser)request.getAttribute("simpleUser");
+
+
+		if(simpleUser == null) {
 			request.setAttribute("errormessage", "Bad request");
 %>
 
 			<jsp:forward page="errorprinter.jsp" />
 
 <%		} else { %>
-
 		<div class="alert alert-success" role="alert">
 			<ol>
-				<li><b>Username:</b> <%= user.getUsername() %></li>
-				<li><b>First Name:</b> <%= user.getFname() %></li>
-				<li><b>Surname:</b> <%= user.getSname() %></li>
-        <li><b>Email:</b> <%= user.getEmail() %></li>
-        <li><b>Location:</b> <%= user.getLocation() %></li>
+				<li><b>Username:</b> <%= simpleUser.getUsername() %></li>
+				<li><b>First Name:</b> <%= simpleUser.getFirstName() %></li>
+				<li><b>Surname:</b> <%= simpleUser.getLastName() %></li>
+        		<li><b>Email:</b> <%= simpleUser.getEmail() %></li>
+        		<li><b>Location:</b> <%= simpleUser.getLocation() %></li>
 			</ol>
 		</div>
 <% 		} %> --%>
     </div> <!-- /container -->
-
-
 
 
     <!-- Latest compiled and minified JavaScript -->

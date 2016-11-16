@@ -17,7 +17,7 @@ import service.TaskService;
  *
  * @author Dimitris
  */
-@WebServlet("/list")
+@WebServlet("/task_find_all_result")
 public class TaskFindAllController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final TaskService mService = new TaskService();
