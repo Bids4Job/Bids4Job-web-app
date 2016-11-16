@@ -46,7 +46,7 @@
 
 		<%
 			SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
-		
+			
 			if (simpleUser != null) {
 		%>
 		<div class="alert alert-success" role="alert">
@@ -72,6 +72,7 @@
 	</div>
 	<!-- /container -->
 
+	<p style="text-align: center;"><b><a href="/bids4job-web-app/logout_simple">Log out</a></b></p>
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script
