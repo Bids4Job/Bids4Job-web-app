@@ -30,7 +30,7 @@ charset=utf-8"
 		                <% for (ProfessionalUser p: users) { %>
 		                <tr>
 		                	<td><%= p.getProUserId() %></td>
-		                	<td><%= p.getFisrtName() %></td>
+		                	<td><%= p.getFirstName() %></td>
 		                	<td><%= p.getLastName() %></td>
 		                	<td><%= p.getLocation() %></td>
 		                	<td><%= p.getProfession() %></td>
