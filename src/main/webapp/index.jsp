@@ -169,15 +169,15 @@
 
 				<div class="tab-content">
 					<div id="Individual" class="tab-pane fade in active">
-						<form class="form-signin">
+						<form class="form-signin" method="POST" action="login_simple">
 							<h2 class="form-signin-heading login-or-signup">Please Log
 								in</h2>
 							<label for="inputEmail" class="sr-only">Email address</label> <input
 								type="email" id="inputEmail" class="form-control"
-								placeholder="Email address" required autofocus> <label
+								placeholder="Email address" name="email" required autofocus> <label
 								for="inputPassword" class="sr-only">Password</label> <input
 								type="password" id="inputPassword" class="form-control"
-								placeholder="Password" required>
+								placeholder="Password" name="upass" required>
 							<div class="checkbox">
 								<label> <input type="checkbox" value="remember-me">
 									Remember me
@@ -203,6 +203,7 @@
 								placeholder="Password" required name="password">
 							<div class="checkbox">
 								<label> <input type="checkbox" value="remember-me">
+							<div class="checkbox">
 									Remember me
 								</label>
 							</div>

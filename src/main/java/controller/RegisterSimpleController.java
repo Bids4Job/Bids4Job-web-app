@@ -91,7 +91,7 @@ public class RegisterSimpleController extends HttpServlet {
 			request.setAttribute("errorMessage", e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
-		
+
 		// Set SimpleUser to request
 		request.setAttribute("simpleUser", simpleUser);
 		registeredDispatcher.forward(request, response);

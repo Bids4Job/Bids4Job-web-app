@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,12 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import domain.SimpleUser;
 import service.SimpleUserService;
 
 /**
  * Servlet implementation class LoginSimpleController
  */
-@WebServlet("/LoginSimpleController")
+@WebServlet("/login_simple")
 public class LoginSimpleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +30,7 @@ public class LoginSimpleController extends HttpServlet {
 
 	// Dispatchers for error and registered pages
 	RequestDispatcher errorDispatcher;
-	RequestDispatcher registeredDispatcher;
+	RequestDispatcher simpleProfileDispatcher;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,7 +47,7 @@ public class LoginSimpleController extends HttpServlet {
 
 		// Define RequestDispatcher object to forward if data are correct and
 		// successfully stored in database
-		registeredDispatcher = getServletContext().getRequestDispatcher("/temp_logedin.jsp");
+		simpleProfileDispatcher = getServletContext().getRequestDispatcher("/temp_profile.jsp");
 
 		// Instantiate a SimpleUser service object
 		simpleUserService = new SimpleUserService();
@@ -70,10 +72,28 @@ public class LoginSimpleController extends HttpServlet {
 		// Get the credentials from the login form
 		String email = request.getParameter(EMAIL);
 		String password = request.getParameter(PASSWORD);
-		// Get the HttpSession that is associated with this request
-		HttpSession session = request.getSession();
+
+		// Define a SimpleUser object to store the logged in user
+		SimpleUser simpleUser = null;
+
+		try {
+			simpleUser = simpleUserService.authenticate(email, password);
+		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", e.getMessage());
+			errorDispatcher.forward(request, response);
+		}
 		
-		// TODO authenticate user
+		if (simpleUser != null) {
+			// Get the HttpSession that is associated with this request
+			HttpSession session = request.getSession();
+			// Set the user to session
+			session.setAttribute("simple-user", simpleUser);
+			simpleProfileDispatcher.forward(request, response);
+		} else {
+			request.setAttribute("errorMessage", "Not an active account");
+			errorDispatcher.forward(request, response);
+		}
 	}
 
 }
