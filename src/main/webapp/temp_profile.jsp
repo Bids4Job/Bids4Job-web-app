@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="domain.SimpleUser"%>
-<%@ page import="domain.ProfessionalUser"%>
+<%@ page import="domain.SimpleUser" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bids4Job Sign Up Success</title>
+<title>Bids4Job Log In Success</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -39,19 +38,15 @@
 		</div>
 	</nav>
 
-
 	<div class="container">
-
-
 		<div class="page-header">
-			<h1>Sign Up Succeeded!</h1>
+			<h1>Log In Succeeded!</h1>
 		</div>
 
 
 		<%
-			SimpleUser simpleUser = (SimpleUser) request.getAttribute("simpleUser");
-			ProfessionalUser professionalUser = (ProfessionalUser) request.getAttribute("pro");
-
+			SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
+			
 			if (simpleUser != null) {
 		%>
 		<div class="alert alert-success" role="alert">
@@ -65,22 +60,8 @@
 			</ol>
 		</div>
 		<%
-			} else if (professionalUser != null) {
-		%>
-		<div class="alert alert-success" role="alert">
-			<p class="strong">Professional User</p>
-			<ol>
-				<li><b>Username:</b> <%=professionalUser.getUsername()%></li>
-				<li><b>First Name:</b> <%=professionalUser.getFirstName()%></li>
-				<li><b>Surname:</b> <%=professionalUser.getLastName()%></li>
-				<li><b>Email:</b> <%=professionalUser.getEmail()%></li>
-				<li><b>Location:</b> <%=professionalUser.getLocation()%></li>
-				<li><b>Profession:</b> <%=professionalUser.getProfession()%></li>
-			</ol>
-		</div>
-		<%
 			} else {
-				request.setAttribute("errormessage", "Bad request");
+				request.setAttribute("errormessage", "No user profile loaded!");
 		%>
 
 		<jsp:forward page="errorprinter.jsp" />
@@ -91,6 +72,7 @@
 	</div>
 	<!-- /container -->
 
+	<p style="text-align: center;"><b><a href="/bids4job-web-app/logout_simple">Log out</a></b></p>
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script

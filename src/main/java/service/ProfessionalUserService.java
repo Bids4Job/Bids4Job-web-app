@@ -42,4 +42,18 @@ public class ProfessionalUserService {
     public boolean update(ProfessionalUser professionalUser) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 	return dao.update(professionalUser);
    }
+    
+    public ProfessionalUser authenticate(String email, String password)  throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	ProfessionalUser pro = dao.findByEmailPassword(email, password);
+	if (pro.getActive()){
+	    return pro;
+	} else {
+	    return null;
+	}
+    }
+    
+    public boolean exist(String name, String value) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	return dao.exist(name, value);
+    }
+    
 }

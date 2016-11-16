@@ -51,6 +51,9 @@ public class SimpleUserService {
 	 */
 	public SimpleUser create(SimpleUser simpleUser)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		// Set the account_active attribute always to true while a new
+		// SimpleUser is created
+		simpleUser.setActiveAccount(true);
 		return simpleUserDAO.create(simpleUser);
 	}
 
@@ -128,5 +131,24 @@ public class SimpleUserService {
 	public List<SimpleUser> findByActiveAccount(boolean active_account)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		return simpleUserDAO.findByActiveAccount(active_account);
+	}
+
+	/**
+	 * Finds the Simple User with the given email and password.
+	 * 
+	 * @param email
+	 *            the email of the user
+	 * @param password
+	 *            the password of the user
+	 * @return The SimpleUser with the specified ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public SimpleUser authenticate(String email, String password)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		SimpleUser simpleUser = simpleUserDAO.findByEmailPassword(email, password);
+		return simpleUser.getActiveAccount() ? simpleUser : null;
 	}
 }

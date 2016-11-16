@@ -33,6 +33,10 @@ public class ProfessionalUserServiceTester {
 	    System.out.println("\nremove()\n");
 	    proService.remove(pro);
 	    System.out.println(proService.findOne(pro.getProUserId()));
+	    //Authenticate
+	    System.out.println("Authenticate()");
+	   pro = proService.authenticate("example1@mail.com", "pass1");
+	    System.out.println(pro.toString());
 	    //findFromLocation()
 	    System.out.println("\nfindFromLocation()");
 	    pros = proService.findFromLocation("Kentro");

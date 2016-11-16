@@ -295,6 +295,37 @@ public class SimpleUserDAO {
 	}
 
 	/**
+	 * Finds the Simple User with the given email and password.
+	 * 
+	 * @param email the email of the user
+	 * @param password the password of the user
+	 * @return The SimpleUser with the specified ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public SimpleUser findByEmailPassword(String email, String password)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		SimpleUser simpleUser = null;
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + EMAIL + " =? AND " + PASSWORD + "=?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setString(1, email);
+			preStmt.setString(2, password);
+			rs = preStmt.executeQuery();
+			if (rs.next()) {
+				simpleUser = SimpleUserDAO.populate(rs);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return simpleUser;
+	}
+
+	/**
 	 * Utility method that takes a result set and returns a SimpleUser object.
 	 *
 	 * @param resultSet

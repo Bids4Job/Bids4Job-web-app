@@ -9,7 +9,7 @@ public class ProfessionalUserTester {
 	ProfessionalUser pro1 = new ProfessionalUser(1, "Giannis", "Kranas", "Faliro", "Developer", "johny", "qwerty", "johny@example.com", true);
 	System.out.println(pro1);
 	System.out.println("Pro ID: " + pro1.getProUserId());
-	System.out.println("First: " + pro1.getFisrtName());
+	System.out.println("First: " + pro1.getFirstName());
 	System.out.println("Last: " + pro1.getLastName());
 	System.out.println("Location: " + pro1.getLocation());
 	System.out.println("Profession: " + pro1.getProfession());
