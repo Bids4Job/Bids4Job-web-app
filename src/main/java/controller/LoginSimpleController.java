@@ -91,7 +91,7 @@ public class LoginSimpleController extends HttpServlet {
 			session.setAttribute("simple-user", simpleUser);
 			simpleProfileDispatcher.forward(request, response);
 		} else {
-			request.setAttribute("errorMessage", "Wrong email or password");
+			request.setAttribute("errorMessage", "Not an active account");
 			errorDispatcher.forward(request, response);
 		}
 	}
