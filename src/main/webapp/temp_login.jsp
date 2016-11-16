@@ -44,7 +44,7 @@
 			</section>
 		</div>
 	</div>
-	<form action="">
+	<form action="logout_professional" method="GET">
 	<input type="submit" class="btn btn-primary btn-md" value="logout" id="SubmitButton" name="submit">
 	</form>
 </body>

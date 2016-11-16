@@ -75,7 +75,6 @@ public class LoginProfessionalController extends HttpServlet {
 	 	HttpSession session = request.getSession();
 	 	try {
 		    pro = service.authenticate(email, password);
-		    System.out.println(pro.toString());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException | NullPointerException e) {
 		    request.setAttribute("errormessage", e.getMessage());
 		    errorDispatcher.forward(request, response);
@@ -83,7 +82,6 @@ public class LoginProfessionalController extends HttpServlet {
 	 	
 	 	if (pro != null){
 	 	    session.setAttribute("pro", pro);
-	 	   // System.out.println(pro.toString());
 	 	    loginDispatcher.forward(request, response);
 	 	} else {
 	 	    request.setAttribute("errormessage", "Not authenticate professional user");

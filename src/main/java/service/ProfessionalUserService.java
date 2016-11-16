@@ -2,7 +2,6 @@ package service;
 
 import dao.ProfessionalUserDao;
 import domain.ProfessionalUser;
-import domain.SimpleUser;
 
 import java.sql.*;
 import java.util.*;
@@ -45,7 +44,11 @@ public class ProfessionalUserService {
    }
     
     public ProfessionalUser authenticate(String email, String password)  throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-	// TODO authenitcat user based on email and password
-	return dao.findByEmailPassword(email, password);
-}
+	ProfessionalUser pro = dao.findByEmailPassword(email, password);
+	if (pro.getActive() == true){
+	    return pro;
+	} else {
+	    return null;
+	}
+    }
 }
