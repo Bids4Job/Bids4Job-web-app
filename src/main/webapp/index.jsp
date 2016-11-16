@@ -203,7 +203,6 @@
 								placeholder="Password" required name="password">
 							<div class="checkbox">
 								<label> <input type="checkbox" value="remember-me">
-							<div class="checkbox">
 									Remember me
 								</label>
 							</div>
