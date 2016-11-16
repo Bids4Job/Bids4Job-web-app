@@ -40,7 +40,7 @@
 			<h1>Sign Up Succeeded!</h1>
 		</div>
 
-<%
+<%-- <%
 		User user = (User)request.getAttribute("user-object");
 
 		if(user == null) {
@@ -60,7 +60,7 @@
         <li><b>Location:</b> <%= user.getLocation() %></li>
 			</ol>
 		</div>
-<% 		} %>
+<% 		} %> --%>
     </div> <!-- /container -->
 
 
