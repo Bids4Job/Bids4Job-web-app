@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="domain.SimpleUser"%>
 <%@ page import="domain.ProfessionalUser"%>
+<%@ page errorPage="error.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>

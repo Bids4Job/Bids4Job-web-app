@@ -42,7 +42,7 @@ public class LoginProfessionalController extends HttpServlet {
     @Override
 	public void init() {
 		// Define RequestDispatcher object to forward any errors
-		errorDispatcher = getServletContext().getRequestDispatcher("/professional_user_error_page.jsp");
+		errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
 
 		// Define RequestDispatcher object to forward if data are correct and
 		// successfully stored in database
@@ -76,7 +76,7 @@ public class LoginProfessionalController extends HttpServlet {
 	 	try {
 		    pro = service.authenticate(email, password);
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException | NullPointerException e) {
-		    request.setAttribute("errormessage", e.getMessage());
+		    request.setAttribute("errorMessage", e.getMessage());
 		    errorDispatcher.forward(request, response);
 		}
 	 	
@@ -84,7 +84,7 @@ public class LoginProfessionalController extends HttpServlet {
 	 	    session.setAttribute("pro", pro);
 	 	    loginDispatcher.forward(request, response);
 	 	} else {
-	 	    request.setAttribute("errormessage", "Not authenticate professional user");
+	 	    request.setAttribute("errorMessage", "Not authenticate professional user");
 	 	    errorDispatcher.forward(request, response);
 	 	}
 	 	

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="domain.ProfessionalUser"%>
+<%@ page errorPage="error.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +43,7 @@
 						Profile</a></li>
 			</ul>
 			<div class="navbar-form navbar-right">
-				<a href="logout.jsp" class="btn btn-info" role="button">Log out</a>
+				<a href="/bids4job-web-app/logout_professional" class="btn btn-info" role="button">Log out</a>
 			</div>
 		</div>
 	</nav>

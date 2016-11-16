@@ -46,7 +46,7 @@ public class RegisterProfessionalController extends HttpServlet {
 	    	response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-		RequestDispatcher errors = getServletContext().getRequestDispatcher("/professional_user_error_page.jsp");
+		RequestDispatcher errors = getServletContext().getRequestDispatcher("/errorprinter.jsp");
 		
 		ProfessionalUserService service = new ProfessionalUserService();
 		
@@ -61,11 +61,11 @@ public class RegisterProfessionalController extends HttpServlet {
 		
 		try {
 		    if (service.exist(ProfessionalUserDao.EMAIL, email)){
-			request.setAttribute("errormessage", "Email already exists.");
+			request.setAttribute("errorMessage", "Email already exists.");
 			errors.forward(request, response);
 		    }
 		    if (service.exist(ProfessionalUserDao.USERNAME, username)){
-			request.setAttribute("errormessage", "Username already exists.");
+			request.setAttribute("errorMessage", "Username already exists.");
 			errors.forward(request, response);
 		    }
 
@@ -89,7 +89,7 @@ public class RegisterProfessionalController extends HttpServlet {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
 		    // TODO Auto-generated catch block
 		    //e.printStackTrace();
-		    request.setAttribute("errormessage", e.getMessage());
+		    request.setAttribute("errorMessage", e.getMessage());
 		    errors.forward(request, response);
 		}
 		
