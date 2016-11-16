@@ -30,7 +30,7 @@
 		                		</tr>
 		                		<tr>
 		                			<td><%= pro.getProUserId() %></td>
-		                			<td><%= pro.getFisrtName() %></td>
+		                			<td><%= pro.getFirstName() %></td>
 		                			<td><%= pro.getLastName() %></td>
 		                			<td><%= pro.getLocation() %></td>
 		                			<td><%= pro.getProfession() %></td>

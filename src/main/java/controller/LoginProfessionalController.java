@@ -85,6 +85,7 @@ public class LoginProfessionalController extends HttpServlet {
 	 	    loginDispatcher.forward(request, response);
 	 	} else {
 	 	    request.setAttribute("errormessage", "Not authenticate professional user");
+	 	    errorDispatcher.forward(request, response);
 	 	}
 	 	
 

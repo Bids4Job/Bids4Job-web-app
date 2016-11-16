@@ -18,7 +18,7 @@ import service.ProfessionalUserService;
 public class LogoutProfessionalController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	RequestDispatcher errorDispatcher;
+	//RequestDispatcher errorDispatcher;
 	RequestDispatcher logoutDispatcher;
        
     /**
