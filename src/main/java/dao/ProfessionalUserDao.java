@@ -52,7 +52,7 @@ public class ProfessionalUserDao {
 	try {
 	    connection = DaoUtils.getConnection();
 	    statement = connection.prepareStatement(query);
-	    statement.setString(1, professionalUser.getFisrtName());
+	    statement.setString(1, professionalUser.getFirstName());
 	    statement.setString(2, professionalUser.getLastName());
 	    statement.setString(3, professionalUser.getLocation());
 	    statement.setString(4, professionalUser.getProfession());
@@ -113,7 +113,7 @@ public class ProfessionalUserDao {
 	try {
 	    connection = DaoUtils.getConnection();
 	    statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-	    statement.setString(1, professionalUser.getFisrtName());
+	    statement.setString(1, professionalUser.getFirstName());
 	    statement.setString(2, professionalUser.getLastName());
 	    statement.setString(3, professionalUser.getLocation());
 	    statement.setString(4, professionalUser.getProfession());

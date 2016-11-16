@@ -44,7 +44,7 @@ public class ProfessionalUser {
 		return this;
 	}
 
-	public String getFisrtName() {
+	public String getFirstName() {
 		return this.firstName;
 	}
 
