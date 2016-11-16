@@ -65,6 +65,14 @@ public class SimpleUserServiceTester {
 			for (SimpleUser s : simpleUsers) {
 				System.out.println(s + "\n");
 			}
+			// authenticate - existing
+			System.out.println(
+					"\n==============================================\nauthenticate()\n==============================================\n"
+							+ simpleUserService.authenticate("example1@mail.com", "pass1"));
+			// authenticate - not existing
+						System.out.println(
+								"\n==============================================\nauthenticate()\n==============================================\n"
+										+ simpleUserService.authenticate("example1@mail.com", "pass2"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
