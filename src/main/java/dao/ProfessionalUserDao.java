@@ -13,16 +13,17 @@ import java.util.*;
  */
 public class ProfessionalUserDao {
     
-    private static final String PROFFESIONAL_USER_TABLE = "pro_user";
-    private static final String PRO_USER_ID = "pro_user_ID";
-    private static final String FIRST_NAME = "first_name";
-    private static final String LAST_NAME = "last_name";
-    private static final String LOCATION = "location";
-    private static final String PROFESSION = "profession";
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
-    private static final String EMAIL = "email";
-    private static final String ACTIVE = "active_account";
+    public static final String PROFFESIONAL_USER_TABLE = "pro_user";
+    public static final String PRO_USER_ID = "pro_user_ID";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+    public static final String LOCATION = "location";
+    public static final String PROFESSION = "profession";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
+    public static final String ACTIVE = "active_account";
+    
     private Connection connection;
     private PreparedStatement statement;
     private ResultSet resultSet;
@@ -265,6 +266,27 @@ public class ProfessionalUserDao {
 		DaoUtils.closeResources(resultSet, statement, connection);
 	}
 	return pro;
+    }
+    
+    public boolean exist(String name, String value) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+	
+	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + name + " =?;";
+	this.prepareResources();
+	try {
+	    connection = DaoUtils.getConnection();
+	    statement = connection.prepareStatement(query);
+	    statement.setString(1, value);
+	    resultSet = statement.executeQuery();
+	    if (resultSet.next()) {
+		return true;
+	    } else {
+		return false;
+	    }
+	    
+	} finally {
+		DaoUtils.closeResources(resultSet, statement, connection);
+	}
+	
     }
         
               

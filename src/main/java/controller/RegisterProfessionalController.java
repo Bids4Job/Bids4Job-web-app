@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ProfessionalUserDao;
 import domain.ProfessionalUser;
 import service.ProfessionalUserService;
 
@@ -56,9 +57,19 @@ public class RegisterProfessionalController extends HttpServlet {
 		String username = request.getParameter("uname");
 		String password = request.getParameter("upass");
 		String email = request.getParameter("email");
-		
+				
 		
 		try {
+		    if (service.exist(ProfessionalUserDao.EMAIL, email)){
+			request.setAttribute("errormessage", "Email already exists.");
+			errors.forward(request, response);
+		    }
+		    if (service.exist(ProfessionalUserDao.USERNAME, username)){
+			request.setAttribute("errormessage", "Username already exists.");
+			errors.forward(request, response);
+		    }
+
+		    
 		    ProfessionalUser pro = new ProfessionalUser()
 			    .setFirstName(firstName)
 			    .setLastName(lastName)
