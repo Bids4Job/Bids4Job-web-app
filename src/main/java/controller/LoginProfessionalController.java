@@ -46,7 +46,7 @@ public class LoginProfessionalController extends HttpServlet {
 
 		// Define RequestDispatcher object to forward if data are correct and
 		// successfully stored in database
-		loginDispatcher = getServletContext().getRequestDispatcher("/temp_login.jsp");
+		loginDispatcher = getServletContext().getRequestDispatcher("/prouserprofile.jsp");
 
 		// Instantiate a SimpleUser service object
 		service = new ProfessionalUserService();
