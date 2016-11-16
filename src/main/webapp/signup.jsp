@@ -122,7 +122,7 @@
         </div><!-- End of #Individual -->
         <div id="Professional" class="tab-pane fade">
           <h2 class="form-signin-heading login-or-signup">Sign Up</h2>
-          <form class="form-horizontal" method="POST" action="register" class="form-signup">
+          <form class="form-horizontal" method="POST" action="register_professional" class="form-signup">
 
         <div class="form-group">
         <label for="username" class="col-sm-2 control-label">User Name</label>
@@ -164,7 +164,7 @@
         <div class="col-sm-6">
           <!-- <input list="location" name="location" class="form-control" placeholder="Your location">
           -->
-          <select id="locations" required>
+          <select id="locations" name="location" required>
               <option value=""></option>
               <option value="Athens Center">Athens Center</option>
               <option value="Athens North Sector">Athens North Sector</option>
@@ -182,7 +182,7 @@
         <div class="col-sm-6">
           <!-- <input list="location" name="location" class="form-control" placeholder="Your location">
           -->
-          <select id="professions" required>
+          <select id="professions" name="profession" required>
               <option value=""></option>
               <option value="Electrician">Electrician</option>
               <option value="Plumber">Plumber</option>
