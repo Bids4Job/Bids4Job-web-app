@@ -55,7 +55,7 @@
 						class="icon-bar"></span>
 				</button>
 				<a href="index.html"> <img alt="Brand" src="images/logo.png">
-				<!--Brand logo image-->
+					<!--Brand logo image-->
 				</a>
 			</div>
 			<!-- end collapsed navbar-->

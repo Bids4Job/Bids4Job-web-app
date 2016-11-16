@@ -132,4 +132,9 @@ public class SimpleUserService {
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		return simpleUserDAO.findByActiveAccount(active_account);
 	}
+	
+	public SimpleUser authenticate(String email, String password) {
+		// TODO authenitcat user based on email and password
+		return new SimpleUser();
+	}
 }
