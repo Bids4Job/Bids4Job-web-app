@@ -134,6 +134,7 @@ public class SimpleUserService {
 	}
 	
 	public SimpleUser authenticate(String email, String password) {
-		
+		// TODO authenitcat user based on email and password
+		return new SimpleUser();
 	}
 }

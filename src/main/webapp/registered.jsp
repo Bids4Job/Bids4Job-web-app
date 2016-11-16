@@ -39,9 +39,15 @@
       <div class="page-header">
 			<h1>Sign Up Succeeded!</h1>
 		</div>
+
+
+<%-- <%
+		User user = (User)request.getAttribute("user-object");
+
   
 <%
 		SimpleUser simpleUser = (SimpleUser)request.getAttribute("simpleUser");
+
 
 		if(simpleUser == null) {
 			request.setAttribute("errormessage", "Bad request");
@@ -59,7 +65,7 @@
         		<li><b>Location:</b> <%= simpleUser.getLocation() %></li>
 			</ol>
 		</div>
-<% 		} %>
+<% 		} %> --%>
     </div> <!-- /container -->
 
 
