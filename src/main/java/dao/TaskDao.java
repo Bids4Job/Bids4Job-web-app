@@ -32,9 +32,10 @@ public class TaskDao {
 	}
 
 	/**
-	 *
+	 * Finds the task with the given ID.
+	 * 
 	 * @param taskId
-	 * @return an object of Task type, the one that was founded.
+	 * @return An object of Task type, the one that was founded.
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws InstantiationException
@@ -61,8 +62,9 @@ public class TaskDao {
 	}
 
 	/**
-	 *
-	 * @return A List of objects type Task, the whole records.
+	 * Find all tasks in the database.
+	 * 
+	 * @return A List of objects type Task, the whole tasks.
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws InstantiationException
@@ -88,7 +90,8 @@ public class TaskDao {
 	}
 
 	/**
-	 *
+	 * Adds a new task in the database.
+	 * 
 	 * @param task
 	 * @return An object of type Task, the one that was created.
 	 * @throws SQLException
@@ -124,9 +127,10 @@ public class TaskDao {
 	}
 
 	/**
-	 *
+	 * Updates a task in the database based on the given ID.
+	 * 
 	 * @param task
-	 * @return true if the update took place or false if nothing changed.
+	 * @return True if the update took place or false if nothing changed.
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
@@ -155,9 +159,10 @@ public class TaskDao {
 	}
 
 	/**
-	 *
+	 * Delets a task from database, based on ID.
+	 * 
 	 * @param task
-	 * @return true if the task was deleted, else false.
+	 * @return True if the task was deleted, else false.
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
@@ -183,10 +188,11 @@ public class TaskDao {
 	}
 
 	/**
+	 * Finds tasks based on location, deadline and profession.
 	 * 
 	 * @param task
 	 * @param sm
-	 * @return The Task object that serves the user's criteria.
+	 * @return A list of tasks that serve the user's criteria.
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
@@ -215,10 +221,11 @@ public class TaskDao {
 	}
 
 	/**
+	 * Finds tasks based on location.
 	 * 
 	 * @param task
 	 * @param sm
-	 * @return All tasks by the location the users selects.
+	 * @return A list of tasks based on the location the user selects.
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
@@ -245,9 +252,10 @@ public class TaskDao {
 	}
 
 	/**
+	 * Finds tasks based on profession.
 	 * 
 	 * @param task
-	 * @return All the tasks based on field of work.
+	 * @return A list of tasks based on profession.
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
@@ -274,9 +282,10 @@ public class TaskDao {
 	}
 
 	/**
+	 * Finds the tasks that a simple user has posted.
 	 * 
 	 * @param sm
-	 * @return All tasks posted by the same user.
+	 * @return A list of tasks posted by the simple user.
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
@@ -304,9 +313,10 @@ public class TaskDao {
 	}
 
 	/**
+	 * Finds tasks based on deadline.
 	 * 
 	 * @param task
-	 * @return All the tasks with specified deadline.
+	 * @return A list of tasks with specified deadline.
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
@@ -334,10 +344,10 @@ public class TaskDao {
 	}
 
 	/**
-	 * 
+	 * Finds tasks based on location and profession.
 	 * @param task
 	 * @param sm
-	 * @return All the tasks based on location and profession.
+	 * @return A list of tasks based on location and profession.
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
@@ -365,10 +375,11 @@ public class TaskDao {
 	}
 
 	/**
+	 * Finds tasks based on location and deadline.
 	 * 
 	 * @param task
 	 * @param sm
-	 * @return All the tasks based on location and deadline.
+	 * @return A list of tasks based on location and deadline.
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
@@ -396,9 +407,10 @@ public class TaskDao {
 	}
 
 	/**
+	 * Finds tasks based on profession and deadline.
 	 * 
 	 * @param task
-	 * @return All the tasks based on field of work and deadline.
+	 * @return A list of tasks based on profession and deadline.
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
@@ -429,7 +441,7 @@ public class TaskDao {
 	 * Utility method that takes a resultSet and returns a Task object.
 	 *
 	 * @param resultSet
-	 * @return
+	 * @return A task object.
 	 */
 	public Task populate(ResultSet resultSet) {
 		try {

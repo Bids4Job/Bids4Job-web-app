@@ -13,7 +13,7 @@ import domain.Task;
 import service.TaskService;
 
 /**
- * Servlet implementation class UpdateServlet
+ * Servlet implementation class TaskUpdateServlet
  *
  * @author Dimitris
  */

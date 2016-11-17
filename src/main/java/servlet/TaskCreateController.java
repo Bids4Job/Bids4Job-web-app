@@ -13,7 +13,7 @@ import domain.Task;
 import service.TaskService;
 
 /**
- * Servlet implementation class CreateServlet
+ * Servlet implementation class CreateTaskServlet
  *
  * @author Dimitris
  */
@@ -21,6 +21,7 @@ import service.TaskService;
 public class TaskCreateController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    TaskService mService = new TaskService();
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -56,18 +57,13 @@ public class TaskCreateController extends HttpServlet {
             throws ServletException, IOException {
 
         String fieldOfWork = request.getParameter("fieldOfWork");
-        /**
-         * For the purposes of this personal project we will assume that all the
-         * new Tasks are made by the simple user with Id 1.
-         */
-        TaskService mService = new TaskService();
+        
         String date;
         date = request.getParameter("date");
         Timestamp deadline;
         deadline = Timestamp.valueOf(date + " " + "23:59:59");
         Task task = new Task().setDeadline(deadline).setSimpleUserId(1)
                 .setWorkField(fieldOfWork).setDescription("tararararar").setActive_task(1);
-
         Task task1;
         task1 = mService.create(task);
         request.setAttribute("newTask", task1);
