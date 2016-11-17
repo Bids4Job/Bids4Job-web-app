@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class LogoutSimpleController
  */
-@WebServlet("/logout_simple")
-public class LogoutSimpleController extends HttpServlet {
+@WebServlet("/logout_user")
+public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// Dispatchers for error and registered pages
-	RequestDispatcher indexDispatcher;
+	// Dispatcher for the logout page
+	RequestDispatcher logoutDispatcher;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LogoutSimpleController() {
+	public LogoutController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -30,7 +30,7 @@ public class LogoutSimpleController extends HttpServlet {
 	@Override
 	public void init() {
 		// Define RequestDispatcher object to forward any errors
-		indexDispatcher = getServletContext().getRequestDispatcher("/logout.jsp");
+		logoutDispatcher = getServletContext().getRequestDispatcher("/logout.jsp");
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class LogoutSimpleController extends HttpServlet {
 			throws ServletException, IOException {
 		// Invalidate the current session
 		request.getSession().invalidate();
-		indexDispatcher.forward(request, response);
+		logoutDispatcher.forward(request, response);
 	}
 
 }

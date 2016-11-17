@@ -24,13 +24,15 @@ public class LoginSimpleController extends HttpServlet {
 	// Parameter names
 	private static final String EMAIL = "email";
 	private static final String PASSWORD = "upass";
-
+	
 	// A service for SimpleUser database operations
 	private SimpleUserService simpleUserService;
 
+	// SimpleUser profile page
+	private static final String PROFILE_PAGE = "suserprofile.jsp";
+	
 	// Dispatchers for error and registered pages
 	RequestDispatcher errorDispatcher;
-	RequestDispatcher simpleProfileDispatcher;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,22 +47,8 @@ public class LoginSimpleController extends HttpServlet {
 		// Define RequestDispatcher object to forward any errors
 		errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
 
-		// Define RequestDispatcher object to forward if data are correct and
-		// successfully stored in database
-		simpleProfileDispatcher = getServletContext().getRequestDispatcher("/temp_profile.jsp");
-
 		// Instantiate a SimpleUser service object
 		simpleUserService = new SimpleUserService();
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -69,6 +57,8 @@ public class LoginSimpleController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		// Get the credentials from the login form
 		String email = request.getParameter(EMAIL);
 		String password = request.getParameter(PASSWORD);
@@ -89,7 +79,7 @@ public class LoginSimpleController extends HttpServlet {
 			HttpSession session = request.getSession();
 			// Set the user to session
 			session.setAttribute("simple-user", simpleUser);
-			simpleProfileDispatcher.forward(request, response);
+			response.sendRedirect(PROFILE_PAGE);
 		} else {
 			request.setAttribute("errorMessage", "Not an active account");
 			errorDispatcher.forward(request, response);

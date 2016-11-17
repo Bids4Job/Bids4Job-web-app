@@ -27,7 +27,7 @@ public class LoginProfessionalController extends HttpServlet {
 	private ProfessionalUserService service;
 	
 	RequestDispatcher errorDispatcher;
-	RequestDispatcher loginDispatcher;
+	private static final String PROFILE_PAGE = "prouserprofile.jsp";
 	
        
     /**
@@ -44,11 +44,7 @@ public class LoginProfessionalController extends HttpServlet {
 		// Define RequestDispatcher object to forward any errors
 		errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
 
-		// Define RequestDispatcher object to forward if data are correct and
-		// successfully stored in database
-		loginDispatcher = getServletContext().getRequestDispatcher("/prouserprofile.jsp");
-
-		// Instantiate a SimpleUser service object
+		// Instantiate a ProfessionalUser service object
 		service = new ProfessionalUserService();
 	}
     
@@ -66,9 +62,9 @@ public class LoginProfessionalController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	    	response.setContentType("text/html; charset=UTF-8");
+	    response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-	    	// Get the credentials from the login form
+	    // Get the credentials from the login form
 	 	String email = request.getParameter(EMAIL);
 	 	String password = request.getParameter(PASSWORD);
 	 	// Get the HttpSession that is associated with this request
@@ -82,7 +78,7 @@ public class LoginProfessionalController extends HttpServlet {
 	 	
 	 	if (pro != null){
 	 	    session.setAttribute("pro", pro);
-	 	    loginDispatcher.forward(request, response);
+	 	    response.sendRedirect(PROFILE_PAGE);
 	 	} else {
 	 	    request.setAttribute("errorMessage", "Not authenticate professional user");
 	 	    errorDispatcher.forward(request, response);
