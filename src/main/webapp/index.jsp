@@ -92,8 +92,8 @@
 						<p>Sign-Up and start getting quotes for any task you need from
 							our network of affiliated professionals!</p>
 						<p>
-							<a class="btn btn-lg btn-primary" href="signup.jsp" role="button">Sign
-								up today</a>
+							<a class="btn btn-lg btn-primary" href="#howitworks"
+								role="button">See how it works</a>
 						</p>
 					</div>
 				</div>
@@ -107,7 +107,7 @@
 						<p>Have questions about a specific problem and would like to
 							get an answer?</p>
 						<p>
-							<a class="btn btn-lg btn-primary" href="#" role="button">Contact
+							<a class="btn btn-lg btn-primary" href="#contact" role="button">Contact
 								Us</a>
 						</p>
 					</div>
@@ -122,7 +122,7 @@
 						<p>Are you a professional interested in boosting your
 							business? Let us show you how we can help you!</p>
 						<p>
-							<a class="btn btn-lg btn-primary" href="#" role="button">Learn
+							<a class="btn btn-lg btn-primary" href="#learnmore" role="button">Learn
 								more</a>
 						</p>
 					</div>
@@ -131,14 +131,25 @@
 		</div>
 
 		<!--Start search field-->
-
 		<div class="row" id="searchForm">
 			<div
 				class="col-lg-4 col-md-6 col-sm-6 col-xs-8 col-lg-offset-4 col-md-offset-3 col-sm-offset-3 col-xs-offset-2">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search for...">
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">Go!</button>
+					<select class="form-control" id="professions" required>
+						<option value="" selected disabled>Search for...</option>
+						<option value="Electrician">Electrician</option>
+						<option value="Plumber">Plumber</option>
+						<option value="Painter">Painter</option>
+						<option value="Hair Dresser">Hair Dresser</option>
+						<option value="Developer">Developer</option>
+						<option value="Designer">Designer</option>
+						<option value="Dancer">Dancer</option>
+						<option value="Banker">Banker</option>
+						<option value="Logistics">Logistics</option>
+						<option value="Personal Trainer">Personal Trainer</option>
+						<option value="Teacher">Teacher</option>
+					</select> <span class="input-group-btn">
+						<button class="btn btn-default" type="button">Search</button>
 					</span>
 				</div>
 			</div>
@@ -154,6 +165,7 @@
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
+
 	<!--End Carousel-->
 
 	<!-- Start Login Modal -->
