@@ -2,14 +2,16 @@ package testers;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import domain.Contract;
 import service.ContractService;
 
 /**
- * Service class that executes all required business logic
- * regarding Contracts.
+ * Service class that executes all required business logic regarding Contracts.
  * 
  * @author george
  *
@@ -20,6 +22,7 @@ public class ContractServiceTester {
 		ContractService contractService = new ContractService();
 		Contract contract;
 		List<Contract> contracts;
+		DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		try {
 			// findOne
@@ -31,7 +34,7 @@ public class ContractServiceTester {
 				System.out.println(s);
 			}
 			// create
-			contract = new Contract(1, 1, 1, new Timestamp(System.currentTimeMillis()));
+			contract = new Contract(1, 1, 1, 1, new Timestamp(System.currentTimeMillis()));
 			System.out.println("\ncreate()\n" + contractService.create(contract));
 			// update
 			System.out.println("\nupdate()\n" + contractService.update(contract.setTaskID(7)));
@@ -68,13 +71,24 @@ public class ContractServiceTester {
 
 			// findByLocation
 			System.out.println("\nfindByLocation()");
-			contracts = contractService.findByLocation("Faliro");
+			contracts = contractService.findByLocation("Thessaloniki");
 			for (Contract c : contracts) {
 				System.out.println(c);
 			}
 
 			// findByContractTime
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+			System.out.println("\nfindByContractTime()");
+			contracts = contractService.findByContractTime(
+					simpleDateFormat.format(new Timestamp(simpleDateFormat.parse("2016-11-01").getTime())));
+			for (Contract c : contracts) {
+				System.out.println(c);
+			}
+
+			// findRatingByProUserID
+			System.out.println("\nfindRatingByProUserID()\n pro user 11: " + contractService.findRatingByProUserID(11));
+			System.out.println("\nfindRatingByProUserID()\n pro user 111: " + contractService.findRatingByProUserID(111));
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException
+				| ParseException e) {
 			e.printStackTrace();
 		}
 	}

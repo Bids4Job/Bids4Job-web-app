@@ -175,4 +175,21 @@ public class ContractService {
 		return contractDAO.findByContractTime(timestampStr);
 	}
 
+	/**
+	 * Finds the average rating from contracts in the database signed by the
+	 * specified Professional User.
+	 *
+	 * @return the average rating of the specified professional user, default
+	 *         value is 0.0
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public String findRatingByProUserID(int proUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		double averageRating = contractDAO.findRatingByProUserID(proUserID);
+		String averageRatingStr = averageRating != 0 ? String.valueOf(averageRating) : "-";
+		return averageRatingStr;
+	}
 }
