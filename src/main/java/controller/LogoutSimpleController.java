@@ -30,7 +30,7 @@ public class LogoutSimpleController extends HttpServlet {
 	@Override
 	public void init() {
 		// Define RequestDispatcher object to forward any errors
-		indexDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+		indexDispatcher = getServletContext().getRequestDispatcher("/logout.jsp");
 	}
 
 	/**

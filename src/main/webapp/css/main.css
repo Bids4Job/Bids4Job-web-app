@@ -7,6 +7,14 @@ body {
   padding-top: 50px;
 }
 
+.bigimage > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 1000px;
+  height: auto;
+}
+
 /* Signup form */
 .form-signup {
   max-width: 600px;
@@ -20,7 +28,7 @@ select {
 }
 
 select > option {
-  font-size: 2em;
+  font-size: 1.2em;
 }
 
 /* Login form */

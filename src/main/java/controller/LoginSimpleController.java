@@ -43,7 +43,7 @@ public class LoginSimpleController extends HttpServlet {
 	@Override
 	public void init() {
 		// Define RequestDispatcher object to forward any errors
-		errorDispatcher = getServletContext().getRequestDispatcher("/simple_user_error_printer.jsp");
+		errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
 
 		// Define RequestDispatcher object to forward if data are correct and
 		// successfully stored in database

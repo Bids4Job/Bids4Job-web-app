@@ -4,7 +4,6 @@ import domain.ProfessionalUser;
 import java.sql.*;
 import java.util.*;
 
-//import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
 
 /**
  * 

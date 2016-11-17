@@ -36,7 +36,7 @@ public class LogoutProfessionalController extends HttpServlet {
 
    		// Define RequestDispatcher object to forward if data are correct and
    		// successfully stored in database
-   		logoutDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+   		logoutDispatcher = getServletContext().getRequestDispatcher("/logout.jsp");
 
    	}
 	/**

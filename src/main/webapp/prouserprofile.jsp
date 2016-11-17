@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="domain.ProfessionalUser"%>
+<%@ page errorPage="error.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -54,38 +56,38 @@
               <div class="row">
                 <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="images/user_avatar.png" class="img-circle img-responsive"> </div>
                 
-                
+                <%ProfessionalUser pro =(ProfessionalUser) session.getAttribute("pro"); %>
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
-                        <td>Username:</td>
-                        <td>Pro_user1</td>
-                      </tr>
-                      <tr>
-                        <td>Ratting:</td>
-                        <td>4.5</td>
-                      </tr>
-                      <tr>
-                        <td>Email:</td>
-                        <td>email@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>Name:</td>
-                        <td>myName</td>
-                      </tr>
-                      <tr>
-                        <td>Surname:</td>
-                        <td>mySurname</td>
-                      </tr>
-                      <tr>
-                        <td>Location:</td>
-                        <td>Athens Center</td>
-                      </tr>
-                      <tr>
-                        <td>Profession:</td>
-                        <td>My Profession</td>
-                      </tr>
+                      <td>Username:</td>
+                      <td><%=pro.getUsername()%></td>
+                    </tr>
+                    <tr>
+                      <td>Ratting:</td>
+                      <td>4.5</td>
+                    </tr>
+                    <tr>
+                      <td>Email:</td>
+                      <td><%=pro.getEmail()%></td>
+                    </tr>
+                    <tr>
+                      <td>Name:</td>
+                      <td><%=pro.getFirstName()%></td>
+                    </tr>
+                    <tr>
+                      <td>Surname:</td>
+                      <td><%=pro.getLastName()%></td>
+                    </tr>
+                    <tr>
+                      <td>Location:</td>
+                      <td><%=pro.getLocation()%></td>
+                    </tr>
+                    <tr>
+                      <td>Profession:</td>
+                      <td><%=pro.getProfession()%></td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
@@ -146,8 +148,8 @@
             </tr>
           </tbody>
         </table>
-        <div class="panel-footer">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Make new bid" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+        <div class="panel-footer"><h5>Make a new bid 
+        <a href="#" data-toggle="modal" data-target="#bid-modal" data-placement="bottom" title="Make new bid" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-plus"></i></a></h5>
         </div>
       </div>
     </div>
@@ -196,8 +198,8 @@
             </tr>
           </tbody>
         </table>
-        <div class="panel-footer">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Make new bid" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+        <div class="panel-footer"><h5>Make a new bid 
+        <a href="#" data-toggle="modal" data-target="#bid-modal" data-placement="bottom" title="Make new bid" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-plus"></i></a></h5>
         </div>
       </div>
     </div>
@@ -205,6 +207,28 @@
 </div>
 </div>
 </div><!-- End of .row-->
+
+<!-- Start #bid-modal -->
+<div class="modal fade" id="bid-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">New Bid</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="bid">Bid Amount &euro;:</label>
+          <input type="text" class="form-control" id="bid">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Submit</button>
+      </div>
+    </div><!-- End .modal-content -->
+  </div><!-- End .modal-dialog -->
+</div><!-- End #bid-modal -->
 
 <hr>
       <footer>
