@@ -3,6 +3,8 @@ package service;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.sql.rowset.CachedRowSet;
+
 import dao.ContractDAO;
 import domain.Contract;
 
@@ -180,7 +182,7 @@ public class ContractService {
 	 * specified Professional User.
 	 *
 	 * @return the average rating of the specified professional user, default
-	 *         value is 0.0
+	 *         value is '-'
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws InstantiationException
@@ -191,5 +193,21 @@ public class ContractService {
 		double averageRating = contractDAO.findRatingByProUserID(proUserID);
 		String averageRatingStr = averageRating != 0 ? String.valueOf(averageRating) : "-";
 		return averageRatingStr;
+	}
+	
+	/**
+	 * Finds all Contracts in the database from a specified Simple User.
+	 * (pro_username, amount, rating, contract_date)
+	 *
+	 * @return a CachedRowSet with all Contracts(in details) based on simple user
+	 *         ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findDetailsBySimpleUserID(int simpleUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		return contractDAO.findDetailsBySimpleUserID(simpleUserID);
 	}
 }
