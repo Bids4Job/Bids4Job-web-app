@@ -33,98 +33,49 @@
 </head>
 <body>
 
+	<!--Navbar start-->
+
 	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<a href="index.jsp"> <img alt="Brand" src="images/logo.png">
-				<!--Brand logo image-->
-			</a>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="suserprofile.jsp" class="active">My
-						Profile</a></li>
-			</ul>
-			<div class="navbar-form navbar-right">
-				<a href="logout_user" class="btn btn-info" role="button">Log out</a>
+		<div class="container-fluid navbar-transp">
+			<div class="navbar-header">
+				<!--start collapsed navbar-->
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="index.jsp"> <img alt="Brand" src="images/logo.png">
+					<!--Brand logo image-->
+				</a>
 			</div>
+			<!-- end collapsed navbar-->
+			<div id="navbar" class="navbar-collapse collapse">
+				<!--start un-collapsed navbar-->
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="suserprofileWithContracts.jsp"><span
+							class="glyphicon glyphicon-user"></span>My Profile</a></li>
+					<li><a href="#" data-toggle="modal"
+						data-target="#contracts-modal"><span
+							class="glyphicon glyphicon-list-alt"></span>My Contracts</a></li>
+					<li><a href="logout_user"><span
+							class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+				</ul>
+			</div>
+			<!-- end un-collapsed navbar-->
 		</div>
 	</nav>
+	<!--Navbar end-->
 
 
-<<<<<<< HEAD
-<!-- Start #task-modal -->
-<div class="modal fade" id="task-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header modal-header-primary">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">New Task</h4>
-      </div>
-      <div class="modal-body">
-      <form class="form-horizontal" method="POST" action="task_create_by_simple_controller" class="form-signup">
 
-        <div class="form-group">
-        <label for="task-title" class="col-sm-2 control-label">Title</label>
-        <div class="col-sm-6">
-          <input type="text" name="task_title" ng-model="task-title" class="form-control" id="task-title" placeholder="Task Title" required>
-        </div>
-        </div>
-
-        <div class="form-group">
-        <label for="task-description" class="col-sm-2 control-label">Task Description</label>
-        <div class="col-sm-6">
-          <textarea type="text" rows="4" name="task_description" class="form-control" id="task-description" placeholder="Task Description..." maxlength="1000" required></textarea>
-        </div>
-        </div>
-
-        <div class="form-group">
-        <label for="deadline" class="col-sm-2 control-label">Deadline</label>
-        <div class="col-sm-6">
-          <input type="date" name="date" class="form-control" id="deadline" placeholder="Task Deadline" required>
-        </div>
-        </div>
-
-        <div class="form-group">
-        <label for="location" class="col-sm-2 control-label">Location</label>
-        <div class="col-sm-6">
-          <select id="locations" name="location" required>
-              <option value=""></option>
-              <option value="Athens Center">Athens Center</option>
-              <option value="Athens North Sector">Athens North Sector</option>
-              <option value="Athens South Sector">Athens South Sector</option>
-              <option value="Athens East Sector">Athens East Sector</option>
-              <option value="Athens West Sector">Athens West Sector</option>
-              <option value="Thessaloniki">Thessaloniki</option>
-              <option value="Patra">Patra</option>
-          </select>
-        </div>
-        </div>
-
-        <div class="form-group">
-        <label for="location" class="col-sm-2 control-label">Profession</label>
-        <div class="col-sm-6">
-          
-          <select id="professions" name="profession" required>
-              <option value=""></option>
-              <option value="Electrician">Electrician</option>
-              <option value="Plumber">Plumber</option>
-              <option value="Painter">Painter</option>
-              <option value="Hair Dresser">Hair Dresser</option>
-              <option value="Developer">Developer</option>
-              <option value="Designer">Designer</option>
-              <option value="Dancer">Dancer</option>
-              <option value="Banker">Banker</option>
-              <option value="Logistics">Logistics</option>
-              <option value="Personal Trainer">Personal Trainer</option>
-              <option value="Teacher">Teacher</option>
-          </select>
-        </div>
-        </div>
-=======
 	<div class="container">
 
 		<div class="row">
 			<div
 				class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
-
 
 				<div class="panel panel-info">
 					<div class="panel-heading">
@@ -171,8 +122,8 @@
 					</div>
 					<div class="panel-footer">
 						<a href="#" data-toggle="modal" data-target="#task-modal"
-							data-placement="bottom" title="Create new task" type="button"
-							class="btn btn-primary">Create new task</a>
+							title="Create new task" type="button" class="btn btn-primary">Create
+							new task</a>
 					</div>
 				</div>
 				<!-- End of .panel-->
@@ -296,7 +247,6 @@
 			</div>
 		</div>
 		<!-- End of .row-->
->>>>>>> a3ac128f1a639254c71707ee56c2ba37522a05e0
 
 		<!-- Start #task-modal -->
 		<div class="modal fade" id="task-modal" tabindex="-1" role="dialog">
@@ -310,7 +260,7 @@
 						<h4 class="modal-title">New Task</h4>
 					</div>
 					<div class="modal-body">
-						<form class="form-horizontal" method="POST" action="task_create_by_simple_controller"
+						<form class="form-horizontal" method="POST" action="create_task"
 							class="form-signup">
 
 							<div class="form-group">
@@ -327,7 +277,7 @@
 									Description</label>
 								<div class="col-sm-6">
 									<textarea type="text" rows="4" name="task_description"
-										class="form-control" id="task-description"
+										class="form-control" id="task_description"
 										placeholder="Task Description..." maxlength="1000" required></textarea>
 								</div>
 							</div>
@@ -341,28 +291,10 @@
 							</div>
 
 							<div class="form-group">
-								<label for="location" class="col-sm-2 control-label">Location</label>
-								<div class="col-sm-6">
-									<select id="locations" name="location"required>
-										<option value=""></option>
-										<option value="Athens Center">Athens Center</option>
-										<option value="Athens North Sector">Athens North
-											Sector</option>
-										<option value="Athens South Sector">Athens South
-											Sector</option>
-										<option value="Athens East Sector">Athens East Sector</option>
-										<option value="Athens West Sector">Athens West Sector</option>
-										<option value="Thessaloniki">Thessaloniki</option>
-										<option value="Patra">Patra</option>
-									</select>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="location" class="col-sm-2 control-label">Profession</label>
+								<label for="profession" class="col-sm-2 control-label">Profession</label>
 								<div class="col-sm-6">
 
-									<select id="professions" name="profession"required>
+									<select name="profession" id="professions" required>
 										<option value=""></option>
 										<option value="Electrician">Electrician</option>
 										<option value="Plumber">Plumber</option>
@@ -401,6 +333,135 @@
 		</div>
 		<!-- End #task-modal -->
 
+		<!-- Start #contracts-modal -->
+		<div class="modal fade" id="contracts-modal" tabindex="-1"
+			role="dialog">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header modal-header-primary">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">My Contracts</h4>
+					</div>
+					<div class="modal-body">
+
+
+
+
+
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="headingOne">
+								<h4 class="panel-title">Contract #1</h4>
+							</div>
+
+							<div class="panel-body">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>Professional</th>
+											<th>Rating</th>
+											<th>Amount &euro;</th>
+											<th>Contract Date</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>pro_user1</td>
+											<td>
+												<!-- Start td for rating -->
+												<form class="form-inline" method="POST" action="register"
+													class="form-signup">
+													<div class="form-group">
+														<select name="rating" id="rating" required>
+															<option value=""></option>
+															<option value="0">0</option>
+															<option value="1">1</option>
+															<option value="2">2</option>
+															<option value="3">3</option>
+															<option value="4">4</option>
+															<option value="5">5</option>
+														</select>
+													</div>
+
+													<div class="form-group">
+														<button type="submit" class="btn btn-success">Rate</button>
+													</div>
+												</form>
+											</td>
+											<!-- End td for rating -->
+											<td>500</td>
+											<td>12/10/2016 15:05:00</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- End .panel -->
+
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="headingTwo">
+								<h4 class="panel-title">Contract #2</h4>
+							</div>
+
+							<div class="panel-body">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>Professional</th>
+											<th>Rating</th>
+											<th>Amount &euro;</th>
+											<th>Contract Date</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>pro_user2</td>
+											<td>
+												<!-- Start td for rating -->
+												<form class="form-inline" method="POST" action="register"
+													class="form-signup">
+													<div class="form-group">
+														<select name="rating" id="rating" required>
+															<option value=""></option>
+															<option value="0">0</option>
+															<option value="1">1</option>
+															<option value="2">2</option>
+															<option value="3">3</option>
+															<option value="4">4</option>
+															<option value="5">5</option>
+														</select>
+													</div>
+
+													<div class="form-group">
+														<button type="submit" class="btn btn-success">Rate</button>
+													</div>
+												</form>
+											</td>
+											<!-- End td for rating -->
+											<td>500</td>
+											<td>12/10/2016 15:05:00</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- End .panel -->
+
+					</div>
+					<!-- End .modal-body -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+					</div>
+				</div>
+				<!-- End .modal-content -->
+			</div>
+			<!-- End .modal-dialog -->
+		</div>
+		<!-- End #contracts-modal -->
+
 		<hr>
 		<footer>
 			<p>
@@ -410,11 +471,8 @@
 		</footer>
 		<!-- End of Footer -->
 
-
 	</div>
 	<!-- End of .container-->
-
-
 
 
 

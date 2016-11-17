@@ -18,15 +18,15 @@ import service.TaskService;
  * 
  * @author Dimitris
  */
-@WebServlet(name = "TaskCreateBySimpleUserController", urlPatterns = { "/task_create_by_simple_controller" })
-public class TaskCreateBySimpleUserController extends HttpServlet {
+@WebServlet(name = "TaskCreateBySimpleUserController", urlPatterns = { "/create_task" })
+public class CreateTaskController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TaskService mService = new TaskService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public TaskCreateBySimpleUserController() {
+	public CreateTaskController() {
 		super();
 	}
 
@@ -61,7 +61,7 @@ public class TaskCreateBySimpleUserController extends HttpServlet {
 		Task task1;
 		task1 = mService.create(task);
 		request.setAttribute("newTask", task1);
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/suserprofile.jsp").forward(request, response);
 	}
 
 }
