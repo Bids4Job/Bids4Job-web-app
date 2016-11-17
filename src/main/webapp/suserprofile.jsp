@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page errorPage="error.jsp"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -84,9 +83,9 @@
                 </div>
               </div>
             </div>
-            <div class="panel-footer">
-                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Create new task" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-            </div>
+          <div class="panel-footer">
+            <a href="#" data-toggle="modal" data-target="#task-modal" data-placement="bottom" title="Create new task" type="button" class="btn btn-primary">Create new task</a>
+        </div>
           </div><!-- End of .panel-->
         </div>
       </div><!-- End of .row-->
@@ -148,7 +147,7 @@
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Task #2 by simple_user2
+          Task #2 by simple_user1
         </a>
       </h4>
     </div>
@@ -194,6 +193,93 @@
 </div>
 </div>
 </div><!-- End of .row-->
+
+<!-- Start #task-modal -->
+<div class="modal fade" id="task-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">New Task</h4>
+      </div>
+      <div class="modal-body">
+      <form class="form-horizontal" method="POST" action="register" class="form-signup">
+
+        <div class="form-group">
+        <label for="task-title" class="col-sm-2 control-label">Title</label>
+        <div class="col-sm-6">
+          <input type="text" name="task-title" ng-model="task-title" class="form-control" id="task-title" placeholder="Task Title" required>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="task-description" class="col-sm-2 control-label">Task Description</label>
+        <div class="col-sm-6">
+          <textarea type="text" rows="4" name="task-description" class="form-control" id="task-description" placeholder="Task Description..." maxlength="1000" required></textarea>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="deadline" class="col-sm-2 control-label">Deadline</label>
+        <div class="col-sm-6">
+          <input type="date" name="deadline" class="form-control" id="deadline" placeholder="Task Deadline" required>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="location" class="col-sm-2 control-label">Location</label>
+        <div class="col-sm-6">
+          <select id="locations" required>
+              <option value=""></option>
+              <option value="Athens Center">Athens Center</option>
+              <option value="Athens North Sector">Athens North Sector</option>
+              <option value="Athens South Sector">Athens South Sector</option>
+              <option value="Athens East Sector">Athens East Sector</option>
+              <option value="Athens West Sector">Athens West Sector</option>
+              <option value="Thessaloniki">Thessaloniki</option>
+              <option value="Patra">Patra</option>
+          </select>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="location" class="col-sm-2 control-label">Profession</label>
+        <div class="col-sm-6">
+          
+          <select id="professions" required>
+              <option value=""></option>
+              <option value="Electrician">Electrician</option>
+              <option value="Plumber">Plumber</option>
+              <option value="Painter">Painter</option>
+              <option value="Hair Dresser">Hair Dresser</option>
+              <option value="Developer">Developer</option>
+              <option value="Designer">Designer</option>
+              <option value="Dancer">Dancer</option>
+              <option value="Banker">Banker</option>
+              <option value="Logistics">Logistics</option>
+              <option value="Personal Trainer">Personal Trainer</option>
+              <option value="Teacher">Teacher</option>
+          </select>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-6">
+          <button type="submit" class="btn btn-success">Create</button>
+          <input type="reset" class="btn btn-warning">
+        </div>
+        </div>
+
+    </form>
+  
+</div><!-- End .modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div><!-- End .modal-content -->
+  </div><!-- End .modal-dialog -->
+</div><!-- End #task-modal -->
 
 <hr>
       <footer>
