@@ -66,9 +66,10 @@
 								<img alt="User Pic" src="images/user_avatar.png"
 									class="img-circle img-responsive">
 							</div>
-
+							<!-- Getting Attrin=bute from session -->
 							<%
 							    ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
+							    String rating = (String) session.getAttribute("rating");
 							%>
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">
@@ -79,7 +80,7 @@
 										</tr>
 										<tr>
 											<td>Ratting:</td>
-											<td>4.5</td>
+											<td><%=rating %></td>
 										</tr>
 										<tr>
 											<td>Email:</td>
@@ -147,24 +148,24 @@
 											<td>4.5</td>
 											<td>500</td>
 											<td>12/10/2016 15:05:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger" role="button">Cancel
-													Bid</a></td>
+											<td><a href="cancel_bid" class="btn btn-danger"
+												role="button">Cancel Bid</a></td>
 										</tr>
 										<tr>
 											<td>pro_user2</td>
 											<td>4.1</td>
 											<td>570</td>
 											<td>12/10/2016 13:15:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger" role="button">Cancel
-													Bid</a></td>
+											<td><a href="cancel_bid" class="btn btn-danger"
+												role="button">Cancel Bid</a></td>
 										</tr>
 										<tr>
 											<td>pro_user3</td>
 											<td>4.7</td>
 											<td>580</td>
 											<td>12/10/2016 10:10:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger" role="button">Cancel
-													Bid</a></td>
+											<td><a href="cancel_bid" class="btn btn-danger"
+												role="button">Cancel Bid</a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -209,24 +210,24 @@
 											<td>4.5</td>
 											<td>500</td>
 											<td>12/10/2016 15:05:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger" role="button">Cancel
-													Bid</a></td>
+											<td><a href="cancel_bid" class="btn btn-danger"
+												role="button">Cancel Bid</a></td>
 										</tr>
 										<tr>
 											<td>pro_user2</td>
 											<td>4.1</td>
 											<td>570</td>
 											<td>12/10/2016 13:15:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger" role="button">Cancel
-													Bid</a></td>
+											<td><a href="cancel_bid" class="btn btn-danger"
+												role="button">Cancel Bid</a></td>
 										</tr>
 										<tr>
 											<td>pro_user3</td>
 											<td>4.7</td>
 											<td>580</td>
 											<td>12/10/2016 10:10:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger" role="button">Cancel
-													Bid</a></td>
+											<td><a href="cancel_bid" class="btn btn-danger"
+												role="button">Cancel Bid</a></td>
 										</tr>
 									</tbody>
 								</table>
