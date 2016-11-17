@@ -316,8 +316,8 @@
 							<div class="form-group">
 								<label for="task-title" class="col-sm-2 control-label">Title</label>
 								<div class="col-sm-6">
-									<input type="text" name="task-title" ng-model="task-title"
-										class="form-control" id="task_title" placeholder="Task Title"
+									<input type="text" name="task_title" ng-model="task-title"
+										class="form-control" id="task-title" placeholder="Task Title"
 										required>
 								</div>
 							</div>
@@ -326,8 +326,8 @@
 								<label for="task-description" class="col-sm-2 control-label">Task
 									Description</label>
 								<div class="col-sm-6">
-									<textarea type="text" rows="4" name="task-description"
-										class="form-control" id="task_description"
+									<textarea type="text" rows="4" name="task_description"
+										class="form-control" id="task-description"
 										placeholder="Task Description..." maxlength="1000" required></textarea>
 								</div>
 							</div>
@@ -335,7 +335,7 @@
 							<div class="form-group">
 								<label for="deadline" class="col-sm-2 control-label">Deadline</label>
 								<div class="col-sm-6">
-									<input type="date" name="deadline" class="form-control"
+									<input type="date" name="date" class="form-control"
 										id="deadline" placeholder="Task Deadline" required>
 								</div>
 							</div>
