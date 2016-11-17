@@ -209,7 +209,7 @@
 											<td>4.5</td>
 											<td>500</td>
 											<td>12/10/2016 15:05:00</td>
-											<td><a href="#" class="btn btn-danger" role="button">Cancel
+											<td><a href="cancel_bid" class="btn btn-danger" role="button">Cancel
 													Bid</a></td>
 										</tr>
 										<tr>
@@ -217,7 +217,7 @@
 											<td>4.1</td>
 											<td>570</td>
 											<td>12/10/2016 13:15:00</td>
-											<td><a href="#" class="btn btn-danger" role="button">Cancel
+											<td><a href="cancel_bid" class="btn btn-danger" role="button">Cancel
 													Bid</a></td>
 										</tr>
 										<tr>
@@ -225,7 +225,7 @@
 											<td>4.7</td>
 											<td>580</td>
 											<td>12/10/2016 10:10:00</td>
-											<td><a href="#" class="btn btn-danger" role="button">Cancel
+											<td><a href="cancel_bid" class="btn btn-danger" role="button">Cancel
 													Bid</a></td>
 										</tr>
 									</tbody>

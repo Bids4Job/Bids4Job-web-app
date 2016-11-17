@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.Bid;
 import domain.ProfessionalUser;
-import service.BidService;;
+import service.BidService;
 
 /**
  * Servlet implementation class CreateBidController
