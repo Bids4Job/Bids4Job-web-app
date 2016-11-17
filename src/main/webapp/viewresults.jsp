@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -26,15 +26,15 @@
 
 	<nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
-            <a href="index.jsp">
+            <a href="index.html">
               <img alt="Brand" src="images/logo.png"><!--Brand logo image-->
             </a>
             <ul class="nav navbar-nav">
             <li class="active">
-            <a href="prouserprofile.jsp">My Profile</a></li>
+            <a href="prouserprofile.html">My Profile</a></li>
             </ul>
           	<div class="navbar-form navbar-right">
-            <a href="logout.jsp" class="btn btn-info" role="button">Log out</a>
+            <a href="logout.html" class="btn btn-info" role="button">Log out</a>
           </div>
       </div>
     </nav>
@@ -65,7 +65,23 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-        <table class="table table-bordered">
+	     <table class="table">
+	         <tbody>
+	          	<tr class="active">
+	               <th>Task Description</th>
+	               <th>Field of Work</th>
+	               <th>Task Location</th>
+	               <th>Deadline</th>
+	            </tr>
+	            <tr>
+	               <td>This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues...</td>
+	               <td>Electrician</td>
+	               <td>myLocation</td>
+	               <td>30/11/2016 23:59:59</td>
+	             </tr>         
+	          </tbody>            
+	        </table>       
+	       <table class="table table-bordered">
           <thead>
             <tr>
               <th>Bidder</th>
@@ -111,6 +127,22 @@
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
+      <table class="table">
+	         <tbody>
+	          	<tr class="active">
+	               <th>Task Description</th>
+	               <th>Field of Work</th>
+	               <th>Task Location</th>
+	               <th>Deadline</th>
+	            </tr>
+	            <tr>
+	               <td>This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues...</td>
+	               <td>Electrician</td>
+	               <td>myLocation</td>
+	               <td>30/11/2016 23:59:59</td>
+	             </tr>         
+	          </tbody>            
+	        </table>       
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -157,6 +189,22 @@
     </div>
     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body">
+      <table class="table">
+	         <tbody>
+	          	<tr class="active">
+	               <th>Task Description</th>
+	               <th>Field of Work</th>
+	               <th>Task Location</th>
+	               <th>Deadline</th>
+	            </tr>
+	            <tr>
+	               <td>This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues...</td>
+	               <td>Electrician</td>
+	               <td>myLocation</td>
+	               <td>30/11/2016 23:59:59</td>
+	             </tr>         
+	          </tbody>            
+	        </table>       
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -203,6 +251,22 @@
     </div>
     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
       <div class="panel-body">
+      <table class="table">
+	         <tbody>
+	          	<tr class="active">
+	               <th>Task Description</th>
+	               <th>Field of Work</th>
+	               <th>Task Location</th>
+	               <th>Deadline</th>
+	            </tr>
+	            <tr>
+	               <td>This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues...</td>
+	               <td>Electrician</td>
+	               <td>myLocation</td>
+	               <td>30/11/2016 23:59:59</td>
+	             </tr>         
+	          </tbody>            
+	        </table>       
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -249,6 +313,22 @@
     </div>
     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
       <div class="panel-body">
+      <table class="table">
+	         <tbody>
+	          	<tr class="active">
+	               <th>Task Description</th>
+	               <th>Field of Work</th>
+	               <th>Task Location</th>
+	               <th>Deadline</th>
+	            </tr>
+	            <tr>
+	               <td>This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues...</td>
+	               <td>Electrician</td>
+	               <td>myLocation</td>
+	               <td>30/11/2016 23:59:59</td>
+	             </tr>         
+	          </tbody>            
+	        </table>       
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -295,6 +375,22 @@
     </div>
     <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
       <div class="panel-body">
+      <table class="table">
+	         <tbody>
+	          	<tr class="active">
+	               <th>Task Description</th>
+	               <th>Field of Work</th>
+	               <th>Task Location</th>
+	               <th>Deadline</th>
+	            </tr>
+	            <tr>
+	               <td>This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues...</td>
+	               <td>Electrician</td>
+	               <td>myLocation</td>
+	               <td>30/11/2016 23:59:59</td>
+	             </tr>         
+	          </tbody>            
+	        </table>       
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -341,6 +437,22 @@
     </div>
     <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
       <div class="panel-body">
+      <table class="table">
+	         <tbody>
+	          	<tr class="active">
+	               <th>Task Description</th>
+	               <th>Field of Work</th>
+	               <th>Task Location</th>
+	               <th>Deadline</th>
+	            </tr>
+	            <tr>
+	               <td>This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues...</td>
+	               <td>Electrician</td>
+	               <td>myLocation</td>
+	               <td>30/11/2016 23:59:59</td>
+	             </tr>         
+	          </tbody>            
+	        </table>       
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -387,6 +499,22 @@
     </div>
     <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
       <div class="panel-body">
+      <table class="table">
+	         <tbody>
+	          	<tr class="active">
+	               <th>Task Description</th>
+	               <th>Field of Work</th>
+	               <th>Task Location</th>
+	               <th>Deadline</th>
+	            </tr>
+	            <tr>
+	               <td>This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues...</td>
+	               <td>Electrician</td>
+	               <td>myLocation</td>
+	               <td>30/11/2016 23:59:59</td>
+	             </tr>         
+	          </tbody>            
+	        </table>       
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -433,6 +561,22 @@
     </div>
     <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
       <div class="panel-body">
+      <table class="table">
+	         <tbody>
+	          	<tr class="active">
+	               <th>Task Description</th>
+	               <th>Field of Work</th>
+	               <th>Task Location</th>
+	               <th>Deadline</th>
+	            </tr>
+	            <tr>
+	               <td>This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues...</td>
+	               <td>Electrician</td>
+	               <td>myLocation</td>
+	               <td>30/11/2016 23:59:59</td>
+	             </tr>         
+	          </tbody>            
+	        </table>       
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -479,6 +623,22 @@
     </div>
     <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
       <div class="panel-body">
+      <table class="table">
+	         <tbody>
+	          	<tr class="active">
+	               <th>Task Description</th>
+	               <th>Field of Work</th>
+	               <th>Task Location</th>
+	               <th>Deadline</th>
+	            </tr>
+	            <tr>
+	               <td>This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues... This is a test task for bidding. Electrician needed for various issues...</td>
+	               <td>Electrician</td>
+	               <td>myLocation</td>
+	               <td>30/11/2016 23:59:59</td>
+	             </tr>         
+	          </tbody>            
+	        </table>       
         <table class="table table-bordered">
           <thead>
             <tr>
