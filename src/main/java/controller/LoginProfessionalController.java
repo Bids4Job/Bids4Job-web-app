@@ -48,7 +48,7 @@ public class LoginProfessionalController extends HttpServlet {
 		// successfully stored in database
 		loginDispatcher = getServletContext().getRequestDispatcher("/prouserprofile.jsp");
 
-		// Instantiate a SimpleUser service object
+		// Instantiate a ProfessionalUser service object
 		service = new ProfessionalUserService();
 	}
     
@@ -66,9 +66,9 @@ public class LoginProfessionalController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	    	response.setContentType("text/html; charset=UTF-8");
+	    response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-	    	// Get the credentials from the login form
+	    // Get the credentials from the login form
 	 	String email = request.getParameter(EMAIL);
 	 	String password = request.getParameter(PASSWORD);
 	 	// Get the HttpSession that is associated with this request
