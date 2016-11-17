@@ -270,7 +270,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-success">Submit</button>
+							<button type="submit" class="btn btn-success">Submit</button>
 						</div>
 					</div>
 				</form>
