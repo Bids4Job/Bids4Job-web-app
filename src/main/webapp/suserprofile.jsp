@@ -43,7 +43,7 @@
 						Profile</a></li>
 			</ul>
 			<div class="navbar-form navbar-right">
-				<a href="logout.jsp" class="btn btn-info" role="button">Log out</a>
+				<a href="logout_user" class="btn btn-info" role="button">Log out</a>
 			</div>
 		</div>
 	</nav>
