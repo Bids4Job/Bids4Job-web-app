@@ -19,10 +19,11 @@ public class ContractDAO {
 
 	// Necessary fields to connect to DB, execute queries and store the result
 	// sets.
-	private static final String CONTRACT_TABLE = "Contract";
+	private static final String CONTRACT_TABLE = "contract";
 	private static final String CONTRACT_ID = "contract_ID";
 	private static final String TASK_ID = "task_id";
 	private static final String BID_ID = "bid_id";
+	private static final String PRO_RATING = "rating";
 	private static final String CONTRACT_TIME = "contract_time";
 	private Connection conn;
 	private PreparedStatement preStmt;
@@ -262,8 +263,8 @@ public class ContractDAO {
 	public List<Contract> findByProUserID(int proUserID)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		List<Contract> contracts = new ArrayList<>();
-		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Bid ON Bid.bid_ID = "
-				+ CONTRACT_TABLE + "." + BID_ID + " WHERE Bid.pro_user_ID = ?;";
+		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN bid ON bid.bid_ID = "
+				+ CONTRACT_TABLE + "." + BID_ID + " WHERE bid.pro_user_ID = ?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -292,8 +293,8 @@ public class ContractDAO {
 	public List<Contract> findBySimpleUserID(int simpleUserID)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		List<Contract> contracts = new ArrayList<>();
-		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Task ON Task.task_ID = "
-				+ CONTRACT_TABLE + "." + TASK_ID + " WHERE Task.simple_user_ID = ?;";
+		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN task ON task.task_ID = "
+				+ CONTRACT_TABLE + "." + TASK_ID + " WHERE task.simple_user_ID = ?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -322,9 +323,10 @@ public class ContractDAO {
 	public List<Contract> findByLocation(String location)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		List<Contract> contracts = new ArrayList<>();
-		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN Task ON Task.task_ID = "
-				+ CONTRACT_TABLE + "." + TASK_ID + " INNER JOIN Simple_User ON Simple_User.simple_user_ID = Task.simple_user_ID"
-				+ " WHERE Simple_User.location = ?;";
+		String sql = "SELECT " + CONTRACT_TABLE + ".* FROM " + CONTRACT_TABLE + " INNER JOIN task ON task.task_ID = "
+				+ CONTRACT_TABLE + "." + TASK_ID
+				+ " INNER JOIN simple_user ON simple_user.simple_user_ID = task.simple_user_ID"
+				+ " WHERE simple_user.location = ?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
@@ -369,6 +371,38 @@ public class ContractDAO {
 			DaoUtils.closeResources(rs, preStmt, conn);
 		}
 		return contracts;
+	}
+
+	/**
+	 * Finds the average rating from contracts in the database signed by the
+	 * specified Professional User.
+	 *
+	 * @return the average rating of the specified professional user, default
+	 *         value is 0.0
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public double findRatingByProUserID(int proUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		double averageRating = -1;
+		String sql = "SELECT AVG(" + CONTRACT_TABLE + "." + PRO_RATING + ") AS " + PRO_RATING + " FROM "
+				+ CONTRACT_TABLE + " INNER JOIN bid ON bid.bid_ID = " + CONTRACT_TABLE + "." + BID_ID
+				+ " WHERE bid.pro_user_ID = ?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setInt(1, proUserID);
+			rs = preStmt.executeQuery();
+			if (rs.next()) {
+				averageRating = rs.getDouble(PRO_RATING);
+			}
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return averageRating;
 	}
 
 	/**

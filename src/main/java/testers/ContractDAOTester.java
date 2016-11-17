@@ -17,11 +17,11 @@ public class ContractDAOTester {
 		Contract contract;
 		List<Contract> contracts;
 		DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		try {
 			/* CRUD operations */
 			// findOne
-			contract = contractDAO.findOne(20);
+			contract = contractDAO.findOne(2);
 			System.out.println("findOne()\n" + contract.toString());
 			// findAll
 			System.out.println("\nfindAll()");
@@ -41,8 +41,8 @@ public class ContractDAOTester {
 			}
 			// update
 			System.out.println("\nupdate()");
-			System.out.println(contract.toString() + " updated: "
-					+ contractDAO.update(contract.setBidID(3)) + "\nto " + contract.toString());
+			System.out.println(contract.toString() + " updated: " + contractDAO.update(contract.setBidID(3)) + "\nto "
+					+ contract.toString());
 			// findOne
 			contract = contractDAO.findOne(contract.getContractID());
 			System.out.println("findOne()\n" + contract.toString());
@@ -59,7 +59,7 @@ public class ContractDAOTester {
 			// findByBidID
 			System.out.println("\nfindByBidID()");
 			contract = contractDAO.findByBidID(6);
-//			contract = contractDAO.findByBidID(60);
+			// contract = contractDAO.findByBidID(60);
 			try {
 				System.out.println(contract.toString());
 			} catch (NullPointerException e) {
@@ -68,7 +68,7 @@ public class ContractDAOTester {
 			// findByTaskID
 			System.out.println("\nfindByTaskID()");
 			contract = contractDAO.findByTaskID(3);
-//			contract = contractDAO.findByBidID(60);
+			// contract = contractDAO.findByBidID(60);
 			try {
 				System.out.println(contract.toString());
 			} catch (NullPointerException e) {
@@ -94,10 +94,17 @@ public class ContractDAOTester {
 			}
 			// findByContractTime
 			System.out.println("\nfindByContractTime()");
-			contracts = contractDAO.findByContractTime(simpleDateFormat.format(new Timestamp(simpleDateFormat.parse("2016-11-01").getTime())));
+			contracts = contractDAO.findByContractTime(
+					simpleDateFormat.format(new Timestamp(simpleDateFormat.parse("2016-11-01").getTime())));
 			for (Contract c : contracts) {
 				System.out.println(c);
 			}
+			// findRatingByProUserID
+			System.out.println("\nfindRatingByProUserID()");
+			System.out.println("Average rating of pro user #11: " + contractDAO.findRatingByProUserID(11));
+			// findRatingByProUserID
+			System.out.println("\nfindRatingByProUserID()");
+			System.out.println("Average rating of pro user #3: " + contractDAO.findRatingByProUserID(3));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
