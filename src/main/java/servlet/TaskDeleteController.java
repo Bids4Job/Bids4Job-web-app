@@ -11,7 +11,7 @@ import domain.Task;
 import service.TaskService;
 
 /**
- * Servlet implementation class DeleteServlet
+ * Servlet implementation class DeleteTaskServlet
  *
  * @author Dimitris
  */
@@ -54,7 +54,7 @@ public class TaskDeleteController extends HttpServlet {
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("deleteId"));
 		Task task = mService.findOne(id);
-		// Check if the requested Task does not exists.
+		// Check if the requested Task exists.
 		if (task == null) {
 			String msg = "This Task does not exist. Please try again!";
 			request.setAttribute("msg", msg);

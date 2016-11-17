@@ -3,8 +3,8 @@ package domain;
 import java.sql.Timestamp;
 
 /**
- *
  * @author Dimitris
+ * 
  */
 
 public class Task {
