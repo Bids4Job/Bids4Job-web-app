@@ -310,14 +310,14 @@
 						<h4 class="modal-title">New Task</h4>
 					</div>
 					<div class="modal-body">
-						<form class="form-horizontal" method="POST" action="register"
+						<form class="form-horizontal" method="POST" action="task_create_by_simple_controller"
 							class="form-signup">
 
 							<div class="form-group">
 								<label for="task-title" class="col-sm-2 control-label">Title</label>
 								<div class="col-sm-6">
 									<input type="text" name="task-title" ng-model="task-title"
-										class="form-control" id="task-title" placeholder="Task Title"
+										class="form-control" id="task_title" placeholder="Task Title"
 										required>
 								</div>
 							</div>
@@ -327,7 +327,7 @@
 									Description</label>
 								<div class="col-sm-6">
 									<textarea type="text" rows="4" name="task-description"
-										class="form-control" id="task-description"
+										class="form-control" id="task_description"
 										placeholder="Task Description..." maxlength="1000" required></textarea>
 								</div>
 							</div>
@@ -343,7 +343,7 @@
 							<div class="form-group">
 								<label for="location" class="col-sm-2 control-label">Location</label>
 								<div class="col-sm-6">
-									<select id="locations" required>
+									<select id="locations" name="location"required>
 										<option value=""></option>
 										<option value="Athens Center">Athens Center</option>
 										<option value="Athens North Sector">Athens North
@@ -362,7 +362,7 @@
 								<label for="location" class="col-sm-2 control-label">Profession</label>
 								<div class="col-sm-6">
 
-									<select id="professions" required>
+									<select id="professions" name="profession"required>
 										<option value=""></option>
 										<option value="Electrician">Electrician</option>
 										<option value="Plumber">Plumber</option>
