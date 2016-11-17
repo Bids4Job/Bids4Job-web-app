@@ -27,7 +27,7 @@ public class LoginProfessionalController extends HttpServlet {
 	private ProfessionalUserService service;
 	
 	RequestDispatcher errorDispatcher;
-	RequestDispatcher loginDispatcher;
+	private static final String PROFILE_PAGE = "prouserprofile.jsp";
 	
        
     /**
@@ -43,10 +43,6 @@ public class LoginProfessionalController extends HttpServlet {
 	public void init() {
 		// Define RequestDispatcher object to forward any errors
 		errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
-
-		// Define RequestDispatcher object to forward if data are correct and
-		// successfully stored in database
-		loginDispatcher = getServletContext().getRequestDispatcher("/prouserprofile.jsp");
 
 		// Instantiate a ProfessionalUser service object
 		service = new ProfessionalUserService();
@@ -82,7 +78,7 @@ public class LoginProfessionalController extends HttpServlet {
 	 	
 	 	if (pro != null){
 	 	    session.setAttribute("pro", pro);
-	 	    loginDispatcher.forward(request, response);
+	 	    response.sendRedirect(PROFILE_PAGE);
 	 	} else {
 	 	    request.setAttribute("errorMessage", "Not authenticate professional user");
 	 	    errorDispatcher.forward(request, response);
