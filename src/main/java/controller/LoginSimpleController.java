@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.rowset.CachedRowSet;
 
 import domain.SimpleUser;
+import service.ContractService;
 import service.SimpleUserService;
 
 /**
@@ -24,13 +26,15 @@ public class LoginSimpleController extends HttpServlet {
 	// Parameter names
 	private static final String EMAIL = "email";
 	private static final String PASSWORD = "upass";
-	
+
 	// A service for SimpleUser database operations
 	private SimpleUserService simpleUserService;
+	// A service for Contract database operations
+	private ContractService contractService;
 
 	// SimpleUser profile page
 	private static final String PROFILE_PAGE = "suserprofile.jsp";
-	
+
 	// Dispatchers for error and registered pages
 	RequestDispatcher errorDispatcher;
 
@@ -49,6 +53,8 @@ public class LoginSimpleController extends HttpServlet {
 
 		// Instantiate a SimpleUser service object
 		simpleUserService = new SimpleUserService();
+		// Instantiate a Contract service object
+		contractService = new ContractService();
 	}
 
 	/**
@@ -65,12 +71,15 @@ public class LoginSimpleController extends HttpServlet {
 
 		// Define a SimpleUser object to store the logged in user
 		SimpleUser simpleUser = null;
-
+		// Define a CachedRowSet to contain the rows to be displayed
+		CachedRowSet crs= null;
+		
 		try {
 			simpleUser = simpleUserService.authenticate(email, password);
+			crs = contractService.findDetailsBySimpleUserID(simpleUser.getSimpleUserID());
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", e.getMessage());
+			request.setAttribute("errorMessage", "Error Loading Profile: " + e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
 		
@@ -79,6 +88,7 @@ public class LoginSimpleController extends HttpServlet {
 			HttpSession session = request.getSession();
 			// Set the user to session
 			session.setAttribute("simple-user", simpleUser);
+			session.setAttribute("contracts", crs);
 			response.sendRedirect(PROFILE_PAGE);
 		} else {
 			request.setAttribute("errorMessage", "Not an active account");
