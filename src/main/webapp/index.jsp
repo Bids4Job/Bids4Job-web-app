@@ -175,8 +175,8 @@
 								in</h2>
 							<label for="inputEmail" class="sr-only">Email address</label> <input
 								type="email" id="inputEmail" class="form-control"
-								placeholder="Email address" name="email" required autofocus> <label
-								for="inputPassword" class="sr-only">Password</label> <input
+								placeholder="Email address" name="email" required autofocus>
+							<label for="inputPassword" class="sr-only">Password</label> <input
 								type="password" id="inputPassword" class="form-control"
 								placeholder="Password" name="upass" required>
 							<div class="checkbox">
@@ -193,13 +193,14 @@
 					</div>
 					<!-- End of #Individual -->
 					<div id="Professional" class="tab-pane fade">
-						<form class="form-signin" method="POST" action="login_professional">
+						<form class="form-signin" method="POST"
+							action="login_professional">
 							<h2 class="form-signin-heading login-or-signup">Please Log
 								in</h2>
 							<label for="inputEmail" class="sr-only">Email address</label> <input
 								type="email" id="inputEmail" class="form-control"
-								placeholder="Email address" required autofocus name="email"> <label
-								for="inputPassword" class="sr-only">Password</label> <input
+								placeholder="Email address" required autofocus name="email">
+							<label for="inputPassword" class="sr-only">Password</label> <input
 								type="password" id="inputPassword" class="form-control"
 								placeholder="Password" required name="password">
 							<div class="checkbox">
@@ -695,44 +696,100 @@
 
 		<hr class="featurette-divider">
 
-		<div class="row featurette">
+		<div class="row featurette" id="howitworks">
 			<div class="col-md-7 col-md-push-5">
 				<h2 class="featurette-heading">
-					Oh yeah, it's that good. <span class="text-muted">See for
-						yourself.</span>
+					Need a job done? <span class="text-muted">We'll find you the
+						right professional!</span>
 				</h2>
-				<p class="lead">Donec ullamcorper nulla non metus auctor
-					fringilla. Vestibulum id ligula porta felis euismod semper.
-					Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-					Fusce dapibus, tellus ac cursus commodo.</p>
+				<p class="lead">Sign up today and use our platform completely
+					free, and let the bidding begin! Once you sign up, you can create a
+					task and start receiving bids from our affiliated professionals, to
+					make sure that you not only find the best person, but also the best
+					price for your need!</p>
 			</div>
 			<div class="col-md-5 col-md-pull-7">
 				<img class="featurette-image img-responsive center-block"
-					data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+					src="images/pic1.jpg" alt="Generic placeholder image">
 			</div>
 		</div>
 
 		<hr class="featurette-divider">
 
-		<div class="row featurette">
+		<div class="row featurette" id="learnmore">
 			<div class="col-md-7">
 				<h2 class="featurette-heading">
-					And lastly, this one. <span class="text-muted">Checkmate.</span>
+					Are you a professional? <span class="text-muted">Let us help
+						you grow your business.</span>
 				</h2>
-				<p class="lead">Donec ullamcorper nulla non metus auctor
-					fringilla. Vestibulum id ligula porta felis euismod semper.
-					Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-					Fusce dapibus, tellus ac cursus commodo.</p>
+				<p class="lead">Sign up today for free and start bidding on jobs
+					you'd be interested in, and start building your rating with our
+					service, in order to make sure your good reputation follows you
+					everywhere! Contact us to discuss our competitive pricing plans for
+					booking a job on our platform.</p>
 			</div>
 			<div class="col-md-5">
 				<img class="featurette-image img-responsive center-block"
-					data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+					src="images/pic2.jpg" alt="Generic placeholder image">
 			</div>
 		</div>
 
 		<hr class="featurette-divider">
-		<!-- End of .featurettes -->
 
+		<div class="row featurette" id="contact">
+			<div class="col-md-5 col-md-push-7">
+				<h2 class="featurette-heading">
+					Contact Us:</span>
+				</h2>
+				<p class="lead">
+					<span class="glyphicon glyphicon-map-marker"></span>Korai 3,
+					Athens, Greece
+				</p>
+				<p class="lead">
+					<span class="glyphicon glyphicon-phone"></span> +30 6945000000
+				</p>
+				<p class="lead">
+					<span class="glyphicon glyphicon-envelope"></span>&nbsp;<a
+						href="mailto:bid4job@outlook.com" target="_top">bid4job@outlook.com</a>
+				</p>
+			</div>
+			<div class="col-md-7 col-md-pull-5">
+				<div id="googleMap" style="height: 500px; width: 500px;"></div>
+
+				<!-- Add Google Maps -->
+				<script src="https://maps.googleapis.com/maps/api/js"></script>
+				<script>
+					var myCenter = new google.maps.LatLng(37.980105, 23.732287);
+
+					function initialize() {
+						var mapProp = {
+							center : myCenter,
+							zoom : 12,
+							scrollwheel : false,
+							draggable : false,
+							mapTypeId : google.maps.MapTypeId.ROADMAP
+						};
+
+						var map = new google.maps.Map(document
+								.getElementById("googleMap"), mapProp);
+
+						var marker = new google.maps.Marker({
+							position : myCenter,
+						});
+
+						marker.setMap(map);
+					}
+
+					google.maps.event
+							.addDomListener(window, 'load', initialize);
+				</script>
+
+			</div>
+		</div>
+
+		<hr class="featurette-divider">
+
+		<!-- End of .featurettes -->
 
 		<!-- Start Footer -->
 
