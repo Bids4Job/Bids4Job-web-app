@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Service class that executes all required business logic regarding bids.
+ * Service class that executes all required business logic regarding tasks.
  *
  * @author Dimitris.
  */
@@ -16,10 +16,10 @@ public class TaskService {
 	private final TaskDao dao = new TaskDao();
 
 	/**
-	 * Finds specific Task by id.
+	 * Finds specific Task by ID.
 	 *
 	 * @param taskId
-	 * @return
+	 * @return The task with the specified ID.
 	 */
 	public Task findOne(int taskId) {
 		try {
@@ -34,7 +34,7 @@ public class TaskService {
 	/**
 	 * Find all existing Tasks in database.
 	 *
-	 * @return
+	 * @return A list of all the Tasks in the database.
 	 */
 	public List<Task> findAll() {
 		try {
@@ -49,7 +49,7 @@ public class TaskService {
 	 * Add a new Task in the database.
 	 *
 	 * @param task
-	 * @return
+	 * @return A Task object, the one that was created.
 	 */
 	public Task create(Task task) {
 		try {
@@ -62,10 +62,10 @@ public class TaskService {
 	}
 
 	/**
-	 * Updates one or more columns in a Task record in database.
+	 * Updates one or more columns in a Task based on ID.
 	 *
 	 * @param task
-	 * @return boolean.
+	 * @return True if the update operation was succeeded, else false.
 	 *
 	 */
 	public boolean update(Task task) {
@@ -78,10 +78,10 @@ public class TaskService {
 	}
 
 	/**
-	 * Deletes a Task record in database.
+	 * Deletes a Task from database, based on ID.
 	 *
 	 * @param task
-	 * @return
+	 * @return True if the delete operation was succeeded, else false.
 	 */
 	public boolean delete(Task task) {
 		try {

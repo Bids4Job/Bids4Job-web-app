@@ -13,7 +13,7 @@ import domain.Task;
 import service.TaskService;
 
 /**
- * Servlet implementation class ListServlet
+ * Servlet implementation class TaskFindAllServlet
  *
  * @author Dimitris
  */
