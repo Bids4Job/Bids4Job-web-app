@@ -49,6 +49,76 @@
 	</nav>
 
 
+<<<<<<< HEAD
+<!-- Start #task-modal -->
+<div class="modal fade" id="task-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">New Task</h4>
+      </div>
+      <div class="modal-body">
+      <form class="form-horizontal" method="POST" action="task_create_by_simple_controller" class="form-signup">
+
+        <div class="form-group">
+        <label for="task-title" class="col-sm-2 control-label">Title</label>
+        <div class="col-sm-6">
+          <input type="text" name="task_title" ng-model="task-title" class="form-control" id="task-title" placeholder="Task Title" required>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="task-description" class="col-sm-2 control-label">Task Description</label>
+        <div class="col-sm-6">
+          <textarea type="text" rows="4" name="task_description" class="form-control" id="task-description" placeholder="Task Description..." maxlength="1000" required></textarea>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="deadline" class="col-sm-2 control-label">Deadline</label>
+        <div class="col-sm-6">
+          <input type="date" name="date" class="form-control" id="deadline" placeholder="Task Deadline" required>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="location" class="col-sm-2 control-label">Location</label>
+        <div class="col-sm-6">
+          <select id="locations" name="location" required>
+              <option value=""></option>
+              <option value="Athens Center">Athens Center</option>
+              <option value="Athens North Sector">Athens North Sector</option>
+              <option value="Athens South Sector">Athens South Sector</option>
+              <option value="Athens East Sector">Athens East Sector</option>
+              <option value="Athens West Sector">Athens West Sector</option>
+              <option value="Thessaloniki">Thessaloniki</option>
+              <option value="Patra">Patra</option>
+          </select>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="location" class="col-sm-2 control-label">Profession</label>
+        <div class="col-sm-6">
+          
+          <select id="professions" name="profession" required>
+              <option value=""></option>
+              <option value="Electrician">Electrician</option>
+              <option value="Plumber">Plumber</option>
+              <option value="Painter">Painter</option>
+              <option value="Hair Dresser">Hair Dresser</option>
+              <option value="Developer">Developer</option>
+              <option value="Designer">Designer</option>
+              <option value="Dancer">Dancer</option>
+              <option value="Banker">Banker</option>
+              <option value="Logistics">Logistics</option>
+              <option value="Personal Trainer">Personal Trainer</option>
+              <option value="Teacher">Teacher</option>
+          </select>
+        </div>
+        </div>
+=======
 	<div class="container">
 
 		<div class="row">
@@ -226,6 +296,7 @@
 			</div>
 		</div>
 		<!-- End of .row-->
+>>>>>>> a3ac128f1a639254c71707ee56c2ba37522a05e0
 
 		<!-- Start #task-modal -->
 		<div class="modal fade" id="task-modal" tabindex="-1" role="dialog">
@@ -239,13 +310,13 @@
 						<h4 class="modal-title">New Task</h4>
 					</div>
 					<div class="modal-body">
-						<form class="form-horizontal" method="POST" action="register"
+						<form class="form-horizontal" method="POST" action="task_create_by_simple_controller"
 							class="form-signup">
 
 							<div class="form-group">
 								<label for="task-title" class="col-sm-2 control-label">Title</label>
 								<div class="col-sm-6">
-									<input type="text" name="task-title" ng-model="task-title"
+									<input type="text" name="task_title" ng-model="task-title"
 										class="form-control" id="task-title" placeholder="Task Title"
 										required>
 								</div>
@@ -255,7 +326,7 @@
 								<label for="task-description" class="col-sm-2 control-label">Task
 									Description</label>
 								<div class="col-sm-6">
-									<textarea type="text" rows="4" name="task-description"
+									<textarea type="text" rows="4" name="task_description"
 										class="form-control" id="task-description"
 										placeholder="Task Description..." maxlength="1000" required></textarea>
 								</div>
@@ -264,7 +335,7 @@
 							<div class="form-group">
 								<label for="deadline" class="col-sm-2 control-label">Deadline</label>
 								<div class="col-sm-6">
-									<input type="date" name="deadline" class="form-control"
+									<input type="date" name="date" class="form-control"
 										id="deadline" placeholder="Task Deadline" required>
 								</div>
 							</div>
@@ -272,7 +343,7 @@
 							<div class="form-group">
 								<label for="location" class="col-sm-2 control-label">Location</label>
 								<div class="col-sm-6">
-									<select id="locations" required>
+									<select id="locations" name="location"required>
 										<option value=""></option>
 										<option value="Athens Center">Athens Center</option>
 										<option value="Athens North Sector">Athens North
@@ -291,7 +362,7 @@
 								<label for="location" class="col-sm-2 control-label">Profession</label>
 								<div class="col-sm-6">
 
-									<select id="professions" required>
+									<select id="professions" name="profession"required>
 										<option value=""></option>
 										<option value="Electrician">Electrician</option>
 										<option value="Plumber">Plumber</option>
