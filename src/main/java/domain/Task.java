@@ -9,12 +9,22 @@ import java.sql.Timestamp;
 
 public class Task {
 
+	private String title;
 	private int taskId;
 	private Timestamp deadline;
 	private String workField;
 	private int simpleUserId;
 	private int active_task;
 	private String description;
+
+	public String getTitle() {
+		return this.title;
+	}
+
+	public Task setTitle(String title) {
+		this.title = title;
+		return this;
+	}
 
 	public int getTaskId() {
 		return this.taskId;
@@ -89,8 +99,8 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return "Task{" + "TaskId = " + taskId + ", Deadline = " + deadline + ", workField = " + workField
-				+ ", simpleUserId = " + simpleUserId + "}";
-
+		return "Task [title=" + title + ", taskId=" + taskId + ", deadline=" + deadline + ", profession=" + workField
+				+ ", simpleUserId=" + simpleUserId + ", active_task=" + active_task + ", description=" + description
+				+ "]";
 	}
 }
