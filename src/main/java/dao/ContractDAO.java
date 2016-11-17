@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.rowset.CachedRowSet;
+import com.sun.rowset.CachedRowSetImpl;
+
 import domain.Contract;
 
 /**
@@ -309,6 +312,40 @@ public class ContractDAO {
 			DaoUtils.closeResources(rs, preStmt, conn);
 		}
 		return contracts;
+	}
+
+	/**
+	 * Finds all Contracts in the database from a specified Simple User.
+	 * (pro_username, amount, rating, contract_date)
+	 *
+	 * @return a CachedRowSet with all Contracts(in details) based on simple user
+	 *         ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findDetailsBySimpleUserID(int simpleUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		CachedRowSet crs = new CachedRowSetImpl();
+		String sql = "SELECT a." + CONTRACT_ID + ", a." + CONTRACT_TIME + ", e.rating, b.pro_user_id, b.amount FROM "
+				+ CONTRACT_TABLE + " as a INNER JOIN bid as b ON a." + BID_ID + " = b." + BID_ID
+				+ " INNER JOIN task as c ON b." + TASK_ID + " = c." + TASK_ID
+				+ " INNER JOIN simple_user as d ON c.simple_user_id = d.simple_user_id"
+				+ " INNER JOIN (SELECT f.pro_user_id, avg(g.rating) as rating FROM " + CONTRACT_TABLE + " as g"
+				+ " INNER JOIN bid as f on g.bid_id = f.bid_id" + " GROUP BY f.pro_user_id) as e"
+				+ " ON e.pro_user_id = b.pro_user_id" + " WHERE d.simple_user_ID = ?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setInt(1, simpleUserID);
+			rs = preStmt.executeQuery();
+			crs.populate(rs);
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return crs;
 	}
 
 	/**
