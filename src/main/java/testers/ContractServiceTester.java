@@ -94,8 +94,8 @@ public class ContractServiceTester {
 				System.out.println("No data");
 			} else {
 				while (crs.next()) {
-					System.out.println("contract id: " + crs.getString("contract_id") + "\npro id: "
-							+ crs.getInt("pro_user_id") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+					System.out.println("contract id: " + crs.getInt("contract_id") + "\npro username: "
+							+ crs.getString("username") + "\namount id: " + crs.getInt("amount") + "\nrating: "
 							+ crs.getDouble("rating") + "\ncontract_time: " + crs.getTimestamp("contract_time") + "\n");
 				}
 			}
@@ -106,8 +106,8 @@ public class ContractServiceTester {
 				System.out.println("No data");
 			} else {
 				while (crs.next()) {
-					System.out.println("contract id: " + crs.getString("contract_id") + "\npro id: "
-							+ crs.getInt("pro_user_id") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+					System.out.println("contract id: " + crs.getInt("contract_id") + "\npro username: "
+							+ crs.getString("username") + "\namount id: " + crs.getInt("amount") + "\nrating: "
 							+ crs.getDouble("rating") + "\ncontract_time: " + crs.getTimestamp("contract_time") + "\n");
 				}
 			}

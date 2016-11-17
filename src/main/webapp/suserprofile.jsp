@@ -378,7 +378,7 @@
 											while (crs.next()) {
 										%>
 										<tr>
-											<td><%=crs.getInt("pro_user_id")%></td>
+											<td><%=crs.getString("username")%></td>
 											<td>
 												<%
 													double rating = crs.getDouble("rating");
