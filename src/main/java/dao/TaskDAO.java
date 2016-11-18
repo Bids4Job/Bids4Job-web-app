@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Dimitris
  */
-public class TaskDao {
+public class TaskDAO {
 
 	private Connection connection;
 	private PreparedStatement statement;

@@ -3,14 +3,14 @@ package testers;
 import java.sql.Timestamp;
 import java.util.List;
 
-import dao.TaskDao;
+import dao.TaskDAO;
 import domain.Task;
 
 public class TaskDaoTester {
 
 	public static void main(String[] args) {
 		try {
-			TaskDao task = new TaskDao();
+			TaskDAO task = new TaskDAO();
 			/**
 			 * Testing the findOne method of TaskDao.
 			 */

@@ -1,6 +1,6 @@
 package service;
 
-import dao.TaskDao;
+import dao.TaskDAO;
 import domain.Task;
 
 import java.sql.SQLException;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class TaskService {
 
-	private final TaskDao dao = new TaskDao();
+	private final TaskDAO dao = new TaskDAO();
 
 	/**
 	 * Finds specific Task by ID.
