@@ -105,7 +105,7 @@ public class TaskDAO {
 	 */
 	public Task create(Task task)
 			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-		String query = "INSERT INTO task (deadline, work_field, simple_user_ID, description, active_task) VALUES (?,?,?,?,?)"; // taskId
+		String query = "INSERT INTO task (deadline, work_field, simple_user_ID, description, active_task, title) VALUES (?,?,?,?,?,?)"; // taskId
 		// is
 		// auto
 		// incremented.
@@ -118,7 +118,7 @@ public class TaskDAO {
 			statement.setInt(3, task.getSimpleUserId());
 			statement.setString(4, task.getDescription());
 			statement.setInt(5, task.getActive_task());
-			System.out.println(statement.toString());
+			statement.setString(6, task.getTitle());
 			statement.executeUpdate();
 			resultSet = statement.getGeneratedKeys();
 			if (resultSet.next()) {
@@ -457,13 +457,14 @@ public class TaskDAO {
 		CachedRowSet crs = new CachedRowSetImpl();
 		String sql1 = "DROP VIEW IF EXISTS l;";
 		String sql2 = "create view l as " + "SELECT a.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating "
-				+ "FROM " + "bid AS a " + "INNER JOIN " + "pro_user AS b ON a.pro_user_id = b.pro_user_id " + "INNER JOIN "
-				+ "task AS c ON a.task_id = c.task_id " + "INNER JOIN " + "(SELECT "
+				+ "FROM " + "bid AS a " + "INNER JOIN " + "pro_user AS b ON a.pro_user_id = b.pro_user_id "
+				+ "INNER JOIN " + "task AS c ON a.task_id = c.task_id " + "INNER JOIN " + "(SELECT "
 				+ "f.pro_user_id, AVG(g.rating) AS rating " + "FROM " + "contract AS g "
 				+ "INNER JOIN bid AS f ON g.bid_id = f.bid_id "
 				+ "GROUP BY f.pro_user_id) AS e ON e.pro_user_id = b.pro_user_id;";
-		String sql3 = "SELECT " + "* " + "FROM " + "l " + "INNER JOIN " + "(SELECT " + "task_id " + "FROM " + "task " + "WHERE "
-				+ "task.active_task = TRUE " + "ORDER BY task.task_id DESC " + "LIMIT 10) AS k ON k.task_id = l.task_id;";
+		String sql3 = "SELECT " + "* " + "FROM " + "l " + "INNER JOIN " + "(SELECT " + "task_id " + "FROM " + "task "
+				+ "WHERE " + "task.active_task = TRUE " + "ORDER BY task.task_id DESC "
+				+ "LIMIT 10) AS k ON k.task_id = l.task_id;";
 		this.prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -492,8 +493,9 @@ public class TaskDAO {
 	public Task populate(ResultSet resultSet) {
 		try {
 
-			return new Task().setTaskId(resultSet.getInt("task_ID")).setDeadline(resultSet.getTimestamp("deadline"))
-					.setWorkField(resultSet.getString("work_field")).setSimpleUserId(resultSet.getInt("simple_user_ID"))
+			return new Task().setTitle(resultSet.getString("task_title")).setTaskId(resultSet.getInt("task_ID"))
+					.setDeadline(resultSet.getTimestamp("deadline")).setWorkField(resultSet.getString("work_field"))
+					.setSimpleUserId(resultSet.getInt("simple_user_ID"))
 					.setDescription(resultSet.getString("description")).setActive_task(resultSet.getInt("active_task"));
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -533,27 +535,27 @@ public class TaskDAO {
 		}
 		return crs;
 	}
-	
+
 	public CachedRowSet findDetailsByProfessionalUserID(int proUserId)
-		throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-	CachedRowSet crs = new CachedRowSetImpl();
-	String sql = "select a.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating"
-			+ " from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id"
-			+ " inner join task as c on a.task_id = c.task_id" + " inner join"
-			+ " (select f.pro_user_id, avg(g.rating) as rating" + " from contract as g" + " inner join bid as f"
-			+ " on g.bid_id = f.bid_id" + " group by f.pro_user_id) as e" + " on e.pro_user_id = b.pro_user_id"
-			+ " where c.active_task = true and b.pro_user_id = ?;";
-	this.prepareResources();
-	try {
-		connection = DaoUtils.getConnection();
-		statement = connection.prepareStatement(sql);
-		statement.setInt(1, proUserId);
-		resultSet = statement.executeQuery();
-		crs.populate(resultSet);
-	} finally {
-		DaoUtils.closeResources(resultSet, statement, connection);
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		CachedRowSet crs = new CachedRowSetImpl();
+		String sql = "select a.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating"
+				+ " from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id"
+				+ " inner join task as c on a.task_id = c.task_id" + " inner join"
+				+ " (select f.pro_user_id, avg(g.rating) as rating" + " from contract as g" + " inner join bid as f"
+				+ " on g.bid_id = f.bid_id" + " group by f.pro_user_id) as e" + " on e.pro_user_id = b.pro_user_id"
+				+ " where c.active_task = true and b.pro_user_id = ?;";
+		this.prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, proUserId);
+			resultSet = statement.executeQuery();
+			crs.populate(resultSet);
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return crs;
 	}
-	return crs;
-}
 
 }

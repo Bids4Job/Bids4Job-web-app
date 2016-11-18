@@ -60,8 +60,7 @@ public class CreateTaskController extends HttpServlet {
 				.setWorkField(profession).setDescription(task_description).setActive_task(1);
 		Task task1;
 		task1 = mService.create(task);
-		request.setAttribute("newTask", task1);
-		request.getRequestDispatcher("/suserprofile.jsp").forward(request, response);
+		response.sendRedirect("profile_simple");
 	}
 
 }
