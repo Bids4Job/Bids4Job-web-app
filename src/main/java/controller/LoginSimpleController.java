@@ -29,11 +29,9 @@ public class LoginSimpleController extends HttpServlet {
 
 	// A service for SimpleUser database operations
 	private SimpleUserService simpleUserService;
-	// A service for Contract database operations
-	private ContractService contractService;
-
+	
 	// SimpleUser profile page
-	private static final String PROFILE_PAGE = "suserprofile.jsp";
+	private static final String PROFILE_CONTROLLER = "profile_simple";
 
 	// Dispatchers for error and registered pages
 	RequestDispatcher errorDispatcher;
@@ -43,7 +41,6 @@ public class LoginSimpleController extends HttpServlet {
 	 */
 	public LoginSimpleController() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -53,8 +50,6 @@ public class LoginSimpleController extends HttpServlet {
 
 		// Instantiate a SimpleUser service object
 		simpleUserService = new SimpleUserService();
-		// Instantiate a Contract service object
-		contractService = new ContractService();
 	}
 
 	/**
@@ -65,21 +60,19 @@ public class LoginSimpleController extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
 		// Get the credentials from the login form
 		String email = request.getParameter(EMAIL);
 		String password = request.getParameter(PASSWORD);
 
 		// Define a SimpleUser object to store the logged in user
 		SimpleUser simpleUser = null;
-		// Define a CachedRowSet to contain the rows to be displayed
-		CachedRowSet crs= null;
-		
+
 		try {
 			simpleUser = simpleUserService.authenticate(email, password);
-			crs = contractService.findDetailsBySimpleUserID(simpleUser.getSimpleUserID());
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "Error Loading Profile: " + e.getMessage());
+			request.setAttribute("errorMessage", "Error Authenticating User: " + e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
 		
@@ -88,8 +81,7 @@ public class LoginSimpleController extends HttpServlet {
 			HttpSession session = request.getSession();
 			// Set the user to session
 			session.setAttribute("simple-user", simpleUser);
-			session.setAttribute("contracts", crs);
-			response.sendRedirect(PROFILE_PAGE);
+			response.sendRedirect(PROFILE_CONTROLLER);
 		} else {
 			request.setAttribute("errorMessage", "Not an active account");
 			errorDispatcher.forward(request, response);

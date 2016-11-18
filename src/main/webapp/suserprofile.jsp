@@ -349,9 +349,9 @@
 					</div>
 					<div class="modal-body">
 
-						<!-- Get the SimpleUser object from the session -->
+						<!-- Get the SimpleUser object from the request -->
 						<%
-							CachedRowSet crs = (CachedRowSet) session.getAttribute("contracts");
+							CachedRowSet crs = (CachedRowSet) request.getAttribute("contracts");
 						%>
 						<div class="panel panel-default">
 
