@@ -55,42 +55,39 @@ public class TaskDaoTester {
 			// .setWorkField("mathematician").setTaskId(17))) {
 			// System.out.println("Deleted!");
 			// }
-
+			// System.out.println("\nfindTenTasks()");
+			// crs = task.findTenTasks();
+			// if (!crs.isBeforeFirst()) {
+			// System.out.println("No data");
+			// } else {
+			// while (crs.next()) {
+			// System.out.println("task id: " + crs.getInt("task_id") + "\nbid
+			// id: " + crs.getInt("bid_id")
+			// + "\namount: " + crs.getInt("amount") + "\npro username: " +
+			// crs.getString("username")
+			// + "\nrating: " + crs.getDouble("rating") + "\nbid_time: " +
+			// crs.getTimestamp("bid_time")
+			// + "\n");
+			// }
+			// }
 			/**
 			 * Testing the findDetailsBySimpleUserID method of TaskDao.
 			 */
-			System.out.println("\nfindTenTasks()");
-			crs = task.findTenTasks();
+			System.out.println("\n============================================findDetailsBySimpleUserID()");
+			crs = task.findDetailsBySimpleUserID(1);
 			if (!crs.isBeforeFirst()) {
 				System.out.println("No data");
 			} else {
 				while (crs.next()) {
 					System.out.println("task id: " + crs.getInt("task_id") + "\nbid id: " + crs.getInt("bid_id")
 							+ "\namount: " + crs.getInt("amount") + "\npro username: " + crs.getString("username")
-							+ "\nrating: " + crs.getDouble("rating") + "\nbid_time: " + crs.getTimestamp("bid_time")
-							+ "\n");
+							+ "\nrating: " + crs.getDouble("rating") + "\ncontract_time: "
+							+ crs.getTimestamp("bid_time") + "\n");
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		// System.out.println("\nfindDetailsBySimpleUserID()");
-		// crs = task.findDetailsBySimpleUserID(1);
-		// if (!crs.isBeforeFirst()) {
-		// System.out.println("No data");
-		// } else {
-		// while (crs.next()) {
-		// System.out.println("task id: " + crs.getInt("task_id") + "\nbid id: "
-		// + crs.getInt("bid_id")
-		// + "\namount: " + crs.getInt("amount") + "\npro username: " +
-		// crs.getString("username")
-		// + "\nrating: " + crs.getDouble("rating") + "\ncontract_time: "
-		// + crs.getTimestamp("bid_time") + "\n");
-		// }
-		// }
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
 	}
+
 }

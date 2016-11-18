@@ -517,12 +517,7 @@ public class TaskDAO {
 	public CachedRowSet findDetailsBySimpleUserID(int simpleUserID)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		CachedRowSet crs = new CachedRowSetImpl();
-		String sql = "select a.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating"
-				+ " from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id"
-				+ " inner join task as c on a.task_id = c.task_id" + " left outer join"
-				+ " (select f.pro_user_id, avg(g.rating) as rating" + " from contract as g" + " inner join bid as f"
-				+ " on g.bid_id = f.bid_id" + " group by f.pro_user_id) as e" + " on e.pro_user_id = b.pro_user_id"
-				+ " where c.active_task = true and c.simple_user_id = ?;";
+		String sql = "select c.task_id, a.bid_id, a.amount, a.bid_time, c.work_field, b.username as pro_username, d.username as simple_username, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id right outer join task as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true and d.simple_user_id = ? order by c.task_id desc;";
 		this.prepareResources();
 		try {
 			connection = DaoUtils.getConnection();

@@ -48,8 +48,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a href="index"> <img alt="Brand" src="images/logo.png">
-					<!--Brand logo image-->
+				<a href="index"> <img alt="Brand" src="images/logo.png"> <!--Brand logo image-->
 				</a>
 			</div>
 			<!-- end collapsed navbar-->
@@ -92,9 +91,9 @@
 
 							<!-- Get the SimpleUser object from the session -->
 							<%
-							    SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
-							    // Set up the SimpleDateFormat object
-							    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
+								// Set up the SimpleDateFormat object
+								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							%>
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">
@@ -145,13 +144,13 @@
 
 					<!-- Get the contact details from the request -->
 					<%
-					    CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
-					    if (crsTasks.isBeforeFirst()) {
+						CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
+						if (crsTasks.isBeforeFirst()) {
 							int prevTaskID = 0;
 							while (crsTasks.next()) {
-							    int taskID = crsTasks.getInt("task_id");
-							    if (taskID != prevTaskID) {
-								if (prevTaskID != 0) {
+								int taskID = crsTasks.getInt("task_id");
+								if (taskID != prevTaskID) {
+									if (prevTaskID != 0) {
 					%>
 					<!-- Same snippets: (215 - 223) or (157 - 164) -->
 					</tbody>
@@ -165,8 +164,8 @@
 
 
 		<%
-		    }
-					prevTaskID = taskID;
+			}
+						prevTaskID = taskID;
 		%>
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
@@ -192,9 +191,10 @@
 						</thead>
 						<tbody>
 							<%
-							    } // End 	if (taskID != prevTaskID)
+								} // End 	if (taskID != prevTaskID)
+										int bidID = crsTasks.getInt("bid_id");
+										if (bidID != 0) {
 							%>
-
 							<tr>
 								<td><%=crsTasks.getString("username")%></td>
 								<td><%=crsTasks.getDouble("rating")%></td>
@@ -202,13 +202,20 @@
 								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
 								<td><form action="myAction.jsp">
 										<input type="hidden" name="taskId" value="<%=taskID%>">
-										<input type="hidden" name="bidId"
-											value="<%=crsTasks.getInt("bid_id")%>">
+										<input type="hidden" name="bidId" value="<%=bidID%>">
 										<button type="submit" class="btn btn-info">Accept Bid</button>
 									</form></td>
 							</tr>
 							<%
-							    } // End 	while(crs.next())
+								} // End 	if (bidID != 0)
+										else {
+							%>
+							<tr>
+								<td colspan="5">-</td>
+							</tr>
+							<%
+								} // End if-else bidID != 0
+									} // End 	while(crs.next())
 							%>
 
 							<!-- Same snippets: (215 - 223) or (157 - 164) -->
@@ -221,7 +228,7 @@
 			<!-- End .panel-collapse collapse in -->
 
 			<%
-			    }
+				}
 			%>
 		</div>
 		<!-- End .panel panel-default -->
@@ -333,12 +340,12 @@
 
 					<!-- Get the contact details from the request -->
 					<%
-					    CachedRowSet crs = (CachedRowSet) request.getAttribute("contracts");
+						CachedRowSet crs = (CachedRowSet) request.getAttribute("contracts");
 					%>
 					<div class="panel panel-default">
 
 						<%
-						    if (crs.isBeforeFirst()) {
+							if (crs.isBeforeFirst()) {
 								while (crs.next()) {
 						%>
 						<div class="panel-heading" role="tab" id="headingOne">
@@ -360,8 +367,8 @@
 										<td><%=crs.getString("username")%></td>
 										<td>
 											<%
-											    double rating = crs.getDouble("rating");
-													    if (crs.wasNull()) {
+												double rating = crs.getDouble("rating");
+														if (crs.wasNull()) {
 											%> <!-- Start td for rating -->
 											<form class="form-inline" method="POST"
 												action="rate_professional" class="form-signup">
@@ -383,9 +390,9 @@
 													<button type="submit" class="btn btn-success">Rate</button>
 												</div>
 											</form> <%
-     } else {
- 			out.println(rating);
- 		    }
+ 	} else {
+ 				out.println(rating);
+ 			}
  %>
 										</td>
 										<!-- End td for rating -->
@@ -396,12 +403,12 @@
 							</table>
 						</div>
 						<%
-						    }
+							}
 						%>
 					</div>
 					<!-- End .panel -->
 					<%
-					    }
+						}
 					%>
 
 				</div>
