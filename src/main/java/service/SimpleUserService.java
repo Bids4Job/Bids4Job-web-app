@@ -151,4 +151,9 @@ public class SimpleUserService {
 	SimpleUser simpleUser = simpleUserDAO.findByEmailPassword(email, password);
 	return (simpleUser != null && simpleUser.getActiveAccount()) ? simpleUser : null;
     }
+    
+    public boolean exist(String name, String value)
+	    throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	return simpleUserDAO.exist(name, value);
+    }
 }

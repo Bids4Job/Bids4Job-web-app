@@ -324,6 +324,39 @@ public class SimpleUserDAO {
 		}
 		return simpleUser;
 	}
+	
+	/**
+	 * Checks if username or email already exists.
+	 * @param name
+	 * @param value
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public boolean exist(String name, String value) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		
+		String query = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + name + " =?;";
+		this.prepareResources();
+		try {
+		    conn = DaoUtils.getConnection();
+		    preStmt = conn.prepareStatement(query);
+		    preStmt.setString(1, value);
+		    rs = preStmt.executeQuery();
+		    if (rs.next()) {
+			return true;
+		    } else {
+			return false;
+		    }
+		    
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		
+	    }
+	
+	
 
 	/**
 	 * Utility method that takes a result set and returns a SimpleUser object.
