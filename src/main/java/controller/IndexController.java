@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
-import dao.TaskDAO;
+import service.TaskService;
 
 /**
  * Servlet implementation class IndexController
@@ -19,10 +19,10 @@ import dao.TaskDAO;
  * @author Dimitris
  */
 
-@WebServlet("/IndexController")
+@WebServlet("/index")
 public class IndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private TaskDAO mDao;
+	private TaskService mService;
 	RequestDispatcher errorDispatcher;
 	RequestDispatcher profileDispatcher;
 
@@ -40,7 +40,7 @@ public class IndexController extends HttpServlet {
 		profileDispatcher = getServletContext().getRequestDispatcher("/suserprofile.jsp");
 
 		// Instantiate a Contract service object
-		mDao = new TaskDAO();
+		mService = new TaskService();
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class IndexController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		CachedRowSet crs = null;
 		try {
-			crs = mDao.findTenTasks();
+			crs = mService.findTenTasks();
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Error Loading Profile: " + e.getMessage());

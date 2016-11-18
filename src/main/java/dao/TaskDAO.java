@@ -443,10 +443,10 @@ public class TaskDAO {
 	}
 
 	/**
-	 * Finds the 10 last active tasks created and their bids.
+	 * Finds the ten last active tasks created and their bids.
 	 * 
 	 * @author Dimitris
-	 * @return A CachedRowSet with the 10 last active tasks that was created.
+	 * @return A CachedRowSet with the 10 last active tasks that were created.
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws InstantiationException

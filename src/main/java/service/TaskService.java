@@ -96,11 +96,25 @@ public class TaskService {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Finds the last ten active tasks that were created.
+	 * 
+	 * @author Dimitris
+	 * @return a CacheRowSet with the last ten active tasks created.
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findTenTasks()
+			throws SQLException, InstantiationException, ClassNotFoundException, IllegalAccessException {
+		return dao.findTenTasks();
+	}
+
 	/**
 	 * Finds all Tasks(and their Bids) in the database from a specified Simple
-	 * User. (taks_id, bid_id, pro_username, amount, rating,
-	 * bid_time)
+	 * User. (taks_id, bid_id, pro_username, amount, rating, bid_time)
 	 *
 	 * @author george
 	 * @return a CachedRowSet with all Tasks(in detail) based on simple user ID
@@ -113,10 +127,10 @@ public class TaskService {
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		return dao.findDetailsBySimpleUserID(simpleUserID);
 	}
-	
+
 	public CachedRowSet findDetailsByProfessionalUserID(int proUserId)
-		throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-	return dao.findDetailsBySimpleUserID(proUserId);
-}
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		return dao.findDetailsBySimpleUserID(proUserId);
+	}
 
 }
