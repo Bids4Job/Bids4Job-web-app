@@ -14,6 +14,7 @@ import javax.sql.rowset.CachedRowSet;
 
 import domain.ProfessionalUser;
 import service.ContractService;
+import service.TaskService;
 
 /**
  * Servlet implementation class ProfileProfessionalController
@@ -23,8 +24,7 @@ public class ProfileProfessionalController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ContractService contractService;
-	
-	private String rating = null;
+	private TaskService taskService;
 	
 	RequestDispatcher errorDispatcher;
 	RequestDispatcher profileDispatcher;
@@ -45,6 +45,7 @@ public class ProfileProfessionalController extends HttpServlet {
 
 		// Instantiate a Contract service object
 		contractService = new ContractService();
+		taskService = new TaskService();
 	}
 
 	/**
@@ -57,11 +58,33 @@ public class ProfileProfessionalController extends HttpServlet {
 		
 		// Get the HttpSession that is associated with this request
 		HttpSession session = request.getSession();
-		// Define a CachedRowSet to contain the rows to be displayed
-		//CachedRowSet crs = null;
+		
+		int proUserId;
 		
 		try {
-		    	 rating = contractService.findRatingByProUserID(((ProfessionalUser) session.getAttribute("pro")).getProUserId());
+			// Get Professional User ID
+		    	proUserId = ((ProfessionalUser) session.getAttribute("pro")).getProUserId();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Log in First! ");
+			errorDispatcher.forward(request, response);
+			return;
+		}
+		
+		CachedRowSet crsTasks = null;
+		
+		try {
+			crsTasks = taskService.findDetailsByProfessionalUserID(proUserId);
+		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Error Loading Tasks in Profile: " + e.getMessage());
+			errorDispatcher.forward(request, response);
+		}
+		
+		String rating = null;
+		
+		try {	
+		    	rating = contractService.findRatingByProUserID(((ProfessionalUser) session.getAttribute("pro")).getProUserId());
 			
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -70,6 +93,7 @@ public class ProfileProfessionalController extends HttpServlet {
 		}
 
 		// Set the contract details to session
+		request.setAttribute("tasks", crsTasks);
 		request.setAttribute("rating", rating);
 		profileDispatcher.forward(request, response);
 		

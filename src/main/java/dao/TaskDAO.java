@@ -533,5 +533,27 @@ public class TaskDAO {
 		}
 		return crs;
 	}
+	
+	public CachedRowSet findDetailsByProfessionalUserID(int proUserId)
+		throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	CachedRowSet crs = new CachedRowSetImpl();
+	String sql = "select a.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating"
+			+ " from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id"
+			+ " inner join task as c on a.task_id = c.task_id" + " inner join"
+			+ " (select f.pro_user_id, avg(g.rating) as rating" + " from contract as g" + " inner join bid as f"
+			+ " on g.bid_id = f.bid_id" + " group by f.pro_user_id) as e" + " on e.pro_user_id = b.pro_user_id"
+			+ " where c.active_task = true and b.pro_user_id = ?;";
+	this.prepareResources();
+	try {
+		connection = DaoUtils.getConnection();
+		statement = connection.prepareStatement(sql);
+		statement.setInt(1, proUserId);
+		resultSet = statement.executeQuery();
+		crs.populate(resultSet);
+	} finally {
+		DaoUtils.closeResources(resultSet, statement, connection);
+	}
+	return crs;
+}
 
 }

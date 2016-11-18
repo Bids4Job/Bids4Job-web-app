@@ -113,5 +113,10 @@ public class TaskService {
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		return dao.findDetailsBySimpleUserID(simpleUserID);
 	}
+	
+	public CachedRowSet findDetailsByProfessionalUserID(int proUserId)
+		throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	return dao.findDetailsBySimpleUserID(proUserId);
+}
 
 }
