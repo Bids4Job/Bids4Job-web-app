@@ -35,20 +35,38 @@
 </head>
 <body>
 
+	<!--Navbar start-->
+
 	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<a href="index.jsp"> <img alt="Brand" src="images/logo.png">
+		<div class="container-fluid navbar-transp">
+			<div class="navbar-header">
+				<!--start collapsed navbar-->
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="index.jsp"> <img alt="Brand" src="images/logo.png">
 				<!--Brand logo image-->
-			</a>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="prouserprofile.jsp" class="active">My
-						Profile</a></li>
-			</ul>
-			<div class="navbar-form navbar-right">
-				<a href="logout_user" class="btn btn-info" role="button">Log out</a>
+				</a>
 			</div>
+			<!-- end collapsed navbar-->
+			<div id="navbar" class="navbar-collapse collapse">
+				<!--start un-collapsed navbar-->
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="profile_professional"><span
+							class="glyphicon glyphicon-user"></span>My Profile</a></li>
+					<li><a href="logout_user"><span
+							class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+				</ul>
+			</div>
+			<!-- end un-collapsed navbar-->
 		</div>
 	</nav>
+	<!--Navbar end-->
 
 
 	<div class="container">
