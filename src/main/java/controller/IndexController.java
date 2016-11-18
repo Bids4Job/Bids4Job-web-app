@@ -24,7 +24,7 @@ public class IndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TaskService mService;
 	RequestDispatcher errorDispatcher;
-	RequestDispatcher profileDispatcher;
+	RequestDispatcher indexDispatcher;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -37,7 +37,7 @@ public class IndexController extends HttpServlet {
 	public void init() {
 		// Define RequestDispatcher object to forward any errors
 		errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
-		profileDispatcher = getServletContext().getRequestDispatcher("/suserprofile.jsp");
+		indexDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 
 		// Instantiate a Contract service object
 		mService = new TaskService();
@@ -60,6 +60,6 @@ public class IndexController extends HttpServlet {
 			errorDispatcher.forward(request, response);
 		}
 		request.setAttribute("tenTasks", crs);
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		indexDispatcher.forward(request, response);
 	}
 }
