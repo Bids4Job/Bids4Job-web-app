@@ -201,11 +201,14 @@
 								<td><%=crsTasks.getDouble("rating")%></td>
 								<td><%=crsTasks.getInt("amount")%></td>
 								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
-								<td><form action="myAction.jsp">
+								<td>
+								
+								<% 	if (crsTasks.getString("username").equals(pro.getUsername())) {%>
+								<form action="myAction.jsp">
 										<input type="hidden" name="bidId" value="myBidId">
 										<button type="submit" class="btn btn-danger">Cancel
 											Bid</button>
-									</form></td>
+									</form> <% } %></td>
 							</tr>
 							<%
 							    } // End 	while(crs.next())
