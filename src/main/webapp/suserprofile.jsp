@@ -93,6 +93,8 @@
 							<!-- Get the SimpleUser object from the session -->
 							<%
 								SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
+								// Set up the SimpleDateFormat object
+								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							%>
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">
@@ -141,260 +143,288 @@
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">
 
-
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
-							<h4 class="panel-title">
-								<a role="button" data-toggle="collapse" data-parent="#accordion"
-									href="#collapseOne" aria-expanded="true"
-									aria-controls="collapseOne"> Task #1 by simple_user1 </a>
-							</h4>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse in"
-							role="tabpanel" aria-labelledby="headingOne">
-							<div class="panel-body">
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th>Bidder</th>
-											<th>Rating</th>
-											<th>Amount &euro;</th>
-											<th>Bid Date</th>
-											<th>Accept Bid</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>pro_user1</td>
-											<td>4.5</td>
-											<td>500</td>
-											<td>12/10/2016 15:05:00</td>
-											<td><a href="#" class="btn btn-info" role="button">Accept
-													Bid</a></td>
-										</tr>
-										<tr>
-											<td>pro_user2</td>
-											<td>4.1</td>
-											<td>570</td>
-											<td>12/10/2016 13:15:00</td>
-											<td><a href="#" class="btn btn-info" role="button">Accept
-													Bid</a></td>
-										</tr>
-										<tr>
-											<td>pro_user3</td>
-											<td>4.7</td>
-											<td>580</td>
-											<td>12/10/2016 10:10:00</td>
-											<td><a href="#" class="btn btn-info" role="button">Accept
-													Bid</a></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-					<!-- End .panel -->
-					
-
+					<!-- Get the contact details from the request -->
+					<%
+						CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
+						if (crsTasks.isBeforeFirst()) {
+							int prevTaskID = 0;
+							while (crsTasks.next()) {
+								int taskID = crsTasks.getInt("task_id");
+								if (taskID != prevTaskID) {
+									if (prevTaskID != 0) {
+					%>
+					<!-- Same snippets: (215 - 223) or (157 - 164) -->
+					</tbody>
+					</table>
 				</div>
+				<!-- End .panel-body -->
 			</div>
+			<!-- End .panel-collapse collapse in -->
 		</div>
-		<!-- End of .row-->
+		<!-- End .panel-collapse collapse in -->
 
-		<!-- Start #task-modal -->
-		<div class="modal fade" id="task-modal" tabindex="-1" role="dialog">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header modal-header-primary">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title">New Task</h4>
-					</div>
-					<div class="modal-body">
-						<form class="form-horizontal" method="POST" action="create_task"
-							class="form-signup">
 
-							<div class="form-group">
-								<label for="task-title" class="col-sm-2 control-label">Title</label>
-								<div class="col-sm-6">
-									<input type="text" name="task_title" ng-model="task-title"
-										class="form-control" id="task-title" placeholder="Task Title"
-										required>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="task-description" class="col-sm-2 control-label">Task
-									Description</label>
-								<div class="col-sm-6">
-									<textarea type="text" rows="4" name="task_description"
-										class="form-control" id="task_description"
-										placeholder="Task Description..." maxlength="1000" required></textarea>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="deadline" class="col-sm-2 control-label">Deadline</label>
-								<div class="col-sm-6">
-									<input type="date" name="date" class="form-control"
-										id="deadline" placeholder="Task Deadline" required>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="profession" class="col-sm-2 control-label">Profession</label>
-								<div class="col-sm-6">
-
-									<select name="profession" id="professions" required>
-										<option value=""></option>
-										<option value="Electrician">Electrician</option>
-										<option value="Plumber">Plumber</option>
-										<option value="Painter">Painter</option>
-										<option value="Hair Dresser">Hair Dresser</option>
-										<option value="Developer">Developer</option>
-										<option value="Designer">Designer</option>
-										<option value="Dancer">Dancer</option>
-										<option value="Banker">Banker</option>
-										<option value="Logistics">Logistics</option>
-										<option value="Personal Trainer">Personal Trainer</option>
-										<option value="Teacher">Teacher</option>
-									</select>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-6">
-									<button type="submit" class="btn btn-success">Create</button>
-									<input type="reset" class="btn btn-warning">
-								</div>
-							</div>
-
-						</form>
-
-					</div>
-					<!-- End .modal-body -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-
-					</div>
-				</div>
-				<!-- End .modal-content -->
+		<%
+			}
+						prevTaskID = taskID;
+		%>
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
+				<h4 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#accordion"
+						href="#<%=taskID%>" aria-expanded="true"
+						aria-controls="<%=taskID%>"> Task #<%=taskID%> by <%=simpleUser.getUsername()%>
+					</a>
+				</h4>
 			</div>
-			<!-- End .modal-dialog -->
-		</div>
-		<!-- End #task-modal -->
-
-		<!-- Start #contracts-modal -->
-		<div class="modal fade" id="contracts-modal" tabindex="-1"
-			role="dialog">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header modal-header-primary">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title">My Contracts</h4>
-					</div>
-					<div class="modal-body">
-
-						<!-- Get the contact details from the request -->
-						<%
-							CachedRowSet crs = (CachedRowSet) request.getAttribute("contracts");
-						%>
-						<div class="panel panel-default">
-
+			<div id="<%=taskID%>" class="panel-collapse collapse in"
+				role="tabpanel" aria-labelledby="heading<%=taskID%>">
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Bidder</th>
+								<th>Rating</th>
+								<th>Amount &euro;</th>
+								<th>Bid Date</th>
+								<th>Accept Bid</th>
+							</tr>
+						</thead>
+						<tbody>
 							<%
-								if (crs.isBeforeFirst()) {
-									SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-									while (crs.next()) {
+								} // End 	if (taskID != prevTaskID)
 							%>
-							<div class="panel-heading" role="tab" id="headingOne">
-								<h4 class="panel-title"><%=crs.getInt("contract_id")%></h4>
+
+							<tr>
+								<td><%=crsTasks.getString("username")%></td>
+								<td><%=crsTasks.getDouble("rating")%></td>
+								<td><%=crsTasks.getInt("amount")%></td>
+								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
+								<td><form action="myAction.jsp">
+										<input type="hidden" name="taskId" value="<%=taskID%>">
+										<input type="hidden" name="bidId"
+											value="<%=crsTasks.getInt("amount")%>">
+										<button type="submit" class="btn btn-info">Accept Bid</button>
+									</form></td>
+							</tr>
+							<%
+								} // End 	while(crs.next())
+							%>
+
+							<!-- Same snippets: (215 - 223) or (157 - 164) -->
+						</tbody>
+					</table>
+				</div>
+				<!-- End .panel-body -->
+
+			</div>
+			<!-- End .panel-collapse collapse in -->
+
+			<%
+				}
+			%>
+		</div>
+		<!-- End .panel panel-default -->
+	</div>
+	<!-- End of .panel-group -->
+	</div>
+	<!-- End of .panel panel-info -->
+	</div>
+	<!-- End of .row-->
+
+	<!-- Start #task-modal -->
+	<div class="modal fade" id="task-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header modal-header-primary">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">New Task</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" method="POST" action="create_task"
+						class="form-signup">
+
+						<div class="form-group">
+							<label for="task-title" class="col-sm-2 control-label">Title</label>
+							<div class="col-sm-6">
+								<input type="text" name="task_title" ng-model="task-title"
+									class="form-control" id="task-title" placeholder="Task Title"
+									required>
 							</div>
+						</div>
 
-							<div class="panel-body">
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th>Professional</th>
-											<th>Rating</th>
-											<th>Amount &euro;</th>
-											<th>Contract Date</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><%=crs.getString("username")%></td>
-											<td>
-												<%
-													double rating = crs.getDouble("rating");
-															if (crs.wasNull()) {
-												%> <!-- Start td for rating -->
-												<form class="form-inline" method="POST"
-													action="rate_professional" class="form-signup">
-													<div class="form-group">
-														<select name="rating" id="rating" required>
-															<option value=""></option>
-															<option value="0">0</option>
-															<option value="1">1</option>
-															<option value="2">2</option>
-															<option value="3">3</option>
-															<option value="4">4</option>
-															<option value="5">5</option>
-														</select>
-													</div>
+						<div class="form-group">
+							<label for="task-description" class="col-sm-2 control-label">Task
+								Description</label>
+							<div class="col-sm-6">
+								<textarea type="text" rows="4" name="task_description"
+									class="form-control" id="task_description"
+									placeholder="Task Description..." maxlength="1000" required></textarea>
+							</div>
+						</div>
 
-													<div class="form-group">
-														<input type="hidden" name="contract_id"
-															value=<%=crs.getInt("contract_id")%>>
-														<button type="submit" class="btn btn-success">Rate</button>
-													</div>
-												</form> <%
+						<div class="form-group">
+							<label for="deadline" class="col-sm-2 control-label">Deadline</label>
+							<div class="col-sm-6">
+								<input type="date" name="date" class="form-control"
+									id="deadline" placeholder="Task Deadline" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="profession" class="col-sm-2 control-label">Profession</label>
+							<div class="col-sm-6">
+
+								<select name="profession" id="professions" required>
+									<option value=""></option>
+									<option value="Electrician">Electrician</option>
+									<option value="Plumber">Plumber</option>
+									<option value="Painter">Painter</option>
+									<option value="Hair Dresser">Hair Dresser</option>
+									<option value="Developer">Developer</option>
+									<option value="Designer">Designer</option>
+									<option value="Dancer">Dancer</option>
+									<option value="Banker">Banker</option>
+									<option value="Logistics">Logistics</option>
+									<option value="Personal Trainer">Personal Trainer</option>
+									<option value="Teacher">Teacher</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-6">
+								<button type="submit" class="btn btn-success">Create</button>
+								<input type="reset" class="btn btn-warning">
+							</div>
+						</div>
+
+					</form>
+
+				</div>
+				<!-- End .modal-body -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+				</div>
+			</div>
+			<!-- End .modal-content -->
+		</div>
+		<!-- End .modal-dialog -->
+	</div>
+	<!-- End #task-modal -->
+
+	<!-- Start #contracts-modal -->
+	<div class="modal fade" id="contracts-modal" tabindex="-1"
+		role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header modal-header-primary">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">My Contracts</h4>
+				</div>
+				<div class="modal-body">
+
+					<!-- Get the contact details from the request -->
+					<%
+						CachedRowSet crs = (CachedRowSet) request.getAttribute("contracts");
+					%>
+					<div class="panel panel-default">
+
+						<%
+							if (crs.isBeforeFirst()) {
+								while (crs.next()) {
+						%>
+						<div class="panel-heading" role="tab" id="headingOne">
+							<h4 class="panel-title"><%=crs.getInt("contract_id")%></h4>
+						</div>
+
+						<div class="panel-body">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Professional</th>
+										<th>Rating</th>
+										<th>Amount &euro;</th>
+										<th>Contract Date</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><%=crs.getString("username")%></td>
+										<td>
+											<%
+												double rating = crs.getDouble("rating");
+														if (crs.wasNull()) {
+											%> <!-- Start td for rating -->
+											<form class="form-inline" method="POST"
+												action="rate_professional" class="form-signup">
+												<div class="form-group">
+													<select name="rating" id="rating" required>
+														<option value=""></option>
+														<option value="0">0</option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												</div>
+
+												<div class="form-group">
+													<input type="hidden" name="contract_id"
+														value=<%=crs.getInt("contract_id")%>>
+													<button type="submit" class="btn btn-success">Rate</button>
+												</div>
+											</form> <%
  	} else {
  				out.println(rating);
  			}
  %>
-											</td>
-											<!-- End td for rating -->
-											<td><%=crs.getInt("amount")%></td>
-											<td><%=simpleDateFormat.format(crs.getTimestamp("contract_time"))%></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<%
-								}
-							%>
+										</td>
+										<!-- End td for rating -->
+										<td><%=crs.getInt("amount")%></td>
+										<td><%=simpleDateFormat.format(crs.getTimestamp("contract_time"))%></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<!-- End .panel -->
 						<%
 							}
 						%>
-
 					</div>
-					<!-- End .modal-body -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					<!-- End .panel -->
+					<%
+						}
+					%>
 
-					</div>
 				</div>
-				<!-- End .modal-content -->
-			</div>
-			<!-- End .modal-dialog -->
-		</div>
-		<!-- End #contracts-modal -->
+				<!-- End .modal-body -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 
-		<hr>
-		<footer>
-			<p>
-				&copy; 2016 Bids4Job S.A. &middot; <a href="#">Privacy</a> &middot;
-				<a href="#">Terms</a>
-			</p>
-		</footer>
-		<!-- End of Footer -->
+				</div>
+			</div>
+			<!-- End .modal-content -->
+		</div>
+		<!-- End .modal-dialog -->
+	</div>
+	<!-- End #contracts-modal -->
+
+	<hr>
+	<footer>
+		<p>
+			&copy; 2016 Bids4Job S.A. &middot; <a href="#">Privacy</a> &middot; <a
+				href="#">Terms</a>
+		</p>
+	</footer>
+	<!-- End of Footer -->
 
 	</div>
 	<!-- End of .container-->
