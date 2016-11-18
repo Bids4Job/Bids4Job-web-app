@@ -9,26 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.sql.rowset.CachedRowSet;
 
-import domain.SimpleUser;
+import domain.Contract;
 import service.ContractService;
-import service.SimpleUserService;
 
 /**
- * Servlet implementation class LoginSimpleController
+ * Servlet implementation class RateProController
  */
-@WebServlet("/login_simple")
-public class LoginSimpleController extends HttpServlet {
+@WebServlet("/rate_professional")
+public class RateProController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// Parameter names
-	private static final String EMAIL = "email";
-	private static final String PASSWORD = "upass";
+	private static final String CONTRACT_ID = "contract_id";
+	private static final String RATING = "rating";
 
-	// A service for SimpleUser database operations
-	private SimpleUserService simpleUserService;
 	// A service for Contract database operations
 	private ContractService contractService;
 
@@ -41,7 +36,7 @@ public class LoginSimpleController extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoginSimpleController() {
+	public RateProController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -50,9 +45,6 @@ public class LoginSimpleController extends HttpServlet {
 	public void init() {
 		// Define RequestDispatcher object to forward any errors
 		errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
-
-		// Instantiate a SimpleUser service object
-		simpleUserService = new SimpleUserService();
 		// Instantiate a Contract service object
 		contractService = new ContractService();
 	}
@@ -65,35 +57,24 @@ public class LoginSimpleController extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		// Get the credentials from the login form
-		String email = request.getParameter(EMAIL);
-		String password = request.getParameter(PASSWORD);
-
-		// Define a SimpleUser object to store the logged in user
-		SimpleUser simpleUser = null;
-		// Define a CachedRowSet to contain the rows to be displayed
-		CachedRowSet crs= null;
+		// Get the rating and the contract id from the form
+		int contractID = Integer.parseInt(request.getParameter(CONTRACT_ID));
+		int rating = Integer.parseInt(request.getParameter(RATING));
 		
+		// Define a Contract object to store the logged in user
+		Contract contract;
+
 		try {
-			simpleUser = simpleUserService.authenticate(email, password);
-			crs = contractService.findDetailsBySimpleUserID(simpleUser.getSimpleUserID());
+			contract = contractService.findOne(contractID);
+			contract.setProRating(rating);
+			contractService.update(contract);
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "Error Loading Profile: " + e.getMessage());
+			request.setAttribute("errorMessage", "Error Rating Professional: " + e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
-		
-		if (simpleUser != null) {
-			// Get the HttpSession that is associated with this request
-			HttpSession session = request.getSession();
-			// Set the user to session
-			session.setAttribute("simple-user", simpleUser);
-			session.setAttribute("contracts", crs);
-			response.sendRedirect(PROFILE_PAGE);
-		} else {
-			request.setAttribute("errorMessage", "Not an active account");
-			errorDispatcher.forward(request, response);
-		}
+
+		response.sendRedirect(PROFILE_PAGE);
 	}
 
 }

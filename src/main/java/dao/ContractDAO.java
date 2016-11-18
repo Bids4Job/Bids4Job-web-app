@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.rowset.CachedRowSet;
+import com.sun.rowset.CachedRowSetImpl;
+
 import domain.Contract;
 
 /**
@@ -18,7 +21,6 @@ import domain.Contract;
 public class ContractDAO {
 
 	// Necessary fields to connect to DB, execute queries and store the result
-	// sets.
 	private static final String CONTRACT_TABLE = "contract";
 	private static final String CONTRACT_ID = "contract_ID";
 	private static final String TASK_ID = "task_id";
@@ -144,16 +146,17 @@ public class ContractDAO {
 	public boolean update(Contract contract)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		int rowsAffected = 0;
-		String sql = "UPDATE " + CONTRACT_TABLE + " SET " + BID_ID + "=?, " + TASK_ID + "=?, " + CONTRACT_TIME
-				+ "=? WHERE " + CONTRACT_ID + "=?;";
+		String sql = "UPDATE " + CONTRACT_TABLE + " SET " + BID_ID + "=?, " + PRO_RATING + "=?, " + TASK_ID + "=?, "
+				+ CONTRACT_TIME + "=? WHERE " + CONTRACT_ID + "=?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
 			preStmt = conn.prepareStatement(sql);
 			preStmt.setInt(1, contract.getBidID());
-			preStmt.setInt(2, contract.getTaskID());
-			preStmt.setTimestamp(3, contract.getContractTime());
-			preStmt.setInt(4, contract.getContractID());
+			preStmt.setDouble(2, contract.getProRating());
+			preStmt.setInt(3, contract.getTaskID());
+			preStmt.setTimestamp(4, contract.getContractTime());
+			preStmt.setInt(5, contract.getContractID());
 			rowsAffected = preStmt.executeUpdate();
 			if (rowsAffected == 1) {
 				return true;
@@ -312,6 +315,39 @@ public class ContractDAO {
 	}
 
 	/**
+	 * Finds all Contracts in the database from a specified Simple User.
+	 * (pro_username, amount, rating, contract_date)
+	 *
+	 * @return a CachedRowSet with all Contracts(in details) based on simple
+	 *         user ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findDetailsBySimpleUserID(int simpleUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		CachedRowSet crs = new CachedRowSetImpl();
+		String sql = "SELECT a." + CONTRACT_ID + ", a." + CONTRACT_TIME
+				+ ", a.rating, b.pro_user_id, b.amount, e.username FROM " + CONTRACT_TABLE
+				+ " as a INNER JOIN bid as b ON a." + BID_ID + " = b." + BID_ID
+				+ " INNER JOIN pro_user as e ON e.pro_user_id = b.pro_user_id" + " INNER JOIN task as c ON b." + TASK_ID
+				+ " = c." + TASK_ID + " INNER JOIN simple_user as d ON c.simple_user_id = d.simple_user_id"
+				+ " WHERE d.simple_user_ID = ?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setInt(1, simpleUserID);
+			rs = preStmt.executeQuery();
+			crs.populate(rs);
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
+		}
+		return crs;
+	}
+
+	/**
 	 * Finds all Contracts in the database from a specified location.
 	 *
 	 * @return A list with all Contracts based on location
@@ -414,6 +450,7 @@ public class ContractDAO {
 	 */
 	private static Contract populate(ResultSet resultSet) throws SQLException {
 		return new Contract().setContractID(resultSet.getInt(CONTRACT_ID)).setTaskID(resultSet.getInt(TASK_ID))
-				.setBidID(resultSet.getInt(BID_ID)).setContractTime(resultSet.getTimestamp(CONTRACT_TIME));
+				.setProRating(resultSet.getDouble(PRO_RATING)).setBidID(resultSet.getInt(BID_ID))
+				.setContractTime(resultSet.getTimestamp(CONTRACT_TIME));
 	}
 }

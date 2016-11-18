@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.sql.rowset.CachedRowSet;
+
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import dao.ContractDAO;
@@ -17,6 +19,7 @@ public class ContractDAOTester {
 		Contract contract;
 		List<Contract> contracts;
 		DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		CachedRowSet crs;
 
 		try {
 			/* CRUD operations */
@@ -41,7 +44,7 @@ public class ContractDAOTester {
 			}
 			// update
 			System.out.println("\nupdate()");
-			System.out.println(contract.toString() + " updated: " + contractDAO.update(contract.setBidID(3)) + "\nto "
+			System.out.println(contract.toString() + " updated: " + contractDAO.update(contract.setBidID(3).setProRating(2.3)) + "\nto "
 					+ contract.toString());
 			// findOne
 			contract = contractDAO.findOne(contract.getContractID());
@@ -105,6 +108,30 @@ public class ContractDAOTester {
 			// findRatingByProUserID
 			System.out.println("\nfindRatingByProUserID()");
 			System.out.println("Average rating of pro user #3: " + contractDAO.findRatingByProUserID(3));
+			// findDetailsBySimpleUserID
+			System.out.println("\nfindDetailsBySimpleUserID()");
+			crs = contractDAO.findDetailsBySimpleUserID(6);
+			if (!crs.isBeforeFirst()) {
+				System.out.println("No data");
+			} else {
+				while (crs.next()) {
+					System.out.println("contract id: " + crs.getInt("contract_id") + "\npro username: "
+							+ crs.getString("username") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\ncontract_time: " + crs.getTimestamp("contract_time") + "\n");
+				}
+			}
+			// findDetailsBySimpleUserID
+			System.out.println("\nfindDetailsBySimpleUserID()");
+			crs = contractDAO.findDetailsBySimpleUserID(600);
+			if (!crs.isBeforeFirst()) {
+				System.out.println("No data");
+			} else {
+				while (crs.next()) {
+					System.out.println("contract id: " + crs.getInt("contract_id") + "\npro username: "
+							+ crs.getString("username") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\ncontract_time: " + crs.getTimestamp("contract_time") + "\n");
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

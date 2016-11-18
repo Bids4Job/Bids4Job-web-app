@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.sql.rowset.CachedRowSet;
+
 import domain.Contract;
 import service.ContractService;
 
@@ -23,6 +25,7 @@ public class ContractServiceTester {
 		Contract contract;
 		List<Contract> contracts;
 		DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		CachedRowSet crs;
 
 		try {
 			// findOne
@@ -84,9 +87,30 @@ public class ContractServiceTester {
 				System.out.println(c);
 			}
 
-			// findRatingByProUserID
-			System.out.println("\nfindRatingByProUserID()\n pro user 11: " + contractService.findRatingByProUserID(11));
-			System.out.println("\nfindRatingByProUserID()\n pro user 111: " + contractService.findRatingByProUserID(111));
+			// findDetailsBySimpleUserID
+			System.out.println("\nfindDetailsBySimpleUserID(6)");
+			crs = contractService.findDetailsBySimpleUserID(6);
+			if (!crs.isBeforeFirst()) {
+				System.out.println("No data");
+			} else {
+				while (crs.next()) {
+					System.out.println("contract id: " + crs.getInt("contract_id") + "\npro username: "
+							+ crs.getString("username") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\ncontract_time: " + crs.getTimestamp("contract_time") + "\n");
+				}
+			}
+			// findDetailsBySimpleUserID
+			System.out.println("\nfindDetailsBySimpleUserID(600)");
+			crs = contractService.findDetailsBySimpleUserID(600);
+			if (!crs.isBeforeFirst()) {
+				System.out.println("No data");
+			} else {
+				while (crs.next()) {
+					System.out.println("contract id: " + crs.getInt("contract_id") + "\npro username: "
+							+ crs.getString("username") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\ncontract_time: " + crs.getTimestamp("contract_time") + "\n");
+				}
+			}
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException
 				| ParseException e) {
 			e.printStackTrace();

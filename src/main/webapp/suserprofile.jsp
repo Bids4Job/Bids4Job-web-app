@@ -1,6 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="domain.SimpleUser"%>
+<%@ page import="javax.sql.rowset.CachedRowSet"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page errorPage="error.jsp"%>
 
 <!DOCTYPE html>
@@ -347,13 +349,19 @@
 					</div>
 					<div class="modal-body">
 
-
-
-
-
+						<!-- Get the SimpleUser object from the session -->
+						<%
+							CachedRowSet crs = (CachedRowSet) session.getAttribute("contracts");
+						%>
 						<div class="panel panel-default">
+
+							<%
+								if (crs.isBeforeFirst()) {
+									SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+									while (crs.next()) {
+							%>
 							<div class="panel-heading" role="tab" id="headingOne">
-								<h4 class="panel-title">Contract #1</h4>
+								<h4 class="panel-title"><%=crs.getInt("contract_id")%></h4>
 							</div>
 
 							<div class="panel-body">
@@ -368,11 +376,14 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td>pro_user1</td>
+											<td><%=crs.getString("username")%></td>
 											<td>
-												<!-- Start td for rating -->
-												<form class="form-inline" method="POST" action="register"
-													class="form-signup">
+												<%
+													double rating = crs.getDouble("rating");
+															if (crs.wasNull()) {
+												%> <!-- Start td for rating -->
+												<form class="form-inline" method="POST"
+													action="rate_professional" class="form-signup">
 													<div class="form-group">
 														<select name="rating" id="rating" required>
 															<option value=""></option>
@@ -386,68 +397,31 @@
 													</div>
 
 													<div class="form-group">
+														<input type="hidden" name="contract_id"
+															value=<%=crs.getInt("contract_id")%>>
 														<button type="submit" class="btn btn-success">Rate</button>
 													</div>
-												</form>
+												</form> <%
+ 	} else {
+ 				out.println(rating);
+ 			}
+ %>
 											</td>
 											<!-- End td for rating -->
-											<td>500</td>
-											<td>12/10/2016 15:05:00</td>
+											<td><%=crs.getInt("amount")%></td>
+											<td><%=simpleDateFormat.format(crs.getTimestamp("contract_time"))%></td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
+							<%
+								}
+							%>
 						</div>
 						<!-- End .panel -->
-
-						<div class="panel panel-default">
-							<div class="panel-heading" role="tab" id="headingTwo">
-								<h4 class="panel-title">Contract #2</h4>
-							</div>
-
-							<div class="panel-body">
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th>Professional</th>
-											<th>Rating</th>
-											<th>Amount &euro;</th>
-											<th>Contract Date</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>pro_user2</td>
-											<td>
-												<!-- Start td for rating -->
-												<form class="form-inline" method="POST" action="register"
-													class="form-signup">
-													<div class="form-group">
-														<select name="rating" id="rating" required>
-															<option value=""></option>
-															<option value="0">0</option>
-															<option value="1">1</option>
-															<option value="2">2</option>
-															<option value="3">3</option>
-															<option value="4">4</option>
-															<option value="5">5</option>
-														</select>
-													</div>
-
-													<div class="form-group">
-														<button type="submit" class="btn btn-success">Rate</button>
-													</div>
-												</form>
-											</td>
-											<!-- End td for rating -->
-											<td>500</td>
-											<td>12/10/2016 15:05:00</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<!-- End .panel -->
+						<%
+							}
+						%>
 
 					</div>
 					<!-- End .modal-body -->
