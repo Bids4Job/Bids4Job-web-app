@@ -44,7 +44,7 @@ public class ContractDAOTester {
 			}
 			// update
 			System.out.println("\nupdate()");
-			System.out.println(contract.toString() + " updated: " + contractDAO.update(contract.setBidID(3)) + "\nto "
+			System.out.println(contract.toString() + " updated: " + contractDAO.update(contract.setBidID(3).setProRating(2.3)) + "\nto "
 					+ contract.toString());
 			// findOne
 			contract = contractDAO.findOne(contract.getContractID());

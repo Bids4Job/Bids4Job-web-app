@@ -146,16 +146,17 @@ public class ContractDAO {
 	public boolean update(Contract contract)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		int rowsAffected = 0;
-		String sql = "UPDATE " + CONTRACT_TABLE + " SET " + BID_ID + "=?, " + TASK_ID + "=?, " + CONTRACT_TIME
-				+ "=? WHERE " + CONTRACT_ID + "=?;";
+		String sql = "UPDATE " + CONTRACT_TABLE + " SET " + BID_ID + "=?, " + PRO_RATING + "=?, " + TASK_ID + "=?, "
+				+ CONTRACT_TIME + "=? WHERE " + CONTRACT_ID + "=?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
 			preStmt = conn.prepareStatement(sql);
 			preStmt.setInt(1, contract.getBidID());
-			preStmt.setInt(2, contract.getTaskID());
-			preStmt.setTimestamp(3, contract.getContractTime());
-			preStmt.setInt(4, contract.getContractID());
+			preStmt.setDouble(2, contract.getProRating());
+			preStmt.setInt(3, contract.getTaskID());
+			preStmt.setTimestamp(4, contract.getContractTime());
+			preStmt.setInt(5, contract.getContractID());
 			rowsAffected = preStmt.executeUpdate();
 			if (rowsAffected == 1) {
 				return true;
@@ -449,6 +450,7 @@ public class ContractDAO {
 	 */
 	private static Contract populate(ResultSet resultSet) throws SQLException {
 		return new Contract().setContractID(resultSet.getInt(CONTRACT_ID)).setTaskID(resultSet.getInt(TASK_ID))
-				.setBidID(resultSet.getInt(BID_ID)).setContractTime(resultSet.getTimestamp(CONTRACT_TIME));
+				.setProRating(resultSet.getDouble(PRO_RATING)).setBidID(resultSet.getInt(BID_ID))
+				.setContractTime(resultSet.getTimestamp(CONTRACT_TIME));
 	}
 }
