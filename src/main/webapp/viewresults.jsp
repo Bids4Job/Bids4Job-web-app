@@ -26,7 +26,7 @@
 
 	<nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
-            <a href="index.html">
+            <a href="index">
               <img alt="Brand" src="images/logo.png"><!--Brand logo image-->
             </a>
             <ul class="nav navbar-nav">
