@@ -143,7 +143,7 @@ public class TaskDAO {
 	public boolean update(Task task)
 			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
 		int rowsAffected;
-		String query = "UPDATE task SET deadline = ?, work_field = ?, simple_user_ID = ? WHERE task_ID = ?";
+		String query = "UPDATE task SET deadline = ?, work_field = ?, simple_user_ID = ?, title = ?, description = ?, active_task = ? WHERE task_ID = ?";
 		prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -151,7 +151,10 @@ public class TaskDAO {
 			statement.setTimestamp(1, task.getDeadline());
 			statement.setString(2, task.getWorkField());
 			statement.setInt(3, task.getSimpleUserId());
-			statement.setInt(4, task.getTaskId());
+			statement.setString(4, task.getTitle());
+			statement.setString(5, task.getDescription());
+			statement.setInt(6, task.getActive_task());
+			statement.setInt(7, task.getTaskId());
 			rowsAffected = statement.executeUpdate();
 			if (rowsAffected == 1) {
 				return true;
