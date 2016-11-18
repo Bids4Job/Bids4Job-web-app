@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import domain.Bid;
+//import domain.Bid;
 import service.BidService;
 
 /**
@@ -21,11 +21,11 @@ public class CancelBidController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static final String BIDID = "bidId";
-    private Bid bid;
+    //private Bid bid;
     private BidService service;
 
     RequestDispatcher errorDispatcher;
-    private static final String PROFILE_PAGE = "prouserprofile.jsp";
+    private static final String PROFILE_CONTROLLER = "profile_professional";
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,7 +41,7 @@ public class CancelBidController extends HttpServlet {
 	errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
 	// Instantiate a ProfessionalUser service object
 	service = new BidService();
-	bid = new Bid();
+	//bid = new Bid();
     }
 
     /**
@@ -59,7 +59,7 @@ public class CancelBidController extends HttpServlet {
 	    }
 	    // if remove() = true, bid is removed.
 	    if (service.remove(service.findOne(Integer.parseInt(request.getParameter(BIDID))))) {
-		response.sendRedirect(PROFILE_PAGE);
+		response.sendRedirect(PROFILE_CONTROLLER);
 	    } else {
 		request.setAttribute("errorMessage", "Bid didn't removed.");
 		errorDispatcher.forward(request, response);

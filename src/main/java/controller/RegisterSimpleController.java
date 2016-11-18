@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
+import dao.ProfessionalUserDao;
 import domain.SimpleUser;
 import service.SimpleUserService;
 
@@ -72,6 +75,10 @@ public class RegisterSimpleController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+	    	
+	    	response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+	    		
 		// Read parameters from request
 		String username = request.getParameter(USERNAME);
 		String password = request.getParameter(PASSWORD);
@@ -79,22 +86,75 @@ public class RegisterSimpleController extends HttpServlet {
 		String firstName = request.getParameter(FIRST_NAME);
 		String lastName = request.getParameter(LAST_NAME);
 		String location = request.getParameter(LOCATION);
-
-		// Create the SimpleUser to be stored
-		SimpleUser simpleUser = new SimpleUser().setFirstName(firstName).setLastName(lastName).setLocation(location)
-				.setUsername(username).setPassword(password).setEmail(email);
+		
+		String errorMessage = "";
+		
+		errorMessage += checkAlphaDashes(firstName, lastName);
+		errorMessage += checkAlphanumericDashes(username, password);
+		if (errorMessage.length() > 0) {
+			request.setAttribute("errorMessage", errorMessage);
+			errorDispatcher.forward(request, response);
+			return;
+		}
+		
+		
+		
+		
+		
+		
 
 		try {
+		    if (simpleUserService.exist(ProfessionalUserDao.EMAIL, email)){
+			request.setAttribute("errorMessage", "Email already exists.");
+			errorDispatcher.forward(request, response);
+			return;
+		    }
+		    if (simpleUserService.exist(ProfessionalUserDao.USERNAME, username)){
+			request.setAttribute("errorMessage", "Username already exists.");
+			errorDispatcher.forward(request, response);
+			return;
+		    }
+		    
+		    	// Create the SimpleUser to be stored
+			SimpleUser simpleUser = new SimpleUser().setFirstName(firstName).setLastName(lastName).setLocation(location)
+					.setUsername(username).setPassword(password).setEmail(email);
+
+		    
 			simpleUser = simpleUserService.create(simpleUser);
+			
+			// Set SimpleUser to request
+			request.setAttribute("simpleUser", simpleUser);
+			registeredDispatcher.forward(request, response);
+			
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
 
-		// Set SimpleUser to request
-		request.setAttribute("simpleUser", simpleUser);
-		registeredDispatcher.forward(request, response);
+		
+	}
+	
+	private String checkAlphaDashes(String firstName, String lastName) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphaSpace(firstName.replace('-', ' '))) {
+			errorBuilder.append(firstName).append(" should contain only letters and hyphens").append("<br>");
+		}
+		if (!StringUtils.isAlphaSpace(lastName.replace('-', ' '))) {
+			errorBuilder.append(lastName).append(" should contain only letters and hyphens").append("<br>");
+		}
+		return errorBuilder.toString();
+	}
+	
+	private String checkAlphanumericDashes(String username, String password) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphanumericSpace(username.replace('-', ' '))) {
+			errorBuilder.append(username).append(" should contain only letters, numbers and hyphens").append("<br>");
+		}
+		if (!StringUtils.isAlphanumericSpace(password.replace('-', ' '))) {
+			errorBuilder.append(password).append(" should contain only letters, numbers and hyphens").append("<br>");
+		}
+		return errorBuilder.toString();
 	}
 
 }
