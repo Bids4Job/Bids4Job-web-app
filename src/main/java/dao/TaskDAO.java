@@ -10,12 +10,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.rowset.CachedRowSet;
+
+import com.sun.rowset.CachedRowSetImpl;
+
 /**
  * Class for accessing database data regarding Tasks.
  *
  * @author Dimitris
  */
-public class TaskDao {
+public class TaskDAO {
 
 	private Connection connection;
 	private PreparedStatement statement;
@@ -345,6 +349,7 @@ public class TaskDao {
 
 	/**
 	 * Finds tasks based on location and profession.
+	 * 
 	 * @param task
 	 * @param sm
 	 * @return A list of tasks based on location and profession.
@@ -453,6 +458,41 @@ public class TaskDao {
 			System.out.println(e.getMessage());
 			return null;
 		}
+	}
+
+	/**
+	 * Finds all Tasks(and their Bids) in the database from a specified Simple
+	 * User. (taks_id, bid_id, pro_username, amount, rating,
+	 * bid_time)
+	 *
+	 * @author george
+	 * @return a CachedRowSet with all Tasks(in detail) based on simple user ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findDetailsBySimpleUserID(int simpleUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		CachedRowSet crs = new CachedRowSetImpl();
+		String sql = "select a.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating"
+				+ " from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id"
+				+ " inner join task as c on a.task_id = c.task_id"
+				+ " inner join"
+				+ " (select f.pro_user_id, avg(g.rating) as rating" + " from contract as g" + " inner join bid as f"
+				+ " on g.bid_id = f.bid_id" + " group by f.pro_user_id) as e" + " on e.pro_user_id = b.pro_user_id"
+				+ " where c.active_task = true and c.simple_user_id = ?;";
+		this.prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, simpleUserID);
+			resultSet = statement.executeQuery();
+			crs.populate(resultSet);
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return crs;
 	}
 
 }

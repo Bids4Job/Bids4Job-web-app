@@ -140,6 +140,8 @@
 				</div>
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">
+
+
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="headingOne">
 							<h4 class="panel-title">
@@ -192,59 +194,8 @@
 						</div>
 					</div>
 					<!-- End .panel -->
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingTwo">
-							<h4 class="panel-title">
-								<a class="collapsed" role="button" data-toggle="collapse"
-									data-parent="#accordion" href="#collapseTwo"
-									aria-expanded="false" aria-controls="collapseTwo"> Task #2
-									by simple_user1 </a>
-							</h4>
-						</div>
-						<div id="collapseTwo" class="panel-collapse collapse"
-							role="tabpanel" aria-labelledby="headingTwo">
-							<div class="panel-body">
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th>Bidder</th>
-											<th>Rating</th>
-											<th>Amount &euro;</th>
-											<th>Bid Date</th>
-											<th>Accept Bid</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>pro_user1</td>
-											<td>4.5</td>
-											<td>500</td>
-											<td>12/10/2016 15:05:00</td>
-											<td><a href="#" class="btn btn-info" role="button">Accept
-													Bid</a></td>
-										</tr>
-										<tr>
-											<td>pro_user2</td>
-											<td>4.1</td>
-											<td>570</td>
-											<td>12/10/2016 13:15:00</td>
-											<td><a href="#" class="btn btn-info" role="button">Accept
-													Bid</a></td>
-										</tr>
-										<tr>
-											<td>pro_user3</td>
-											<td>4.7</td>
-											<td>580</td>
-											<td>12/10/2016 10:10:00</td>
-											<td><a href="#" class="btn btn-info" role="button">Accept
-													Bid</a></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-					<!-- End .panel -->
+					
+
 				</div>
 			</div>
 		</div>
@@ -349,9 +300,9 @@
 					</div>
 					<div class="modal-body">
 
-						<!-- Get the SimpleUser object from the session -->
+						<!-- Get the contact details from the request -->
 						<%
-							CachedRowSet crs = (CachedRowSet) session.getAttribute("contracts");
+							CachedRowSet crs = (CachedRowSet) request.getAttribute("contracts");
 						%>
 						<div class="panel panel-default">
 

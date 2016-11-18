@@ -1,10 +1,15 @@
 package service;
 
-import dao.TaskDao;
+import dao.DaoUtils;
+import dao.TaskDAO;
 import domain.Task;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.sql.rowset.CachedRowSet;
+
+import com.sun.rowset.CachedRowSetImpl;
 
 /**
  * Service class that executes all required business logic regarding tasks.
@@ -13,7 +18,7 @@ import java.util.List;
  */
 public class TaskService {
 
-	private final TaskDao dao = new TaskDao();
+	private final TaskDAO dao = new TaskDAO();
 
 	/**
 	 * Finds specific Task by ID.
@@ -91,4 +96,22 @@ public class TaskService {
 			return false;
 		}
 	}
+	
+	/**
+	 * Finds all Tasks(and their Bids) in the database from a specified Simple
+	 * User. (taks_id, bid_id, pro_username, amount, rating,
+	 * bid_time)
+	 *
+	 * @author george
+	 * @return a CachedRowSet with all Tasks(in detail) based on simple user ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findDetailsBySimpleUserID(int simpleUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		return dao.findDetailsBySimpleUserID(simpleUserID);
+	}
+
 }
