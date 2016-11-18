@@ -228,8 +228,9 @@
 									<%
 									    if (crsTasks.getString("username").equals(pro.getUsername())) {
 									%>
-									<form action="myAction.jsp">
-										<input type="hidden" name="bidId" value="myBidId">
+									<form class="form-inline" method="POST" action="cancel_bid">
+										<input type="hidden" name="bidId"
+											value="<%=crsTasks.getInt("bid_id")%>">
 										<button type="submit" class="btn btn-danger">Cancel
 											Bid</button>
 									</form> <%

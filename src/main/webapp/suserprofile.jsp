@@ -203,7 +203,7 @@
 								<td><form action="myAction.jsp">
 										<input type="hidden" name="taskId" value="<%=taskID%>">
 										<input type="hidden" name="bidId"
-											value="<%=crsTasks.getInt("amount")%>">
+											value="<%=crsTasks.getInt("bid_id")%>">
 										<button type="submit" class="btn btn-info">Accept Bid</button>
 									</form></td>
 							</tr>
