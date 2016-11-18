@@ -28,7 +28,7 @@ public class CreateBidController extends HttpServlet {
     private BidService service;
 
     RequestDispatcher errorDispatcher;
-    private static final String PROFILE_PAGE = "prouserprofile.jsp";
+    private static final String PROFILE_CONTROLLER = "profile_professional";
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -69,7 +69,8 @@ public class CreateBidController extends HttpServlet {
 
 	int amount = 0;
 	try {
-	    //Checks if "amount input" has numbers
+	   // int amount1 = Integer.parseInt(request.getParameter(AMOUNT));
+	    //Checks if "amount input" has numbers.
 	    if (request.getParameter(AMOUNT).matches("[0-9]+")) {
 		amount = Integer.parseInt(request.getParameter(AMOUNT));
 	    } else {
@@ -86,7 +87,7 @@ public class CreateBidController extends HttpServlet {
 		    .setBidTime(new Timestamp(System.currentTimeMillis()))
 		    .setProUserId(((ProfessionalUser) request.getSession().getAttribute("pro")).getProUserId()));
 	    request.setAttribute("bid", bid);
-	    response.sendRedirect(PROFILE_PAGE);
+	    response.sendRedirect(PROFILE_CONTROLLER);
 	    
 	} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
 	    request.setAttribute("errorMessage", e.getMessage());

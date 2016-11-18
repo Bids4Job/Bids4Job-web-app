@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import dao.ProfessionalUserDao;
 import domain.ProfessionalUser;
 import service.ProfessionalUserService;
@@ -57,6 +59,16 @@ public class RegisterProfessionalController extends HttpServlet {
 		String username = request.getParameter("uname");
 		String password = request.getParameter("upass");
 		String email = request.getParameter("email");
+		
+		String errorMessage = "";
+		
+		errorMessage += checkAlphaDashes(firstName, lastName);
+		errorMessage += checkAlphanumericDashes(username, password);
+		if (errorMessage.length() > 0) {
+			request.setAttribute("errorMessage", errorMessage);
+			errors.forward(request, response);
+			return;
+		}
 				
 		
 		try {
@@ -92,9 +104,30 @@ public class RegisterProfessionalController extends HttpServlet {
 		    request.setAttribute("errorMessage", e.getMessage());
 		    errors.forward(request, response);
 		}
-		
-		
-	    
+
+	}
+	
+	
+	private String checkAlphaDashes(String firstName, String lastName) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphaSpace(firstName.replace('-', ' '))) {
+			errorBuilder.append(firstName).append(" should contain only letters and hyphens").append("<br>");
+		}
+		if (!StringUtils.isAlphaSpace(lastName.replace('-', ' '))) {
+			errorBuilder.append(lastName).append(" should contain only letters and hyphens").append("<br>");
+		}
+		return errorBuilder.toString();
+	}
+	
+	private String checkAlphanumericDashes(String username, String password) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!StringUtils.isAlphanumericSpace(username.replace('-', ' '))) {
+			errorBuilder.append(username).append(" should contain only letters, numbers and hyphens").append("<br>");
+		}
+		if (!StringUtils.isAlphanumericSpace(password.replace('-', ' '))) {
+			errorBuilder.append(password).append(" should contain only letters, numbers and hyphens").append("<br>");
+		}
+		return errorBuilder.toString();
 	}
 
 }

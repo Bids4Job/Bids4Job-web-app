@@ -81,7 +81,7 @@
 										</tr>
 										<tr>
 											<td>Ratting:</td>
-											<td><%=rating %></td>
+											<td><%=rating%></td>
 										</tr>
 										<tr>
 											<td>Email:</td>
@@ -149,8 +149,11 @@
 											<td>4.5</td>
 											<td>500</td>
 											<td>12/10/2016 15:05:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger"
-												role="button">Cancel Bid</a></td>
+											<td><form action="myAction.jsp">
+													<input type="hidden" name="bidId" value="myBidId">
+													<button type="submit" class="btn btn-danger">Cancel
+														Bid</button>
+												</form></td>
 										</tr>
 										<tr>
 											<td>pro_user2</td>
