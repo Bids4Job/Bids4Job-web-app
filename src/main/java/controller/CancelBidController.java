@@ -21,7 +21,7 @@ public class CancelBidController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static final String BIDID = "bidId";
-    private Bid bid;
+    //private Bid bid;
     private BidService service;
 
     RequestDispatcher errorDispatcher;
@@ -41,7 +41,7 @@ public class CancelBidController extends HttpServlet {
 	errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
 	// Instantiate a ProfessionalUser service object
 	service = new BidService();
-	bid = new Bid();
+	//bid = new Bid();
     }
 
     /**
