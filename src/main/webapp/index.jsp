@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="javax.sql.rowset.CachedRowSet"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page errorPage="error.jsp"%>
 
 <!DOCTYPE html>
@@ -243,12 +245,25 @@
 		<div class="row featurette">
 			<div class="panel-group" id="accordion" role="tablist"
 				aria-multiselectable="true">
+				<!-- Get the ten last tasks from the request -->
+				<%
+					CachedRowSet crs = (CachedRowSet) request.getAttribute("tenTasks");
+					if (crs.isBeforeFirst()) {
+						int prevTaskID = 0;
+						while (crs.next()) {
+							int taskID = crs.getInt("task_id");
+							if (taskID != prevTaskID) {
+				%>
+
 				<div class="panel panel-default">
+					<%
+						SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					%>
 					<div class="panel-heading" role="tab" id="headingOne">
 						<h4 class="panel-title">
 							<a role="button" data-toggle="collapse" data-parent="#accordion"
 								href="#collapseOne" aria-expanded="true"
-								aria-controls="collapseOne"> Task #1 by simple_user1 </a>
+								aria-controls="collapseOne">Task#<%=crs.getInt("task_id")%></a>
 						</h4>
 					</div>
 					<div id="collapseOne" class="panel-collapse collapse in"
@@ -265,441 +280,24 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
+										<td><%=crs.getString("username")%></td>
+										<td><%=crs.getDouble("rating")%></td>
+										<td><%=crs.getInt("amount")%></td>
+										<td><%=simpleDateFormat.format(crs.getTimestamp("bid_time"))%></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
+						<%
+							}
+						%>
 					</div>
-				</div>
-				<!-- End .panel -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingTwo">
-						<h4 class="panel-title">
-							<a class="collapsed" role="button" data-toggle="collapse"
-								data-parent="#accordion" href="#collapseTwo"
-								aria-expanded="false" aria-controls="collapseTwo"> Task #2
-								by simple_user2 </a>
-						</h4>
-					</div>
-					<div id="collapseTwo" class="panel-collapse collapse"
-						role="tabpanel" aria-labelledby="headingTwo">
-						<div class="panel-body">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Bidder</th>
-										<th>Rating</th>
-										<th>Amount &euro;</th>
-										<th>Bid Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- End .panel -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingThree">
-						<h4 class="panel-title">
-							<a class="collapsed" role="button" data-toggle="collapse"
-								data-parent="#accordion" href="#collapseThree"
-								aria-expanded="false" aria-controls="collapseThree"> Task #3
-								by simple_user3 </a>
-						</h4>
-					</div>
-					<div id="collapseThree" class="panel-collapse collapse"
-						role="tabpanel" aria-labelledby="headingThree">
-						<div class="panel-body">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Bidder</th>
-										<th>Rating</th>
-										<th>Amount &euro;</th>
-										<th>Bid Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- End .panel -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingFour">
-						<h4 class="panel-title">
-							<a class="collapsed" role="button" data-toggle="collapse"
-								data-parent="#accordion" href="#collapseFour"
-								aria-expanded="false" aria-controls="collapseFour"> Task #4
-								by simple_user4 </a>
-						</h4>
-					</div>
-					<div id="collapseFour" class="panel-collapse collapse"
-						role="tabpanel" aria-labelledby="headingFour">
-						<div class="panel-body">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Bidder</th>
-										<th>Rating</th>
-										<th>Amount &euro;</th>
-										<th>Bid Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- End .panel -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingFive">
-						<h4 class="panel-title">
-							<a class="collapsed" role="button" data-toggle="collapse"
-								data-parent="#accordion" href="#collapseFive"
-								aria-expanded="false" aria-controls="collapseFive"> Task #5
-								by simple_user5 </a>
-						</h4>
-					</div>
-					<div id="collapseFive" class="panel-collapse collapse"
-						role="tabpanel" aria-labelledby="headingFive">
-						<div class="panel-body">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Bidder</th>
-										<th>Rating</th>
-										<th>Amount &euro;</th>
-										<th>Bid Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- End .panel -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingSix">
-						<h4 class="panel-title">
-							<a class="collapsed" role="button" data-toggle="collapse"
-								data-parent="#accordion" href="#collapseSix"
-								aria-expanded="false" aria-controls="collapseSix"> Task #6
-								by simple_user6 </a>
-						</h4>
-					</div>
-					<div id="collapseSix" class="panel-collapse collapse"
-						role="tabpanel" aria-labelledby="headingSix">
-						<div class="panel-body">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Bidder</th>
-										<th>Rating</th>
-										<th>Amount &euro;</th>
-										<th>Bid Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- End .panel -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingSeven">
-						<h4 class="panel-title">
-							<a class="collapsed" role="button" data-toggle="collapse"
-								data-parent="#accordion" href="#collapseSeven"
-								aria-expanded="false" aria-controls="collapseSeven"> Task #7
-								by simple_user7 </a>
-						</h4>
-					</div>
-					<div id="collapseSeven" class="panel-collapse collapse"
-						role="tabpanel" aria-labelledby="headingSeven">
-						<div class="panel-body">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Bidder</th>
-										<th>Rating</th>
-										<th>Amount &euro;</th>
-										<th>Bid Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- End .panel -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingEight">
-						<h4 class="panel-title">
-							<a class="collapsed" role="button" data-toggle="collapse"
-								data-parent="#accordion" href="#collapseEight"
-								aria-expanded="false" aria-controls="collapseEight"> Task #8
-								by simple_user8 </a>
-						</h4>
-					</div>
-					<div id="collapseEight" class="panel-collapse collapse"
-						role="tabpanel" aria-labelledby="headingEight">
-						<div class="panel-body">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Bidder</th>
-										<th>Rating</th>
-										<th>Amount &euro;</th>
-										<th>Bid Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- End .panel -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingNine">
-						<h4 class="panel-title">
-							<a class="collapsed" role="button" data-toggle="collapse"
-								data-parent="#accordion" href="#collapseNine"
-								aria-expanded="false" aria-controls="collapseNine"> Task #9
-								by simple_user9 </a>
-						</h4>
-					</div>
-					<div id="collapseNine" class="panel-collapse collapse"
-						role="tabpanel" aria-labelledby="headingNine">
-						<div class="panel-body">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Bidder</th>
-										<th>Rating</th>
-										<th>Amount &euro;</th>
-										<th>Bid Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- End .panel -->
-				<div class="panel panel-default">
-					<div class="panel-heading" role="tab" id="headingTen">
-						<h4 class="panel-title">
-							<a class="collapsed" role="button" data-toggle="collapse"
-								data-parent="#accordion" href="#collapseTen"
-								aria-expanded="false" aria-controls="collapseTen"> Task #10
-								by simple_user10 </a>
-						</h4>
-					</div>
-					<div id="collapseTen" class="panel-collapse collapse"
-						role="tabpanel" aria-labelledby="headingTen">
-						<div class="panel-body">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Bidder</th>
-										<th>Rating</th>
-										<th>Amount &euro;</th>
-										<th>Bid Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
+					<%
+						}
+					%>
+					<%
+						}
+					%>
 				</div>
 				<!-- End .panel -->
 			</div>

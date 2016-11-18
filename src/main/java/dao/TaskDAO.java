@@ -443,6 +443,47 @@ public class TaskDAO {
 	}
 
 	/**
+	 * Finds the 10 last active tasks created and their bids.
+	 * 
+	 * @author Dimitris
+	 * @return A CachedRowSet with the 10 last active tasks that was created.
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findTenTasks()
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		CachedRowSet crs = new CachedRowSetImpl();
+		String sql1 = "DROP VIEW IF EXISTS l;";
+		String sql2 = "create view l as " + "SELECT a.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating "
+				+ "FROM " + "bid AS a " + "INNER JOIN " + "pro_user AS b ON a.pro_user_id = b.pro_user_id " + "INNER JOIN "
+				+ "task AS c ON a.task_id = c.task_id " + "INNER JOIN " + "(SELECT "
+				+ "f.pro_user_id, AVG(g.rating) AS rating " + "FROM " + "contract AS g "
+				+ "INNER JOIN bid AS f ON g.bid_id = f.bid_id "
+				+ "GROUP BY f.pro_user_id) AS e ON e.pro_user_id = b.pro_user_id;";
+		String sql3 = "SELECT " + "* " + "FROM " + "l " + "INNER JOIN " + "(SELECT " + "task_id " + "FROM " + "task " + "WHERE "
+				+ "task.active_task = TRUE " + "ORDER BY task.task_id DESC " + "LIMIT 10) AS k ON k.task_id = l.task_id;";
+		this.prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			PreparedStatement statement1 = null;
+			PreparedStatement statement2 = null;
+			statement1 = connection.prepareStatement(sql1);
+			statement2 = connection.prepareStatement(sql2);
+			statement = connection.prepareStatement(sql3);
+			if (!statement1.execute() && !statement2.execute()) {
+				resultSet = statement.executeQuery();
+				crs.populate(resultSet);
+			}
+
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return crs;
+	}
+
+	/**
 	 * Utility method that takes a resultSet and returns a Task object.
 	 *
 	 * @param resultSet
@@ -462,8 +503,7 @@ public class TaskDAO {
 
 	/**
 	 * Finds all Tasks(and their Bids) in the database from a specified Simple
-	 * User. (taks_id, bid_id, pro_username, amount, rating,
-	 * bid_time)
+	 * User. (taks_id, bid_id, pro_username, amount, rating, bid_time)
 	 *
 	 * @author george
 	 * @return a CachedRowSet with all Tasks(in detail) based on simple user ID
@@ -477,8 +517,7 @@ public class TaskDAO {
 		CachedRowSet crs = new CachedRowSetImpl();
 		String sql = "select a.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating"
 				+ " from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id"
-				+ " inner join task as c on a.task_id = c.task_id"
-				+ " inner join"
+				+ " inner join task as c on a.task_id = c.task_id" + " inner join"
 				+ " (select f.pro_user_id, avg(g.rating) as rating" + " from contract as g" + " inner join bid as f"
 				+ " on g.bid_id = f.bid_id" + " group by f.pro_user_id) as e" + " on e.pro_user_id = b.pro_user_id"
 				+ " where c.active_task = true and c.simple_user_id = ?;";
