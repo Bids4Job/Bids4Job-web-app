@@ -69,7 +69,8 @@
 							<!-- Getting Attrin=bute from session -->
 							<%
 							    ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
-							    String rating = (String) session.getAttribute("rating");
+							    //String rating = (String) session.getAttribute("rating");
+							    String rating = (String) request.getAttribute("rating");
 							%>
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">

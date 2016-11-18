@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import domain.ProfessionalUser;
 import service.ProfessionalUserService;
-import service.ContractService;
+//import service.ContractService;
 
 /**
  * Servlet implementation class LoginProfessionalController
@@ -24,13 +24,13 @@ public class LoginProfessionalController extends HttpServlet {
 
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
-    private String rating = null;
+   // private String rating = null;
     private ProfessionalUser pro;
     private ProfessionalUserService service;
-    private ContractService contractService;
+  //  private ContractService contractService;
 
     RequestDispatcher errorDispatcher;
-    private static final String PROFILE_PAGE = "prouserprofile.jsp";
+    private static final String PROFILE_CONTROLLER = "profile_professional";
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -47,7 +47,7 @@ public class LoginProfessionalController extends HttpServlet {
 
 	// Instantiate a ProfessionalUser service object
 	service = new ProfessionalUserService();
-	contractService = new ContractService();
+	//contractService = new ContractService();
     }
 
     /**
@@ -78,10 +78,10 @@ public class LoginProfessionalController extends HttpServlet {
 	try {
 	    pro = service.authenticate(email, password);
 	    if (pro != null) {
-		rating = contractService.findRatingByProUserID(pro.getProUserId());
-		session.setAttribute("rating", rating);
+		//rating = contractService.findRatingByProUserID(pro.getProUserId());
+		//session.setAttribute("rating", rating);
 		session.setAttribute("pro", pro);
-		response.sendRedirect(PROFILE_PAGE);
+		response.sendRedirect(PROFILE_CONTROLLER);
 	    } else {
 		request.setAttribute("errorMessage", "Not authenticate professional user");
 		errorDispatcher.forward(request, response);
