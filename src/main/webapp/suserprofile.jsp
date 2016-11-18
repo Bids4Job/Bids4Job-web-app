@@ -411,12 +411,12 @@
 											<td><%=crs.getInt("amount")%></td>
 											<td><%=simpleDateFormat.format(crs.getTimestamp("contract_time"))%></td>
 										</tr>
-										<%
-											}
-										%>
 									</tbody>
 								</table>
 							</div>
+							<%
+								}
+							%>
 						</div>
 						<!-- End .panel -->
 						<%
