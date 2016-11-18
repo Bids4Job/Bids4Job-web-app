@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="domain.ProfessionalUser"%>
+<%@ page import="javax.sql.rowset.CachedRowSet"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page errorPage="error.jsp"%>
 
 <!DOCTYPE html>
@@ -69,6 +71,7 @@
 							<!-- Getting Attrin=bute from session -->
 							<%
 							    ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
+							    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							    //String rating = (String) session.getAttribute("rating");
 							    String rating = (String) request.getAttribute("rating");
 							%>
@@ -118,183 +121,140 @@
 		<div class="row">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h2 class="panel-title">My Bids</h2>
+					<h2 class="panel-title">My Tasks</h2>
 				</div>
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
-							<h4 class="panel-title">
-								<a role="button" data-toggle="collapse" data-parent="#accordion"
-									href="#collapseOne" aria-expanded="true"
-									aria-controls="collapseOne"> Task #1 by simple_user1 </a>
-							</h4>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse in"
-							role="tabpanel" aria-labelledby="headingOne">
-							<div class="panel-body">
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th>Bidder</th>
-											<th>Rating</th>
-											<th>Amount &euro;</th>
-											<th>Bid Date</th>
-											<th>Cancel Bid</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>pro_user1</td>
-											<td>4.5</td>
-											<td>500</td>
-											<td>12/10/2016 15:05:00</td>
-											<td><form action="myAction.jsp">
-													<input type="hidden" name="bidId" value="myBidId">
-													<button type="submit" class="btn btn-danger">Cancel
-														Bid</button>
-												</form></td>
-										</tr>
-										<tr>
-											<td>pro_user2</td>
-											<td>4.1</td>
-											<td>570</td>
-											<td>12/10/2016 13:15:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger"
-												role="button">Cancel Bid</a></td>
-										</tr>
-										<tr>
-											<td>pro_user3</td>
-											<td>4.7</td>
-											<td>580</td>
-											<td>12/10/2016 10:10:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger"
-												role="button">Cancel Bid</a></td>
-										</tr>
-									</tbody>
-								</table>
-								<div class="panel-footer">
-									<h5>
-										Make a new bid <a href="#" data-toggle="modal"
-											data-target="#bid-modal" data-placement="bottom"
-											title="Make new bid" type="button"
-											class="btn btn-sm btn-success"><i
-											class="glyphicon glyphicon-plus"></i></a>
-									</h5>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- End .panel -->
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingTwo">
-							<h4 class="panel-title">
-								<a class="collapsed" role="button" data-toggle="collapse"
-									data-parent="#accordion" href="#collapseTwo"
-									aria-expanded="false" aria-controls="collapseTwo"> Task #2
-									by simple_user2 </a>
-							</h4>
-						</div>
-						<div id="collapseTwo" class="panel-collapse collapse"
-							role="tabpanel" aria-labelledby="headingTwo">
-							<div class="panel-body">
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th>Bidder</th>
-											<th>Rating</th>
-											<th>Amount &euro;</th>
-											<th>Bid Date</th>
-											<th>Cancel Bid</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>pro_user1</td>
-											<td>4.5</td>
-											<td>500</td>
-											<td>12/10/2016 15:05:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger"
-												role="button">Cancel Bid</a></td>
-										</tr>
-										<tr>
-											<td>pro_user2</td>
-											<td>4.1</td>
-											<td>570</td>
-											<td>12/10/2016 13:15:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger"
-												role="button">Cancel Bid</a></td>
-										</tr>
-										<tr>
-											<td>pro_user3</td>
-											<td>4.7</td>
-											<td>580</td>
-											<td>12/10/2016 10:10:00</td>
-											<td><a href="cancel_bid" class="btn btn-danger"
-												role="button">Cancel Bid</a></td>
-										</tr>
-									</tbody>
-								</table>
-								<div class="panel-footer">
-									<h5>
-										Make a new bid <a href="#" data-toggle="modal"
-											data-target="#bid-modal" data-placement="bottom"
-											title="Make new bid" type="button"
-											class="btn btn-sm btn-success"><i
-											class="glyphicon glyphicon-plus"></i></a>
-									</h5>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- End .panel -->
+
+					<!-- Get the contact details from the request -->
+					<%
+					    CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
+					    if (crsTasks.isBeforeFirst()) {
+							int prevTaskID = 0;
+							while (crsTasks.next()) {
+							    int taskID = crsTasks.getInt("task_id");
+							    if (taskID != prevTaskID) {
+								if (prevTaskID != 0) {
+					%>
+					<!-- Same snippets: (215 - 223) or (157 - 164) -->
+					</tbody>
+					</table>
 				</div>
+				<!-- End .panel-body -->
 			</div>
+			<!-- End .panel-collapse collapse in -->
 		</div>
-		<!-- End of .row-->
+		<!-- End .panel-collapse collapse in -->
 
-		<!-- Start #bid-modal -->
 
-		<div class="modal fade" id="bid-modal" tabindex="-1" role="dialog">
-			<div class="modal-dialog modal-sm" role="document">
-				<form method="POST" action="create_bid">
-					<div class="modal-content">
-						<div class="modal-header modal-header-primary">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<h4 class="modal-title">New Bid</h4>
-						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label for="bid">Bid Amount &euro;:</label> <input type="text"
-									class="form-control" id="bid" name="amount">
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-success">Submit</button>
+		<%
+		    }
+					prevTaskID = taskID;
+		%>
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
+				<h4 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#accordion"
+						href="#<%=taskID%>" aria-expanded="true"
+						aria-controls="<%=taskID%>"> Task #<%=taskID%> by <%=pro.getUsername()%>
+					</a>
+				</h4>
+			</div>
+			<div id="<%=taskID%>" class="panel-collapse collapse in"
+				role="tabpanel" aria-labelledby="heading<%=taskID%>">
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Bidder</th>
+								<th>Rating</th>
+								<th>Amount &euro;</th>
+								<th>Bid Date</th>
+								<th>Accept Bid</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							    } // End 	if (taskID != prevTaskID)
+							%>
+
+							<tr>
+								<td><%=crsTasks.getString("username")%></td>
+								<td><%=crsTasks.getDouble("rating")%></td>
+								<td><%=crsTasks.getInt("amount")%></td>
+								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
+								<td><form action="myAction.jsp">
+										<input type="hidden" name="bidId" value="myBidId">
+										<button type="submit" class="btn btn-danger">Cancel
+											Bid</button>
+									</form></td>
+							</tr>
+							<%
+							    } // End 	while(crs.next())
+							%>
+
+							<!-- Same snippets: (215 - 223) or (157 - 164) -->
+						</tbody>
+					</table>
+				</div>
+				<!-- End .panel-body -->
+
+			</div>
+			<!-- End .panel-collapse collapse in -->
+
+			<%
+			    }
+			%>
+		</div>
+		<!-- End .panel panel-default -->
+	</div>
+	<!-- End of .panel-group -->
+	</div>
+	<!-- End of .panel panel-info -->
+	</div>
+	<!-- End of .row-->
+
+	<!-- Start #bid-modal -->
+
+	<div class="modal fade" id="bid-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-sm" role="document">
+			<form method="POST" action="create_bid">
+				<div class="modal-content">
+					<div class="modal-header modal-header-primary">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">New Bid</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="bid">Bid Amount &euro;:</label> <input type="text"
+								class="form-control" id="bid" name="amount">
 						</div>
 					</div>
-				</form>
-				<!-- End .modal-content -->
-			</div>
-			<!-- End .modal-dialog -->
-
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-success">Submit</button>
+					</div>
+				</div>
+			</form>
+			<!-- End .modal-content -->
 		</div>
-		<!-- End #bid-modal -->
+		<!-- End .modal-dialog -->
+
+	</div>
+	<!-- End #bid-modal -->
 
 
-		<hr>
-		<footer>
-			<p>
-				&copy; 2016 Bids4Job S.A. &middot; <a href="#">Privacy</a> &middot;
-				<a href="#">Terms</a>
-			</p>
-		</footer>
-		<!-- End of Footer -->
+	<hr>
+	<footer>
+		<p>
+			&copy; 2016 Bids4Job S.A. &middot; <a href="#">Privacy</a> &middot; <a
+				href="#">Terms</a>
+		</p>
+	</footer>
+	<!-- End of Footer -->
 
 
 	</div>
