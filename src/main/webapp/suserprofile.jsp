@@ -358,9 +358,10 @@
 							<%
 								if (crs.isBeforeFirst()) {
 									SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+									while (crs.next()) {
 							%>
 							<div class="panel-heading" role="tab" id="headingOne">
-								<h4 class="panel-title">Contract #1</h4>
+								<h4 class="panel-title"><%=crs.getInt("contract_id")%></h4>
 							</div>
 
 							<div class="panel-body">
@@ -374,9 +375,6 @@
 										</tr>
 									</thead>
 									<tbody>
-										<%
-											while (crs.next()) {
-										%>
 										<tr>
 											<td><%=crs.getString("username")%></td>
 											<td>
@@ -384,8 +382,8 @@
 													double rating = crs.getDouble("rating");
 															if (crs.wasNull()) {
 												%> <!-- Start td for rating -->
-												<form class="form-inline" method="POST" action="register"
-													class="form-signup">
+												<form class="form-inline" method="POST"
+													action="rate_professional" class="form-signup">
 													<div class="form-group">
 														<select name="rating" id="rating" required>
 															<option value=""></option>
@@ -399,14 +397,15 @@
 													</div>
 
 													<div class="form-group">
+														<input type="hidden" name="contract_id"
+															value=<%=crs.getInt("contract_id")%>>
 														<button type="submit" class="btn btn-success">Rate</button>
 													</div>
-													<%
-														} else {
-																	out.println(rating);
-																}
-													%>
-												</form>
+												</form> <%
+ 	} else {
+ 				out.println(rating);
+ 			}
+ %>
 											</td>
 											<!-- End td for rating -->
 											<td><%=crs.getInt("amount")%></td>
