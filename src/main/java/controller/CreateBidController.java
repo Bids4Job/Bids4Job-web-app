@@ -68,6 +68,7 @@ public class CreateBidController extends HttpServlet {
 	request.setCharacterEncoding("UTF-8");
 
 	int amount = 0;
+	int taskId = Integer.parseInt(request.getParameter("taskId"));
 	try {
 	   // int amount1 = Integer.parseInt(request.getParameter(AMOUNT));
 	    //Checks if "amount input" has numbers.
@@ -82,7 +83,7 @@ public class CreateBidController extends HttpServlet {
 	   // int proUserId = ((ProfessionalUser) request.getSession().getAttribute("pro")).getProUserId();
 	    bid = service.create(new Bid()
 		    //Dummy value at TaskId = 1
-		    .setTaskId(1)
+		    .setTaskId(taskId)
 		    .setAmount(amount)
 		    .setBidTime(new Timestamp(System.currentTimeMillis()))
 		    .setProUserId(((ProfessionalUser) request.getSession().getAttribute("pro")).getProUserId()));

@@ -49,7 +49,7 @@
 						class="icon-bar"></span>
 				</button>
 				<a href="index.jsp"> <img alt="Brand" src="images/logo.png">
-				<!--Brand logo image-->
+					<!--Brand logo image-->
 				</a>
 			</div>
 			<!-- end collapsed navbar-->
@@ -139,7 +139,7 @@
 		<div class="row">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h2 class="panel-title">My Tasks</h2>
+					<h2 class="panel-title">My Bids</h2>
 				</div>
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">
@@ -154,15 +154,38 @@
 							    if (taskID != prevTaskID) {
 								if (prevTaskID != 0) {
 					%>
-					<!-- Same snippets: (215 - 223) or (157 - 164) -->
+					<!-- Same snippets: (244 - 274) or (157 - 188) -->
 					</tbody>
 					</table>
+					<div class="panel-footer">
+						<h4>Place a new bid</h4>
+						<form class="form-inline" method="POST" action="create_bid">
+
+							<div class="form-group">
+								<label for="task-title" class="control-label">Amount
+									&euro;</label> <input type="text" name="amount" ng-model="bid-amount"
+									class="form-control" id="bid-amount" placeholder="Bid Amount"
+									required>
+							</div>
+
+							<input type="hidden" name="taskId" value="<%=prevTaskID%>">
+							<!-- Receive taskId to connect with new bid -->
+
+							<div class="form-group">
+								<button class="btn btn-sm btn-success" type="submit">
+									<i class="glyphicon glyphicon-plus"></i>
+								</button>
+							</div>
+
+						</form>
+					</div>
+					<!-- End .panel-footer -->
 				</div>
 				<!-- End .panel-body -->
 			</div>
 			<!-- End .panel-collapse collapse in -->
 		</div>
-		<!-- End .panel-collapse collapse in -->
+		<!--  End .panel - info -->
 
 
 		<%
@@ -202,21 +225,48 @@
 								<td><%=crsTasks.getInt("amount")%></td>
 								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
 								<td>
-								
-								<% 	if (crsTasks.getString("username").equals(pro.getUsername())) {%>
-								<form action="myAction.jsp">
+									<%
+									    if (crsTasks.getString("username").equals(pro.getUsername())) {
+									%>
+									<form action="myAction.jsp">
 										<input type="hidden" name="bidId" value="myBidId">
 										<button type="submit" class="btn btn-danger">Cancel
 											Bid</button>
-									</form> <% } %></td>
+									</form> <%
+     }
+ %>
+								</td>
 							</tr>
 							<%
 							    } // End 	while(crs.next())
 							%>
 
-							<!-- Same snippets: (215 - 223) or (157 - 164) -->
+							<!-- Same snippets: (244 - 274) or (157 - 188) -->
 						</tbody>
 					</table>
+					<div class="panel-footer">
+						<h4>Place a new bid</h4>
+						<form class="form-inline" method="POST" action="create_bid">
+
+							<div class="form-group">
+								<label for="task-title" class="control-label">Amount
+									&euro;</label> <input type="text" name="amount" ng-model="bid-amount"
+									class="form-control" id="bid-amount" placeholder="Bid Amount"
+									required>
+							</div>
+
+							<input type="hidden" name="taskId" value="<%=prevTaskID%>">
+							<!-- Receive taskId to connect with new bid -->
+
+							<div class="form-group">
+								<button class="btn btn-sm btn-success" type="submit">
+									<i class="glyphicon glyphicon-plus"></i>
+								</button>
+							</div>
+
+						</form>
+					</div>
+					<!-- End .panel-footer -->
 				</div>
 				<!-- End .panel-body -->
 
@@ -234,39 +284,6 @@
 	<!-- End of .panel panel-info -->
 	</div>
 	<!-- End of .row-->
-
-	<!-- Start #bid-modal -->
-
-	<div class="modal fade" id="bid-modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog modal-sm" role="document">
-			<form method="POST" action="create_bid">
-				<div class="modal-content">
-					<div class="modal-header modal-header-primary">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title">New Bid</h4>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="bid">Bid Amount &euro;:</label> <input type="text"
-								class="form-control" id="bid" name="amount">
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-success">Submit</button>
-					</div>
-				</div>
-			</form>
-			<!-- End .modal-content -->
-		</div>
-		<!-- End .modal-dialog -->
-
-	</div>
-	<!-- End #bid-modal -->
-
 
 	<hr>
 	<footer>
