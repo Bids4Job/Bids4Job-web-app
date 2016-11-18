@@ -14,6 +14,7 @@ import javax.sql.rowset.CachedRowSet;
 
 import domain.SimpleUser;
 import service.ContractService;
+import service.TaskService;
 
 /**
  * Servlet implementation class ProfileSimpleController
@@ -22,8 +23,9 @@ import service.ContractService;
 public class ProfileSimpleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// A service for Contract database operations
+	// Service for Contract, Task database operations
 	private ContractService contractService;
+	private TaskService taskService;
 
 	// Dispatchers for error and profile pages
 	RequestDispatcher errorDispatcher;
@@ -45,6 +47,8 @@ public class ProfileSimpleController extends HttpServlet {
 
 		// Instantiate a Contract service object
 		contractService = new ContractService();
+		// Instantiate a Task service object
+		taskService = new TaskService();
 	}
 
 	/**
@@ -58,20 +62,44 @@ public class ProfileSimpleController extends HttpServlet {
 
 		// Get the HttpSession that is associated with this request
 		HttpSession session = request.getSession();
-		// Define a CachedRowSet to contain the rows to be displayed
-		CachedRowSet crs = null;
 
+		int simpleUserID;
+		
 		try {
-			crs = contractService
-					.findDetailsBySimpleUserID(((SimpleUser) session.getAttribute("simple-user")).getSimpleUserID());
+			// Get SimpleUser ID
+			simpleUserID = ((SimpleUser) session.getAttribute("simple-user")).getSimpleUserID();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Log in First! ");
+			errorDispatcher.forward(request, response);
+			return;
+		}
+
+		// Define a CachedRowSet to contain the rows to be displayed
+		CachedRowSet crsContracts = null;
+		CachedRowSet crsTasks = null;
+
+		// Get contract details related with this SimpleUser
+		try {
+			crsContracts = contractService.findDetailsBySimpleUserID(simpleUserID);
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "Error Loading Profile: " + e.getMessage());
+			request.setAttribute("errorMessage", "Error Loading Contracts in Profile: " + e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
 
-		// Set the contract details to session
-		request.setAttribute("contracts", crs);
+		// Get task details related with this SimpleUser
+		try {
+			crsTasks = taskService.findDetailsBySimpleUserID(simpleUserID);
+		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Error Loading Tasks in Profile: " + e.getMessage());
+			errorDispatcher.forward(request, response);
+		}
+
+		// Set the contract details to request
+		request.setAttribute("contracts", crsContracts);
+		request.setAttribute("tasks", crsTasks);
 		profileDispatcher.forward(request, response);
 	}
 
