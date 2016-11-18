@@ -211,7 +211,7 @@
 								<th>Rating</th>
 								<th>Amount &euro;</th>
 								<th>Bid Date</th>
-								<th>Accept Bid</th>
+								<th>Cancel Bid</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -231,8 +231,9 @@
 									<form class="form-inline" method="POST" action="cancel_bid">
 										<input type="hidden" name="bidId"
 											value="<%=crsTasks.getInt("bid_id")%>">
-										<button type="submit" class="btn btn-danger">Cancel
-											Bid</button>
+										<button type="submit" class="btn btn-danger">
+											<i class="glyphicon glyphicon-remove"></i>
+										</button>
 									</form> <%
      }
  %>
