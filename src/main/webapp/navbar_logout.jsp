@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%-- 
+Use isPro and isSimple booleans (from index.jsp)
+that indicate if a user is logged in as 
+a Professional or a Simple User respectively 
+--%>
+
 <!--Navbar start-->
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid navbar-transp">

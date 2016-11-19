@@ -159,11 +159,10 @@
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
-
 	<!--End Carousel-->
 
-	<!-- Start Login Modal -->
 
+	<!-- Start Login Modal -->
 	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -230,32 +229,24 @@
 	</div>
 	<!-- End Login Modal -->
 
+
 	<div class="container marketing">
 
-		<!-- Start of .featurettes -->
-
+		<!-- Start of .featurette -->
 		<div class="row featurette">
 			<div class="panel-group" id="accordion" role="tablist"
 				aria-multiselectable="true">
-				<!-- Get the ten last tasks from the request -->
-				<%
-					CachedRowSet crs = (CachedRowSet) request.getAttribute("tenTasks");
-					if (crs.isBeforeFirst()) {
-						int prevTaskID = 0;
-						while (crs.next()) {
-							int taskID = crs.getInt("task_id");
-							if (taskID != prevTaskID) {
-				%>
-
 				<div class="panel panel-default">
-					<%
-						SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					%>
+
+
+					<div class="panel-heading">
+						<h2 class="panel-title">Ten Most Recent Tasks</h2>
+					</div>
 					<div class="panel-heading" role="tab" id="headingOne">
 						<h4 class="panel-title">
 							<a role="button" data-toggle="collapse" data-parent="#accordion"
 								href="#collapseOne" aria-expanded="true"
-								aria-controls="collapseOne">Task#<%=crs.getInt("task_id")%></a>
+								aria-controls="collapseOne"> Task #1 by simple_user1 </a>
 						</h4>
 					</div>
 					<div id="collapseOne" class="panel-collapse collapse in"
@@ -272,29 +263,35 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td><%=crs.getString("username")%></td>
-										<td><%=crs.getDouble("rating")%></td>
-										<td><%=crs.getInt("amount")%></td>
-										<td><%=simpleDateFormat.format(crs.getTimestamp("bid_time"))%></td>
+										<td>pro_user1</td>
+										<td>4.5</td>
+										<td>500</td>
+										<td>12/10/2016 15:05:00</td>
+									</tr>
+									<tr>
+										<td>pro_user2</td>
+										<td>4.1</td>
+										<td>570</td>
+										<td>12/10/2016 13:15:00</td>
+									</tr>
+									<tr>
+										<td>pro_user3</td>
+										<td>4.7</td>
+										<td>580</td>
+										<td>12/10/2016 10:10:00</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-						<%
-							}
-						%>
 					</div>
-					<%
-						}
-					%>
-					<%
-						}
-					%>
+
+
 				</div>
 				<!-- End .panel -->
 			</div>
 			<!-- End #accordion -->
 		</div>
+		<!-- End .featurette -->
 
 		<hr class="featurette-divider">
 
@@ -391,7 +388,6 @@
 
 		<hr class="featurette-divider">
 
-		<!-- End of .featurettes -->
 
 		<!-- Start Footer -->
 
@@ -408,8 +404,6 @@
 
 	</div>
 	<!-- End of .container marketing -->
-
-
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
