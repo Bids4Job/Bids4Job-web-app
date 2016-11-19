@@ -48,16 +48,6 @@ public class CreateBidController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -73,7 +63,7 @@ public class CreateBidController extends HttpServlet {
 			// int amount1 = Integer.parseInt(request.getParameter(AMOUNT));
 			// Checks if "amount input" has numbers.
 			String amountStr = request.getParameter(AMOUNT);
-			if (amountStr.matches("[0-9]+") && amountStr.length() < 6) {
+			if (validateAmount(amountStr)) {
 				amount = Integer.parseInt(request.getParameter(AMOUNT));
 			} else {
 				request.setAttribute("errorMessage", "Wrong input at \"amount\" field.");
@@ -94,7 +84,15 @@ public class CreateBidController extends HttpServlet {
 			request.setAttribute("errorMessage", e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
-
 	}
 
+	/**
+	 * Validates that the input is a number with less than 6 digits.
+	 * 
+	 * @param amount a string that represents the amount of a bid
+	 * @return true if the validation is successful, else false
+	 */
+	private boolean validateAmount(String amount) {
+		return amount.matches("[0-9]+") && amount.length() < 6;
+	}
 }
