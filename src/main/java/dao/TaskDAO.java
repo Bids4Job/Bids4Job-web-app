@@ -485,29 +485,9 @@ public class TaskDAO {
 	}
 
 	/**
-	 * Utility method that takes a resultSet and returns a Task object.
-	 *
-	 * @param resultSet
-	 * @return A task object.
-	 */
-	public Task populate(ResultSet resultSet) {
-		try {
-
-			return new Task().setTitle(resultSet.getString("task_title")).setTaskId(resultSet.getInt("task_ID"))
-					.setDeadline(resultSet.getTimestamp("deadline")).setWorkField(resultSet.getString("work_field"))
-					.setSimpleUserId(resultSet.getInt("simple_user_ID"))
-					.setDescription(resultSet.getString("description")).setActive_task(resultSet.getInt("active_task"));
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
-	}
-
-	/**
 	 * Finds all Tasks(and their Bids) in the database from a specified Simple
 	 * User. (taks_id, bid_id, pro_username, amount, rating, bid_time)
 	 *
-	 * @author george
 	 * @return a CachedRowSet with all Tasks(in detail) based on simple user ID
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -517,7 +497,7 @@ public class TaskDAO {
 	public CachedRowSet findDetailsBySimpleUserID(int simpleUserID)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		CachedRowSet crs = new CachedRowSetImpl();
-		String sql = "select c.task_id, a.bid_id, a.amount, a.bid_time, c.work_field, b.username as pro_username, d.username as simple_username, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id right outer join task as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true and d.simple_user_id = ? order by c.task_id desc;";
+		String sql = "select c.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id right outer join task as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true and d.simple_user_id = ? order by c.task_id desc;";
 		this.prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -531,15 +511,20 @@ public class TaskDAO {
 		return crs;
 	}
 
+	/**
+	 * Finds all Tasks(and their Bids) in the database from a specified Simple
+	 * User. (taks_id, bid_id, pro_username, amount, rating, bid_time)
+	 *
+	 * @return a CachedRowSet with all Tasks(in detail) based on simple user ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 	public CachedRowSet findDetailsByProfessionalUserID(int proUserId)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		CachedRowSet crs = new CachedRowSetImpl();
-		String sql = "select a.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating"
-				+ " from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id"
-				+ " inner join task as c on a.task_id = c.task_id" + " inner join"
-				+ " (select f.pro_user_id, avg(g.rating) as rating" + " from contract as g" + " inner join bid as f"
-				+ " on g.bid_id = f.bid_id" + " group by f.pro_user_id) as e" + " on e.pro_user_id = b.pro_user_id"
-				+ " where c.active_task = true and b.pro_user_id = ?;";
+		String sql = "select c.task_id, a.bid_id, a.amount, a.bid_time, b.username, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id inner join (select distinct z.task_id, z.active_task, z.simple_user_id	from task as z inner join bid as y on z.task_id = y.task_id inner join pro_user as w on y.pro_user_id = w.pro_user_id where w.pro_user_id = ?) as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true order by c.task_id desc;";
 		this.prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -553,4 +538,22 @@ public class TaskDAO {
 		return crs;
 	}
 
+	/**
+	 * Utility method that takes a resultSet and returns a Task object.
+	 *
+	 * @param resultSet
+	 * @return A task object.
+	 */
+	public Task populate(ResultSet resultSet) {
+		try {
+
+			return new Task().setTitle(resultSet.getString("title")).setTaskId(resultSet.getInt("task_ID"))
+					.setDeadline(resultSet.getTimestamp("deadline")).setWorkField(resultSet.getString("work_field"))
+					.setSimpleUserId(resultSet.getInt("simple_user_ID"))
+					.setDescription(resultSet.getString("description")).setActive_task(resultSet.getInt("active_task"));
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 }

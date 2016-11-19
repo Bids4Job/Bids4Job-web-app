@@ -78,6 +78,33 @@ public class TaskServiceTester {
 							+ crs.getDouble("rating") + "\npro username: " + crs.getString("username") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
+			/**
+			 * Testing the findDetailsByProfessionalUserID method of TaskService
+			 * class.
+			 */
+			System.out.println("\n================findDetailsByProfessionalUserID(1)");
+			crs = taskService.findDetailsByProfessionalUserID(1);
+			if (!crs.isBeforeFirst()) {
+				System.out.println("No data");
+			} else {
+				while (crs.next()) {
+					System.out.println("task id: " + crs.getInt("task_id") + "\nbid id: "
+							+ crs.getInt("bid_id") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\npro username: " + crs.getString("username") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
+				}
+			}
+			// findDetailsByProfessionalUserID
+			System.out.println("\n================findDetailsByProfessionalUserID(100)");
+			crs = taskService.findDetailsByProfessionalUserID(100);
+			if (!crs.isBeforeFirst()) {
+				System.out.println("No data");
+			} else {
+				while (crs.next()) {
+					System.out.println("task id: " + crs.getInt("task_id") + "\nbid id: "
+							+ crs.getInt("bid_id") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\npro username: " + crs.getString("username") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -56,7 +56,7 @@
 				<!--start un-collapsed navbar-->
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="suserprofileWithContracts.jsp"><span
+					<li class="active"><a href="profile_simple"><span
 							class="glyphicon glyphicon-user"></span>My Profile</a></li>
 					<li><a href="#" data-toggle="modal"
 						data-target="#contracts-modal"><span

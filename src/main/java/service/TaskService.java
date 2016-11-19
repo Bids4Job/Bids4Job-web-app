@@ -130,7 +130,7 @@ public class TaskService {
 
 	public CachedRowSet findDetailsByProfessionalUserID(int proUserId)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-		return dao.findDetailsBySimpleUserID(proUserId);
+		return dao.findDetailsByProfessionalUserID(proUserId);
 	}
 
 }
