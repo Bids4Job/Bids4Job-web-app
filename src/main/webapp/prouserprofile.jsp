@@ -3,7 +3,8 @@
 <%@ page import="domain.ProfessionalUser"%>
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%@ page errorPage="error.jsp"%>
+<%@ page import="java.text.DecimalFormat"%>
+<!-- %@ page errorPage="error.jsp"% -->
 
 <!DOCTYPE html>
 <html>
@@ -89,6 +90,7 @@
 							<%
 								ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								DecimalFormat decimalFormat = new DecimalFormat("##.##");
 								String rating = (String) request.getAttribute("rating");
 							%>
 							<div class=" col-md-9 col-lg-9 ">
@@ -99,8 +101,16 @@
 											<td><%=pro.getUsername()%></td>
 										</tr>
 										<tr>
-											<td>Ratting:</td>
-											<td><%=rating%></td>
+											<td>Rating:</td>
+											<td>
+												<%
+													if (rating.equals("-")) {
+														out.println(rating);
+													} else {
+														out.println(decimalFormat.format(Double.parseDouble(rating)));
+													}
+												%>
+											</td>
 										</tr>
 										<tr>
 											<td>Email:</td>
@@ -219,7 +229,18 @@
 
 							<tr>
 								<td><%=crsTasks.getString("username")%></td>
-								<td><%=crsTasks.getDouble("rating")%></td>
+								<%
+									double bidder_rating = crsTasks.getDouble("rating");
+											if (crsTasks.wasNull()) {
+								%>
+								<td>-</td>
+								<%
+									} else {
+								%>
+								<td><%=decimalFormat.format(bidder_rating)%></td>
+								<%
+									}
+								%>
 								<td><%=crsTasks.getInt("amount")%></td>
 								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
 								<td>

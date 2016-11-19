@@ -3,6 +3,7 @@
 <%@ page import="domain.SimpleUser"%>
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.text.DecimalFormat"%>
 <%@ page errorPage="error.jsp"%>
 
 <!DOCTYPE html>
@@ -92,9 +93,10 @@
 							<!-- Get the SimpleUser object from the session -->
 							<%
 								SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
-								// Set up the SimpleDateFormat object
+								// Set up the SimpleDateFormat and DecimalFormat objects
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-							%>
+								DecimalFormat decimalFormat = new DecimalFormat("##.##");
+								%>
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">
 									<tbody>
@@ -197,7 +199,18 @@
 							%>
 							<tr>
 								<td><%=crsTasks.getString("username")%></td>
-								<td><%=crsTasks.getDouble("rating")%></td>
+								<%
+									double bidder_rating = crsTasks.getDouble("rating");
+											if (crsTasks.wasNull()) {
+								%>
+								<td>-</td>
+								<%
+									} else {
+								%>
+								<td><%=decimalFormat.format(bidder_rating)%></td>
+								<%
+									}
+								%>
 								<td><%=crsTasks.getInt("amount")%></td>
 								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
 								<td><form action="myAction.jsp">
