@@ -3,7 +3,7 @@
 <%@ page import="domain.ProfessionalUser"%>
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%@ page errorPage="error.jsp"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -48,8 +48,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a href="index"> <img alt="Brand" src="images/logo.png">
-					<!--Brand logo image-->
+				<a href="index"> <img alt="Brand" src="images/logo.png"> <!--Brand logo image-->
 				</a>
 			</div>
 			<!-- end collapsed navbar-->
@@ -88,10 +87,9 @@
 							</div>
 							<!-- Getting Attrin=bute from session -->
 							<%
-							    ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
-							    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-							    //String rating = (String) session.getAttribute("rating");
-							    String rating = (String) request.getAttribute("rating");
+								ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
+								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								String rating = (String) request.getAttribute("rating");
 							%>
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">
@@ -146,13 +144,13 @@
 
 					<!-- Get the contact details from the request -->
 					<%
-					    CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
-					    if (crsTasks.isBeforeFirst()) {
+						CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
+						if (crsTasks.isBeforeFirst()) {
 							int prevTaskID = 0;
 							while (crsTasks.next()) {
-							    int taskID = crsTasks.getInt("task_id");
-							    if (taskID != prevTaskID) {
-								if (prevTaskID != 0) {
+								int taskID = crsTasks.getInt("task_id");
+								if (taskID != prevTaskID) {
+									if (prevTaskID != 0) {
 					%>
 					<!-- Same snippets: (244 - 274) or (157 - 188) -->
 					</tbody>
@@ -189,8 +187,8 @@
 
 
 		<%
-		    }
-					prevTaskID = taskID;
+			}
+						prevTaskID = taskID;
 		%>
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
@@ -216,7 +214,7 @@
 						</thead>
 						<tbody>
 							<%
-							    } // End 	if (taskID != prevTaskID)
+								} // End 	if (taskID != prevTaskID)
 							%>
 
 							<tr>
@@ -226,7 +224,7 @@
 								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
 								<td>
 									<%
-									    if (crsTasks.getString("username").equals(pro.getUsername())) {
+										if (crsTasks.getString("username").equals(pro.getUsername())) {
 									%>
 									<form class="form-inline" method="POST" action="cancel_bid">
 										<input type="hidden" name="bidId"
@@ -235,12 +233,12 @@
 											<i class="glyphicon glyphicon-remove"></i>
 										</button>
 									</form> <%
-     }
+ 	}
  %>
 								</td>
 							</tr>
 							<%
-							    } // End 	while(crs.next())
+								} // End 	while(crs.next())
 							%>
 
 							<!-- Same snippets: (244 - 274) or (157 - 188) -->
@@ -276,7 +274,7 @@
 			<!-- End .panel-collapse collapse in -->
 
 			<%
-			    }
+				}
 			%>
 		</div>
 		<!-- End .panel panel-default -->
