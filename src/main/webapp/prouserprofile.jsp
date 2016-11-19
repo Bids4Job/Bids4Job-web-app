@@ -3,7 +3,7 @@
 <%@ page import="domain.ProfessionalUser"%>
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-
+<%@ page errorPage="error.jsp"%>
 
 <!DOCTYPE html>
 <html>
