@@ -105,6 +105,13 @@ public class TaskDaoTester {
 							+ "\n");
 				}
 			}
+			/**
+			 * Testing the setInactiveByID method of TaskDao.
+			 */
+			if (task.setInactiveByID(96)) {
+				System.out.println("SetInactive completed!");
+				System.out.println(task.findOne(96));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -39,6 +39,8 @@ public class ContractServiceTester {
 			// create
 			contract = new Contract(1, 1, 1, 1, new Timestamp(System.currentTimeMillis()));
 			System.out.println("\ncreate()\n" + contractService.create(contract));
+			// sign
+			System.out.println("\nsign()\n" + contractService.sign(contract));
 			// update
 			System.out.println("\nupdate()\n" + contractService.update(contract.setTaskID(7)));
 			System.out.println(contractService.findOne(contract.getContractID()));

@@ -213,7 +213,7 @@
 								%>
 								<td><%=crsTasks.getInt("amount")%></td>
 								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
-								<td><form action="myAction.jsp">
+								<td><form method="POST" action="sign_contract">
 										<input type="hidden" name="taskId" value="<%=taskID%>">
 										<input type="hidden" name="bidId" value="<%=bidID%>">
 										<button type="submit" class="btn btn-info">Accept Bid</button>
@@ -362,7 +362,7 @@
 								while (crs.next()) {
 						%>
 						<div class="panel-heading" role="tab" id="headingOne">
-							<h4 class="panel-title"><%=crs.getInt("contract_id")%></h4>
+							<h4 class="panel-title">Contract #<%=crs.getInt("contract_id")%></h4>
 						</div>
 
 						<div class="panel-body">
