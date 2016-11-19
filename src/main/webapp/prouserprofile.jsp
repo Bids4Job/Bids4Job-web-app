@@ -4,7 +4,7 @@
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.text.DecimalFormat"%>
-<!-- %@ page errorPage="error.jsp"% -->
+<%@ page errorPage="error.jsp"%>
 
 <!DOCTYPE html>
 <html>
