@@ -7,6 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="refresh" content="3;url=index" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>Bids4Job Signed out</title>
@@ -55,8 +56,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a href="index"> <img alt="Brand" src="images/logo.png">
-				<!--Brand logo image-->
+				<a href="index"> <img alt="Brand" src="images/logo.png"> <!--Brand logo image-->
 				</a>
 			</div>
 			<!-- end collapsed navbar-->
@@ -94,8 +94,8 @@
 								in</h2>
 							<label for="inputEmail" class="sr-only">Email address</label> <input
 								type="email" id="inputEmail" class="form-control"
-								placeholder="Email address" name="email" required autofocus> <label
-								for="inputPassword" class="sr-only">Password</label> <input
+								placeholder="Email address" name="email" required autofocus>
+							<label for="inputPassword" class="sr-only">Password</label> <input
 								type="password" id="inputPassword" class="form-control"
 								placeholder="Password" name="upass" required>
 							<div class="checkbox">
@@ -112,13 +112,14 @@
 					</div>
 					<!-- End of #Individual -->
 					<div id="Professional" class="tab-pane fade">
-						<form class="form-signin" method="POST" action="login_professional">
+						<form class="form-signin" method="POST"
+							action="login_professional">
 							<h2 class="form-signin-heading login-or-signup">Please Log
 								in</h2>
 							<label for="inputEmail" class="sr-only">Email address</label> <input
 								type="email" id="inputEmail" class="form-control"
-								placeholder="Email address" required autofocus name="email"> <label
-								for="inputPassword" class="sr-only">Password</label> <input
+								placeholder="Email address" required autofocus name="email">
+							<label for="inputPassword" class="sr-only">Password</label> <input
 								type="password" id="inputPassword" class="form-control"
 								placeholder="Password" required name="password">
 							<div class="checkbox">
