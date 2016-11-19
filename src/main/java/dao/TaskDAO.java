@@ -163,6 +163,35 @@ public class TaskDAO {
 	}
 
 	/**
+	 * Set the specified Task as Inactive.
+	 * 
+	 * @param task
+	 * @return true if the attempt was successful or false if nothing changed.
+	 * @throws SQLException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 */
+	public boolean setInactiveByID(int taskID)
+			throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
+		int rowsAffected;
+		String query = "UPDATE task SET active_task = 0 WHERE task_ID = ?";
+		prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, taskID);
+			rowsAffected = statement.executeUpdate();
+			if (rowsAffected == 1) {
+				return true;
+			}
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return false;
+	}
+	
+	/**
 	 * Delets a task from database, based on ID.
 	 * 
 	 * @param task

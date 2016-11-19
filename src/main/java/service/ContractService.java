@@ -6,12 +6,15 @@ import java.util.List;
 import javax.sql.rowset.CachedRowSet;
 
 import dao.ContractDAO;
+import dao.TaskDAO;
 import domain.Contract;
+import domain.Task;
 
 public class ContractService {
 
 	private ContractDAO contractDAO = new ContractDAO();
-
+	private TaskDAO taskDAO = new TaskDAO();
+	
 	/**
 	 * Finds the Contract with the given ID.
 	 * 
@@ -86,6 +89,24 @@ public class ContractService {
 		return contractDAO.delete(contract);
 	}
 
+	/**
+	 * Adds a new Contract in the database and sets the appropriate Task as inactive.
+	 * 
+	 * @param contract the Contract to be signed
+	 * @return the Contract that was added in database
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public Contract sign(Contract contract)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+		if(taskDAO.setInactiveByID(contract.getTaskID())) {
+			contract = contractDAO.create(contract);
+		}
+		return contract;
+	}
+	
 	/**
 	 * Finds the Contract with the given bid ID.
 	 * 
