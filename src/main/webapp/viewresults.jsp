@@ -5,13 +5,14 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%@ page import="java.sql.Timestamp"%>
+<%@ page errorPage="error.jsp"%>
 
 <%
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	DecimalFormat decimalFormat = new DecimalFormat("##.##");
 	ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
 	// Use a boolean to know if a ProfessionalUser is logged in
-	boolean isPro = (pro != null) ? true : false;
+	boolean isPro = (pro != null);
 %>
 <!DOCTYPE html>
 <html>

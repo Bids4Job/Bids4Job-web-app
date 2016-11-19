@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="domain.ProfessionalUser"%>
+<%@ page import="domain.SimpleUser"%>
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page errorPage="error.jsp"%>
+
+<%
+	boolean isSimple = ((SimpleUser) session.getAttribute("simple-user")) != null;
+	boolean isPro = ((ProfessionalUser) session.getAttribute("pro")) != null;
+%>
 
 <!DOCTYPE html>
 <html>
@@ -44,8 +51,10 @@
 </head>
 <body>
 
+	<%
+		if (!isPro && !isSimple) {
+	%>
 	<!--Navbar start-->
-
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid navbar-transp">
 			<div class="navbar-header">
@@ -73,6 +82,52 @@
 		</div>
 	</nav>
 	<!--Navbar end-->
+	<%
+		} else {
+	%>
+	<!--Navbar start-->
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid navbar-transp">
+			<div class="navbar-header">
+				<!--start collapsed navbar-->
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="index.jsp"> <img alt="Brand" src="images/logo.png">
+					<!--Brand logo image-->
+				</a>
+			</div>
+			<!-- end collapsed navbar-->
+			<div id="navbar" class="navbar-collapse collapse">
+				<!--start un-collapsed navbar-->
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a
+						href="
+						<%-- Check in which profile page the user should go --%>
+						<%if (isPro) {%>
+							profile_professional
+						<%} else if (isSimple) {%>
+							profile_simple
+						<%}%>">
+							<span class="glyphicon glyphicon-user"></span>My Profile
+					</a></li>
+					<li><a href="logout_user"><span
+							class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+				</ul>
+			</div>
+			<!-- end un-collapsed navbar-->
+		</div>
+	</nav>
+	<!--Navbar end-->
+	<%
+		}
+	%>
 
 	<!--Start Carousel-->
 
@@ -137,7 +192,8 @@
 				<div
 					class="col-lg-4 col-md-6 col-sm-6 col-xs-8 col-lg-offset-4 col-md-offset-3 col-sm-offset-3 col-xs-offset-2">
 					<div class="input-group">
-						<select class="form-control" id="professions" name="profession" required>
+						<select class="form-control" id="professions" name="profession"
+							required>
 							<option value="" selected disabled>Search for...</option>
 							<option value="Electrician">Electrician</option>
 							<option value="Plumber">Plumber</option>
