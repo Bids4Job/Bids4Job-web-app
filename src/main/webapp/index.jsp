@@ -43,7 +43,7 @@
     <![endif]-->
 </head>
 <body>
-	
+
 	<!--Navbar start-->
 
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -57,8 +57,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a href="index"> <img alt="Brand" src="images/logo.png">
-					<!--Brand logo image-->
+				<a href="index"> <img alt="Brand" src="images/logo.png"> <!--Brand logo image-->
 				</a>
 			</div>
 			<!-- end collapsed navbar-->
@@ -133,29 +132,31 @@
 		</div>
 
 		<!--Start search field-->
-		<div class="row" id="searchForm">
-			<div
-				class="col-lg-4 col-md-6 col-sm-6 col-xs-8 col-lg-offset-4 col-md-offset-3 col-sm-offset-3 col-xs-offset-2">
-				<div class="input-group">
-					<select class="form-control" id="professions" required>
-						<option value="" selected disabled>Search for...</option>
-						<option value="Electrician">Electrician</option>
-						<option value="Plumber">Plumber</option>
-						<option value="Painter">Painter</option>
-						<option value="Hair Dresser">Hair Dresser</option>
-						<option value="Developer">Developer</option>
-						<option value="Designer">Designer</option>
-						<option value="Dancer">Dancer</option>
-						<option value="Banker">Banker</option>
-						<option value="Logistics">Logistics</option>
-						<option value="Personal Trainer">Personal Trainer</option>
-						<option value="Teacher">Teacher</option>
-					</select> <span class="input-group-btn">
-						<button class="btn btn-default" type="button">Search</button>
-					</span>
+		<form method="GET" action="search">
+			<div class="row" id="searchForm">
+				<div
+					class="col-lg-4 col-md-6 col-sm-6 col-xs-8 col-lg-offset-4 col-md-offset-3 col-sm-offset-3 col-xs-offset-2">
+					<div class="input-group">
+						<select class="form-control" id="professions" name="profession" required>
+							<option value="" selected disabled>Search for...</option>
+							<option value="Electrician">Electrician</option>
+							<option value="Plumber">Plumber</option>
+							<option value="Painter">Painter</option>
+							<option value="Hair Dresser">Hair Dresser</option>
+							<option value="Developer">Developer</option>
+							<option value="Designer">Designer</option>
+							<option value="Dancer">Dancer</option>
+							<option value="Banker">Banker</option>
+							<option value="Logistics">Logistics</option>
+							<option value="Personal Trainer">Personal Trainer</option>
+							<option value="Teacher">Teacher</option>
+						</select> <span class="input-group-btn">
+							<button type="submit" class="btn btn-default" type="button">Search</button>
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 		<!--End search field-->
 
 		<a class="left carousel-control" href="#myCarousel" role="button"
