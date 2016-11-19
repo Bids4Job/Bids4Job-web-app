@@ -1,6 +1,14 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="javax.sql.rowset.CachedRowSet"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.text.DecimalFormat"%>
+<%@ page import="java.sql.Timestamp"%>
 
+<%
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	DecimalFormat decimalFormat = new DecimalFormat("##.##");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,111 +71,183 @@
 				</div>
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
-							<h4 class="panel-title">
-								<a role="button" data-toggle="collapse" data-parent="#accordion"
-									href="#collapseOne" aria-expanded="true"
-									aria-controls="collapseOne"> Task #1 by simple_user1 </a>
-							</h4>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse in"
-							role="tabpanel" aria-labelledby="headingOne">
-							<div class="panel-body">
-								<table class="table">
-									<tbody>
-										<tr class="active">
-											<th>Task Description</th>
-											<th>Field of Work</th>
-											<th>Task Location</th>
-											<th>Deadline</th>
-										</tr>
-										<tr>
-											<td>This is a test task for bidding. Electrician needed
-												for various issues... This is a test task for bidding.
-												Electrician needed for various issues... This is a test task
-												for bidding. Electrician needed for various issues... This
-												is a test task for bidding. Electrician needed for various
-												issues... This is a test task for bidding. Electrician
-												needed for various issues...</td>
-											<td>Electrician</td>
-											<td>myLocation</td>
-											<td>30/11/2016 23:59:59</td>
-										</tr>
-									</tbody>
-								</table>
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th>Bidder</th>
-											<th>Rating</th>
-											<th>Amount &euro;</th>
-											<th>Bid Date</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>pro_user1</td>
-											<td>4.5</td>
-											<td>500</td>
-											<td>12/10/2016 15:05:00</td>
-										</tr>
-										<tr>
-											<td>pro_user2</td>
-											<td>4.1</td>
-											<td>570</td>
-											<td>12/10/2016 13:15:00</td>
-										</tr>
-										<tr>
-											<td>pro_user3</td>
-											<td>4.7</td>
-											<td>580</td>
-											<td>12/10/2016 10:10:00</td>
-										</tr>
-									</tbody>
-								</table>
-								<div class="panel-footer">
-									<h4>Place a new bid</h4>
-									<form class="form-inline" method="POST" action="create_bid">
 
-										<div class="form-group">
-											<label for="task-title" class="control-label">Amount
-												&euro;</label> <input type="text" name="amount"
-												ng-model="bid-amount" class="form-control" id="bid-amount"
-												placeholder="Bid Amount" required>
-										</div>
+					<!-- Get the task details from the request -->
+					<%
+						CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
+						if (crsTasks.isBeforeFirst()) {
+							int prevTaskID = 0;
+							while (crsTasks.next()) {
+								int taskID = crsTasks.getInt("task_id");
+								if (taskID != prevTaskID) {
+									if (prevTaskID != 0) {
+					%>
+					</tbody>
+					</table>
+					<div class="panel-footer">
+						<h4>Place a new bid</h4>
+						<form class="form-inline" method="POST" action="create_bid">
 
-										<input type="hidden" name="taskId"
-											value="<!-- %=prevTaskID% -->">
-										<!-- Receive taskId to connect with new bid -->
-
-										<div class="form-group">
-											<button class="btn btn-sm btn-success" type="submit">
-												<i class="glyphicon glyphicon-plus"></i>
-											</button>
-										</div>
-
-									</form>
-								</div>
-								<!-- End .panel-footer -->
+							<div class="form-group">
+								<label for="task-title" class="control-label">Amount
+									&euro;</label> <input type="text" name="amount" ng-model="bid-amount"
+									class="form-control" id="bid-amount" placeholder="Bid Amount"
+									required>
 							</div>
-						</div>
-					</div>
-					<!-- End .panel -->
-				</div>
-				<!-- End .accordion-->
-			</div>
-		</div>
-		<!-- End of .row-->
 
-		<hr>
-		<footer>
-			<p>
-				&copy; 2016 Bids4Job S.A. &middot; <a href="#">Privacy</a> &middot;
-				<a href="#">Terms</a>
-			</p>
-		</footer>
-		<!-- End of Footer -->
+							<input type="hidden" name="taskId" value="<%=prevTaskID%>">
+							<!-- Receive taskId to connect with new bid -->
+
+							<div class="form-group">
+								<button class="btn btn-sm btn-success" type="submit">
+									<i class="glyphicon glyphicon-plus"></i>
+								</button>
+							</div>
+
+						</form>
+					</div>
+					<!-- End .panel-footer -->
+				</div>
+				<!-- End .panel-body -->
+			</div>
+			<!-- End .panel-collapse collapse in -->
+		</div>
+		<!-- End .panel panel-default -->
+		<%
+			} // End	 if (prevTaskID != 0)
+						prevTaskID = taskID;
+		%>
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
+				<h4 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#accordion"
+						href="#collapse<%=taskID%>" aria-expanded="true"
+						aria-controls="collapse<%=taskID%>"> Task #<%=taskID%> - <%=crsTasks.getString("title")%>
+					</a>
+				</h4>
+			</div>
+			<div id="collapse<%=taskID%>" class="panel-collapse collapse in"
+				role="tabpanel" aria-labelledby="heading<%=taskID%>">
+				<div class="panel-body">
+					<table class="table">
+						<tbody>
+							<tr class="active">
+								<th>Task Description</th>
+								<th>Field of Work</th>
+								<th>Task Location</th>
+								<th>Deadline</th>
+							</tr>
+							<tr>
+								<td><%=crsTasks.getString("description")%></td>
+								<td><%=crsTasks.getString("work_field")%></td>
+								<td><%=crsTasks.getString("location")%></td>
+								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("deadline"))%></td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Bidder</th>
+								<th>Rating</th>
+								<th>Amount &euro;</th>
+								<th>Bid Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								} // End 	if (taskID != prevTaskID)
+										int bidID = crsTasks.getInt("bid_id");
+										if (bidID != 0) {
+							%>
+							<tr>
+								<td><%=crsTasks.getString("username")%></td>
+								<%
+									double rating = crsTasks.getDouble("rating");
+											if (crsTasks.wasNull()) {
+								%>
+								<td>-</td>
+								<%
+									} else {
+								%>
+								<td><%=decimalFormat.format(rating)%></td>
+								<%
+									}
+								%>
+								<td><%=crsTasks.getInt("amount")%></td>
+								<%
+									Timestamp bid_timestamp = crsTasks.getTimestamp("bid_time");
+											if (crsTasks.wasNull()) {
+								%>
+								<td>-</td>
+								<%
+									} else {
+								%>
+								<td><%=simpleDateFormat.format(bid_timestamp)%></td>
+								<%
+									}
+								%>
+							</tr>
+							<%
+								} // End 	if (bidID != 0)
+										else {
+							%>
+							<tr>
+								<td colspan="4">-</td>
+							</tr>
+							<%
+								} // End if-else bidID != 0
+									} // End 	while(crs.next())
+							%>
+						</tbody>
+					</table>
+					<div class="panel-footer">
+						<h4>Place a new bid</h4>
+						<form class="form-inline" method="POST" action="create_bid">
+
+							<div class="form-group">
+								<label for="task-title" class="control-label">Amount
+									&euro;</label> <input type="text" name="amount" ng-model="bid-amount"
+									class="form-control" id="bid-amount" placeholder="Bid Amount"
+									required>
+							</div>
+
+							<input type="hidden" name="taskId" value="<%=prevTaskID%>">
+							<!-- Receive taskId to connect with new bid -->
+
+							<div class="form-group">
+								<button class="btn btn-sm btn-success" type="submit">
+									<i class="glyphicon glyphicon-plus"></i>
+								</button>
+							</div>
+
+						</form>
+					</div>
+					<!-- End .panel-footer -->
+				</div>
+				<!-- End .panel-body -->
+			</div>
+			<!-- End .panel-collapse collapse in -->
+		</div>
+		<!-- End .panel panel-default -->
+		<%
+			}
+		%>
+	</div>
+	<!-- End .panel-group -->
+	</div>
+	<!-- End .panel panel-info -->
+	</div>
+	<!-- End of .row -->
+
+	<hr>
+	<footer>
+		<p>
+			&copy; 2016 Bids4Job S.A. &middot; <a href="#">Privacy</a> &middot; <a
+				href="#">Terms</a>
+		</p>
+	</footer>
+	<!-- End of Footer -->
 
 	</div>
 	<!-- End of .container-->

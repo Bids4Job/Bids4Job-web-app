@@ -152,7 +152,7 @@
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">
 
-					<!-- Get the contact details from the request -->
+					<!-- Get the task details from the request -->
 					<%
 						CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
 						if (crsTasks.isBeforeFirst()) {
@@ -197,7 +197,7 @@
 
 
 		<%
-			}
+			} // End	 if (prevTaskID != 0)
 						prevTaskID = taskID;
 		%>
 		<div class="panel panel-default">
