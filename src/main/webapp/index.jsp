@@ -123,7 +123,7 @@
 
 		<!--Start search field-->
 		<form method="GET" action="search">
-			<div class="row" id="searchForm">
+			<div id="searchForm">
 				<div
 					class="col-lg-4 col-md-6 col-sm-6 col-xs-8 col-lg-offset-4 col-md-offset-3 col-sm-offset-3 col-xs-offset-2">
 					<div class="input-group">
