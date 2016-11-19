@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="domain.ProfessionalUser"%>
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.text.DecimalFormat"%>
@@ -8,6 +9,9 @@
 <%
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	DecimalFormat decimalFormat = new DecimalFormat("##.##");
+	ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
+	// Use a boolean to know if a ProfessionalUser is logged in
+	boolean isPro = (pro != null) ? true : false;
 %>
 <!DOCTYPE html>
 <html>
@@ -47,7 +51,7 @@
 				<li class="active"><a href="prouserprofile.html">My Profile</a></li>
 			</ul>
 			<div class="navbar-form navbar-right">
-				<a href="logout.html" class="btn btn-info" role="button">Log out</a>
+				<a href="logout_user" class="btn btn-info" role="button">Log out</a>
 			</div>
 		</div>
 	</nav>
@@ -84,6 +88,9 @@
 					%>
 					</tbody>
 					</table>
+					<%
+						if (isPro) {
+					%>
 					<div class="panel-footer">
 						<h4>Place a new bid</h4>
 						<form class="form-inline" method="POST" action="create_bid">
@@ -107,6 +114,9 @@
 						</form>
 					</div>
 					<!-- End .panel-footer -->
+					<%
+						}
+					%>
 				</div>
 				<!-- End .panel-body -->
 			</div>
@@ -164,7 +174,7 @@
 								<td><%=crsTasks.getString("username")%></td>
 								<%
 									double rating = crsTasks.getDouble("rating");
-											if (crsTasks.wasNull()) {
+												if (crsTasks.wasNull()) {
 								%>
 								<td>-</td>
 								<%
@@ -177,7 +187,7 @@
 								<td><%=crsTasks.getInt("amount")%></td>
 								<%
 									Timestamp bid_timestamp = crsTasks.getTimestamp("bid_time");
-											if (crsTasks.wasNull()) {
+												if (crsTasks.wasNull()) {
 								%>
 								<td>-</td>
 								<%
