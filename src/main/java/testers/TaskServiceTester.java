@@ -1,6 +1,8 @@
 package testers;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.sql.rowset.CachedRowSet;
@@ -15,6 +17,7 @@ public class TaskServiceTester {
 		Task task;
 		List<Task> tasks;
 		CachedRowSet crs;
+		DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		try {
 			/**
@@ -62,9 +65,12 @@ public class TaskServiceTester {
 			} else {
 				while (crs.next()) {
 					System.out.println("task id: " + crs.getInt("task_id") + "\nbid id: " + "\ntask title: "
-							+ crs.getString("title") + crs.getInt("bid_id") + "\namount id: " + crs.getInt("amount")
-							+ "\nrating: " + crs.getDouble("rating") + "\npro username: " + crs.getString("username")
-							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
+							+ "\ntask description: " + crs.getString("description") + "\ntask deadline: "
+							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nlocation: "
+							+ crs.getString("location") + crs.getString("title") + crs.getInt("bid_id")
+							+ "\namount id: " + crs.getInt("amount") + "\nrating: " + crs.getDouble("rating")
+							+ "\npro username: " + crs.getString("username") + "\nbid_time: "
+							+ crs.getTimestamp("bid_time") + "\n");
 				}
 			}
 			// findDetailsBySimpleUserID
@@ -75,9 +81,11 @@ public class TaskServiceTester {
 			} else {
 				while (crs.next()) {
 					System.out.println("task id: " + crs.getInt("task_id") + "\ntask title: " + crs.getString("title")
-							+ "\nbid id: " + crs.getInt("bid_id") + "\namount id: " + crs.getInt("amount")
-							+ "\nrating: " + crs.getDouble("rating") + "\npro username: " + crs.getString("username")
-							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
+							+ "\ntask description: " + crs.getString("description") + "\ntask deadline: "
+							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nlocation: "
+							+ crs.getString("location") + "\nbid id: " + crs.getInt("bid_id") + "\namount id: "
+							+ crs.getInt("amount") + "\nrating: " + crs.getDouble("rating") + "\npro username: "
+							+ crs.getString("username") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
 			/**
@@ -91,9 +99,11 @@ public class TaskServiceTester {
 			} else {
 				while (crs.next()) {
 					System.out.println("task id: " + crs.getInt("task_id") + "\ntask title: " + crs.getString("title")
-							+ "\nbid id: " + crs.getInt("bid_id") + "\namount id: " + crs.getInt("amount")
-							+ "\nrating: " + crs.getDouble("rating") + "\npro username: " + crs.getString("username")
-							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
+							+ "\ntask description: " + crs.getString("description") + "\ntask deadline: "
+							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nlocation: "
+							+ crs.getString("location") + "\nbid id: " + crs.getInt("bid_id") + "\namount id: "
+							+ crs.getInt("amount") + "\nrating: " + crs.getDouble("rating") + "\npro username: "
+							+ crs.getString("username") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
 			// findDetailsByProfessionalUserID
@@ -104,9 +114,11 @@ public class TaskServiceTester {
 			} else {
 				while (crs.next()) {
 					System.out.println("task id: " + crs.getInt("task_id") + "\ntask title: " + crs.getString("title")
-							+ "\nbid id: " + crs.getInt("bid_id") + "\namount id: " + crs.getInt("amount")
-							+ "\nrating: " + crs.getDouble("rating") + "\npro username: " + crs.getString("username")
-							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
+							+ "\ntask description: " + crs.getString("description") + "\ntask deadline: "
+							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nlocation: "
+							+ crs.getString("location") + "\nbid id: " + crs.getInt("bid_id") + "\namount id: "
+							+ crs.getInt("amount") + "\nrating: " + crs.getDouble("rating") + "\npro username: "
+							+ crs.getString("username") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
 			// findDetailsByProfession

@@ -1,6 +1,8 @@
 package testers;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.sql.rowset.CachedRowSet;
@@ -12,6 +14,7 @@ public class TaskDaoTester {
 
 	public static void main(String[] args) {
 		CachedRowSet crs;
+		DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		try {
 			TaskDAO task = new TaskDAO();
@@ -37,11 +40,13 @@ public class TaskDaoTester {
 			/**
 			 * Testing the update method of TaskDao.
 			 */
-			if (task.update(new Task().setDeadline(Timestamp.valueOf("2018-06-21 00:00:00")).setSimpleUserId(3)
-					.setWorkField("mathematician").setTaskId(10))) {
-				System.out.println("Update completed!");
-				System.out.println(task.findOne(10));
-			}
+			// if (task.update(new
+			// Task().setDeadline(Timestamp.valueOf("2018-06-21
+			// 00:00:00")).setSimpleUserId(3)
+			// .setWorkField("mathematician").setTaskId(10))) {
+			// System.out.println("Update completed!");
+			// System.out.println(task.findOne(10));
+			// }
 			/**
 			 * Testing the delete method of TaskDao.
 			 */
@@ -73,9 +78,11 @@ public class TaskDaoTester {
 			} else {
 				while (crs.next()) {
 					System.out.println("task id: " + crs.getInt("task_id") + "\ntask title: " + crs.getString("title")
-							+ "\nbid id: " + crs.getInt("bid_id") + "\namount: " + crs.getInt("amount")
-							+ "\npro username: " + crs.getString("username") + "\nrating: " + crs.getDouble("rating")
-							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
+							+ "\ntask description: " + crs.getString("description") + "\ntask deadline: "
+							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nlocation: "
+							+ crs.getString("location") + "\nbid id: " + crs.getInt("bid_id") + "\namount: "
+							+ crs.getInt("amount") + "\npro username: " + crs.getString("username") + "\nrating: "
+							+ crs.getDouble("rating") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
 			/**
@@ -88,9 +95,11 @@ public class TaskDaoTester {
 			} else {
 				while (crs.next()) {
 					System.out.println("task id: " + crs.getInt("task_id") + "\ntask title: " + crs.getString("title")
-							+ "\nbid id: " + crs.getInt("bid_id") + "\namount: " + crs.getInt("amount")
-							+ "\npro username: " + crs.getString("username") + "\nrating: " + crs.getDouble("rating")
-							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
+							+ "\ntask description: " + crs.getString("description") + "\ntask deadline: "
+							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nlocation: "
+							+ crs.getString("location") + "\nbid id: " + crs.getInt("bid_id") + "\namount: "
+							+ crs.getInt("amount") + "\npro username: " + crs.getString("username") + "\nrating: "
+							+ crs.getDouble("rating") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
 			System.out.println("\n============================================findDetailsByProfessionalUserID(1)");
@@ -100,9 +109,11 @@ public class TaskDaoTester {
 			} else {
 				while (crs.next()) {
 					System.out.println("task id: " + crs.getInt("task_id") + "\ntask title: " + crs.getString("title")
-							+ "\nbid id: " + crs.getInt("bid_id") + "\namount: " + crs.getInt("amount")
-							+ "\npro username: " + crs.getString("username") + "\nrating: " + crs.getDouble("rating")
-							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
+							+ "\ntask description: " + crs.getString("description") + "\ntask deadline: "
+							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nlocation: "
+							+ crs.getString("location") + "\nbid id: " + crs.getInt("bid_id") + "\namount: "
+							+ crs.getInt("amount") + "\npro username: " + crs.getString("username") + "\nrating: "
+							+ crs.getDouble("rating") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
 			/**
