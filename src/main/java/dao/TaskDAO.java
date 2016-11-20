@@ -596,6 +596,34 @@ public class TaskDAO {
 	}
 
 	/**
+	 * Finds all Tasks(and their Bids) in the database starting from the latest
+	 * deadline. (taks_id, bid_id, pro_username, amount, rating, bid_time)
+	 * 
+	 * @param limit the number of Tasks to be shown
+	 * @return a CachedRowSet with all Tasks(in detail) based on latest deadlines
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findDetailsByDeadlineDesc(int limit)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		CachedRowSet crs = new CachedRowSetImpl();
+		String sql = "select c.task_id, c.work_field, c.title, c.description, c.deadline, a.amount, a.bid_time, a.bid_id, b.username, d.location, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id right outer join (select x.* from bid as z inner join task as x on z.task_id = x.task_id group by z.task_id order by deadline desc limit ?)as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true;";
+		this.prepareResources();
+		try {
+			connection = DaoUtils.getConnection();
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, limit);
+			resultSet = statement.executeQuery();
+			crs.populate(resultSet);
+		} finally {
+			DaoUtils.closeResources(resultSet, statement, connection);
+		}
+		return crs;
+	}
+
+	/**
 	 * Utility method that takes a resultSet and returns a Task object.
 	 *
 	 * @param resultSet
