@@ -205,18 +205,33 @@
 			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
 				<h4 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#accordion"
-						href="#<%=taskID%>" aria-expanded="true"
-						aria-controls="<%=taskID%>"> Task #<%=taskID%> - <%=crsTasks.getString("title")%>
+						href="#collapse<%=taskID%>" aria-expanded="true"
+						aria-controls="collapse<%=taskID%>"> Task #<%=taskID%> - <%=crsTasks.getString("title")%>
 					</a>
 				</h4>
 			</div>
-			<div id="<%=taskID%>"
+			<div id="collapse<%=taskID%>"
 				class="panel-collapse collapse <%if (prevTaskID == 0) {%> in
             			<%}
-						prevTaskID = taskID;%>
-				role="
-				tabpanel" aria-labelledby="heading<%=taskID%>">
+						prevTaskID = taskID;%>"
+				role="tabpanel" aria-labelledby="heading<%=taskID%>">
 				<div class="panel-body">
+					<table class="table">
+						<tbody>
+							<tr class="active">
+								<th>Task Description</th>
+								<th>Field of Work</th>
+								<th>Task Location</th>
+								<th>Deadline</th>
+							</tr>
+							<tr>
+								<td><%=crsTasks.getString("description")%></td>
+								<td><%=crsTasks.getString("work_field")%></td>
+								<td><%=crsTasks.getString("location")%></td>
+								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("deadline"))%></td>
+							</tr>
+						</tbody>
+					</table>
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -295,15 +310,13 @@
 					<!-- End .panel-footer -->
 				</div>
 				<!-- End .panel-body -->
-
 			</div>
 			<!-- End .panel-collapse collapse in -->
-
-			<%
-				}
-			%>
 		</div>
 		<!-- End .panel panel-default -->
+		<%
+			}
+		%>
 	</div>
 	<!-- End of .panel-group -->
 	</div>

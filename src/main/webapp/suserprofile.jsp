@@ -164,7 +164,7 @@
 								if (taskID != prevTaskID) {
 									if (prevTaskID != 0) {
 					%>
-					<!-- Same snippets: (215 - 223) or (157 - 164) -->
+					<!-- Same snippets: (262 - 271) or (167 - 175) -->
 					</tbody>
 					</table>
 				</div>
@@ -258,8 +258,8 @@
 								} // End if-else bidID != 0
 									} // End 	while(crs.next())
 							%>
-							
-							<!-- Same snippets: (215 - 223) or (157 - 164) -->
+
+							<!-- Same snippets: (262 - 271) or (167 - 175) -->
 						</tbody>
 					</table>
 
@@ -272,8 +272,6 @@
 		<%
 			}
 		%>
-	</div>
-	<!-- End .panel panel-default -->
 	</div>
 	<!-- End of .panel-group -->
 	</div>
