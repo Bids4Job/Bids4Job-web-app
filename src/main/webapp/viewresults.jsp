@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="domain.ProfessionalUser"%>
+<%@ page import="domain.SimpleUser"%>
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.text.DecimalFormat"%>
@@ -10,9 +11,9 @@
 <%
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	DecimalFormat decimalFormat = new DecimalFormat("##.##");
-	ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
-	// Use a boolean to know if a ProfessionalUser is logged in
-	boolean isPro = (pro != null);
+	// Use a boolean to know if a ProfessionalUser or a SimpleUser is logged in
+	boolean isSimple = ((SimpleUser) session.getAttribute("simple-user")) != null;
+	boolean isPro = ((ProfessionalUser) session.getAttribute("pro") != null);
 %>
 <!DOCTYPE html>
 <html>
@@ -29,6 +30,7 @@
 <!-- Custom Style -->
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/profiles.css">
+<link href="css/stylesTest.css" rel="stylesheet">
 <!-- Optional theme -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
@@ -44,18 +46,20 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<a href="index"> <img alt="Brand" src="images/logo.png"> <!--Brand logo image-->
-			</a>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="prouserprofile.html">My Profile</a></li>
-			</ul>
-			<div class="navbar-form navbar-right">
-				<a href="logout_user" class="btn btn-info" role="button">Log out</a>
-			</div>
-		</div>
-	</nav>
+	<%-- Place the appropriate navigation bar --%>
+	<%
+		if (!isPro && !isSimple) {
+	%>
+	<%@ include file="navbar_login.jsp"%>
+	<%
+		} else {
+	%>
+	<%@ include file="navbar_logout.jsp"%>
+	<%
+		}
+	%>
+
+	<%@ include file="login_modal.jsp"%>
 
 
 	<div class="container-fluid">
