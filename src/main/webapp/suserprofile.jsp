@@ -96,7 +96,7 @@
 								// Set up the SimpleDateFormat and DecimalFormat objects
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 								DecimalFormat decimalFormat = new DecimalFormat("##.##");
-								%>
+							%>
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">
 									<tbody>
@@ -166,8 +166,7 @@
 
 
 		<%
-			}
-						prevTaskID = taskID;
+			} // End  if (prevTaskID != 0)
 		%>
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
@@ -178,7 +177,10 @@
 					</a>
 				</h4>
 			</div>
-			<div id="<%=taskID%>" class="panel-collapse collapse in"
+			<div id="<%=taskID%>"
+				class="panel-collapse collapse <%if (prevTaskID == 0) {%> in
+            			<%}
+						prevTaskID = taskID;%>"
 				role="tabpanel" aria-labelledby="heading<%=taskID%>">
 				<div class="panel-body">
 					<table class="table table-bordered">
@@ -201,7 +203,7 @@
 								<td><%=crsTasks.getString("username")%></td>
 								<%
 									double bidder_rating = crsTasks.getDouble("rating");
-											if (crsTasks.wasNull()) {
+												if (crsTasks.wasNull()) {
 								%>
 								<td>-</td>
 								<%
@@ -362,7 +364,8 @@
 								while (crs.next()) {
 						%>
 						<div class="panel-heading" role="tab" id="headingOne">
-							<h4 class="panel-title">Contract #<%=crs.getInt("contract_id")%></h4>
+							<h4 class="panel-title">
+								Contract #<%=crs.getInt("contract_id")%></h4>
 						</div>
 
 						<div class="panel-body">

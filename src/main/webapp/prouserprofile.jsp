@@ -198,19 +198,22 @@
 
 		<%
 			} // End	 if (prevTaskID != 0)
-						prevTaskID = taskID;
 		%>
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
 				<h4 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#accordion"
 						href="#<%=taskID%>" aria-expanded="true"
-						aria-controls="<%=taskID%>"> Task #<%=taskID%>  - <%=crsTasks.getString("title")%>
+						aria-controls="<%=taskID%>"> Task #<%=taskID%> - <%=crsTasks.getString("title")%>
 					</a>
 				</h4>
 			</div>
-			<div id="<%=taskID%>" class="panel-collapse collapse in"
-				role="tabpanel" aria-labelledby="heading<%=taskID%>">
+			<div id="<%=taskID%>"
+				class="panel-collapse collapse <%if (prevTaskID == 0) {%> in
+            			<%}
+						prevTaskID = taskID;%>
+				role="
+				tabpanel" aria-labelledby="heading<%=taskID%>">
 				<div class="panel-body">
 					<table class="table table-bordered">
 						<thead>
