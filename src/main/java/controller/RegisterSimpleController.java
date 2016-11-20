@@ -75,10 +75,10 @@ public class RegisterSimpleController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	    	
-	    	response.setContentType("text/html; charset=UTF-8");
+
+		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-	    		
+
 		// Read parameters from request
 		String username = request.getParameter(USERNAME);
 		String password = request.getParameter(PASSWORD);
@@ -86,9 +86,9 @@ public class RegisterSimpleController extends HttpServlet {
 		String firstName = request.getParameter(FIRST_NAME);
 		String lastName = request.getParameter(LAST_NAME);
 		String location = request.getParameter(LOCATION);
-		
+
 		String errorMessage = "";
-		
+
 		errorMessage += checkAlphaDashes(firstName, lastName);
 		errorMessage += checkAlphanumericDashes(username, password);
 		if (errorMessage.length() > 0) {
@@ -96,45 +96,37 @@ public class RegisterSimpleController extends HttpServlet {
 			errorDispatcher.forward(request, response);
 			return;
 		}
-		
-		
-		
-		
-		
-		
 
 		try {
-		    if (simpleUserService.exist(ProfessionalUserDao.EMAIL, email)){
-			request.setAttribute("errorMessage", "Email already exists.");
-			errorDispatcher.forward(request, response);
-			return;
-		    }
-		    if (simpleUserService.exist(ProfessionalUserDao.USERNAME, username)){
-			request.setAttribute("errorMessage", "Username already exists.");
-			errorDispatcher.forward(request, response);
-			return;
-		    }
-		    
-		    	// Create the SimpleUser to be stored
+			if (simpleUserService.exist(ProfessionalUserDao.EMAIL, email)) {
+				request.setAttribute("errorMessage", "Email already exists.");
+				errorDispatcher.forward(request, response);
+				return;
+			}
+			if (simpleUserService.exist(ProfessionalUserDao.USERNAME, username)) {
+				request.setAttribute("errorMessage", "Username already exists.");
+				errorDispatcher.forward(request, response);
+				return;
+			}
+
+			// Create the SimpleUser to be stored
 			SimpleUser simpleUser = new SimpleUser().setFirstName(firstName).setLastName(lastName).setLocation(location)
 					.setUsername(username).setPassword(password).setEmail(email);
 
-		    
 			simpleUser = simpleUserService.create(simpleUser);
-			
+
 			// Set SimpleUser to request
 			request.setAttribute("simpleUser", simpleUser);
 			registeredDispatcher.forward(request, response);
-			
+
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
 
-		
 	}
-	
+
 	private String checkAlphaDashes(String firstName, String lastName) {
 		StringBuilder errorBuilder = new StringBuilder();
 		if (!StringUtils.isAlphaSpace(firstName.replace('-', ' '))) {
@@ -145,7 +137,7 @@ public class RegisterSimpleController extends HttpServlet {
 		}
 		return errorBuilder.toString();
 	}
-	
+
 	private String checkAlphanumericDashes(String username, String password) {
 		StringBuilder errorBuilder = new StringBuilder();
 		if (!StringUtils.isAlphanumericSpace(username.replace('-', ' '))) {

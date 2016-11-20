@@ -53,10 +53,10 @@ public class IndexController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		CachedRowSet crs = null;
 		try {
-			crs = mService.findTenTasks();
+			crs = mService.findDetailsByDeadlineDesc(10);
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "Error Loading Profile: " + e.getMessage());
+			request.setAttribute("errorMessage", "Error Loading Tasks: " + e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
 		request.setAttribute("tenTasks", crs);

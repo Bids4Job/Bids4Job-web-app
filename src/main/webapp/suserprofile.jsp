@@ -5,6 +5,7 @@
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.DateFormat"%>
 <%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.text.DecimalFormat"%>
 <%@ page errorPage="error.jsp"%>
 
 <!DOCTYPE html>
@@ -63,7 +64,7 @@
 				<!--start un-collapsed navbar-->
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="suserprofileWithContracts.jsp"><span
+					<li class="active"><a href="profile_simple"><span
 							class="glyphicon glyphicon-user"></span>My Profile</a></li>
 					<li><a href="#" data-toggle="modal"
 						data-target="#contracts-modal"><span
@@ -99,8 +100,9 @@
 							<!-- Get the SimpleUser object from the session -->
 							<%
 								SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
-								// Set up the SimpleDateFormat object
+								// Set up the SimpleDateFormat and DecimalFormat objects
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								DecimalFormat decimalFormat = new DecimalFormat("##.##");
 							%>
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">
@@ -171,19 +173,21 @@
 
 
 		<%
-			}
-						prevTaskID = taskID;
+			} // End  if (prevTaskID != 0)
 		%>
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
 				<h4 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#accordion"
 						href="#<%=taskID%>" aria-expanded="true"
-						aria-controls="<%=taskID%>"> Task #<%=taskID%> by <%=simpleUser.getUsername()%>
+						aria-controls="<%=taskID%>"> Task #<%=taskID%> - <%=crsTasks.getString("title")%>
 					</a>
 				</h4>
 			</div>
-			<div id="<%=taskID%>" class="panel-collapse collapse in"
+			<div id="<%=taskID%>"
+				class="panel-collapse collapse <%if (prevTaskID == 0) {%> in
+            			<%}
+						prevTaskID = taskID;%>"
 				role="tabpanel" aria-labelledby="heading<%=taskID%>">
 				<div class="panel-body">
 					<table class="table table-bordered">
@@ -199,22 +203,41 @@
 						<tbody>
 							<%
 								} // End 	if (taskID != prevTaskID)
+										int bidID = crsTasks.getInt("bid_id");
+										if (bidID != 0) {
 							%>
-
 							<tr>
 								<td><%=crsTasks.getString("username")%></td>
-								<td><%=crsTasks.getDouble("rating")%></td>
+								<%
+									double bidder_rating = crsTasks.getDouble("rating");
+												if (crsTasks.wasNull()) {
+								%>
+								<td>-</td>
+								<%
+									} else {
+								%>
+								<td><%=decimalFormat.format(bidder_rating)%></td>
+								<%
+									}
+								%>
 								<td><%=crsTasks.getInt("amount")%></td>
 								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
-								<td><form action="myAction.jsp">
+								<td><form method="POST" action="sign_contract">
 										<input type="hidden" name="taskId" value="<%=taskID%>">
-										<input type="hidden" name="bidId"
-											value="<%=crsTasks.getInt("bid_id")%>">
+										<input type="hidden" name="bidId" value="<%=bidID%>">
 										<button type="submit" class="btn btn-info">Accept Bid</button>
 									</form></td>
 							</tr>
 							<%
-								} // End 	while(crs.next())
+								} // End 	if (bidID != 0)
+										else {
+							%>
+							<tr>
+								<td colspan="5">-</td>
+							</tr>
+							<%
+								} // End if-else bidID != 0
+									} // End 	while(crs.next())
 							%>
 
 							<!-- Same snippets: (215 - 223) or (157 - 164) -->
@@ -349,7 +372,8 @@
 								while (crs.next()) {
 						%>
 						<div class="panel-heading" role="tab" id="headingOne">
-							<h4 class="panel-title"><%=crs.getInt("contract_id")%></h4>
+							<h4 class="panel-title">
+								Contract #<%=crs.getInt("contract_id")%></h4>
 						</div>
 
 						<div class="panel-body">

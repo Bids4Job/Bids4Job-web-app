@@ -128,9 +128,53 @@ public class TaskService {
 		return dao.findDetailsBySimpleUserID(simpleUserID);
 	}
 
+	/**
+	 * Finds all Tasks(and their Bids) in the database based on ProfessionalUser
+	 * bids. (taks_id, bid_id, pro_username, amount, rating, bid_time)
+	 *
+	 * @return a CachedRowSet with all Tasks(in detail) based on simple user ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 	public CachedRowSet findDetailsByProfessionalUserID(int proUserId)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-		return dao.findDetailsBySimpleUserID(proUserId);
+		return dao.findDetailsByProfessionalUserID(proUserId);
+	}
+
+	/**
+	 * Finds all Tasks(title, description, workfield, location, deadline,
+	 * bidders, ratings, amount, bid dates) in the database from a specified
+	 * profession
+	 *
+	 * @return all Tasks(full detailed) based on a profession
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findDetailsByProfession(String profession)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		return dao.findDetailsByProfession(profession);
+	}
+
+	/**
+	 * Finds all Tasks(and their Bids) in the database starting from the latest
+	 * deadline. (taks_id, bid_id, pro_username, amount, rating, bid_time)
+	 * 
+	 * @param limit
+	 *            the number of Tasks to be shown
+	 * @return a CachedRowSet with all Tasks(in detail) based on latest
+	 *         deadlines
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findDetailsByDeadlineDesc(int limit)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		return dao.findDetailsByDeadlineDesc(limit);
 	}
 
 }

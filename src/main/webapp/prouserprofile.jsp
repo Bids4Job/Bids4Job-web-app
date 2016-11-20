@@ -3,6 +3,7 @@
 <%@ page import="domain.ProfessionalUser"%>
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.text.DecimalFormat"%>
 <%@ page errorPage="error.jsp"%>
 
 <!DOCTYPE html>
@@ -48,8 +49,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a href="index"> <img alt="Brand" src="images/logo.png">
-					<!--Brand logo image-->
+				<a href="index"> <img alt="Brand" src="images/logo.png"> <!--Brand logo image-->
 				</a>
 			</div>
 			<!-- end collapsed navbar-->
@@ -88,10 +88,10 @@
 							</div>
 							<!-- Getting Attrin=bute from session -->
 							<%
-							    ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
-							    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-							    //String rating = (String) session.getAttribute("rating");
-							    String rating = (String) request.getAttribute("rating");
+								ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
+								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								DecimalFormat decimalFormat = new DecimalFormat("##.##");
+								String rating = (String) request.getAttribute("rating");
 							%>
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">
@@ -101,8 +101,16 @@
 											<td><%=pro.getUsername()%></td>
 										</tr>
 										<tr>
-											<td>Ratting:</td>
-											<td><%=rating%></td>
+											<td>Rating:</td>
+											<td>
+												<%
+													if (rating.equals("-")) {
+														out.println(rating);
+													} else {
+														out.println(decimalFormat.format(Double.parseDouble(rating)));
+													}
+												%>
+											</td>
 										</tr>
 										<tr>
 											<td>Email:</td>
@@ -144,15 +152,15 @@
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">
 
-					<!-- Get the contact details from the request -->
+					<!-- Get the task details from the request -->
 					<%
-					    CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
-					    if (crsTasks.isBeforeFirst()) {
+						CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
+						if (crsTasks.isBeforeFirst()) {
 							int prevTaskID = 0;
 							while (crsTasks.next()) {
-							    int taskID = crsTasks.getInt("task_id");
-							    if (taskID != prevTaskID) {
-								if (prevTaskID != 0) {
+								int taskID = crsTasks.getInt("task_id");
+								if (taskID != prevTaskID) {
+									if (prevTaskID != 0) {
 					%>
 					<!-- Same snippets: (244 - 274) or (157 - 188) -->
 					</tbody>
@@ -189,20 +197,23 @@
 
 
 		<%
-		    }
-					prevTaskID = taskID;
+			} // End	 if (prevTaskID != 0)
 		%>
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
 				<h4 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#accordion"
 						href="#<%=taskID%>" aria-expanded="true"
-						aria-controls="<%=taskID%>"> Task #<%=taskID%> by <%=pro.getUsername()%>
+						aria-controls="<%=taskID%>"> Task #<%=taskID%> - <%=crsTasks.getString("title")%>
 					</a>
 				</h4>
 			</div>
-			<div id="<%=taskID%>" class="panel-collapse collapse in"
-				role="tabpanel" aria-labelledby="heading<%=taskID%>">
+			<div id="<%=taskID%>"
+				class="panel-collapse collapse <%if (prevTaskID == 0) {%> in
+            			<%}
+						prevTaskID = taskID;%>
+				role="
+				tabpanel" aria-labelledby="heading<%=taskID%>">
 				<div class="panel-body">
 					<table class="table table-bordered">
 						<thead>
@@ -216,17 +227,28 @@
 						</thead>
 						<tbody>
 							<%
-							    } // End 	if (taskID != prevTaskID)
+								} // End 	if (taskID != prevTaskID)
 							%>
 
 							<tr>
 								<td><%=crsTasks.getString("username")%></td>
-								<td><%=crsTasks.getDouble("rating")%></td>
+								<%
+									double bidder_rating = crsTasks.getDouble("rating");
+											if (crsTasks.wasNull()) {
+								%>
+								<td>-</td>
+								<%
+									} else {
+								%>
+								<td><%=decimalFormat.format(bidder_rating)%></td>
+								<%
+									}
+								%>
 								<td><%=crsTasks.getInt("amount")%></td>
 								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
 								<td>
 									<%
-									    if (crsTasks.getString("username").equals(pro.getUsername())) {
+										if (crsTasks.getString("username").equals(pro.getUsername())) {
 									%>
 									<form class="form-inline" method="POST" action="cancel_bid">
 										<input type="hidden" name="bidId"
@@ -235,12 +257,12 @@
 											<i class="glyphicon glyphicon-remove"></i>
 										</button>
 									</form> <%
-     }
+ 	}
  %>
 								</td>
 							</tr>
 							<%
-							    } // End 	while(crs.next())
+								} // End 	while(crs.next())
 							%>
 
 							<!-- Same snippets: (244 - 274) or (157 - 188) -->
@@ -276,7 +298,7 @@
 			<!-- End .panel-collapse collapse in -->
 
 			<%
-			    }
+				}
 			%>
 		</div>
 		<!-- End .panel panel-default -->

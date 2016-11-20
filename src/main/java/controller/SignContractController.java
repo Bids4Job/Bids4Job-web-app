@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,26 +11,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.rowset.CachedRowSet;
 
-import domain.SimpleUser;
+import domain.Contract;
 import service.ContractService;
-import service.SimpleUserService;
 
 /**
- * Servlet implementation class LoginSimpleController
+ * Servlet implementation class SignContractController
  */
-@WebServlet("/login_simple")
-public class LoginSimpleController extends HttpServlet {
+@WebServlet("/sign_contract")
+public class SignContractController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// Parameter names
-	private static final String EMAIL = "email";
-	private static final String PASSWORD = "upass";
+	private static final String TASK_ID = "taskId";
+	private static final String BID_ID = "bidId";
 
-	// A service for SimpleUser database operations
-	private SimpleUserService simpleUserService;
-	
+	// A service for Contract related database operations
+	private ContractService contractService;
+
 	// SimpleUser profile page
 	private static final String PROFILE_CONTROLLER = "profile_simple";
 
@@ -39,7 +38,7 @@ public class LoginSimpleController extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoginSimpleController() {
+	public SignContractController() {
 		super();
 	}
 
@@ -48,8 +47,8 @@ public class LoginSimpleController extends HttpServlet {
 		// Define RequestDispatcher object to forward any errors
 		errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
 
-		// Instantiate a SimpleUser service object
-		simpleUserService = new SimpleUserService();
+		// Instantiate a Contract service object
+		contractService = new ContractService();
 	}
 
 	/**
@@ -60,30 +59,28 @@ public class LoginSimpleController extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		
-		// Get the credentials from the login form
-		String email = request.getParameter(EMAIL);
-		String password = request.getParameter(PASSWORD);
 
-		// Define a SimpleUser object to store the logged in user
-		SimpleUser simpleUser = null;
+		int taskID = Integer.parseInt(request.getParameter(TASK_ID));
+		int bidID = Integer.parseInt(request.getParameter(BID_ID));
 
+		// Define a Contract object to store the logged in user
+		Contract contract = null;
+
+		// Sign a new Contract using the ContractService
 		try {
-			simpleUser = simpleUserService.authenticate(email, password);
+			contract = contractService.sign(new Contract().setBidID(bidID).setTaskID(taskID)
+					.setContractTime(new Timestamp(System.currentTimeMillis())));	
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "Error Authenticating User: " + e.getMessage());
+			request.setAttribute("errorMessage", "Error Signing a new Contract: " + e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
 		
-		if (simpleUser != null) {
-			// Get the HttpSession that is associated with this request
-			HttpSession session = request.getSession();
-			// Set the user to session
-			session.setAttribute("simple-user", simpleUser);
+		// Return to simple user profile page if a Contract object has been returned																																																																																																																					
+		if (contract != null) {
 			response.sendRedirect(PROFILE_CONTROLLER);
 		} else {
-			request.setAttribute("errorMessage", "Wrong email or password");
+			request.setAttribute("errorMessage", "Error Signing a new Contract. \nPlease contact us!");
 			errorDispatcher.forward(request, response);
 		}
 	}
