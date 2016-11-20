@@ -147,7 +147,7 @@
 							<option value="Personal Trainer">Personal Trainer</option>
 							<option value="Teacher">Teacher</option>
 						</select> <span class="input-group-btn">
-							<button type="submit" class="btn btn-default" type="button">Search</button>
+							<button type="submit" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbspSearch</button>
 						</span>
 					</div>
 				</div>
@@ -175,7 +175,7 @@
 		<div class="row featurette">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h2 class="panel-title">10 Latest Deadlines</h2>
+					<h2 class="panel-title"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>10 Latest Deadlines</h2>
 				</div>
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">

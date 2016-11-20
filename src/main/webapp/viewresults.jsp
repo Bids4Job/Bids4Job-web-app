@@ -76,7 +76,7 @@
 		<div class="row toppad">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h2 class="panel-title">Search Results</h2>
+					<h2 class="panel-title"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbspSearch Results</h2>
 				</div>
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">
