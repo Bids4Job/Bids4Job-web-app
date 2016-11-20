@@ -4,11 +4,16 @@
 <%@ page import="domain.SimpleUser"%>
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 <%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.text.DecimalFormat"%>
+<%@ page import="java.sql.Timestamp"%>
 <%@ page errorPage="error.jsp"%>
 
 <%
 	boolean isSimple = ((SimpleUser) session.getAttribute("simple-user")) != null;
 	boolean isPro = ((ProfessionalUser) session.getAttribute("pro")) != null;
+	// Define formatters
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	DecimalFormat decimalFormat = new DecimalFormat("##.##");
 %>
 
 <!DOCTYPE html>
@@ -234,173 +239,299 @@
 
 		<!-- Start of .featurette -->
 		<div class="row featurette">
-			<div class="panel-group" id="accordion" role="tablist"
-				aria-multiselectable="true">
-				<div class="panel panel-default">
-
-
-					<div class="panel-heading">
-						<h2 class="panel-title">Ten Most Recent Tasks</h2>
-					</div>
-					<div class="panel-heading" role="tab" id="headingOne">
-						<h4 class="panel-title">
-							<a role="button" data-toggle="collapse" data-parent="#accordion"
-								href="#collapseOne" aria-expanded="true"
-								aria-controls="collapseOne"> Task #1 by simple_user1 </a>
-						</h4>
-					</div>
-					<div id="collapseOne" class="panel-collapse collapse in"
-						role="tabpanel" aria-labelledby="headingOne">
-						<div class="panel-body">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Bidder</th>
-										<th>Rating</th>
-										<th>Amount &euro;</th>
-										<th>Bid Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>pro_user1</td>
-										<td>4.5</td>
-										<td>500</td>
-										<td>12/10/2016 15:05:00</td>
-									</tr>
-									<tr>
-										<td>pro_user2</td>
-										<td>4.1</td>
-										<td>570</td>
-										<td>12/10/2016 13:15:00</td>
-									</tr>
-									<tr>
-										<td>pro_user3</td>
-										<td>4.7</td>
-										<td>580</td>
-										<td>12/10/2016 10:10:00</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-
-
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h2 class="panel-title">10 Latest Deadlines</h2>
 				</div>
-				<!-- End .panel -->
+				<div class="panel-group" id="accordion" role="tablist"
+					aria-multiselectable="true">
+
+					<!-- Get the task details from the request -->
+					<%
+						CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tenTasks");
+						if (crsTasks.isBeforeFirst()) {
+							int prevTaskID = 0;
+							while (crsTasks.next()) {
+								int taskID = crsTasks.getInt("task_id");
+								if (taskID != prevTaskID) {
+									if (prevTaskID != 0) {
+					%>
+					</tbody>
+					</table>
+					<%
+						if (isPro) {
+					%>
+					<div class="panel-footer">
+						<h4>Place a new bid</h4>
+						<form class="form-inline" method="POST" action="create_bid">
+
+							<div class="form-group">
+								<label for="task-title" class="control-label">Amount
+									&euro;</label> <input type="text" name="amount" ng-model="bid-amount"
+									class="form-control" id="bid-amount" placeholder="Bid Amount"
+									required>
+							</div>
+
+							<input type="hidden" name="taskId" value="<%=prevTaskID%>">
+							<!-- Receive taskId to connect with new bid -->
+
+							<div class="form-group">
+								<button class="btn btn-sm btn-success" type="submit">
+									<i class="glyphicon glyphicon-plus"></i>
+								</button>
+							</div>
+
+						</form>
+					</div>
+					<!-- End .panel-footer -->
+					<%
+						}
+					%>
+				</div>
+				<!-- End .panel-body -->
 			</div>
-			<!-- End #accordion -->
+			<!-- End .panel-collapse collapse in -->
 		</div>
-		<!-- End .featurette -->
-
-		<hr class="featurette-divider">
-
-		<div class="row featurette" id="howitworks">
-			<div class="col-md-7 col-md-push-5">
-				<h2 class="featurette-heading">
-					Need a job done? <span class="text-muted">We'll find you the
-						right professional!</span>
-				</h2>
-				<p class="lead">Sign up today and use our platform completely
-					free, and let the bidding begin! Once you sign up, you can create a
-					task and start receiving bids from our affiliated professionals, to
-					make sure that you not only find the best person, but also the best
-					price for your need!</p>
+		<!-- End .panel panel-default -->
+		<%
+			} // End	 if (prevTaskID != 0)
+						prevTaskID = taskID;
+		%>
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
+				<h4 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#accordion"
+						href="#collapse<%=taskID%>" aria-expanded="true"
+						aria-controls="collapse<%=taskID%>"> Task #<%=taskID%> - <%=crsTasks.getString("title")%>
+					</a>
+				</h4>
 			</div>
-			<div class="col-md-5 col-md-pull-7">
-				<img class="featurette-image img-responsive center-block"
-					src="images/pic1.jpg" alt="Generic placeholder image">
+			<div id="collapse<%=taskID%>" class="panel-collapse collapse"
+				role="tabpanel" aria-labelledby="heading<%=taskID%>">
+				<div class="panel-body">
+					<table class="table">
+						<tbody>
+							<tr class="active">
+								<th>Task Description</th>
+								<th>Field of Work</th>
+								<th>Task Location</th>
+								<th>Deadline</th>
+							</tr>
+							<tr>
+								<td><%=crsTasks.getString("description")%></td>
+								<td><%=crsTasks.getString("work_field")%></td>
+								<td><%=crsTasks.getString("location")%></td>
+								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("deadline"))%></td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Bidder</th>
+								<th>Rating</th>
+								<th>Amount &euro;</th>
+								<th>Bid Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								} // End 	if (taskID != prevTaskID)
+										int bidID = crsTasks.getInt("bid_id");
+										if (bidID != 0) {
+							%>
+							<tr>
+								<td><%=crsTasks.getString("username")%></td>
+								<%
+									double rating = crsTasks.getDouble("rating");
+												if (crsTasks.wasNull()) {
+								%>
+								<td>-</td>
+								<%
+									} else {
+								%>
+								<td><%=decimalFormat.format(rating)%></td>
+								<%
+									}
+								%>
+								<td><%=crsTasks.getInt("amount")%></td>
+								<%
+									Timestamp bid_timestamp = crsTasks.getTimestamp("bid_time");
+												if (crsTasks.wasNull()) {
+								%>
+								<td>-</td>
+								<%
+									} else {
+								%>
+								<td><%=simpleDateFormat.format(bid_timestamp)%></td>
+								<%
+									}
+								%>
+							</tr>
+							<%
+								} // End 	if (bidID != 0)
+										else {
+							%>
+							<tr>
+								<td colspan="4">-</td>
+							</tr>
+							<%
+								} // End if-else bidID != 0
+									} // End 	while(crs.next())
+							%>
+						</tbody>
+					</table>
+					<%
+						if (isPro) {
+					%>
+					<div class="panel-footer">
+						<h4>Place a new bid</h4>
+						<form class="form-inline" method="POST" action="create_bid">
+
+							<div class="form-group">
+								<label for="task-title" class="control-label">Amount
+									&euro;</label> <input type="text" name="amount" ng-model="bid-amount"
+									class="form-control" id="bid-amount" placeholder="Bid Amount"
+									required>
+							</div>
+
+							<input type="hidden" name="taskId" value="<%=prevTaskID%>">
+							<!-- Receive taskId to connect with new bid -->
+
+							<div class="form-group">
+								<button class="btn btn-sm btn-success" type="submit">
+									<i class="glyphicon glyphicon-plus"></i>
+								</button>
+							</div>
+
+						</form>
+					</div>
+					<!-- End .panel-footer -->
+					<%
+						}
+					%>
+				</div>
+				<!-- End .panel-body -->
 			</div>
+			<!-- End .panel-collapse collapse in -->
 		</div>
+		<!-- End .panel panel-default -->
+		<%
+			}
+		%>
+	</div>
+	<!-- End .panel-group -->
+	</div>
+	<!-- End .panel panel-info -->
 
-		<hr class="featurette-divider">
 
-		<div class="row featurette" id="learnmore">
-			<div class="col-md-7">
-				<h2 class="featurette-heading">
-					Are you a professional? <span class="text-muted">Let us help
-						you grow your business.</span>
-				</h2>
-				<p class="lead">Sign up today for free and start bidding on jobs
-					you'd be interested in, and start building your rating with our
-					service, in order to make sure your good reputation follows you
-					everywhere! Contact us to discuss our competitive pricing plans for
-					booking a job on our platform.</p>
-			</div>
-			<div class="col-md-5">
-				<img class="featurette-image img-responsive center-block"
-					src="images/pic2.jpg" alt="Generic placeholder image">
-			</div>
+	<hr class="featurette-divider">
+
+	<div class="row featurette" id="howitworks">
+		<div class="col-md-7 col-md-push-5">
+			<h2 class="featurette-heading">
+				Need a job done? <span class="text-muted">We'll find you the
+					right professional!</span>
+			</h2>
+			<p class="lead">Sign up today and use our platform completely
+				free, and let the bidding begin! Once you sign up, you can create a
+				task and start receiving bids from our affiliated professionals, to
+				make sure that you not only find the best person, but also the best
+				price for your need!</p>
 		</div>
-
-		<hr class="featurette-divider">
-
-		<div class="row featurette" id="contact">
-			<div class="col-md-5 col-md-push-7">
-				<h2 class="featurette-heading">
-					Contact Us:</span>
-				</h2>
-				<p class="lead">
-					<span class="glyphicon glyphicon-map-marker"></span>Korai 3,
-					Athens, Greece
-				</p>
-				<p class="lead">
-					<span class="glyphicon glyphicon-phone"></span> +30 6945000000
-				</p>
-				<p class="lead">
-					<span class="glyphicon glyphicon-envelope"></span>&nbsp;<a
-						href="mailto:bid4job@outlook.com" target="_top">bid4job@outlook.com</a>
-				</p>
-			</div>
-			<div class="col-md-7 col-md-pull-5">
-				<div id="googleMap" style="height: 500px; width: 500px;"></div>
-
-				<!-- Add Google Maps -->
-				<script src="https://maps.googleapis.com/maps/api/js"></script>
-				<script>
-					var myCenter = new google.maps.LatLng(37.980105, 23.732287);
-
-					function initialize() {
-						var mapProp = {
-							center : myCenter,
-							zoom : 12,
-							scrollwheel : false,
-							draggable : false,
-							mapTypeId : google.maps.MapTypeId.ROADMAP
-						};
-
-						var map = new google.maps.Map(document
-								.getElementById("googleMap"), mapProp);
-
-						var marker = new google.maps.Marker({
-							position : myCenter,
-						});
-
-						marker.setMap(map);
-					}
-
-					google.maps.event
-							.addDomListener(window, 'load', initialize);
-				</script>
-
-			</div>
+		<div class="col-md-5 col-md-pull-7">
+			<img class="featurette-image img-responsive center-block"
+				src="images/pic1.jpg" alt="Generic placeholder image">
 		</div>
+	</div>
 
-		<hr class="featurette-divider">
+	<hr class="featurette-divider">
 
+	<div class="row featurette" id="learnmore">
+		<div class="col-md-7">
+			<h2 class="featurette-heading">
+				Are you a professional? <span class="text-muted">Let us help
+					you grow your business.</span>
+			</h2>
+			<p class="lead">Sign up today for free and start bidding on jobs
+				you'd be interested in, and start building your rating with our
+				service, in order to make sure your good reputation follows you
+				everywhere! Contact us to discuss our competitive pricing plans for
+				booking a job on our platform.</p>
+		</div>
+		<div class="col-md-5">
+			<img class="featurette-image img-responsive center-block"
+				src="images/pic2.jpg" alt="Generic placeholder image">
+		</div>
+	</div>
 
-		<!-- Start Footer -->
+	<hr class="featurette-divider">
 
-		<footer>
-			<p class="pull-right">
-				<a href="#">Back to top</a>
+	<div class="row featurette" id="contact">
+		<div class="col-md-5 col-md-push-7">
+			<h2 class="featurette-heading">
+				Contact Us:</span>
+			</h2>
+			<p class="lead">
+				<span class="glyphicon glyphicon-map-marker"></span>Korai 3, Athens,
+				Greece
 			</p>
-			<p>
-				&copy; 2016 Bids4Job S.A. &middot; <a href="#">Privacy</a> &middot;
-				<a href="#">Terms</a>
+			<p class="lead">
+				<span class="glyphicon glyphicon-phone"></span> +30 6945000000
 			</p>
-		</footer>
-		<!-- End of Footer -->
+			<p class="lead">
+				<span class="glyphicon glyphicon-envelope"></span>&nbsp;<a
+					href="mailto:bid4job@outlook.com" target="_top">bid4job@outlook.com</a>
+			</p>
+		</div>
+		<div class="col-md-7 col-md-pull-5">
+			<div id="googleMap" style="height: 500px; width: 500px;"></div>
+
+			<!-- Add Google Maps -->
+			<script src="https://maps.googleapis.com/maps/api/js"></script>
+			<script>
+				var myCenter = new google.maps.LatLng(37.980105, 23.732287);
+
+				function initialize() {
+					var mapProp = {
+						center : myCenter,
+						zoom : 12,
+						scrollwheel : false,
+						draggable : false,
+						mapTypeId : google.maps.MapTypeId.ROADMAP
+					};
+
+					var map = new google.maps.Map(document
+							.getElementById("googleMap"), mapProp);
+
+					var marker = new google.maps.Marker({
+						position : myCenter,
+					});
+
+					marker.setMap(map);
+				}
+
+				google.maps.event.addDomListener(window, 'load', initialize);
+			</script>
+
+		</div>
+	</div>
+
+	<hr class="featurette-divider">
+
+
+	<!-- Start Footer -->
+
+	<footer>
+		<p class="pull-right">
+			<a href="#">Back to top</a>
+		</p>
+		<p>
+			&copy; 2016 Bids4Job S.A. &middot; <a href="#">Privacy</a> &middot; <a
+				href="#">Terms</a>
+		</p>
+	</footer>
+	<!-- End of Footer -->
 
 	</div>
 	<!-- End of .container marketing -->
