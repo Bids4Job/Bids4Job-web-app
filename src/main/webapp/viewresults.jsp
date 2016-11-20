@@ -212,6 +212,9 @@
 							%>
 						</tbody>
 					</table>
+					<%
+						if (isPro) {
+					%>
 					<div class="panel-footer">
 						<h4>Place a new bid</h4>
 						<form class="form-inline" method="POST" action="create_bid">
@@ -235,6 +238,9 @@
 						</form>
 					</div>
 					<!-- End .panel-footer -->
+					<%
+						}
+					%>
 				</div>
 				<!-- End .panel-body -->
 			</div>
