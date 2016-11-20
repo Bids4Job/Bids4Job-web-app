@@ -159,4 +159,22 @@ public class TaskService {
 		return dao.findDetailsByProfession(profession);
 	}
 
+	/**
+	 * Finds all Tasks(and their Bids) in the database starting from the latest
+	 * deadline. (taks_id, bid_id, pro_username, amount, rating, bid_time)
+	 * 
+	 * @param limit
+	 *            the number of Tasks to be shown
+	 * @return a CachedRowSet with all Tasks(in detail) based on latest
+	 *         deadlines
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findDetailsByDeadlineDesc(int limit)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		return dao.findDetailsByDeadlineDesc(limit);
+	}
+
 }
