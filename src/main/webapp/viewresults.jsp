@@ -11,9 +11,11 @@
 <%
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	DecimalFormat decimalFormat = new DecimalFormat("##.##");
+	// Get the Professional User object from session
+	ProfessionalUser professionalUser = (ProfessionalUser) session.getAttribute("pro");
 	// Use a boolean to know if a ProfessionalUser or a SimpleUser is logged in
 	boolean isSimple = ((SimpleUser) session.getAttribute("simple-user")) != null;
-	boolean isPro = ((ProfessionalUser) session.getAttribute("pro") != null);
+	boolean isPro = (professionalUser != null);
 %>
 <!DOCTYPE html>
 <html>
@@ -88,16 +90,20 @@
 					<%
 						CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
 						if (crsTasks.isBeforeFirst()) {
+							boolean sameProfession = false;
 							int prevTaskID = 0;
+							int taskID;
+							String prevProfession = "";
 							while (crsTasks.next()) {
-								int taskID = crsTasks.getInt("task_id");
+								sameProfession = (isPro) && professionalUser.getProfession().equals(prevProfession);
+								taskID = crsTasks.getInt("task_id");
 								if (taskID != prevTaskID) {
 									if (prevTaskID != 0) {
 					%>
 					</tbody>
 					</table>
 					<%
-						if (isPro) {
+						if (sameProfession) {
 					%>
 					<div class="panel-footer">
 						<h4>Place a new bid</h4>
@@ -146,7 +152,8 @@
 			<div id="collapse<%=taskID%>"
 				class="panel-collapse collapse <%if (prevTaskID == 0) {%> in
             			<%}
-						prevTaskID = taskID;%>"
+						prevTaskID = taskID;
+						prevProfession = crsTasks.getString("work_field");%>"
 				role="tabpanel" aria-labelledby="heading<%=taskID%>">
 				<div class="panel-body">
 					<table class="table">
@@ -222,7 +229,7 @@
 						</tbody>
 					</table>
 					<%
-						if (isPro) {
+					if (sameProfession) {
 					%>
 					<div class="panel-footer">
 						<h4>Place a new bid</h4>

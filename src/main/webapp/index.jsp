@@ -9,11 +9,14 @@
 <%@ page errorPage="error.jsp"%>
 
 <%
-	boolean isSimple = ((SimpleUser) session.getAttribute("simple-user")) != null;
-	boolean isPro = ((ProfessionalUser) session.getAttribute("pro")) != null;
 	// Define formatters
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	DecimalFormat decimalFormat = new DecimalFormat("##.##");
+	// Get the Professional User object from session
+	ProfessionalUser professionalUser = (ProfessionalUser) session.getAttribute("pro");
+	// Use a boolean to know if a ProfessionalUser or a SimpleUser is logged in
+	boolean isSimple = ((SimpleUser) session.getAttribute("simple-user")) != null;
+	boolean isPro = (professionalUser != null);
 %>
 
 <!DOCTYPE html>
@@ -147,7 +150,9 @@
 							<option value="Personal Trainer">Personal Trainer</option>
 							<option value="Teacher">Teacher</option>
 						</select> <span class="input-group-btn">
-							<button type="submit" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbspSearch</button>
+							<button type="submit" class="btn btn-default" type="button">
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbspSearch
+							</button>
 						</span>
 					</div>
 				</div>
@@ -167,7 +172,7 @@
 	<!--End Carousel-->
 
 	<%@ include file="login_modal.jsp"%>
-	
+
 
 	<div class="container marketing">
 
@@ -175,7 +180,10 @@
 		<div class="row featurette">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h2 class="panel-title"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>10 Latest Deadlines</h2>
+					<h2 class="panel-title">
+						<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>10
+						Latest Deadlines
+					</h2>
 				</div>
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">
@@ -184,16 +192,20 @@
 					<%
 						CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tenTasks");
 						if (crsTasks.isBeforeFirst()) {
+							boolean sameProfession = false;
 							int prevTaskID = 0;
+							int taskID;
+							String prevProfession = "";
 							while (crsTasks.next()) {
-								int taskID = crsTasks.getInt("task_id");
+								sameProfession = (isPro) && professionalUser.getProfession().equals(prevProfession);
+								taskID = crsTasks.getInt("task_id");
 								if (taskID != prevTaskID) {
 									if (prevTaskID != 0) {
 					%>
 					</tbody>
 					</table>
 					<%
-						if (isPro) {
+						if (sameProfession) {
 					%>
 					<div class="panel-footer">
 						<h4>Place a new bid</h4>
@@ -230,6 +242,7 @@
 		<%
 			} // End	 if (prevTaskID != 0)
 						prevTaskID = taskID;
+						prevProfession = crsTasks.getString("work_field");
 		%>
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
@@ -316,7 +329,7 @@
 						</tbody>
 					</table>
 					<%
-						if (isPro) {
+						if (sameProfession) {
 					%>
 					<div class="panel-footer">
 						<h4>Place a new bid</h4>

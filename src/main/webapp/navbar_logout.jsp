@@ -19,7 +19,7 @@ a Professional or a Simple User respectively
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a href="index.jsp"> <img alt="Brand" src="images/logo.png">
+			<a href="index"> <img alt="Brand" src="images/logo.png">
 				<!--Brand logo image-->
 			</a>
 		</div>
