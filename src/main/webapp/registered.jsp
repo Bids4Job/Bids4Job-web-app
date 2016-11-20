@@ -11,6 +11,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bids4Job Sign Up Success</title>
+<!-- Add favicon -->
+<link rel="icon" href="favicon.ico">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -35,8 +37,7 @@
 
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
-			<a href="index"> <img alt="Brand" src="images/logo.png">
-				<!--Brand logo image-->
+			<a href="index"> <img alt="Brand" src="images/logo.png"> <!--Brand logo image-->
 			</a>
 		</div>
 	</nav>
