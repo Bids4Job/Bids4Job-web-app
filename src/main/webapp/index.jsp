@@ -223,7 +223,8 @@
 							<!-- Receive taskId to connect with new bid -->
 
 							<div class="form-group">
-								<button class="btn btn-sm btn-success" type="submit">
+								<button class="btn btn-sm btn-success" type="submit"
+									name="submit" value="index">
 									<i class="glyphicon glyphicon-plus"></i>
 								</button>
 							</div>
@@ -347,7 +348,8 @@
 							<!-- Receive taskId to connect with new bid -->
 
 							<div class="form-group">
-								<button class="btn btn-sm btn-success" type="submit">
+								<button class="btn btn-sm btn-success" type="submit"
+									name="submit" value="index">
 									<i class="glyphicon glyphicon-plus"></i>
 								</button>
 							</div>
