@@ -205,7 +205,7 @@
 				<h4 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#accordion"
 						href="#<%=taskID%>" aria-expanded="true"
-						aria-controls="<%=taskID%>"> Task #<%=taskID%> by <%=pro.getUsername()%>
+						aria-controls="<%=taskID%>"> Task #<%=taskID%>  - <%=crsTasks.getString("title")%>
 					</a>
 				</h4>
 			</div>
