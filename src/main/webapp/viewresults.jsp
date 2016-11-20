@@ -76,7 +76,10 @@
 		<div class="row toppad">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h2 class="panel-title"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbspSearch Results</h2>
+					<h2 class="panel-title">
+						<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbspSearch
+						Results
+					</h2>
 				</div>
 				<div class="panel-group" id="accordion" role="tablist"
 					aria-multiselectable="true">
@@ -130,7 +133,6 @@
 		<!-- End .panel panel-default -->
 		<%
 			} // End	 if (prevTaskID != 0)
-						prevTaskID = taskID;
 		%>
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
@@ -141,7 +143,10 @@
 					</a>
 				</h4>
 			</div>
-			<div id="collapse<%=taskID%>" class="panel-collapse collapse in"
+			<div id="collapse<%=taskID%>"
+				class="panel-collapse collapse <%if (prevTaskID == 0) {%> in
+            			<%}
+						prevTaskID = taskID;%>"
 				role="tabpanel" aria-labelledby="heading<%=taskID%>">
 				<div class="panel-body">
 					<table class="table">
