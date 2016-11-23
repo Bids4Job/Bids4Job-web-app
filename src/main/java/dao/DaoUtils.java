@@ -18,7 +18,7 @@ public class DaoUtils {
 
 	// JDBC driver name and database URL
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://localhost/bids4job_db?useSSL=false";
+	private static final String DB_URL = "jdbc:mysql://localhost/bids4job_db?characterEncoding=utf8&useSSL=false";
 
 	// Database credentials
     private static final String CONFIG_FILE = "config.properties";

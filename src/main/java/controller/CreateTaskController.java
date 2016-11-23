@@ -49,6 +49,9 @@ public class CreateTaskController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
 		String task_title = request.getParameter("task_title");
 		String date = request.getParameter("date");
 		String task_description = request.getParameter("task_description");
