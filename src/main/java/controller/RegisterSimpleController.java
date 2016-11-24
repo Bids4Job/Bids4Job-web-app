@@ -1,14 +1,17 @@
 package controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,6 +23,7 @@ import service.SimpleUserService;
  * Servlet implementation class RegisterSimpleController
  */
 @WebServlet("/register_simple")
+@MultipartConfig(maxFileSize = 16177215)
 public class RegisterSimpleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,6 +34,7 @@ public class RegisterSimpleController extends HttpServlet {
 	private static final String USERNAME = "uname";
 	private static final String PASSWORD = "upass";
 	private static final String LOCATION = "location";
+	private static final String PROFILE_IMAGE = "simple-image";
 
 	// A service for SimpleUser database operations
 	private SimpleUserService simpleUserService;
@@ -86,6 +91,19 @@ public class RegisterSimpleController extends HttpServlet {
 		String firstName = request.getParameter(FIRST_NAME);
 		String lastName = request.getParameter(LAST_NAME);
 		String location = request.getParameter(LOCATION);
+		
+		// Input stream of the upload file
+		InputStream inputStream = null;
+		// Obtain the upload file part in this multipart request
+		Part imagePart = request.getPart(PROFILE_IMAGE);
+		if (imagePart != null) {
+			// Prints out some information for debugging
+			System.out.println(imagePart.getName());
+			System.out.println(imagePart.getSize());
+			System.out.println(imagePart.getContentType());
+			// Obtain input stream of the upload file
+			inputStream = imagePart.getInputStream();
+		}
 
 		String errorMessage = "";
 
@@ -113,7 +131,7 @@ public class RegisterSimpleController extends HttpServlet {
 			SimpleUser simpleUser = new SimpleUser().setFirstName(firstName).setLastName(lastName).setLocation(location)
 					.setUsername(username).setPassword(password).setEmail(email);
 
-			simpleUser = simpleUserService.create(simpleUser);
+			simpleUser = simpleUserService.create(simpleUser, inputStream);
 
 			// Set SimpleUser to request
 			request.setAttribute("simpleUser", simpleUser);

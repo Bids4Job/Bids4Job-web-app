@@ -1,9 +1,11 @@
 package dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,13 +114,19 @@ public class SimpleUserDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public SimpleUser create(SimpleUser simpleUser)
+	public SimpleUser create(SimpleUser simpleUser, InputStream is)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		String sql = "INSERT INTO " + SIMPLE_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION + ", "
-				+ USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE_ACCOUNT + ") VALUES (?, ?, ?, ?, ?, ?, ?);";
+				+ USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE_ACCOUNT + ", simple_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
+			
+			String limitSql = "SET GLOBAL max_allowed_packet = 104857600;";
+			Statement stSetLimit = conn.createStatement();
+			stSetLimit.execute(limitSql);
+			
+			
 			preStmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			preStmt.setString(1, simpleUser.getFirstName());
 			preStmt.setString(2, simpleUser.getLastName());
@@ -127,6 +135,7 @@ public class SimpleUserDAO {
 			preStmt.setString(5, simpleUser.getPassword());
 			preStmt.setString(6, simpleUser.getEmail());
 			preStmt.setBoolean(7, simpleUser.getActiveAccount());
+			preStmt.setBlob(8, is);
 			preStmt.executeUpdate();
 			rs = preStmt.getGeneratedKeys();
 			if (rs.next()) {

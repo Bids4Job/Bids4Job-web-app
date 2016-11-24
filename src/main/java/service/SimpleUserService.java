@@ -1,10 +1,11 @@
 package service;
 
-import dao.SimpleUserDAO;
-import domain.SimpleUser;
-
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
+
+import dao.SimpleUserDAO;
+import domain.SimpleUser;
 
 public class SimpleUserService {
 
@@ -49,12 +50,12 @@ public class SimpleUserService {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public SimpleUser create(SimpleUser simpleUser)
+    public SimpleUser create(SimpleUser simpleUser, InputStream is)
 	    throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 	// Set the account_active attribute always to true while a new
 	// SimpleUser is created
 	simpleUser.setActiveAccount(true);
-	return simpleUserDAO.create(simpleUser);
+	return simpleUserDAO.create(simpleUser, is);
     }
 
     /**

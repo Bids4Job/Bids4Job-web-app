@@ -8,9 +8,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema bids4job_db
+-- Drop old bids4job_db
 -- -----------------------------------------------------
-
+DROP DATABASE IF EXISTS `bids4job_db`;
 -- -----------------------------------------------------
 -- Schema bids4job_db
 -- -----------------------------------------------------

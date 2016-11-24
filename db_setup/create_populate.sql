@@ -8,9 +8,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema bids4job_db
+-- Drop old bids4job_db
 -- -----------------------------------------------------
-
+DROP DATABASE IF EXISTS `bids4job_db`;
 -- -----------------------------------------------------
 -- Schema bids4job_db
 -- -----------------------------------------------------
@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `simple_user` (
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `active_account` BOOLEAN NOT NULL,
+  `simple_photo` MEDIUMBLOB,
   PRIMARY KEY (`simple_user_id`))
 ENGINE = InnoDB;
 
@@ -68,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `pro_user` (
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `active_account` BOOLEAN NOT NULL,
+  `pro_photo` MEDIUMBLOB,
   PRIMARY KEY (`pro_user_id`))
 ENGINE = InnoDB;
 
