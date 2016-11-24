@@ -91,24 +91,24 @@ public class RegisterSimpleController extends HttpServlet {
 		String firstName = request.getParameter(FIRST_NAME);
 		String lastName = request.getParameter(LAST_NAME);
 		String location = request.getParameter(LOCATION);
-		
+
 		// Input stream of the upload file
 		InputStream inputStream = null;
 		// Obtain the upload file part in this multipart request
 		Part imagePart = request.getPart(PROFILE_IMAGE);
-		if (imagePart != null) {
-			// Prints out some information for debugging
-			System.out.println(imagePart.getName());
-			System.out.println(imagePart.getSize());
-			System.out.println(imagePart.getContentType());
-			// Obtain input stream of the upload file
-			inputStream = imagePart.getInputStream();
-		}
+
+		// Obtain input stream of the upload file
+		inputStream = imagePart.getInputStream();
 
 		String errorMessage = "";
 
 		errorMessage += checkAlphaDashes(firstName, lastName);
 		errorMessage += checkAlphanumericDashes(username, password);
+		// Check if the selected file (if any) is an image
+		if (imagePart.getSize() != 0) {
+			errorMessage += checkContentType(imagePart.getContentType(), "image");
+		}
+
 		if (errorMessage.length() > 0) {
 			request.setAttribute("errorMessage", errorMessage);
 			errorDispatcher.forward(request, response);
@@ -164,6 +164,23 @@ public class RegisterSimpleController extends HttpServlet {
 		if (!StringUtils.isAlphanumericSpace(password.replace('-', ' '))) {
 			errorBuilder.append(password).append(" should contain only letters, numbers and hyphens").append("<br>");
 		}
+		return errorBuilder.toString();
+	}
+
+	/**
+	 * Checks if the uploaded file is of ContentType image.
+	 * 
+	 * @param contentType
+	 *            the content type to be checked
+	 * @param desiredType
+	 *            the desired content type
+	 * @return an error message if an error occurred
+	 */
+	private String checkContentType(String contentType, String desiredType) {
+		StringBuilder errorBuilder = new StringBuilder();
+		String type = contentType.split("/")[0];
+		if (!type.equals(desiredType))
+			errorBuilder.append("The file to be uploaded should be an image").append("<br>");
 		return errorBuilder.toString();
 	}
 
