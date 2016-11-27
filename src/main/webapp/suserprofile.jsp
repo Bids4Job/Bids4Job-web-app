@@ -44,6 +44,12 @@
 	<%
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		// Get the SimpleUser object from the session
+		SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
+		// Set up the SimpleDateFormat and DecimalFormat objects
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DecimalFormat decimalFormat = new DecimalFormat("##.##");
 	%>
 
 	<!--Navbar start-->
@@ -96,17 +102,10 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-3 col-lg-3 " align="center">
-								<img alt="User Pic" src="images/user_avatar.png"
+								<img alt="User Pic" src=<%=simpleUser.getPhotoUrl()%>
 									class="img-circle img-responsive">
 							</div>
 
-							<!-- Get the SimpleUser object from the session -->
-							<%
-								SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
-								// Set up the SimpleDateFormat and DecimalFormat objects
-								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-								DecimalFormat decimalFormat = new DecimalFormat("##.##");
-							%>
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">
 									<tbody>

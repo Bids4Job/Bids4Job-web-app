@@ -1,7 +1,10 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +19,7 @@ import javax.servlet.http.Part;
 import org.apache.commons.lang3.StringUtils;
 
 import dao.ProfessionalUserDao;
+import dao.PropertiesFileUtils;
 import domain.SimpleUser;
 import service.SimpleUserService;
 
@@ -35,6 +39,9 @@ public class RegisterSimpleController extends HttpServlet {
 	private static final String PASSWORD = "upass";
 	private static final String LOCATION = "location";
 	private static final String PROFILE_IMAGE = "simple-image";
+	// Storage Location info
+	private static final String CONFIG_FILE = "config.properties";
+	private static final String UPLOAD_LOCATION = "upload.location";
 
 	// A service for SimpleUser database operations
 	private SimpleUserService simpleUserService;
@@ -80,7 +87,6 @@ public class RegisterSimpleController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 
@@ -92,13 +98,8 @@ public class RegisterSimpleController extends HttpServlet {
 		String lastName = request.getParameter(LAST_NAME);
 		String location = request.getParameter(LOCATION);
 
-		// Input stream of the upload file
-		InputStream inputStream = null;
 		// Obtain the upload file part in this multipart request
 		Part imagePart = request.getPart(PROFILE_IMAGE);
-
-		// Obtain input stream of the upload file
-		inputStream = imagePart.getInputStream();
 
 		String errorMessage = "";
 
@@ -106,7 +107,7 @@ public class RegisterSimpleController extends HttpServlet {
 		errorMessage += checkAlphanumericDashes(username, password);
 		// Check if the selected file (if any) is an image
 		if (imagePart.getSize() != 0) {
-			errorMessage += checkContentType(imagePart.getContentType(), "image");
+			errorMessage += checkUploadContentType(imagePart.getContentType(), "image");
 		}
 
 		if (errorMessage.length() > 0) {
@@ -131,7 +132,30 @@ public class RegisterSimpleController extends HttpServlet {
 			SimpleUser simpleUser = new SimpleUser().setFirstName(firstName).setLastName(lastName).setLocation(location)
 					.setUsername(username).setPassword(password).setEmail(email);
 
-			simpleUser = simpleUserService.create(simpleUser, inputStream);
+			if (imagePart.getSize() != 0) {
+				// Get the absolute path of the web application
+				String appPath = request.getServletContext().getRealPath("");
+				// The upload location
+				String uploadLocation = PropertiesFileUtils.getPropertyValue(CONFIG_FILE, UPLOAD_LOCATION);
+				// Construct path of the directory to save uploaded files
+				String savePath = appPath + File.separator
+						+ uploadLocation;
+				// Define the path to the final storage location
+				File uploadFile = new File(savePath);
+				if (!uploadFile.exists()) {
+					uploadFile.mkdir();
+				}
+				String contentType = "." + imagePart.getContentType().split("/")[1];
+				File file = new File(uploadFile, username + contentType);
+
+				try (InputStream input = imagePart.getInputStream()) {
+					Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+					// Set the photo url
+					simpleUser.setPhotoUrl(uploadLocation + File.separator + username + contentType);
+				}
+			}
+
+			simpleUser = simpleUserService.create(simpleUser);
 
 			// Set SimpleUser to request
 			request.setAttribute("simpleUser", simpleUser);
@@ -176,7 +200,7 @@ public class RegisterSimpleController extends HttpServlet {
 	 *            the desired content type
 	 * @return an error message if an error occurred
 	 */
-	private String checkContentType(String contentType, String desiredType) {
+	private String checkUploadContentType(String contentType, String desiredType) {
 		StringBuilder errorBuilder = new StringBuilder();
 		String type = contentType.split("/")[0];
 		if (!type.equals(desiredType))

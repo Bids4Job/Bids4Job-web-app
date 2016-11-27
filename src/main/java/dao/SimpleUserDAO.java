@@ -1,11 +1,9 @@
 package dao;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +28,7 @@ public class SimpleUserDAO {
 	private static final String PASSWORD = "password";
 	private static final String EMAIL = "email";
 	private static final String ACTIVE_ACCOUNT = "active_account";
+	private static final String SIMPLE_PHOTO_URL = "simple_photo";
 	private Connection conn;
 	private PreparedStatement preStmt;
 	private ResultSet rs;
@@ -114,19 +113,14 @@ public class SimpleUserDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public SimpleUser create(SimpleUser simpleUser, InputStream is)
+	public SimpleUser create(SimpleUser simpleUser)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		String sql = "INSERT INTO " + SIMPLE_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION + ", "
-				+ USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE_ACCOUNT + ", simple_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+				+ USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE_ACCOUNT + ", " + SIMPLE_PHOTO_URL
+				+ ") VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
-			
-			String limitSql = "SET GLOBAL max_allowed_packet = 104857600;";
-			Statement stSetLimit = conn.createStatement();
-			stSetLimit.execute(limitSql);
-			
-			
 			preStmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			preStmt.setString(1, simpleUser.getFirstName());
 			preStmt.setString(2, simpleUser.getLastName());
@@ -135,7 +129,7 @@ public class SimpleUserDAO {
 			preStmt.setString(5, simpleUser.getPassword());
 			preStmt.setString(6, simpleUser.getEmail());
 			preStmt.setBoolean(7, simpleUser.getActiveAccount());
-			preStmt.setBlob(8, is);
+			preStmt.setString(8, simpleUser.getPhotoUrl());
 			preStmt.executeUpdate();
 			rs = preStmt.getGeneratedKeys();
 			if (rs.next()) {
@@ -306,8 +300,10 @@ public class SimpleUserDAO {
 	/**
 	 * Finds the Simple User with the given email and password.
 	 * 
-	 * @param email the email of the user
-	 * @param password the password of the user
+	 * @param email
+	 *            the email of the user
+	 * @param password
+	 *            the password of the user
 	 * @return The SimpleUser with the specified ID
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -333,9 +329,10 @@ public class SimpleUserDAO {
 		}
 		return simpleUser;
 	}
-	
+
 	/**
 	 * Checks if username or email already exists.
+	 * 
 	 * @param name
 	 * @param value
 	 * @return
@@ -344,28 +341,27 @@ public class SimpleUserDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean exist(String name, String value) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
-		
+	public boolean exist(String name, String value)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+
 		String query = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + name + " =?;";
 		this.prepareResources();
 		try {
-		    conn = DaoUtils.getConnection();
-		    preStmt = conn.prepareStatement(query);
-		    preStmt.setString(1, value);
-		    rs = preStmt.executeQuery();
-		    if (rs.next()) {
-			return true;
-		    } else {
-			return false;
-		    }
-		    
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(query);
+			preStmt.setString(1, value);
+			rs = preStmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+
 		} finally {
 			DaoUtils.closeResources(rs, preStmt, conn);
 		}
-		
-	    }
-	
-	
+
+	}
 
 	/**
 	 * Utility method that takes a result set and returns a SimpleUser object.
@@ -379,6 +375,6 @@ public class SimpleUserDAO {
 				.setFirstName(resultSet.getString(FIRST_NAME)).setLastName(resultSet.getString(LAST_NAME))
 				.setLocation(resultSet.getString(LOCATION)).setUsername(resultSet.getString(USERNAME))
 				.setPassword(resultSet.getString(PASSWORD)).setEmail(resultSet.getString(EMAIL))
-				.setActiveAccount(resultSet.getBoolean(ACTIVE_ACCOUNT));
+				.setActiveAccount(resultSet.getBoolean(ACTIVE_ACCOUNT)).setPhotoUrl(resultSet.getString(SIMPLE_PHOTO_URL));
 	}
 }

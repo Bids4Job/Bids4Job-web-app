@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `simple_user` (
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `active_account` BOOLEAN NOT NULL,
+  `simple_photo` VARCHAR(2083),
   PRIMARY KEY (`simple_user_id`))
 ENGINE = InnoDB;
 
@@ -67,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `pro_user` (
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `active_account` BOOLEAN NOT NULL,
+  `pro_photo` VARCHAR(2083),
   PRIMARY KEY (`pro_user_id`))
 ENGINE = InnoDB;
 

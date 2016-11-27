@@ -14,7 +14,8 @@ public class SimpleUser {
 	private String password;
 	private String email;
 	private boolean active_account;
-
+	private String photoUrl;
+	
 	public SimpleUser() {
 	}
 
@@ -88,6 +89,15 @@ public class SimpleUser {
 
 	public boolean getActiveAccount() {
 		return this.active_account;
+	}
+
+	public SimpleUser setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+		return this;
+	}
+
+	public String getPhotoUrl() {
+		return this.photoUrl;
 	}
 	
 	@Override
