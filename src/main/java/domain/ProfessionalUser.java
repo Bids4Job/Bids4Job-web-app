@@ -18,7 +18,8 @@ public class ProfessionalUser {
 	private String password;
 	private String email;
 	private boolean active;
-
+	private String photoName;
+	
 	public ProfessionalUser() {
 	}
 
@@ -116,6 +117,15 @@ public class ProfessionalUser {
 		return this;
 	}
 
+	public String getPhotoName() {
+		return this.photoName;
+	}
+	
+	public ProfessionalUser setPhotoName(String photoName) {
+		this.photoName = photoName;
+		return this;
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)

@@ -22,6 +22,7 @@ public class ProfessionalUserDao {
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
     public static final String ACTIVE = "active_account";
+    public static final String PHOTO_NAME = "pro_photo";
     
     private Connection connection;
     private PreparedStatement statement;
@@ -108,7 +109,7 @@ public class ProfessionalUserDao {
      * @throws InstantiationException
      */
     public ProfessionalUser create(ProfessionalUser professionalUser) throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
-	String query = "INSERT INTO " + PROFFESIONAL_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION + ", " + PROFESSION + ", " + USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	String query = "INSERT INTO " + PROFFESIONAL_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION + ", " + PROFESSION + ", " + USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE + ", " + PHOTO_NAME + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	this.prepareResources();;
 	try {
 	    connection = DaoUtils.getConnection();
@@ -121,6 +122,7 @@ public class ProfessionalUserDao {
 	    statement.setString(6, professionalUser.getPassword());
 	    statement.setString(7, professionalUser.getEmail());
 	    statement.setBoolean(8, professionalUser.getActive());
+	    statement.setString(9, professionalUser.getPhotoName());
 	    statement.executeUpdate();
 	    resultSet = statement.getGeneratedKeys();
 	    if (resultSet.next()) {
@@ -305,7 +307,8 @@ public class ProfessionalUserDao {
 		.setUsername(resultSet.getString(USERNAME))
 		.setPassword(resultSet.getString(PASSWORD))
 		.setEmail(resultSet.getString(EMAIL))
-		.setActive(resultSet.getBoolean(ACTIVE));
+		.setActive(resultSet.getBoolean(ACTIVE))
+		.setPhotoName(resultSet.getString(PHOTO_NAME));
     }   
     
 }

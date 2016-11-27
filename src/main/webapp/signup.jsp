@@ -154,7 +154,8 @@
 				<div id="Professional" class="tab-pane fade">
 					<h2 class="form-signin-heading login-or-signup">Sign Up</h2>
 					<form class="form-horizontal" method="POST"
-						action="register_professional" class="form-signup">
+						enctype="multipart/form-data" action="register_professional"
+						class="form-signup">
 
 						<div class="form-group">
 							<label for="username" class="col-sm-2 control-label">User
@@ -236,6 +237,15 @@
 									<option value="Personal Trainer">Personal Trainer</option>
 									<option value="Teacher">Teacher</option>
 								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="profile-image" class="col-sm-2 control-label">Profile
+								Image</label>
+							<div class="col-sm-6">
+								<input type="file" name="pro-image" class="form-control"
+									id="profile-image" placeholder="Your profile image">
 							</div>
 						</div>
 

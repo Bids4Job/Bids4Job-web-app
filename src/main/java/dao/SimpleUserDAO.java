@@ -28,7 +28,7 @@ public class SimpleUserDAO {
 	private static final String PASSWORD = "password";
 	private static final String EMAIL = "email";
 	private static final String ACTIVE_ACCOUNT = "active_account";
-	private static final String SIMPLE_PHOTO_URL = "simple_photo";
+	private static final String PHOTO_NAME = "simple_photo";
 	private Connection conn;
 	private PreparedStatement preStmt;
 	private ResultSet rs;
@@ -116,7 +116,7 @@ public class SimpleUserDAO {
 	public SimpleUser create(SimpleUser simpleUser)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		String sql = "INSERT INTO " + SIMPLE_USER_TABLE + "(" + FIRST_NAME + ", " + LAST_NAME + ", " + LOCATION + ", "
-				+ USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE_ACCOUNT + ", " + SIMPLE_PHOTO_URL
+				+ USERNAME + ", " + PASSWORD + ", " + EMAIL + ", " + ACTIVE_ACCOUNT + ", " + PHOTO_NAME
 				+ ") VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 		this.prepareResources();
 		try {
@@ -129,7 +129,7 @@ public class SimpleUserDAO {
 			preStmt.setString(5, simpleUser.getPassword());
 			preStmt.setString(6, simpleUser.getEmail());
 			preStmt.setBoolean(7, simpleUser.getActiveAccount());
-			preStmt.setString(8, simpleUser.getPhotoUrl());
+			preStmt.setString(8, simpleUser.getPhotoName());
 			preStmt.executeUpdate();
 			rs = preStmt.getGeneratedKeys();
 			if (rs.next()) {
@@ -375,6 +375,6 @@ public class SimpleUserDAO {
 				.setFirstName(resultSet.getString(FIRST_NAME)).setLastName(resultSet.getString(LAST_NAME))
 				.setLocation(resultSet.getString(LOCATION)).setUsername(resultSet.getString(USERNAME))
 				.setPassword(resultSet.getString(PASSWORD)).setEmail(resultSet.getString(EMAIL))
-				.setActiveAccount(resultSet.getBoolean(ACTIVE_ACCOUNT)).setPhotoUrl(resultSet.getString(SIMPLE_PHOTO_URL));
+				.setActiveAccount(resultSet.getBoolean(ACTIVE_ACCOUNT)).setPhotoName(resultSet.getString(PHOTO_NAME));
 	}
 }

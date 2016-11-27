@@ -14,7 +14,7 @@ public class SimpleUser {
 	private String password;
 	private String email;
 	private boolean active_account;
-	private String photoUrl;
+	private String photoName;
 	
 	public SimpleUser() {
 	}
@@ -91,13 +91,13 @@ public class SimpleUser {
 		return this.active_account;
 	}
 
-	public SimpleUser setPhotoUrl(String photoUrl) {
-		this.photoUrl = photoUrl;
+	public SimpleUser setPhotoName(String photoName) {
+		this.photoName = photoName;
 		return this;
 	}
 
-	public String getPhotoUrl() {
-		return this.photoUrl;
+	public String getPhotoName() {
+		return this.photoName;
 	}
 	
 	@Override

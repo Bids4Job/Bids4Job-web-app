@@ -151,7 +151,7 @@ public class RegisterSimpleController extends HttpServlet {
 				try (InputStream input = imagePart.getInputStream()) {
 					Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
 					// Set the photo url
-					simpleUser.setPhotoUrl(uploadLocation + File.separator + username + contentType);
+					simpleUser.setPhotoName(username + contentType);
 				}
 			}
 

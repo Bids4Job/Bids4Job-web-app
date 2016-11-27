@@ -102,7 +102,7 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-3 col-lg-3 " align="center">
-								<img alt="User Pic" src=<%=simpleUser.getPhotoUrl()%>
+								<img alt="User Pic" src=<%=request.getContextPath() + "/user_image"%>
 									class="img-circle img-responsive">
 							</div>
 

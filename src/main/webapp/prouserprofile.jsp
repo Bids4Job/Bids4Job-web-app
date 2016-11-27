@@ -38,6 +38,14 @@
 </head>
 <body>
 
+	<%
+		// Getting Attribute from session
+		ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DecimalFormat decimalFormat = new DecimalFormat("##.##");
+		String rating = (String) request.getAttribute("rating");
+	%>
+
 	<!--Navbar start-->
 
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -85,16 +93,11 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-3 col-lg-3 " align="center">
-								<img alt="User Pic" src="images/user_avatar.png"
+								<img alt="User Pic"
+									src=<%=request.getContextPath() + "/user_image"%>
 									class="img-circle img-responsive">
 							</div>
-							<!-- Getting Attrin=bute from session -->
-							<%
-								ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
-								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-								DecimalFormat decimalFormat = new DecimalFormat("##.##");
-								String rating = (String) request.getAttribute("rating");
-							%>
+
 							<div class=" col-md-9 col-lg-9 ">
 								<table class="table table-user-information">
 									<tbody>
