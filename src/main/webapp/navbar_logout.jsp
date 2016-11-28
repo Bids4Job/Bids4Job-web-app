@@ -6,6 +6,10 @@ Use isPro and isSimple booleans (from index.jsp)
 that indicate if a user is logged in as 
 a Professional or a Simple User respectively 
 --%>
+<%
+	boolean isPro = Boolean.parseBoolean(request.getParameter("isPro"));
+	boolean isSimple = Boolean.parseBoolean(request.getParameter("isSimple"));
+%>
 
 <!--Navbar start-->
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -19,8 +23,7 @@ a Professional or a Simple User respectively
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a href="index"> <img alt="Brand" src="images/logo.png">
-				<!--Brand logo image-->
+			<a href="index"> <img alt="Brand" src="images/logo.png"> <!--Brand logo image-->
 			</a>
 		</div>
 		<!-- end collapsed navbar-->

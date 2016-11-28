@@ -68,7 +68,10 @@
 	<%
 		} else {
 	%>
-	<%@ include file="navbar_logout.jsp"%>
+	<jsp:include page="navbar_logout.jsp">
+		<jsp:param name="isPro" value="<%=isPro%>" />
+		<jsp:param name="isSimple" value="<%=isSimple%>" />
+	</jsp:include>
 	<%
 		}
 	%>
