@@ -225,7 +225,7 @@
 										if (bidID != 0) {
 							%>
 							<tr>
-								<td><%=crsTasks.getString("username")%></td>
+								<td><%=crsTasks.getString("pro_username")%></td>
 								<%
 									double bidder_rating = crsTasks.getDouble("rating");
 												if (crsTasks.wasNull()) {
@@ -405,7 +405,7 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td><%=crs.getString("username")%></td>
+										<td><%=crs.getString("pro_username")%></td>
 										<td>
 											<%
 												double rating = crs.getDouble("rating");

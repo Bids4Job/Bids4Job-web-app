@@ -18,7 +18,7 @@ public class ProfessionalUserDao {
     public static final String LAST_NAME = "last_name";
     public static final String LOCATION = "location";
     public static final String PROFESSION = "profession";
-    public static final String USERNAME = "username";
+    public static final String USERNAME = "pro_username";
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
     public static final String ACTIVE = "active_account";

@@ -24,7 +24,7 @@ public class SimpleUserDAO {
 	private static final String FIRST_NAME = "first_name";
 	private static final String LAST_NAME = "last_name";
 	private static final String LOCATION = "location";
-	private static final String USERNAME = "username";
+	private static final String USERNAME = "simple_username";
 	private static final String PASSWORD = "password";
 	private static final String EMAIL = "email";
 	private static final String ACTIVE_ACCOUNT = "active_account";
