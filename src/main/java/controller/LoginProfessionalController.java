@@ -22,7 +22,7 @@ import service.ProfessionalUserService;
 public class LoginProfessionalController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private static final String EMAILORUSERNAME = "emailOrUsername";
+    private static final String EMAIL_OR_USERNAME = "emailOrUsername";
     private static final String PASSWORD = "password";
    // private String rating = null;
     private ProfessionalUser pro;
@@ -71,7 +71,7 @@ public class LoginProfessionalController extends HttpServlet {
 	response.setContentType("text/html; charset=UTF-8");
 	request.setCharacterEncoding("UTF-8");
 	// Get the credentials from the login form
-	String emailOrUsername = request.getParameter(EMAILORUSERNAME);
+	String emailOrUsername = request.getParameter(EMAIL_OR_USERNAME);
 	String password = request.getParameter(PASSWORD);
 	// Get the HttpSession that is associated with this request
 	HttpSession session = request.getSession();
