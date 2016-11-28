@@ -153,6 +153,12 @@ public class SimpleUserService {
 	return (simpleUser != null && simpleUser.getActiveAccount()) ? simpleUser : null;
     }
     
+    public SimpleUser authenticate1(String username, String password)
+	    throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+	SimpleUser simpleUser = simpleUserDAO.findByUsernamePassword(username, password);
+	return (simpleUser != null && simpleUser.getActiveAccount()) ? simpleUser : null;
+    }
+    
     public boolean exist(String name, String value)
 	    throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 	return simpleUserDAO.exist(name, value);

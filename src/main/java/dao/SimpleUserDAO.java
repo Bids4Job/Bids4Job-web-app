@@ -329,6 +329,41 @@ public class SimpleUserDAO {
 		}
 		return simpleUser;
 	}
+	
+	
+	/**
+	 * Finds the Simple User with the given username and password.
+	 * 
+	 * @param username
+	 * 		the username of the user
+	 * @param password
+	 * 		the password of the user
+	 * @return The SimpleUser with the specified ID
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public SimpleUser findByUsernamePassword(String username, String password) 
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+	    SimpleUser simpleUser = null;
+	    String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + USERNAME + " =? AND " + PASSWORD + "=?;";
+	    this.prepareResources();
+	    try {
+		conn = DaoUtils.getConnection();
+		preStmt = conn.prepareStatement(sql);
+		preStmt.setString(1, username);
+		preStmt.setString(2, password);
+		rs = preStmt.executeQuery();
+		if (rs.next()) {
+			simpleUser = SimpleUserDAO.populate(rs);
+		}
+		
+	    }finally {
+		DaoUtils.closeResources(rs, preStmt, conn);
+	}
+	return simpleUser;
+	}
 
 	/**
 	 * Checks if username or email already exists.

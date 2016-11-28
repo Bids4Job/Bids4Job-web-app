@@ -17,8 +17,8 @@
 					<form class="form-signin" method="POST" action="login_simple">
 						<h2 class="form-signin-heading login-or-signup">Please Log in</h2>
 						<label for="inputEmail" class="sr-only">Email address</label> <input
-							type="email" id="inputEmail" class="form-control"
-							placeholder="Email address" name="email" required autofocus>
+							type="text" id="inputEmail" class="form-control"
+							placeholder="Email address" name="emailOrUsername" required autofocus>
 						<label for="inputPassword" class="sr-only">Password</label> <input
 							type="password" id="inputPassword" class="form-control"
 							placeholder="Password" name="upass" required>

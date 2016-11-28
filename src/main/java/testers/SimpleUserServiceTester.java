@@ -73,6 +73,10 @@ public class SimpleUserServiceTester {
 						System.out.println(
 								"\n==============================================\nauthenticate()\n==============================================\n"
 										+ simpleUserService.authenticate("example1@mail.com", "pass2"));
+			// authenticate1 - existing
+			System.out.println("\n==============================================\nauthenticate()\n==============================================\n"
+							+ simpleUserService.authenticate1("JohnKranas", "pass1"));
+						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
