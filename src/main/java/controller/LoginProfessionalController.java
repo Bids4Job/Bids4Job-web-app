@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import domain.ProfessionalUser;
 import service.ProfessionalUserService;
-//import service.ContractService;
 
 /**
  * Servlet implementation class LoginProfessionalController
