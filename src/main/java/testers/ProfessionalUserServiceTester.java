@@ -35,7 +35,7 @@ public class ProfessionalUserServiceTester {
 	    System.out.println(proService.findOne(pro.getProUserId()));
 	    //Authenticate
 	    System.out.println("Authenticate()");
-	   pro = proService.authenticate("example1@mail.com", "pass1");
+	   pro = proService.authenticateByEmail("example1@mail.com", "pass1");
 	    System.out.println(pro.toString());
 	    //findFromLocation()
 	    System.out.println("\nfindFromLocation()");
