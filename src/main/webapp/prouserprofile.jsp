@@ -252,7 +252,7 @@
 							%>
 
 							<tr>
-								<td><%=crsTasks.getString("username")%></td>
+								<td><%=crsTasks.getString("pro_username")%></td>
 								<%
 									double bidder_rating = crsTasks.getDouble("rating");
 											if (crsTasks.wasNull()) {
@@ -269,7 +269,7 @@
 								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
 								<td>
 									<%
-										if (crsTasks.getString("username").equals(pro.getUsername())) {
+										if (crsTasks.getString("pro_username").equals(pro.getUsername())) {
 									%>
 									<form class="form-inline" method="POST" action="cancel_bid">
 										<input type="hidden" name="bidId"

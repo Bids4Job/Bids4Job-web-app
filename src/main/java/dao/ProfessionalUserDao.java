@@ -18,7 +18,7 @@ public class ProfessionalUserDao {
     public static final String LAST_NAME = "last_name";
     public static final String LOCATION = "location";
     public static final String PROFESSION = "profession";
-    public static final String USERNAME = "username";
+    public static final String USERNAME = "pro_username";
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
     public static final String ACTIVE = "active_account";
@@ -248,16 +248,15 @@ public class ProfessionalUserDao {
 	 return professionalUsers;
     }
     
-    public ProfessionalUser findByEmailPassword(String email, String password) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+    public ProfessionalUser findByEmail(String email) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 	
 	ProfessionalUser pro = null;
-	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + EMAIL + " =? AND " + PASSWORD + "=?;";
+	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + EMAIL + " =?;";
 	this.prepareResources();
 	try {
 	    connection = DaoUtils.getConnection();
 	    statement = connection.prepareStatement(query);
 	    statement.setString(1, email);
-	    statement.setString(2, password);
 	    resultSet = statement.executeQuery();
 	    if (resultSet.next()) {
 		pro = populate(resultSet);
@@ -270,16 +269,15 @@ public class ProfessionalUserDao {
     }
     
     
-    public ProfessionalUser findByUsernamePassword(String username, String password) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+    public ProfessionalUser findByUsername(String username) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 	
 	ProfessionalUser pro = null;
-	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + USERNAME + " =? AND " + PASSWORD + "=?;";
+	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + USERNAME + " =?;";
 	this.prepareResources();
 	try {
 	    connection = DaoUtils.getConnection();
 	    statement = connection.prepareStatement(query);
 	    statement.setString(1, username);
-	    statement.setString(2, password);
 	    resultSet = statement.executeQuery();
 	    if (resultSet.next()) {
 		pro = populate(resultSet);

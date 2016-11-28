@@ -329,7 +329,7 @@ public class ContractDAO {
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		CachedRowSet crs = new CachedRowSetImpl();
 		String sql = "SELECT a." + CONTRACT_ID + ", a." + CONTRACT_TIME
-				+ ", a.rating, b.pro_user_id, b.amount, e.username FROM " + CONTRACT_TABLE
+				+ ", a.rating, b.pro_user_id, b.amount, e.pro_username FROM " + CONTRACT_TABLE
 				+ " as a INNER JOIN bid as b ON a." + BID_ID + " = b." + BID_ID
 				+ " INNER JOIN pro_user as e ON e.pro_user_id = b.pro_user_id" + " INNER JOIN task as c ON b." + TASK_ID
 				+ " = c." + TASK_ID + " INNER JOIN simple_user as d ON c.simple_user_id = d.simple_user_id"

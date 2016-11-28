@@ -28,11 +28,11 @@ CREATE TABLE IF NOT EXISTS `simple_user` (
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `location` VARCHAR(45) NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `simple_username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(72) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `active_account` BOOLEAN NOT NULL,
-  `simple_photo` VARCHAR(2083),
+  `simple_photo` VARCHAR(50),
   PRIMARY KEY (`simple_user_id`))
 ENGINE = InnoDB;
 
@@ -41,10 +41,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `task` (
   `task_id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NOT NULL,
   `deadline` TIMESTAMP(0) NOT NULL,
   `work_field` VARCHAR(45) NOT NULL,
   `simple_user_id` INT NOT NULL,
-  `description` VARCHAR(200) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
   `active_task` BOOLEAN NOT NULL,
   PRIMARY KEY (`task_id`),
   INDEX `fk_task_1_idx` (`simple_user_id` ASC),
@@ -64,11 +65,11 @@ CREATE TABLE IF NOT EXISTS `pro_user` (
   `last_name` VARCHAR(45) NOT NULL,
   `location` VARCHAR(45) NOT NULL,
   `profession` VARCHAR(45) NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `pro_username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(72) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `active_account` BOOLEAN NOT NULL,
-  `pro_photo` VARCHAR(2083),
+  `pro_photo` VARCHAR(50),
   PRIMARY KEY (`pro_user_id`))
 ENGINE = InnoDB;
 

@@ -24,7 +24,7 @@ public class SimpleUserDAO {
 	private static final String FIRST_NAME = "first_name";
 	private static final String LAST_NAME = "last_name";
 	private static final String LOCATION = "location";
-	private static final String USERNAME = "username";
+	private static final String USERNAME = "simple_username";
 	private static final String PASSWORD = "password";
 	private static final String EMAIL = "email";
 	private static final String ACTIVE_ACCOUNT = "active_account";
@@ -298,28 +298,25 @@ public class SimpleUserDAO {
 	}
 
 	/**
-	 * Finds the Simple User with the given email and password.
+	 * Finds the Simple User with the given email.
 	 * 
 	 * @param email
 	 *            the email of the user
-	 * @param password
-	 *            the password of the user
 	 * @return The SimpleUser with the specified ID
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	public SimpleUser findByEmailPassword(String email, String password)
+	public SimpleUser findByEmail(String email)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 		SimpleUser simpleUser = null;
-		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + EMAIL + " =? AND " + PASSWORD + "=?;";
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + EMAIL + " =?;";
 		this.prepareResources();
 		try {
 			conn = DaoUtils.getConnection();
 			preStmt = conn.prepareStatement(sql);
 			preStmt.setString(1, email);
-			preStmt.setString(2, password);
 			rs = preStmt.executeQuery();
 			if (rs.next()) {
 				simpleUser = SimpleUserDAO.populate(rs);
@@ -329,40 +326,36 @@ public class SimpleUserDAO {
 		}
 		return simpleUser;
 	}
-	
-	
+
 	/**
-	 * Finds the Simple User with the given username and password.
+	 * Finds the Simple User with the given username.
 	 * 
 	 * @param username
-	 * 		the username of the user
-	 * @param password
-	 * 		the password of the user
+	 *            the username of the user
 	 * @return The SimpleUser with the specified ID
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public SimpleUser findByUsernamePassword(String username, String password) 
+	public SimpleUser findByUsername(String username)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
-	    SimpleUser simpleUser = null;
-	    String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + USERNAME + " =? AND " + PASSWORD + "=?;";
-	    this.prepareResources();
-	    try {
-		conn = DaoUtils.getConnection();
-		preStmt = conn.prepareStatement(sql);
-		preStmt.setString(1, username);
-		preStmt.setString(2, password);
-		rs = preStmt.executeQuery();
-		if (rs.next()) {
-			simpleUser = SimpleUserDAO.populate(rs);
+		SimpleUser simpleUser = null;
+		String sql = "SELECT * FROM " + SIMPLE_USER_TABLE + " WHERE " + USERNAME + " =?;";
+		this.prepareResources();
+		try {
+			conn = DaoUtils.getConnection();
+			preStmt = conn.prepareStatement(sql);
+			preStmt.setString(1, username);
+			rs = preStmt.executeQuery();
+			if (rs.next()) {
+				simpleUser = SimpleUserDAO.populate(rs);
+			}
+
+		} finally {
+			DaoUtils.closeResources(rs, preStmt, conn);
 		}
-		
-	    }finally {
-		DaoUtils.closeResources(rs, preStmt, conn);
-	}
-	return simpleUser;
+		return simpleUser;
 	}
 
 	/**
