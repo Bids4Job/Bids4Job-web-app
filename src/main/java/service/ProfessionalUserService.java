@@ -50,7 +50,7 @@ public class ProfessionalUserService {
 	return dao.update(professionalUser);
     }
 
-    public ProfessionalUser authenticate(String email, String password)
+    public ProfessionalUser authenticateByEmail(String email, String password)
 	    throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 	ProfessionalUser pro = dao.findByEmailPassword(email, password);
 	if (pro != null && pro.getActive()) {
@@ -59,6 +59,16 @@ public class ProfessionalUserService {
 	    return null;
 	}
     }
+    
+    public ProfessionalUser authenticateByUsername(String email, String password)
+	    throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	ProfessionalUser pro = dao.findByUsernamePassword(email, password);
+	if (pro != null && pro.getActive()) {
+	    return pro;
+	} else {
+	    return null;
+	}
+    }    
 
     public boolean exist(String name, String value)
 	    throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {

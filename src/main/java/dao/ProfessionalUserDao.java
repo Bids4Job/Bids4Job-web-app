@@ -269,6 +269,29 @@ public class ProfessionalUserDao {
 	return pro;
     }
     
+    
+    public ProfessionalUser findByUsernamePassword(String username, String password) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
+	
+	ProfessionalUser pro = null;
+	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + USERNAME + " =? AND " + PASSWORD + "=?;";
+	this.prepareResources();
+	try {
+	    connection = DaoUtils.getConnection();
+	    statement = connection.prepareStatement(query);
+	    statement.setString(1, username);
+	    statement.setString(2, password);
+	    resultSet = statement.executeQuery();
+	    if (resultSet.next()) {
+		pro = populate(resultSet);
+	    }
+	    
+	} finally {
+		DaoUtils.closeResources(resultSet, statement, connection);
+	}
+	return pro;
+    }
+    
+    
     public boolean exist(String name, String value) throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
 	
 	String query = "SELECT * FROM " + PROFFESIONAL_USER_TABLE + " WHERE " + name + " =?;";
