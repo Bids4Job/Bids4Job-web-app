@@ -16,9 +16,9 @@
 				<div id="Individual" class="tab-pane fade in active">
 					<form class="form-signin" method="POST" action="login_simple">
 						<h2 class="form-signin-heading login-or-signup">Please Log in</h2>
-						<label for="inputEmail" class="sr-only">Email address or username</label> <input
+						<label for="inputEmail" class="sr-only">Email or Username</label> <input
 							type="text" id="inputEmail" class="form-control"
-							placeholder="Email address" name="emailOrUsername" required autofocus>
+							placeholder="Email or Username" name="emailOrUsername" required autofocus>
 						<label for="inputPassword" class="sr-only">Password</label> <input
 							type="password" id="inputPassword" class="form-control"
 							placeholder="Password" name="upass" required>
@@ -38,9 +38,9 @@
 				<div id="Professional" class="tab-pane fade">
 					<form class="form-signin" method="POST" action="login_professional">
 						<h2 class="form-signin-heading login-or-signup">Please Log in</h2>
-						<label for="inputEmail" class="sr-only">Email address or username</label> <input
+							<label for="inputEmail" class="sr-only">Email or Username</label> <input
 							type="text" id="inputEmail" class="form-control"
-							placeholder="Email address" required autofocus name="emailOrUsername">
+							placeholder="Email or Username" required autofocus name="emailOrUsername">
 						<label for="inputPassword" class="sr-only">Password</label> <input
 							type="password" id="inputPassword" class="form-control"
 							placeholder="Password" required name="password">

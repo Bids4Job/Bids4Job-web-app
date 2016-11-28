@@ -24,7 +24,7 @@ public class LoginSimpleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// Parameter names
-	private static final String EMAILORUSERNAME = "emailOrUsername";
+	private static final String EMAIL_OR_USERNAME = "emailOrUsername";
 	private static final String PASSWORD = "upass";
 
 	// A service for SimpleUser database operations
@@ -62,7 +62,7 @@ public class LoginSimpleController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		// Get the credentials from the login form
-		String emailOrUsername = request.getParameter(EMAILORUSERNAME);
+		String emailOrUsername = request.getParameter(EMAIL_OR_USERNAME);
 		String password = request.getParameter(PASSWORD);
 
 		// Define a SimpleUser object to store the logged in user
