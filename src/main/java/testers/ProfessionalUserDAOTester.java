@@ -1,13 +1,11 @@
 package testers;
 
-import dao.ProfessionalUserDao;
-import domain.ProfessionalUser;
-
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
+import dao.ProfessionalUserDao;
+import domain.ProfessionalUser;
 
 public class ProfessionalUserDAOTester {
     

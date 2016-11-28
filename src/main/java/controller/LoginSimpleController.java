@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.rowset.CachedRowSet;
 
 import domain.SimpleUser;
-import service.ContractService;
 import service.SimpleUserService;
 
 /**
@@ -87,7 +85,7 @@ public class LoginSimpleController extends HttpServlet {
 			session.setAttribute("simple-user", simpleUser);
 			response.sendRedirect(PROFILE_CONTROLLER);
 		} else {
-			request.setAttribute("errorMessage", "Wrong email or password");
+			request.setAttribute("errorMessage", "Wrong email/username or password. Please try again.");
 			errorDispatcher.forward(request, response);
 		}
 	}

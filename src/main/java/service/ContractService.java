@@ -8,7 +8,6 @@ import javax.sql.rowset.CachedRowSet;
 import dao.ContractDAO;
 import dao.TaskDAO;
 import domain.Contract;
-import domain.Task;
 
 public class ContractService {
 

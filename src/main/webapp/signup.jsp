@@ -87,6 +87,14 @@
 									id="userpass" placeholder="Your password" required>
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<label for="userpass-verification" class="col-sm-2 control-label">Password (confirm)</label>
+							<div class="col-sm-6">
+								<input type="password" name="upass-verification" class="form-control"
+									id="userpass-verification" placeholder="Your password once more" required>
+							</div>
+						</div>
 
 						<div class="form-group">
 							<label for="email" class="col-sm-2 control-label">Email</label>
@@ -171,6 +179,14 @@
 							<div class="col-sm-6">
 								<input type="password" name="upass" class="form-control"
 									id="userpass" placeholder="Your password" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="userpass-verification" class="col-sm-2 control-label">Password (confirm)</label>
+							<div class="col-sm-6">
+								<input type="password" name="upass-verification" class="form-control"
+									id="userpass-verification" placeholder="Your password once more" required>
 							</div>
 						</div>
 

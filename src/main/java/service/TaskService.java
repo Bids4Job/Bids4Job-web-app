@@ -1,15 +1,12 @@
 package service;
 
-import dao.DaoUtils;
-import dao.TaskDAO;
-import domain.Task;
-
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.rowset.CachedRowSet;
 
-import com.sun.rowset.CachedRowSetImpl;
+import dao.TaskDAO;
+import domain.Task;
 
 /**
  * Service class that executes all required business logic regarding tasks.

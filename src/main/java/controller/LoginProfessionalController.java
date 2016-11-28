@@ -87,7 +87,7 @@ public class LoginProfessionalController extends HttpServlet {
 		session.setAttribute("pro", pro);
 		response.sendRedirect(PROFILE_CONTROLLER);
 	    } else {
-		request.setAttribute("errorMessage", "Wrong email or password. Please try again.");
+		request.setAttribute("errorMessage", "Wrong email/username or password. Please try again.");
 		errorDispatcher.forward(request, response);
 	    }
 

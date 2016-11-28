@@ -37,6 +37,7 @@ public class RegisterSimpleController extends HttpServlet {
 	private static final String EMAIL = "email";
 	private static final String USERNAME = "uname";
 	private static final String PASSWORD = "upass";
+	private static final String PASSWORD_VERIFICATION = "upass-verification";
 	private static final String LOCATION = "location";
 	private static final String PROFILE_IMAGE = "simple-image";
 	// Storage Location info
@@ -93,6 +94,7 @@ public class RegisterSimpleController extends HttpServlet {
 		// Read parameters from request
 		String username = request.getParameter(USERNAME);
 		String password = request.getParameter(PASSWORD);
+		String passwordVerification = request.getParameter(PASSWORD_VERIFICATION);
 		String email = request.getParameter(EMAIL);
 		String firstName = request.getParameter(FIRST_NAME);
 		String lastName = request.getParameter(LAST_NAME);
@@ -105,6 +107,7 @@ public class RegisterSimpleController extends HttpServlet {
 
 		errorMessage += checkAlphaDashes(firstName, lastName);
 		errorMessage += checkAlphanumericDashes(username, password);
+		errorMessage += verifyPassword(password, passwordVerification);
 		// Check if the selected file (if any) is an image
 		if (imagePart.getSize() != 0) {
 			errorMessage += checkUploadContentType(imagePart.getContentType(), "image");
@@ -169,6 +172,13 @@ public class RegisterSimpleController extends HttpServlet {
 
 	}
 
+	private String verifyPassword(String password, String passwordVerification) {
+		StringBuilder errorBuilder = new StringBuilder();
+		if (!password.equals(passwordVerification))
+			errorBuilder.append("Password should match Password(confirm)<br>");
+		return errorBuilder.toString();
+	}
+	
 	private String checkAlphaDashes(String firstName, String lastName) {
 		StringBuilder errorBuilder = new StringBuilder();
 		if (!StringUtils.isAlphaSpace(firstName.replace('-', ' '))) {
