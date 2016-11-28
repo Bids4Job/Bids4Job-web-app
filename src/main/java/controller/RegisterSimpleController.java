@@ -18,8 +18,8 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.lang3.StringUtils;
 
-import dao.ProfessionalUserDao;
 import dao.PropertiesFileUtils;
+import dao.SimpleUserDAO;
 import domain.SimpleUser;
 import service.SimpleUserService;
 
@@ -117,12 +117,12 @@ public class RegisterSimpleController extends HttpServlet {
 		}
 
 		try {
-			if (simpleUserService.exist(ProfessionalUserDao.EMAIL, email)) {
+			if (simpleUserService.exist(SimpleUserDAO.EMAIL, email)) {
 				request.setAttribute("errorMessage", "Email already exists.");
 				errorDispatcher.forward(request, response);
 				return;
 			}
-			if (simpleUserService.exist(ProfessionalUserDao.USERNAME, username)) {
+			if (simpleUserService.exist(SimpleUserDAO.USERNAME, username)) {
 				request.setAttribute("errorMessage", "Username already exists.");
 				errorDispatcher.forward(request, response);
 				return;
