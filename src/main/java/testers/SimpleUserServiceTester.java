@@ -65,17 +65,17 @@ public class SimpleUserServiceTester {
 			for (SimpleUser s : simpleUsers) {
 				System.out.println(s + "\n");
 			}
-			// authenticate - existing
+			// authenticateByEmail - existing
 			System.out.println(
-					"\n==============================================\nauthenticate()\n==============================================\n"
-							+ simpleUserService.authenticate("example1@mail.com", "pass1"));
-			// authenticate - not existing
+					"\n==============================================\nauthenticateByEmail()\n==============================================\n"
+							+ simpleUserService.authenticateByEmail("example1@mail.com", "pass1"));
+			// authenticateByEmail - not existing
 						System.out.println(
-								"\n==============================================\nauthenticate()\n==============================================\n"
-										+ simpleUserService.authenticate("example1@mail.com", "pass2"));
-			// authenticate1 - existing
+								"\n==============================================\nauthenticateByEmail()\n==============================================\n"
+										+ simpleUserService.authenticateByEmail("example1@mail.com", "pass2"));
+			// authenticateByUsername - existing
 			System.out.println("\n==============================================\nauthenticate()\n==============================================\n"
-							+ simpleUserService.authenticate1("JohnKranas", "pass1"));
+							+ simpleUserService.authenticateByUsername("george-sp", "pass4"));
 						
 		} catch (Exception e) {
 			e.printStackTrace();
