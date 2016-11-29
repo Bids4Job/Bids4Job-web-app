@@ -50,11 +50,14 @@
 </head>
 <body>
 
-	<%-- Place the appropriate navigation bar --%>
+	<%-- Place the appropriate navigation bar && Modals --%>
 	<%
 		if (!isPro && !isSimple) {
 	%>
 	<%@ include file="navbar_login.jsp"%>
+	<!-- Start #login-modal -->
+	<%@ include file="login_modal.jsp"%>
+	<!-- End #login-modal -->
 	<%
 		} else {
 	%>
@@ -62,11 +65,12 @@
 		<jsp:param name="isPro" value="<%=isPro%>" />
 		<jsp:param name="isSimple" value="<%=isSimple%>" />
 	</jsp:include>
+	<!-- Start #contracts-modal -->
+	<%@ include file="contracts_modal.jsp"%>
+	<!-- End #contracts-modal -->
 	<%
 		}
 	%>
-
-	<%@ include file="login_modal.jsp"%>
 
 
 	<div class="container-fluid">

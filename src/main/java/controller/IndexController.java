@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
+import domain.ProfessionalUser;
+import domain.SimpleUser;
+import service.ContractService;
 import service.TaskService;
 
 /**
@@ -22,7 +25,10 @@ import service.TaskService;
 @WebServlet("/index")
 public class IndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private TaskService mService;
+
+	// Service for Contract, Task database operations
+	private ContractService contractService;
+	private TaskService taskService;
 	RequestDispatcher errorDispatcher;
 	RequestDispatcher indexDispatcher;
 
@@ -40,7 +46,9 @@ public class IndexController extends HttpServlet {
 		indexDispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 
 		// Instantiate a Contract service object
-		mService = new TaskService();
+		contractService = new ContractService();
+		// Instantiate a Task service object
+		taskService = new TaskService();
 	}
 
 	/**
@@ -51,15 +59,38 @@ public class IndexController extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		CachedRowSet crs = null;
+
+		// Define CachedRowSets to contain the rows to be displayed
+		CachedRowSet crsContracts = null;
+		CachedRowSet crsTasks = null;
+
+		// Get the ProfessionalUser of SimpleUser object from session
+		ProfessionalUser professionalUser = (ProfessionalUser) request.getSession().getAttribute("pro");
+		SimpleUser simpleUser = (SimpleUser) request.getSession().getAttribute("simple-user");
+
+		if (simpleUser != null | professionalUser != null) {
+			// Get contract details related with this SimpleUser
+			try {
+				crsContracts = (simpleUser != null)
+						? contractService.findDetailsBySimpleUserID(simpleUser.getSimpleUserID()) : null;
+			} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+				request.setAttribute("errorMessage", "Error Loading Contracts in Search Results: " + e.getMessage());
+				errorDispatcher.forward(request, response);
+			}
+		}
+
 		try {
-			crs = mService.findDetailsByDeadlineDesc(10);
+			crsTasks = taskService.findDetailsByDeadlineDesc(10);
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Error Loading Tasks: " + e.getMessage());
 			errorDispatcher.forward(request, response);
 		}
-		request.setAttribute("tenTasks", crs);
+
+		// Set the contract and task details to request
+		request.setAttribute("contracts", crsContracts);
+		request.setAttribute("tenTasks", crsTasks);
 		indexDispatcher.forward(request, response);
 	}
 }

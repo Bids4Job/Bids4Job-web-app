@@ -60,11 +60,14 @@
 </head>
 <body>
 
-	<%-- Place the appropriate navigation bar --%>
+	<%-- Place the appropriate navigation bar && Modals --%>
 	<%
 		if (!isPro && !isSimple) {
 	%>
 	<%@ include file="navbar_login.jsp"%>
+	<!--Start Login Modal -->
+	<%@ include file="login_modal.jsp"%>
+	<!--End Login Modal -->
 	<%
 		} else {
 	%>
@@ -72,6 +75,9 @@
 		<jsp:param name="isPro" value="<%=isPro%>" />
 		<jsp:param name="isSimple" value="<%=isSimple%>" />
 	</jsp:include>
+	<!-- Start #contracts-modal -->
+	<%@ include file="contracts_modal.jsp"%>
+	<!-- End #contracts-modal -->
 	<%
 		}
 	%>
@@ -174,10 +180,6 @@
 		</a>
 	</div>
 	<!--End Carousel-->
-
-	<!--Start Login Modal -->
-	<%@ include file="login_modal.jsp"%>
-	<!--End Login Modal -->
 
 	<div class="container marketing">
 

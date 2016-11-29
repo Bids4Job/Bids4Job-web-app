@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
+import domain.ProfessionalUser;
+import domain.SimpleUser;
+import service.ContractService;
 import service.TaskService;
 
 /**
@@ -23,7 +26,8 @@ public class SearchController extends HttpServlet {
 	// Parameter names
 	private static final String SEARCH_PROFESSION = "profession";
 
-	// Service for Task related database operations
+	// Service for Contract, Task database operations
+	private ContractService contractService;
 	private TaskService taskService;
 
 	// Dispatchers for error and search pages
@@ -43,6 +47,8 @@ public class SearchController extends HttpServlet {
 		errorDispatcher = getServletContext().getRequestDispatcher("/errorprinter.jsp");
 		searchDispatcher = getServletContext().getRequestDispatcher("/viewresults.jsp");
 
+		// Instantiate a Contract service object
+		contractService = new ContractService();
 		// Instantiate a Task service object
 		taskService = new TaskService();
 	}
@@ -58,8 +64,25 @@ public class SearchController extends HttpServlet {
 
 		String profession = request.getParameter(SEARCH_PROFESSION);
 
-		// Define a CachedRowSet to contain the rows to be displayed
+		// Define CachedRowSets to contain the rows to be displayed
+		CachedRowSet crsContracts = null;
 		CachedRowSet crsTasks = null;
+
+		// Get the ProfessionalUser of SimpleUser object from session
+		ProfessionalUser professionalUser = (ProfessionalUser) request.getSession().getAttribute("pro");
+		SimpleUser simpleUser = (SimpleUser) request.getSession().getAttribute("simple-user");
+
+		if (simpleUser != null | professionalUser != null) {
+			// Get contract details related with this SimpleUser
+			try {
+				crsContracts = (simpleUser != null)
+						? contractService.findDetailsBySimpleUserID(simpleUser.getSimpleUserID()) : null;
+			} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+				request.setAttribute("errorMessage", "Error Loading Contracts in Search Results: " + e.getMessage());
+				errorDispatcher.forward(request, response);
+			}
+		}
 
 		// Get task details related with this SimpleUser
 		try {
@@ -70,7 +93,8 @@ public class SearchController extends HttpServlet {
 			errorDispatcher.forward(request, response);
 		}
 
-		// Set the contract details to request
+		// Set the contract and task details to request
+		request.setAttribute("contracts", crsContracts);
 		request.setAttribute("tasks", crsTasks);
 		searchDispatcher.forward(request, response);
 	}

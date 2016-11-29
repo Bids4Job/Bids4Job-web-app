@@ -48,11 +48,9 @@
 	%>
 
 	<!--Navbar start-->
-
 	<jsp:include page="navbar_logout.jsp">
 		<jsp:param name="isPro" value="<%=isPro%>" />
 	</jsp:include>
-
 	<!--Navbar end-->
 
 
