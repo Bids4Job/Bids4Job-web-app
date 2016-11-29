@@ -84,7 +84,7 @@
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h2 class="panel-title">
-						<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbspSearch
+						<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp;Search
 						Results
 					</h2>
 				</div>

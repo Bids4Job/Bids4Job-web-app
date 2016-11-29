@@ -186,7 +186,7 @@
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h2 class="panel-title">
-						<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>10
+						<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;10
 						Latest Deadlines
 					</h2>
 				</div>

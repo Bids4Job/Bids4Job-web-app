@@ -47,6 +47,7 @@
 
 		// Get the SimpleUser object from the session
 		SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
+		boolean isSimple = (simpleUser != null);
 		// Set up the SimpleDateFormat and DecimalFormat objects
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		DecimalFormat decimalFormat = new DecimalFormat("##.##");
@@ -54,37 +55,10 @@
 
 	<!--Navbar start-->
 
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid navbar-transp">
-			<div class="navbar-header">
-				<!--start collapsed navbar-->
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a href="index"> <img alt="Brand" src="images/logo.png"> <!--Brand logo image-->
-				</a>
-			</div>
-			<!-- end collapsed navbar-->
-			<div id="navbar" class="navbar-collapse collapse">
-				<!--start un-collapsed navbar-->
+	<jsp:include page="navbar_logout.jsp">
+		<jsp:param name="isSimple" value="<%=isSimple%>" />
+	</jsp:include>
 
-				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="profile_simple"><span
-							class="glyphicon glyphicon-user"></span>My Profile</a></li>
-					<li><a href="#" data-toggle="modal"
-						data-target="#contracts-modal"><span
-							class="glyphicon glyphicon-list-alt"></span>My Contracts</a></li>
-					<li><a href="logout_user"><span
-							class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-				</ul>
-			</div>
-			<!-- end un-collapsed navbar-->
-		</div>
-	</nav>
 	<!--Navbar end-->
 
 

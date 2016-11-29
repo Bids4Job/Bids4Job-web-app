@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="domain.SimpleUser"%>
+<%@ page import="domain.ProfessionalUser"%>
 
 <%-- 
 Use isPro and isSimple booleans (from index.jsp)
@@ -7,8 +9,12 @@ that indicate if a user is logged in as
 a Professional or a Simple User respectively 
 --%>
 <%
+	// Get parameters from the request
 	boolean isPro = Boolean.parseBoolean(request.getParameter("isPro"));
 	boolean isSimple = Boolean.parseBoolean(request.getParameter("isSimple"));
+	// Get attributes from session
+	String username = isPro ? ((ProfessionalUser) session.getAttribute("pro")).getUsername()
+			: ((SimpleUser) session.getAttribute("simple-user")).getUsername();
 %>
 
 <!--Navbar start-->
@@ -39,10 +45,14 @@ a Professional or a Simple User respectively
 						<%} else if (isSimple) {%>
 							profile_simple
 						<%}%>">
-						<span class="glyphicon glyphicon-user"></span>My Profile
+						<img src=<%=request.getContextPath() + "/user_image"%>
+						class="profile-image img-circle">&nbsp;<%=username%>
 				</a></li>
+				<li><a href="#" data-toggle="modal"
+					data-target="#contracts-modal"><span
+						class="glyphicon glyphicon-list-alt"></span>&nbsp;My Contracts</a></li>
 				<li><a href="logout_user"><span
-						class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+						class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
 			</ul>
 		</div>
 		<!-- end un-collapsed navbar-->

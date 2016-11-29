@@ -7,6 +7,16 @@ body {
 .registered-page>h1 {
 	text-align: center;
 }
+/* End - registered.jsp */
+
+/* navbar */
+#navbar .profile-image {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	height: 30px; /* you can use % */
+	width: 30px; /* auto */
+}
+/* End - navbar */
 
 .bigimage>h3 {
 	padding-top: 10%;
