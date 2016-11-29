@@ -244,7 +244,7 @@
 								<td><form method="POST" action="sign_contract">
 										<input type="hidden" name="taskId" value="<%=taskID%>">
 										<input type="hidden" name="bidId" value="<%=bidID%>">
-										<button type="submit" class="btn btn-info">Accept Bid</button>
+										<button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i></button>
 									</form></td>
 							</tr>
 							<%
