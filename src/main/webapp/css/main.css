@@ -10,14 +10,16 @@ body {
 /* End - registered.jsp */
 
 /* navbar */
-#navbar .profile-image {
-	padding-top: 0px;
-	padding-bottom: 0px;
+#navbar .img-circle {
 	height: 30px; /* you can use % */
 	width: 30px; /* auto */
 }
-/* End - navbar */
 
+.navbar-nav>li>a.profile-image {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+/* End - navbar */
 .bigimage>h3 {
 	padding-top: 10%;
 	text-align: center;

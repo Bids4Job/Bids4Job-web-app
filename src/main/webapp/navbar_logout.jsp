@@ -37,7 +37,7 @@ a Professional or a Simple User respectively
 			<!--start un-collapsed navbar-->
 
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a
+				<li class="active"><a class="profile-image"
 					href="
 						<%-- Check in which profile page the user should go --%>
 						<%if (isPro) {%>
@@ -46,7 +46,7 @@ a Professional or a Simple User respectively
 							profile_simple
 						<%}%>">
 						<img src=<%=request.getContextPath() + "/user_image"%>
-						class="profile-image img-circle">&nbsp;<%=username%>
+						class="img-circle">&nbsp;<%=username%>
 				</a></li>
 				<li><a href="#" data-toggle="modal"
 					data-target="#contracts-modal"><span
