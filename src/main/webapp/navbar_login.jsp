@@ -22,7 +22,7 @@
 			<div class="navbar-form navbar-right">
 				<a href="#" data-toggle="modal" data-target="#login-modal"
 					class="btn btn-info" role="button">Log in</a> <a href="signup.jsp"
-					class="btn btn-info" role="button">Sign up</a>
+					class="btn btn-success" role="button">Sign up</a>
 			</div>
 		</div>
 		<!-- end un-collapsed navbar-->

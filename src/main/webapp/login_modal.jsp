@@ -30,7 +30,7 @@
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Log
 							in</button>
 						<h5 class="login-or-signup">-OR-</h5>
-						<a href="signup.jsp" class="btn btn-lg btn-primary btn-block"
+						<a href="signup.jsp" class="btn btn-lg btn-success btn-block"
 							role="button">Sign up</a>
 					</form>
 				</div>
@@ -52,7 +52,7 @@
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Log
 							in</button>
 						<h5 class="login-or-signup">-OR-</h5>
-						<a href="signup.jsp" class="btn btn-lg btn-primary btn-block"
+						<a href="signup.jsp" class="btn btn-lg btn-success btn-block"
 							role="button">Sign up</a>
 					</form>
 				</div>
