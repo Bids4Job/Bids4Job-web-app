@@ -102,7 +102,8 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-3 col-lg-3 " align="center">
-								<img alt="User Pic" src=<%=request.getContextPath() + "/user_image"%>
+								<img alt="User Pic"
+									src=<%=request.getContextPath() + "/user_image"%>
 									class="img-circle img-responsive">
 							</div>
 
@@ -290,13 +291,13 @@
 					<h4 class="modal-title">New Task</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="POST" action="create_task"
+					<form class="form-horizontal" method="POST" action="register"
 						class="form-signup">
 
 						<div class="form-group">
 							<label for="task-title" class="col-sm-2 control-label">Title</label>
-							<div class="col-sm-6">
-								<input type="text" name="task_title" ng-model="task-title"
+							<div class="col-sm-10">
+								<input type="text" name="task-title" ng-model="task-title"
 									class="form-control" id="task-title" placeholder="Task Title"
 									required>
 							</div>
@@ -305,7 +306,7 @@
 						<div class="form-group">
 							<label for="task-description" class="col-sm-2 control-label">Task
 								Description</label>
-							<div class="col-sm-6">
+							<div class="col-sm-10">
 								<textarea type="text" rows="4" name="task_description"
 									class="form-control" id="task_description"
 									placeholder="Task Description..." maxlength="1000" required></textarea>
@@ -314,16 +315,17 @@
 
 						<div class="form-group">
 							<label for="deadline" class="col-sm-2 control-label">Deadline</label>
-							<div class="col-sm-6">
+							<div class="col-sm-10">
 								<input type="date" name="date" class="form-control"
 									id="deadline" placeholder="Task Deadline"
 									min="<%=dateFormat.format(date)%>" required>
 							</div>
 						</div>
 
+
 						<div class="form-group">
-							<label for="profession" class="col-sm-2 control-label">Profession</label>
-							<div class="col-sm-6">
+							<label for="location" class="col-sm-2 control-label">Profession</label>
+							<div class="col-sm-10">
 
 								<select name="profession" id="professions" required>
 									<option value=""></option>
@@ -343,20 +345,19 @@
 						</div>
 
 						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-6">
-								<button type="submit" class="btn btn-success">Create</button>
+							<div class="col-sm-offset-2 col-sm-10">
+
 								<input type="reset" class="btn btn-warning">
+								<button type="submit" class="btn btn-success pull-right">Create</button>
 							</div>
+
 						</div>
 
 					</form>
 
 				</div>
 				<!-- End .modal-body -->
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 
-				</div>
 			</div>
 			<!-- End .modal-content -->
 		</div>
