@@ -87,12 +87,14 @@
 									id="userpass" placeholder="Your password" required>
 							</div>
 						</div>
-						
+
 						<div class="form-group">
-							<label for="userpass-verification" class="col-sm-2 control-label">Password (confirm)</label>
+							<label for="userpass-verification" class="col-sm-2 control-label">Password
+								(confirm)</label>
 							<div class="col-sm-6">
-								<input type="password" name="upass-verification" class="form-control"
-									id="userpass-verification" placeholder="Your password once more" required>
+								<input type="password" name="upass-verification"
+									class="form-control" id="userpass-verification"
+									placeholder="Your password once more" required>
 							</div>
 						</div>
 
@@ -151,8 +153,8 @@
 
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-6">
-								<button type="submit" class="btn btn-info">Sign Up</button>
-								<input type="reset" class="btn btn-info">
+								<input type="reset" class="btn btn-warning">
+								<button type="submit" class="btn btn-success">Sign Up</button>
 							</div>
 						</div>
 
@@ -183,10 +185,12 @@
 						</div>
 
 						<div class="form-group">
-							<label for="userpass-verification" class="col-sm-2 control-label">Password (confirm)</label>
+							<label for="userpass-verification" class="col-sm-2 control-label">Password
+								(confirm)</label>
 							<div class="col-sm-6">
-								<input type="password" name="upass-verification" class="form-control"
-									id="userpass-verification" placeholder="Your password once more" required>
+								<input type="password" name="upass-verification"
+									class="form-control" id="userpass-verification"
+									placeholder="Your password once more" required>
 							</div>
 						</div>
 
@@ -267,8 +271,8 @@
 
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-6">
-								<button type="submit" class="btn btn-info">Sign Up</button>
-								<input type="reset" class="btn btn-info">
+								<input type="reset" class="btn btn-warning">
+								<button type="submit" class="btn btn-success">Sign Up</button>
 							</div>
 						</div>
 					</form>
