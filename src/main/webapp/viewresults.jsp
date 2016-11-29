@@ -72,7 +72,7 @@
 	<div class="container-fluid">
 
 		<div class="row">
-			<div class="col-lg-12 results-img">
+			<div class="results-img">
 				<img class="img-responsive" src="images/results.jpg">
 			</div>
 		</div>

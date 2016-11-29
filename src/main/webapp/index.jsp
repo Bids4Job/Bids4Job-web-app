@@ -175,8 +175,9 @@
 	</div>
 	<!--End Carousel-->
 
+	<!--Start Login Modal -->
 	<%@ include file="login_modal.jsp"%>
-
+	<!--End Login Modal -->
 
 	<div class="container marketing">
 
@@ -470,20 +471,9 @@
 		</div>
 	</div>
 
-	<hr class="featurette-divider">
-
 
 	<!-- Start Footer -->
-
-	<footer>
-		<p class="pull-right">
-			<a href="#">Back to top</a>
-		</p>
-		<p>
-			&copy; 2016 Bids4Job S.A. &middot; <a href="#">Privacy</a> &middot; <a
-				href="#">Terms</a>
-		</p>
-	</footer>
+	<%@ include file="footer.jsp"%>
 	<!-- End of Footer -->
 
 	</div>

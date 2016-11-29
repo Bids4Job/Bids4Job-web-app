@@ -1,78 +1,90 @@
 body {
-  padding-top: 50px;
-  padding-bottom: 20px;
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+
+h3 {
+	padding-top: 10%;
+	text-align: center;
+	font-style: italic;
+	color: white;
 }
 
 .signup-top {
-  padding-top: 50px;
+	padding-top: 50px;
 }
 
-.bigimage > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 1000px;
-  height: auto;
+.bigimage {
+	min-height: 400px;
+	padding: 0px;
+	background-image: url("../images/logout.jpg");
+	background-repeat: no-repeat;
+	background-size:100% auto;
 }
 
 /* Signup form */
 .form-signup {
-  max-width: 600px;
-  padding: 15px;
-  margin: 0 auto;
+	max-width: 600px;
+	padding: 15px;
+	margin: 0 auto;
 }
 
 select {
-  -webkit-appearance: menulist-button;
-   height: 2.2em;
+	-webkit-appearance: menulist-button;
+	height: 2.2em;
 }
 
-select > option {
-  font-size: 1.2em;
+select>option {
+	font-size: 1.2em;
 }
 
 /* Login form */
 .login-or-signup {
-  text-align: center;
+	text-align: center;
 }
 
-.main-bg-img > img {
-  height: auto;
-  max-width:1500px;
+.main-bg-img>img {
+	height: auto;
+	max-width: 1500px;
 }
 
 .form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
 }
-.form-signin .form-signin-heading,
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
 .form-signin .checkbox {
-  margin-bottom: 10px;
+	font-weight: normal;
 }
-.form-signin .checkbox {
-  font-weight: normal;
-}
+
 .form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
 }
+
 .form-signin .form-control:focus {
-  z-index: 2;
+	z-index: 2;
 }
+
 .form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
 }
+
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }
 /* End of Login form */

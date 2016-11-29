@@ -66,9 +66,6 @@
 	<!--Navbar end-->
 
 
-
-
-
 	<div class="container">
 
 		<div class="page-header">
@@ -83,21 +80,16 @@
 		%>
 
 
-
 		<!-- Start Footer -->
-
-		<hr>
-		<footer>
-			<p>
-				&copy; 2016 Bids4Job S.A. &middot; <a href="#">Privacy</a> &middot;
-				<a href="#">Terms</a>
-			</p>
-		</footer>
+		<%@ include file="footer.jsp"%>
 		<!-- End of Footer -->
+
 	</div>
 	<!-- End of .container -->
 
-
+	<!--Start Login Modal -->
+	<%@ include file="login_modal.jsp"%>
+	<!--End Login Modal -->
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
