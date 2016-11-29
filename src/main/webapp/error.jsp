@@ -76,7 +76,7 @@
 
 
 		<div class="alert alert-danger" role="alert"><%=exception.getMessage()%></div>
-
+		
 
 		<!-- Start Footer -->
 		<%@ include file="footer.jsp"%>

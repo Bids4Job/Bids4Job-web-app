@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.apache.commons.lang3.StringUtils;
@@ -141,8 +142,7 @@ public class RegisterSimpleController extends HttpServlet {
 				// The upload location
 				String uploadLocation = PropertiesFileUtils.getPropertyValue(CONFIG_FILE, UPLOAD_LOCATION);
 				// Construct path of the directory to save uploaded files
-				String savePath = appPath + File.separator
-						+ uploadLocation;
+				String savePath = appPath + File.separator + uploadLocation;
 				// Define the path to the final storage location
 				File uploadFile = new File(savePath);
 				if (!uploadFile.exists()) {
@@ -160,8 +160,11 @@ public class RegisterSimpleController extends HttpServlet {
 
 			simpleUser = simpleUserService.create(simpleUser);
 
-			// Set SimpleUser to request
-			request.setAttribute("simpleUser", simpleUser);
+			// Get the HttpSession that is associated with this request
+			HttpSession session = request.getSession();
+			// Set the user to session
+			session.setAttribute("simple-user", simpleUser);
+			
 			registeredDispatcher.forward(request, response);
 
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
@@ -178,7 +181,7 @@ public class RegisterSimpleController extends HttpServlet {
 			errorBuilder.append("Password should match Password(confirm)<br>");
 		return errorBuilder.toString();
 	}
-	
+
 	private String checkAlphaDashes(String firstName, String lastName) {
 		StringBuilder errorBuilder = new StringBuilder();
 		if (!StringUtils.isAlphaSpace(firstName.replace('-', ' '))) {

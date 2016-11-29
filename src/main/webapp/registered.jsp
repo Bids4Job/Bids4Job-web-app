@@ -4,11 +4,23 @@
 <%@ page import="domain.ProfessionalUser"%>
 <%@ page errorPage="error.jsp"%>
 
+<%
+	SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
+	ProfessionalUser professionalUser = (ProfessionalUser) session.getAttribute("pro");
+	
+	boolean isSimple = (simpleUser != null);
+	boolean isPro = (professionalUser != null);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<% if (isSimple) %>
+<meta http-equiv="refresh" content="1;url=profile_simple"/>
+<% if (isPro) %>
+<meta http-equiv="refresh" content="1;url=profile_professional"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bids4Job Sign Up Success</title>
 <!-- Add favicon -->
@@ -46,15 +58,12 @@
 	<div class="container">
 
 
-		<div class="page-header">
+		<div class="page-header registered-page">
 			<h1>Sign Up Succeeded!</h1>
 		</div>
 
 
 		<%
-			SimpleUser simpleUser = (SimpleUser) request.getAttribute("simpleUser");
-			ProfessionalUser professionalUser = (ProfessionalUser) request.getAttribute("pro");
-
 			if (simpleUser != null) {
 		%>
 		<div
@@ -83,9 +92,11 @@
 		<%
 			} else if (professionalUser != null) {
 		%>
-		
+
 		<!--  -->
-		<div class="alert alert-success col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3" role="alert">
+		<div
+			class="alert alert-success col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3"
+			role="alert">
 			<div class="row">
 				<div class="col-md-6 col-lg-6">
 					<p class="strong">Professional User</p>
