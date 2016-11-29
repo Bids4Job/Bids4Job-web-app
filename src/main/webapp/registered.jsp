@@ -7,7 +7,7 @@
 <%
 	SimpleUser simpleUser = (SimpleUser) session.getAttribute("simple-user");
 	ProfessionalUser professionalUser = (ProfessionalUser) session.getAttribute("pro");
-	
+
 	boolean isSimple = (simpleUser != null);
 	boolean isPro = (professionalUser != null);
 %>
@@ -17,10 +17,17 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<% if (isSimple) %>
-<meta http-equiv="refresh" content="1;url=profile_simple"/>
-<% if (isPro) %>
-<meta http-equiv="refresh" content="1;url=profile_professional"/>
+<%
+	if (isSimple) {
+%>
+<meta http-equiv="refresh" content="1;url=profile_simple" />
+<%
+	} else if (isPro) {
+%>
+<meta http-equiv="refresh" content="1;url=profile_professional" />
+<%
+	}
+%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bids4Job Sign Up Success</title>
 <!-- Add favicon -->
