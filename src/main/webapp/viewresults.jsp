@@ -147,132 +147,135 @@
 			} // End	 if (prevTaskID != 0)
 		%>
 		<div class="panel panel-default">
-			<div class="panel-heading" role="tab" id="heading<%=taskID%>">
-				<h4 class="panel-title">
-					<a role="button" data-toggle="collapse" data-parent="#accordion"
-						href="#collapse<%=taskID%>" aria-expanded="true"
-						aria-controls="collapse<%=taskID%>"> Task #<%=taskID%> - <%=crsTasks.getString("title")%>
-					</a>
-				</h4>
-			</div>
-			<div id="collapse<%=taskID%>"
-				class="panel-collapse collapse <%if (prevTaskID == 0) {%> in
+			<a role="button" data-toggle="collapse" data-parent="#accordion"
+				href="#collapse<%=taskID%>" aria-expanded="true"
+				aria-controls="collapse<%=taskID%>">
+				<div class="panel-heading" role="tab" id="heading<%=taskID%>">
+					<h4 class="panel-title">
+						Task #<%=taskID%>
+						-
+						<%=crsTasks.getString("title")%>
+					</h4>
+			</a>
+		</div>
+		<div id="collapse<%=taskID%>"
+			class="panel-collapse collapse <%if (prevTaskID == 0) {%> in
             			<%}
 						prevTaskID = taskID;
 						prevProfession = crsTasks.getString("work_field");%>"
-				role="tabpanel" aria-labelledby="heading<%=taskID%>">
-				<div class="panel-body">
-					<table class="table">
-						<tbody>
-							<tr class="active">
-								<th>Task Description</th>
-								<th>Field of Work</th>
-								<th>Task Location</th>
-								<th>Deadline</th>
-							</tr>
-							<tr>
-								<td><%=crsTasks.getString("description")%></td>
-								<td><%=crsTasks.getString("work_field")%></td>
-								<td><%=crsTasks.getString("location")%></td>
-								<td><%=simpleDateFormat.format(crsTasks.getTimestamp("deadline"))%></td>
-							</tr>
-						</tbody>
-					</table>
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>Bidder</th>
-								<th>Rating</th>
-								<th>Amount &euro;</th>
-								<th>Bid Date</th>
-							</tr>
-						</thead>
-						<tbody>
+			role="tabpanel" aria-labelledby="heading<%=taskID%>">
+			<div class="panel-body">
+				<table class="table">
+					<tbody>
+						<tr class="active">
+							<th>Task Description</th>
+							<th>Field of Work</th>
+							<th>Task Location</th>
+							<th>Deadline</th>
+						</tr>
+						<tr>
+							<td><%=crsTasks.getString("description")%></td>
+							<td><%=crsTasks.getString("work_field")%></td>
+							<td><%=crsTasks.getString("location")%></td>
+							<td><%=simpleDateFormat.format(crsTasks.getTimestamp("deadline"))%></td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Bidder</th>
+							<th>Rating</th>
+							<th>Amount &euro;</th>
+							<th>Bid Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%
+							} // End 	if (taskID != prevTaskID)
+									int bidID = crsTasks.getInt("bid_id");
+									if (bidID != 0) {
+						%>
+						<tr>
+							<td><%=crsTasks.getString("pro_username")%></td>
 							<%
-								} // End 	if (taskID != prevTaskID)
-										int bidID = crsTasks.getInt("bid_id");
-										if (bidID != 0) {
+								double rating = crsTasks.getDouble("rating");
+											if (crsTasks.wasNull()) {
 							%>
-							<tr>
-								<td><%=crsTasks.getString("pro_username")%></td>
-								<%
-									double rating = crsTasks.getDouble("rating");
-												if (crsTasks.wasNull()) {
-								%>
-								<td>-</td>
-								<%
-									} else {
-								%>
-								<td><%=decimalFormat.format(rating)%></td>
-								<%
-									}
-								%>
-								<td><%=crsTasks.getInt("amount")%></td>
-								<%
-									Timestamp bid_timestamp = crsTasks.getTimestamp("bid_time");
-												if (crsTasks.wasNull()) {
-								%>
-								<td>-</td>
-								<%
-									} else {
-								%>
-								<td><%=simpleDateFormat.format(bid_timestamp)%></td>
-								<%
-									}
-								%>
-							</tr>
+							<td>-</td>
 							<%
-								} // End 	if (bidID != 0)
-										else {
+								} else {
 							%>
-							<tr>
-								<td colspan="4">-</td>
-							</tr>
+							<td><%=decimalFormat.format(rating)%></td>
 							<%
-								} // End if-else bidID != 0
-									} // End 	while(crs.next())
+								}
 							%>
-						</tbody>
-					</table>
-					<%
-						if (sameProfession) {
-					%>
-					<div class="panel-footer">
-						<h4>Place a new bid</h4>
-						<form class="form-inline" method="POST" action="create_bid">
+							<td><%=crsTasks.getInt("amount")%></td>
+							<%
+								Timestamp bid_timestamp = crsTasks.getTimestamp("bid_time");
+											if (crsTasks.wasNull()) {
+							%>
+							<td>-</td>
+							<%
+								} else {
+							%>
+							<td><%=simpleDateFormat.format(bid_timestamp)%></td>
+							<%
+								}
+							%>
+						</tr>
+						<%
+							} // End 	if (bidID != 0)
+									else {
+						%>
+						<tr>
+							<td colspan="4">-</td>
+						</tr>
+						<%
+							} // End if-else bidID != 0
+								} // End 	while(crs.next())
+						%>
+					</tbody>
+				</table>
+				<%
+					if (sameProfession) {
+				%>
+				<div class="panel-footer">
+					<h4>Place a new bid</h4>
+					<form class="form-inline" method="POST" action="create_bid">
 
-							<div class="form-group">
-								<label for="task-title" class="control-label">Amount
-									&euro;</label> <input type="text" name="amount" ng-model="bid-amount"
-									class="form-control" id="bid-amount" placeholder="Bid Amount"
-									required>
-							</div>
+						<div class="form-group">
+							<label for="task-title" class="control-label">Amount
+								&euro;</label> <input type="text" name="amount" ng-model="bid-amount"
+								class="form-control" id="bid-amount" placeholder="Bid Amount"
+								required>
+						</div>
 
-							<input type="hidden" name="taskId" value="<%=prevTaskID%>">
-							<!-- Receive taskId to connect with new bid -->
+						<input type="hidden" name="taskId" value="<%=prevTaskID%>">
+						<!-- Receive taskId to connect with new bid -->
 
-							<div class="form-group">
-								<button class="btn btn-sm btn-success" type="submit"
-									name="submit" value="view_results">
-									<i class="glyphicon glyphicon-plus"></i>
-								</button>
-							</div>
+						<div class="form-group">
+							<button class="btn btn-sm btn-success" type="submit"
+								name="submit" value="view_results">
+								<i class="glyphicon glyphicon-plus"></i>
+							</button>
+						</div>
 
-						</form>
-					</div>
-					<!-- End .panel-footer -->
-					<%
-						}
-					%>
+					</form>
 				</div>
-				<!-- End .panel-body -->
+				<!-- End .panel-footer -->
+				<%
+					}
+				%>
 			</div>
-			<!-- End .panel-collapse collapse in -->
+			<!-- End .panel-body -->
 		</div>
-		<!-- End .panel panel-default -->
-		<%
-			}
-		%>
+		<!-- End .panel-collapse collapse in -->
+	</div>
+	<!-- End .panel panel-default -->
+	<%
+		}
+	%>
 	</div>
 	<!-- End .panel-group -->
 	</div>
