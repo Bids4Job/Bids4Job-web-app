@@ -76,7 +76,7 @@ public class SimpleUserServiceTester {
 			// authenticateByUsername - existing
 			System.out.println("\n==============================================\nauthenticate()\n==============================================\n"
 							+ simpleUserService.authenticateByUsername("george-sp", "pass4"));
-						
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
