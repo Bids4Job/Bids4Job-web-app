@@ -6,7 +6,7 @@
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div
-			class="tabbable full-width-tabs col-lg-8 col-md-6 col-sm-6 col-xs-8 col-lg-offset-2 col-md-offset-3 col-sm-offset-3 col-xs-offset-2">
+			class="tabbable full-width-tabs col-lg-8 col-md-6 col-sm-6 col-xs-12 col-lg-offset-2 col-md-offset-3 col-sm-offset-3">
 			<ul class="nav nav-tabs nav-justified login-tab-clr">
 				<li class="active"><a data-toggle="tab" href="#Individual">Individual</a></li>
 				<li><a data-toggle="tab" href="#Professional">Professional</a></li>

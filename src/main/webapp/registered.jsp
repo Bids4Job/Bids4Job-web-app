@@ -57,29 +57,55 @@
 
 			if (simpleUser != null) {
 		%>
-		<div class="alert alert-success" role="alert">
-			<p class="strong">Simple User</p>
-			<ol>
-				<li><b>Username:</b> <%=simpleUser.getUsername()%></li>
-				<li><b>First Name:</b> <%=simpleUser.getFirstName()%></li>
-				<li><b>Surname:</b> <%=simpleUser.getLastName()%></li>
-				<li><b>Email:</b> <%=simpleUser.getEmail()%></li>
-				<li><b>Location:</b> <%=simpleUser.getLocation()%></li>
-			</ol>
+		<div
+			class="alert alert-success col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3"
+			role="alert">
+			<div class="row">
+				<div class="col-md-6 col-lg-6">
+					<p class="strong">Simple User</p>
+					<ol>
+						<li><b>Username:</b> <%=simpleUser.getUsername()%></li>
+						<li><b>First Name:</b> <%=simpleUser.getFirstName()%></li>
+						<li><b>Surname:</b> <%=simpleUser.getLastName()%></li>
+						<li><b>Email:</b> <%=simpleUser.getEmail()%></li>
+						<li><b>Location:</b> <%=simpleUser.getLocation()%></li>
+					</ol>
+				</div>
+
+				<div class="col-md-6 col-lg-6">
+					<img alt="User Pic"
+						src=<%=request.getContextPath() + "/user_image"%>
+						class="img-circle img-responsive">
+				</div>
+
+			</div>
 		</div>
 		<%
 			} else if (professionalUser != null) {
 		%>
-		<div class="alert alert-success" role="alert">
-			<p class="strong">Professional User</p>
-			<ol>
-				<li><b>Username:</b> <%=professionalUser.getUsername()%></li>
-				<li><b>First Name:</b> <%=professionalUser.getFirstName()%></li>
-				<li><b>Surname:</b> <%=professionalUser.getLastName()%></li>
-				<li><b>Email:</b> <%=professionalUser.getEmail()%></li>
-				<li><b>Location:</b> <%=professionalUser.getLocation()%></li>
-				<li><b>Profession:</b> <%=professionalUser.getProfession()%></li>
-			</ol>
+		
+		<!--  -->
+		<div class="alert alert-success col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3" role="alert">
+			<div class="row">
+				<div class="col-md-6 col-lg-6">
+					<p class="strong">Professional User</p>
+					<ol>
+						<li><b>Username:</b> <%=professionalUser.getUsername()%></li>
+						<li><b>First Name:</b> <%=professionalUser.getFirstName()%></li>
+						<li><b>Surname:</b> <%=professionalUser.getLastName()%></li>
+						<li><b>Email:</b> <%=professionalUser.getEmail()%></li>
+						<li><b>Location:</b> <%=professionalUser.getLocation()%></li>
+						<li><b>Profession:</b> <%=professionalUser.getProfession()%></li>
+					</ol>
+				</div>
+
+				<div class="col-md-6 col-lg-6">
+					<img alt="User Pic"
+						src=<%=request.getContextPath() + "/user_image"%>
+						class="img-circle img-responsive">
+				</div>
+
+			</div>
 		</div>
 		<%
 			} else {
@@ -90,10 +116,13 @@
 		<%
 			}
 		%>
-
+	</div>
+	<div class="container">
+		<!-- Start Footer -->
+		<%@ include file="footer.jsp"%>
+		<!-- End of Footer -->
 	</div>
 	<!-- /container -->
-
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script
