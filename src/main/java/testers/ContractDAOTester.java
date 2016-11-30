@@ -159,7 +159,7 @@ public class ContractDAOTester {
 				}
 			}
 			// findDetailsByProfessionalUserID
-			System.out.println("\nfindDetailsBySimpleUserID(600)");
+			System.out.println("\nfindDetailsByProfessionalUserID(600)");
 			crs = contractDAO.findDetailsByProfessionalUserID(600);
 			if (!crs.isBeforeFirst()) {
 				System.out.println("No data");

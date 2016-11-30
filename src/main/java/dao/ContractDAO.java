@@ -351,8 +351,8 @@ public class ContractDAO {
 	 * Finds all Contracts in the database from a specified Professional User.
 	 * (contract_id, simple_username, amount, rating, contract_date)
 	 *
-	 * @return a CachedRowSet with all Contracts(in details) based on professional
-	 *         user ID
+	 * @return a CachedRowSet with all Contracts(in details) based on
+	 *         professional user ID
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws InstantiationException
@@ -364,8 +364,8 @@ public class ContractDAO {
 		String sql = "SELECT a." + CONTRACT_ID + ", a." + CONTRACT_TIME + ", a." + PRO_RATING
 				+ ", b.simple_user_id, c.amount, e.simple_username FROM " + CONTRACT_TABLE
 				+ " as a INNER JOIN task as b ON a." + TASK_ID + " = b." + TASK_ID
-				+ " INNER JOIN simple_user as e ON e.simple_user_id = b.simple_user_id" + " INNER JOIN bid as c ON b."
-				+ TASK_ID + " = c." + TASK_ID + " INNER JOIN pro_user as d ON c.pro_user_id = d.pro_user_id"
+				+ " INNER JOIN simple_user as e ON e.simple_user_id = b.simple_user_id" + " INNER JOIN bid as c ON a."
+				+ BID_ID + " = c." + BID_ID + " INNER JOIN pro_user as d ON c.pro_user_id = d.pro_user_id"
 				+ " WHERE c.pro_user_ID = ?;";
 		this.prepareResources();
 		try {
