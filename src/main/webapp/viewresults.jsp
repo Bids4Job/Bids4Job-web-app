@@ -9,7 +9,9 @@
 <%@ page errorPage="error.jsp"%>
 
 <%
+	//Define formatters
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	request.setAttribute("simple-date-format", simpleDateFormat);
 	DecimalFormat decimalFormat = new DecimalFormat("##.##");
 	// Get the Professional User object from session
 	ProfessionalUser professionalUser = (ProfessionalUser) session.getAttribute("pro");

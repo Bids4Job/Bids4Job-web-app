@@ -50,12 +50,14 @@
 		boolean isSimple = (simpleUser != null);
 		// Set up the SimpleDateFormat and DecimalFormat objects
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		request.setAttribute("simple-date-format", simpleDateFormat);
 		DecimalFormat decimalFormat = new DecimalFormat("##.##");
 	%>
 
 	<!--Navbar start-->
 	<jsp:include page="navbar_logout.jsp">
 		<jsp:param name="isSimple" value="<%=isSimple%>" />
+		<jsp:param name="is-tab-active" value="true" />
 	</jsp:include>
 	<!--Navbar end-->
 

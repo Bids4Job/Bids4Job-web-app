@@ -11,6 +11,7 @@
 <%
 	// Define formatters
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	request.setAttribute("simple-date-format", simpleDateFormat);
 	DecimalFormat decimalFormat = new DecimalFormat("##.##");
 	// Get the Professional User object from session
 	ProfessionalUser professionalUser = (ProfessionalUser) session.getAttribute("pro");
@@ -448,7 +449,8 @@
 			<div id="googleMap" style="height: 500px; width: 500px;"></div>
 
 			<!-- Add Google Maps -->
-			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBft0MZ_MpSUSQ-BcU0Nw6lbVZoatcgnDI&callback=initMap"></script>
+			<script
+				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBft0MZ_MpSUSQ-BcU0Nw6lbVZoatcgnDI&callback=initMap"></script>
 			<script>
 				var myCenter = new google.maps.LatLng(37.980105, 23.732287);
 

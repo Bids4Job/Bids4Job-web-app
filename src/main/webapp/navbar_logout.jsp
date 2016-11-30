@@ -12,6 +12,7 @@ a Professional or a Simple User respectively
 	// Get parameters from the request
 	boolean isPro = Boolean.parseBoolean(request.getParameter("isPro"));
 	boolean isSimple = Boolean.parseBoolean(request.getParameter("isSimple"));
+	boolean isProfileTabActive = Boolean.parseBoolean(request.getParameter("is-tab-active"));
 	// Get attributes from session
 	String username = isPro ? ((ProfessionalUser) session.getAttribute("pro")).getUsername()
 			: ((SimpleUser) session.getAttribute("simple-user")).getUsername();
@@ -37,7 +38,9 @@ a Professional or a Simple User respectively
 			<!--start un-collapsed navbar-->
 
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a class="profile-image"
+				<li <%if (isProfileTabActive)
+				out.println("class=\"active\"");%>><a
+					class="profile-image"
 					href="
 						<%-- Check in which profile page the user should go --%>
 						<%if (isPro) {%>

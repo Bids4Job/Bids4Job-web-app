@@ -39,17 +39,18 @@
 <body>
 
 	<%
-	    // Getting Attribute from session
-	    ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
-	    boolean isPro = (pro != null);
-	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	    DecimalFormat decimalFormat = new DecimalFormat("##.##");
-	    CachedRowSet crsRating = (CachedRowSet) request.getAttribute("rating");
+		// Getting Attribute from session
+		ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
+		boolean isPro = (pro != null);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DecimalFormat decimalFormat = new DecimalFormat("##.##");
+		CachedRowSet crsRating = (CachedRowSet) request.getAttribute("rating");
 	%>
 
 	<!--Navbar start-->
 	<jsp:include page="navbar_logout.jsp">
 		<jsp:param name="isPro" value="<%=isPro%>" />
+		<jsp:param name="is-tab-active" value="true" />
 	</jsp:include>
 	<!--Navbar end-->
 
@@ -84,15 +85,15 @@
 											<td>Rating:</td>
 											<td>
 												<%
-												    crsRating.next();
-												    int votes = crsRating.getInt("votes");
-												    if (votes == 0) {
+													crsRating.next();
+													int votes = crsRating.getInt("votes");
+													if (votes == 0) {
 														out.println("-");
-												    } else {
+													} else {
 														double rating = crsRating.getDouble("rating");
 														out.println(decimalFormat.format(rating) + " (" + votes + ")");
-														
-												    }
+
+													}
 												%>
 											</td>
 										</tr>
@@ -138,13 +139,13 @@
 
 					<!-- Get the task details from the request -->
 					<%
-					    CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
-					    if (crsTasks.isBeforeFirst()) {
+						CachedRowSet crsTasks = (CachedRowSet) request.getAttribute("tasks");
+						if (crsTasks.isBeforeFirst()) {
 							int prevTaskID = 0;
 							while (crsTasks.next()) {
-							    int taskID = crsTasks.getInt("task_id");
-							    if (taskID != prevTaskID) {
-								if (prevTaskID != 0) {
+								int taskID = crsTasks.getInt("task_id");
+								if (taskID != prevTaskID) {
+									if (prevTaskID != 0) {
 					%>
 					<!-- Same snippets: (244 - 274) or (157 - 188) -->
 					</tbody>
@@ -182,7 +183,7 @@
 
 
 		<%
-		    } // End	 if (prevTaskID != 0)
+			} // End	 if (prevTaskID != 0)
 		%>
 		<div class="panel panel-default">
 			<a role="button" data-toggle="collapse" data-parent="#accordion"
@@ -197,7 +198,7 @@
 		<div id="collapse<%=taskID%>"
 			class="panel-collapse collapse <%if (prevTaskID == 0) {%> in
             			<%}
-			prevTaskID = taskID;%>"
+						prevTaskID = taskID;%>"
 			role="tabpanel" aria-labelledby="heading<%=taskID%>">
 			<div class="panel-body">
 				<table class="table">
@@ -228,28 +229,28 @@
 					</thead>
 					<tbody>
 						<%
-						    } // End 	if (taskID != prevTaskID)
+							} // End 	if (taskID != prevTaskID)
 						%>
 
 						<tr>
 							<td><%=crsTasks.getString("pro_username")%></td>
 							<%
-							    double bidder_rating = crsTasks.getDouble("rating");
-									    if (crsTasks.wasNull()) {
+								double bidder_rating = crsTasks.getDouble("rating");
+										if (crsTasks.wasNull()) {
 							%>
 							<td>-</td>
 							<%
-							    } else {
+								} else {
 							%>
 							<td><%=decimalFormat.format(bidder_rating)%></td>
 							<%
-							    }
+								}
 							%>
 							<td><%=crsTasks.getInt("amount")%></td>
 							<td><%=simpleDateFormat.format(crsTasks.getTimestamp("bid_time"))%></td>
 							<td>
 								<%
-								    if (crsTasks.getString("pro_username").equals(pro.getUsername())) {
+									if (crsTasks.getString("pro_username").equals(pro.getUsername())) {
 								%>
 								<form class="form-inline" method="POST" action="cancel_bid">
 									<input type="hidden" name="bidId"
@@ -258,12 +259,12 @@
 										<i class="glyphicon glyphicon-remove"></i>
 									</button>
 								</form> <%
-     }
+ 	}
  %>
 							</td>
 						</tr>
 						<%
-						    } // End 	while(crs.next())
+							} // End 	while(crs.next())
 						%>
 
 						<!-- Same snippets: (244 - 274) or (157 - 188) -->
@@ -300,7 +301,7 @@
 	</div>
 	<!-- End .panel panel-default -->
 	<%
-	    }
+		}
 	%>
 	</div>
 	<!-- End of .panel-group -->
