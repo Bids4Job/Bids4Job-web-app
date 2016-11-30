@@ -270,13 +270,13 @@
 					<h4 class="modal-title">New Task</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="POST" action="register"
+					<form class="form-horizontal" method="POST" action="create_task"
 						class="form-signup">
 
 						<div class="form-group">
 							<label for="task-title" class="col-sm-2 control-label">Title</label>
 							<div class="col-sm-10">
-								<input type="text" name="task-title" ng-model="task-title"
+								<input type="text" name="task_title" ng-model="task-title"
 									class="form-control" id="task-title" placeholder="Task Title"
 									required>
 							</div>

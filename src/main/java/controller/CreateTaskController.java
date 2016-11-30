@@ -61,8 +61,7 @@ public class CreateTaskController extends HttpServlet {
 		deadline = Timestamp.valueOf(date + " " + "23:59:59");
 		Task task = new Task().setTitle(task_title).setDeadline(deadline).setSimpleUserId(simpleUserId)
 				.setWorkField(profession).setDescription(task_description).setActive_task(1);
-		Task task1;
-		task1 = mService.create(task);
+		task = mService.create(task);
 		response.sendRedirect("profile_simple");
 	}
 
