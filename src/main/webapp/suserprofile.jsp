@@ -157,10 +157,9 @@
 				href="#collapse<%=taskID%>" aria-expanded="true"
 				aria-controls="collapse<%=taskID%>">
 				<div class="panel-heading" role="tab" id="heading<%=taskID%>">
-					<h4 class="panel-title">
-						Task #<%=taskID%>
-						-
-						<%=crsTasks.getString("title")%>
+					<h4 class="panel-title black">
+						<b><%=crsTasks.getString("title")%></b> <span class="by-whom">by
+							<%=crsTasks.getString("simple_username")%></span>
 					</h4>
 			</a>
 		</div>

@@ -488,9 +488,10 @@ public class TaskDAO {
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		CachedRowSet crs = new CachedRowSetImpl();
 		String sql1 = "DROP VIEW IF EXISTS l;";
-		String sql2 = "create view l as " + "SELECT a.task_id, a.bid_id, a.amount, a.bid_time, b.pro_username, e.rating "
-				+ "FROM " + "bid AS a " + "INNER JOIN " + "pro_user AS b ON a.pro_user_id = b.pro_user_id "
-				+ "INNER JOIN " + "task AS c ON a.task_id = c.task_id " + "INNER JOIN " + "(SELECT "
+		String sql2 = "create view l as "
+				+ "SELECT a.task_id, a.bid_id, a.amount, a.bid_time, b.pro_username, e.rating " + "FROM " + "bid AS a "
+				+ "INNER JOIN " + "pro_user AS b ON a.pro_user_id = b.pro_user_id " + "INNER JOIN "
+				+ "task AS c ON a.task_id = c.task_id " + "INNER JOIN " + "(SELECT "
 				+ "f.pro_user_id, AVG(g.rating) AS rating " + "FROM " + "contract AS g "
 				+ "INNER JOIN bid AS f ON g.bid_id = f.bid_id "
 				+ "GROUP BY f.pro_user_id) AS e ON e.pro_user_id = b.pro_user_id;";
@@ -520,6 +521,7 @@ public class TaskDAO {
 	 * Finds all Tasks(and their Bids) in the database from a specified Simple
 	 * User. (taks_id, bid_id, pro_username, amount, rating, bid_time)
 	 *
+	 * @author george-sp
 	 * @return a CachedRowSet with all Tasks(in detail) based on simple user ID
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -529,7 +531,7 @@ public class TaskDAO {
 	public CachedRowSet findDetailsBySimpleUserID(int simpleUserID)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		CachedRowSet crs = new CachedRowSetImpl();
-		String sql = "select c.task_id, c.title, c.description, c.deadline, c.work_field, a.bid_id, a.amount, a.bid_time, b.pro_username, d.location, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id right outer join task as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true and d.simple_user_id = ? order by c.task_id desc;";
+		String sql = "select c.task_id, c.title, c.description, c.deadline, c.work_field, a.bid_id, a.amount, a.bid_time, b.pro_username, d.simple_username, d.location, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id right outer join task as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true and d.simple_user_id = ? order by c.task_id desc;";
 		this.prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -547,6 +549,7 @@ public class TaskDAO {
 	 * Finds all Tasks(and their Bids) in the database based on ProfessionalUser
 	 * bids. (taks_id, bid_id, pro_username, amount, rating, bid_time)
 	 *
+	 * @author george-sp
 	 * @return a CachedRowSet with all Tasks(in detail) based on simple user ID
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -556,7 +559,7 @@ public class TaskDAO {
 	public CachedRowSet findDetailsByProfessionalUserID(int proUserId)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		CachedRowSet crs = new CachedRowSetImpl();
-		String sql = "select c.task_id, c.title, c.description, c.deadline, c.work_field, a.bid_id, a.amount, a.bid_time, b.pro_username, d.location, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id inner join (select distinct z.* from task as z inner join bid as y on z.task_id = y.task_id inner join pro_user as w on y.pro_user_id = w.pro_user_id where w.pro_user_id = ?) as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true order by c.task_id desc;";
+		String sql = "select c.task_id, c.title, c.description, c.deadline, c.work_field, a.bid_id, a.amount, a.bid_time, b.pro_username, d.simple_username, d.location, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id inner join (select distinct z.* from task as z inner join bid as y on z.task_id = y.task_id inner join pro_user as w on y.pro_user_id = w.pro_user_id where w.pro_user_id = ?) as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true order by c.task_id desc;";
 		this.prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -575,6 +578,7 @@ public class TaskDAO {
 	 * bidders, ratings, amount, bid dates) in the database from a specified
 	 * profession
 	 *
+	 * @author george-sp
 	 * @return all Tasks(full detailed) based on a profession
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -584,7 +588,7 @@ public class TaskDAO {
 	public CachedRowSet findDetailsByProfession(String profession)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		CachedRowSet crs = new CachedRowSetImpl();
-		String sql = "select c.task_id, c.work_field, c.title, c.description, c.deadline, a.amount, a.bid_time, a.bid_id, b.pro_username, d.location, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id right outer join task as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true and c.work_field like ? order by c.task_id desc;";
+		String sql = "select c.task_id, c.work_field, c.title, c.description, c.deadline, a.amount, a.bid_time, a.bid_id, b.pro_username, d.simple_username, d.location, e.rating from bid as a inner join pro_user as b on a.pro_user_id = b.pro_user_id right outer join task as c on a.task_id = c.task_id inner join simple_user as d on c.simple_user_id = d.simple_user_id left outer join (select f.pro_user_id, avg(g.rating) as rating from contract as g inner join bid as f on g.bid_id = f.bid_id group by f.pro_user_id) as e on e.pro_user_id = b.pro_user_id where c.active_task = true and c.work_field like ? order by c.task_id desc;";
 		this.prepareResources();
 		try {
 			connection = DaoUtils.getConnection();
@@ -602,8 +606,11 @@ public class TaskDAO {
 	 * Finds all Tasks(and their Bids) in the database starting from the latest
 	 * deadline. (taks_id, bid_id, pro_username, amount, rating, bid_time)
 	 * 
-	 * @param limit the number of Tasks to be shown
-	 * @return a CachedRowSet with all Tasks(in detail) based on latest deadlines
+	 * @author george-sp
+	 * @param limit
+	 *            the number of Tasks to be shown
+	 * @return a CachedRowSet with all Tasks(in detail) based on latest
+	 *         deadlines
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws InstantiationException

@@ -3,6 +3,21 @@ body {
 	padding-bottom: 20px;
 }
 
+/* suserprofile.jsp */
+.black {
+	color: black;
+}
+
+.black>b {
+	font-size: 110%;
+}
+
+.by-whom {
+	font-size: 80%;
+	color: grey;
+}
+/* End - suserprofile.jsp */
+
 /* registered.jsp */
 .registered-page>h1 {
 	text-align: center;

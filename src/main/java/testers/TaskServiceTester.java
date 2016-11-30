@@ -68,8 +68,9 @@ public class TaskServiceTester {
 							+ "\ntask title: " + crs.getString("title") + "\ntask description: "
 							+ crs.getString("description") + "\nwork field: " + crs.getString("work_field")
 							+ "\ntask deadline: " + simpleDateFormat.format(crs.getTimestamp("deadline"))
-							+ "\nlocation: " + crs.getString("location") + "\namount id: " + crs.getInt("amount")
-							+ "\nrating: " + crs.getDouble("rating") + "\npro username: " + crs.getString("username")
+							+ "\nsimple username: " + crs.getString("simple_username") + "\nlocation: "
+							+ crs.getString("location") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\npro username: " + crs.getString("pro_username")
 							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
@@ -84,8 +85,9 @@ public class TaskServiceTester {
 							+ "\ntask title: " + crs.getString("title") + "\ntask description: "
 							+ crs.getString("description") + "\nwork field: " + crs.getString("work_field")
 							+ "\ntask deadline: " + simpleDateFormat.format(crs.getTimestamp("deadline"))
-							+ "\nlocation: " + crs.getString("location") + "\namount id: " + crs.getInt("amount")
-							+ "\nrating: " + crs.getDouble("rating") + "\npro username: " + crs.getString("username")
+							+ "\nsimple username: " + crs.getString("simple_username") + "\nlocation: "
+							+ crs.getString("location") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\npro username: " + crs.getString("pro_username")
 							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
@@ -103,8 +105,9 @@ public class TaskServiceTester {
 							+ "\ntask title: " + crs.getString("title") + "\ntask description: "
 							+ crs.getString("description") + "\nwork field: " + crs.getString("work_field")
 							+ "\ntask deadline: " + simpleDateFormat.format(crs.getTimestamp("deadline"))
-							+ "\nlocation: " + crs.getString("location") + "\namount id: " + crs.getInt("amount")
-							+ "\nrating: " + crs.getDouble("rating") + "\npro username: " + crs.getString("username")
+							+ "\nsimple username: " + crs.getString("simple_username") + "\nlocation: "
+							+ crs.getString("location") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\npro username: " + crs.getString("pro_username")
 							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
@@ -119,8 +122,9 @@ public class TaskServiceTester {
 							+ "\ntask title: " + crs.getString("title") + "\ntask description: "
 							+ crs.getString("description") + "\nwork field: " + crs.getString("work_field")
 							+ "\ntask deadline: " + simpleDateFormat.format(crs.getTimestamp("deadline"))
-							+ "\nlocation: " + crs.getString("location") + "\namount id: " + crs.getInt("amount")
-							+ "\nrating: " + crs.getDouble("rating") + "\npro username: " + crs.getString("username")
+							+ "\nsimple username: " + crs.getString("simple_username") + "\nlocation: "
+							+ crs.getString("location") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\npro username: " + crs.getString("pro_username")
 							+ "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}

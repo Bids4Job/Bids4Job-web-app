@@ -79,10 +79,11 @@ public class TaskDaoTester {
 				while (crs.next()) {
 					System.out.println("task id: " + crs.getInt("task_id") + "\ntask title: " + crs.getString("title")
 							+ "\ntask description: " + crs.getString("description") + "\ntask deadline: "
-							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nlocation: "
-							+ crs.getString("location") + "\nbid id: " + crs.getInt("bid_id") + "\namount: "
-							+ crs.getInt("amount") + "\npro username: " + crs.getString("username") + "\nrating: "
-							+ crs.getDouble("rating") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
+							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nsimple username: "
+							+ crs.getString("simple_username") + "\nlocation: " + crs.getString("location") + "\nbid id: "
+							+ crs.getInt("bid_id") + "\namount: " + crs.getInt("amount") + "\npro username: "
+							+ crs.getString("pro_username") + "\nrating: " + crs.getDouble("rating") + "\nbid_time: "
+							+ crs.getTimestamp("bid_time") + "\n");
 				}
 			}
 			/**
@@ -98,7 +99,7 @@ public class TaskDaoTester {
 							+ "\ntask description: " + crs.getString("description") + "\ntask deadline: "
 							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nlocation: "
 							+ crs.getString("location") + "\nbid id: " + crs.getInt("bid_id") + "\namount: "
-							+ crs.getInt("amount") + "\npro username: " + crs.getString("username") + "\nrating: "
+							+ crs.getInt("amount") + "\npro username: " + crs.getString("pro_username") + "\nrating: "
 							+ crs.getDouble("rating") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
@@ -112,7 +113,7 @@ public class TaskDaoTester {
 							+ "\ntask description: " + crs.getString("description") + "\ntask deadline: "
 							+ simpleDateFormat.format(crs.getTimestamp("deadline")) + "\nlocation: "
 							+ crs.getString("location") + "\nbid id: " + crs.getInt("bid_id") + "\namount: "
-							+ crs.getInt("amount") + "\npro username: " + crs.getString("username") + "\nrating: "
+							+ crs.getInt("amount") + "\npro username: " + crs.getString("pro_username") + "\nrating: "
 							+ crs.getDouble("rating") + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
 			}
@@ -140,7 +141,7 @@ public class TaskDaoTester {
 					// crs.getString("location")
 					// + "\ncontract time: " + crs.getTimestamp("deadline") +
 					// "\namount: " + crs.getInt("amount")
-					// + "\npro username: " + crs.getString("username") +
+					// + "\npro username: " + crs.getString("pro_username") +
 					// "\nrating: " + crs.getDouble("rating")
 					// + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
@@ -159,7 +160,7 @@ public class TaskDaoTester {
 					// crs.getString("location")
 					// + "\ncontract time: " + crs.getTimestamp("deadline") +
 					// "\namount: " + crs.getInt("amount")
-					// + "\npro username: " + crs.getString("username") +
+					// + "\npro username: " + crs.getString("pro_username") +
 					// "\nrating: " + crs.getDouble("rating")
 					// + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
@@ -182,7 +183,7 @@ public class TaskDaoTester {
 					// crs.getString("location")
 					// + "\ncontract time: " + crs.getTimestamp("deadline") +
 					// "\namount: " + crs.getInt("amount")
-					// + "\npro username: " + crs.getString("username") +
+					// + "\npro username: " + crs.getString("pro_username") +
 					// "\nrating: " + crs.getDouble("rating")
 					// + "\nbid_time: " + crs.getTimestamp("bid_time") + "\n");
 				}
