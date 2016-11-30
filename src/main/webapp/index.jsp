@@ -44,6 +44,7 @@
 <!-- Custom Style -->
 <link href="css/main.css" rel="stylesheet">
 <link href="css/carousel.css" rel="stylesheet">
+<link rel="stylesheet" href="css/profiles.css">
 <link href="css/stylesTest.css" rel="stylesheet">
 
 <!-- Login Modal style -->
