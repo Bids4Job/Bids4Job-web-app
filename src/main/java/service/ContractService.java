@@ -208,11 +208,9 @@ public class ContractService {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	public String findRatingByProUserID(int proUserID)
+	public CachedRowSet findRatingAndVotesByProUserID(int proUserID)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-		double averageRating = contractDAO.findRatingByProUserID(proUserID);
-		String averageRatingStr = averageRating != 0 ? String.valueOf(averageRating) : "-";
-		return averageRatingStr;
+		return contractDAO.findRatingAndVotesByProUserID(proUserID);
 	}
 	
 	/**
