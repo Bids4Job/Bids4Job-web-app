@@ -208,7 +208,7 @@ public class ContractService {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	public CachedRowSet findRatingByProUserID(int proUserID)
+	public CachedRowSet findRatingAndVotesByProUserID(int proUserID)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		return contractDAO.findRatingAndVotesByProUserID(proUserID);
 	}
