@@ -13,7 +13,7 @@ public class ContractService {
 
 	private ContractDAO contractDAO = new ContractDAO();
 	private TaskDAO taskDAO = new TaskDAO();
-	
+
 	/**
 	 * Finds the Contract with the given ID.
 	 * 
@@ -89,9 +89,11 @@ public class ContractService {
 	}
 
 	/**
-	 * Adds a new Contract in the database and sets the appropriate Task as inactive.
+	 * Adds a new Contract in the database and sets the appropriate Task as
+	 * inactive.
 	 * 
-	 * @param contract the Contract to be signed
+	 * @param contract
+	 *            the Contract to be signed
 	 * @return the Contract that was added in database
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
@@ -100,12 +102,12 @@ public class ContractService {
 	 */
 	public Contract sign(Contract contract)
 			throws IllegalAccessException, InstantiationException, ClassNotFoundException, SQLException {
-		if(taskDAO.setInactiveByID(contract.getTaskID())) {
+		if (taskDAO.setInactiveByID(contract.getTaskID())) {
 			contract = contractDAO.create(contract);
 		}
 		return contract;
 	}
-	
+
 	/**
 	 * Finds the Contract with the given bid ID.
 	 * 
@@ -201,6 +203,7 @@ public class ContractService {
 	 * Finds the average rating from contracts in the database signed by the
 	 * specified Professional User.
 	 *
+	 * @author iokranas
 	 * @return the average rating of the specified professional user, default
 	 *         value is '-'
 	 * @throws ClassNotFoundException
@@ -212,13 +215,13 @@ public class ContractService {
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		return contractDAO.findRatingAndVotesByProUserID(proUserID);
 	}
-	
+
 	/**
 	 * Finds all Contracts in the database from a specified Simple User.
 	 * (pro_username, amount, rating, contract_date)
 	 *
-	 * @return a CachedRowSet with all Contracts(in details) based on simple user
-	 *         ID
+	 * @return a CachedRowSet with all Contracts(in details) based on simple
+	 *         user ID
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws InstantiationException
@@ -227,5 +230,21 @@ public class ContractService {
 	public CachedRowSet findDetailsBySimpleUserID(int simpleUserID)
 			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		return contractDAO.findDetailsBySimpleUserID(simpleUserID);
+	}
+
+	/**
+	 * Finds all Contracts in the database from a specified Professional User.
+	 * (simple_username, amount, rating, contract_date)
+	 *
+	 * @return a CachedRowSet with all Contracts(in details) based on
+	 *         professional user ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public CachedRowSet findDetailsByProfessionalUserID(int professionalUserID)
+			throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+		return contractDAO.findDetailsByProfessionalUserID(professionalUserID);
 	}
 }

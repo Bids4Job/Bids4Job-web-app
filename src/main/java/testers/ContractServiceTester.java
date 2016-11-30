@@ -113,18 +113,43 @@ public class ContractServiceTester {
 							+ crs.getDouble("rating") + "\ncontract_time: " + crs.getTimestamp("contract_time") + "\n");
 				}
 			}
-			
-			//findRatingAndVotesByProUserID
-			System.out.println("\findRatingAndVotesByProUserID(14)");
+
+			// findDetailsByProfessionalUserID
+			System.out.println("\nfindDetailsByProfessionalUserID(1)");
+			crs = contractService.findDetailsByProfessionalUserID(1);
+			if (!crs.isBeforeFirst()) {
+				System.out.println("No data");
+			} else {
+				while (crs.next()) {
+					System.out.println("contract id: " + crs.getInt("contract_id") + "\nsimple username: "
+							+ crs.getString("simple_username") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\ncontract_time: " + crs.getTimestamp("contract_time") + "\n");
+				}
+			}
+			// findDetailsByProfessionalUserID
+			System.out.println("\nfindDetailsByProfessionalUserID(600)");
+			crs = contractService.findDetailsByProfessionalUserID(600);
+			if (!crs.isBeforeFirst()) {
+				System.out.println("No data");
+			} else {
+				while (crs.next()) {
+					System.out.println("contract id: " + crs.getInt("contract_id") + "\nsimple username: "
+							+ crs.getString("simple_username") + "\namount id: " + crs.getInt("amount") + "\nrating: "
+							+ crs.getDouble("rating") + "\ncontract_time: " + crs.getTimestamp("contract_time") + "\n");
+				}
+			}
+
+			// findRatingAndVotesByProUserID
+			System.out.println("\nfindRatingAndVotesByProUserID(14)");
 			crs = contractService.findRatingAndVotesByProUserID(14);
 			if (!crs.isBeforeFirst()) {
 				System.out.println("No data");
 			} else {
 				while (crs.next()) {
-				    System.out.println("Rating :" + crs.getDouble("rating") + "\nVotes : " + crs.getInt("votes"));
+					System.out.println("Rating :" + crs.getDouble("rating") + "\nVotes : " + crs.getInt("votes"));
 				}
 			}
-			
+
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException
 				| ParseException e) {
 			e.printStackTrace();
