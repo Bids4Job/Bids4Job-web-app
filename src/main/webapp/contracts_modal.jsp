@@ -18,12 +18,12 @@
 				<%
 					CachedRowSet crs = (CachedRowSet) request.getAttribute("contracts");
 				%>
-				<div class="panel panel-default">
 
-					<%
-						if (crs.isBeforeFirst()) {
-							while (crs.next()) {
-					%>
+				<%
+					if (crs.isBeforeFirst()) {
+						while (crs.next()) {
+				%>
+				<div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingOne">
 						<h4 class="panel-title">
 							Contract #<%=crs.getInt("contract_id")%></h4>
