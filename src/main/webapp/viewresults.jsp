@@ -16,7 +16,7 @@
 	// Get the Professional User object from session
 	ProfessionalUser professionalUser = (ProfessionalUser) session.getAttribute("pro");
 	// Use a boolean to know if a ProfessionalUser or a SimpleUser is logged in
-	boolean isSimple = ((SimpleUser) session.getAttribute("simple-user")) != null;
+	boolean isSimple = ((SimpleUser) session.getAttribute("simple-user") != null);
 	boolean isPro = (professionalUser != null);
 %>
 <!DOCTYPE html>
@@ -68,7 +68,17 @@
 		<jsp:param name="isSimple" value="<%=isSimple%>" />
 	</jsp:include>
 	<!-- Start #contracts-modal -->
-	<%@ include file="contracts_modal.jsp"%>
+	<%
+		if (isSimple) {
+	%>
+	<%@ include file="simple_contracts_modal.jsp"%>
+	<%
+		} else if (isPro) {
+	%>
+	<%@ include file="pro_contracts_modal.jsp"%>
+	<%
+		}
+	%>
 	<!-- End #contracts-modal -->
 	<%
 		}
