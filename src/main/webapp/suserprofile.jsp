@@ -62,7 +62,7 @@
 	<!--Navbar end-->
 
 	<!-- Start #contracts-modal -->
-	<%@ include file="contracts_modal.jsp"%>
+	<%@ include file="simple_contracts_modal.jsp"%>
 	<!-- End #contracts-modal -->
 
 	<div class="container">

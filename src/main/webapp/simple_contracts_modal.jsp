@@ -3,7 +3,6 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="javax.sql.rowset.CachedRowSet"%>
 
-
 <!-- Get the contact details from the request -->
 <%
 	CachedRowSet crs = (CachedRowSet) request.getAttribute("contracts");
@@ -19,7 +18,6 @@
 				<h4 class="modal-title">My Contracts</h4>
 			</div>
 			<div class="modal-body">
-
 
 				<%
 					if (crs.isBeforeFirst()) {
@@ -76,16 +74,17 @@
 									</td>
 									<!-- End td for rating -->
 									<td><%=crs.getInt("amount")%></td>
-									<td><%=((SimpleDateFormat)request.getAttribute("simple-date-format")).format(crs.getTimestamp("contract_time"))%></td>
+									<td><%=((SimpleDateFormat) request.getAttribute("simple-date-format"))
+							.format(crs.getTimestamp("contract_time"))%></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-					<%
-						}
-					%>
 				</div>
 				<!-- End .panel -->
+				<%
+					}
+				%>
 				<%
 					}
 				%>
