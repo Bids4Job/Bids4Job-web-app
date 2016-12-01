@@ -72,7 +72,8 @@ public class IndexController extends HttpServlet {
 			// Get contract details related with this SimpleUser
 			try {
 				crsContracts = (simpleUser != null)
-						? contractService.findDetailsBySimpleUserID(simpleUser.getSimpleUserID()) : null;
+						? contractService.findDetailsBySimpleUserID(simpleUser.getSimpleUserID())
+						: contractService.findDetailsByProfessionalUserID(professionalUser.getProUserId());
 			} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 				request.setAttribute("errorMessage", "Error Loading Contracts in Search Results: " + e.getMessage());

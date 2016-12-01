@@ -43,6 +43,7 @@
 		ProfessionalUser pro = (ProfessionalUser) session.getAttribute("pro");
 		boolean isPro = (pro != null);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		request.setAttribute("simple-date-format", simpleDateFormat);
 		DecimalFormat decimalFormat = new DecimalFormat("##.##");
 		CachedRowSet crsRating = (CachedRowSet) request.getAttribute("rating");
 	%>
@@ -54,6 +55,9 @@
 	</jsp:include>
 	<!--Navbar end-->
 
+	<!-- Start #contracts-modal -->
+	<%@ include file="pro_contracts_modal.jsp"%>
+	<!-- End #contracts-modal -->
 
 	<div class="container">
 

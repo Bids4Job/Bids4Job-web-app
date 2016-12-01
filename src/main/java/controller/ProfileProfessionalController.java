@@ -72,8 +72,18 @@ public class ProfileProfessionalController extends HttpServlet {
 			return;
 		}
 
+		CachedRowSet crsContracts = null;
 		CachedRowSet crsTasks = null;
 		CachedRowSet crsRating = null;
+
+		// Get contract details related with this ProfessionalUser
+		try {
+			crsContracts = contractService.findDetailsByProfessionalUserID(proUserId);
+		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Error Loading Contracts in Profile: " + e.getMessage());
+			errorDispatcher.forward(request, response);
+		}
 
 		try {
 			crsTasks = taskService.findDetailsByProfessionalUserID(proUserId);
@@ -84,7 +94,7 @@ public class ProfileProfessionalController extends HttpServlet {
 		}
 
 		try {
-		    	crsRating = contractService.findRatingAndVotesByProUserID(proUserId);
+			crsRating = contractService.findRatingAndVotesByProUserID(proUserId);
 		} catch (IllegalAccessException | InstantiationException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Error Loading Profile: " + e.getMessage());
@@ -92,6 +102,7 @@ public class ProfileProfessionalController extends HttpServlet {
 		}
 
 		// Set the contract details to session
+		request.setAttribute("contracts", crsContracts);
 		request.setAttribute("tasks", crsTasks);
 		request.setAttribute("rating", crsRating);
 		profileDispatcher.forward(request, response);

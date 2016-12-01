@@ -78,7 +78,17 @@
 		<jsp:param name="isSimple" value="<%=isSimple%>" />
 	</jsp:include>
 	<!-- Start #contracts-modal -->
-	<%@ include file="contracts_modal.jsp"%>
+	<%
+		if (isSimple) {
+	%>
+	<%@ include file="simple_contracts_modal.jsp"%>
+	<%
+		} else if (isPro) {
+	%>
+	<%@ include file="pro_contracts_modal.jsp"%>
+	<%
+		}
+	%>
 	<!-- End #contracts-modal -->
 	<%
 		}
