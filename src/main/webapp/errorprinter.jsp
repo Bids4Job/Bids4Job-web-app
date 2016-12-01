@@ -6,8 +6,8 @@
 
 <%
 	// Use a boolean to know if a ProfessionalUser or a SimpleUser is logged in
-	boolean isSimple = ((SimpleUser) session.getAttribute("simple-user")) != null;
-	boolean isPro = ((ProfessionalUser) session.getAttribute("pro-user")) != null;
+	boolean isSimple = ((SimpleUser) session.getAttribute("simple-user") != null);
+	boolean isPro = ((ProfessionalUser) session.getAttribute("pro") != null);
 %>
 
 <!DOCTYPE html>
