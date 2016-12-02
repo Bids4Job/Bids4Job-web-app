@@ -93,6 +93,10 @@
 	<%
 		}
 	%>
+	<!-- Start #email-modal -->
+	<%@ include file="email_modal.jsp"%>
+	<!-- End #email-modal -->
+
 
 	<!--Start Carousel-->
 
@@ -451,8 +455,8 @@
 				<span class="glyphicon glyphicon-phone"></span> +30 6945000000
 			</p>
 			<p class="lead">
-				<span class="glyphicon glyphicon-envelope"></span>&nbsp;<a
-					href="mailto:bid4job@outlook.com" target="_top">bid4job@outlook.com</a>
+				<span class="glyphicon glyphicon-envelope"></span>&nbsp;<a href="#"
+					data-toggle="modal" data-target="#email-modal">bid4job@outlook.com</a>
 			</p>
 		</div>
 		<div class="col-md-7 col-md-pull-5">
