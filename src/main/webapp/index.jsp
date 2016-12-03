@@ -444,9 +444,7 @@
 
 	<div class="row featurette" id="contact">
 		<div class="col-md-5 col-md-push-7">
-			<h2 class="featurette-heading">
-				Contact Us:</span>
-			</h2>
+			<h2 class="featurette-heading">Contact Us:</h2>
 			<p class="lead">
 				<span class="glyphicon glyphicon-map-marker"></span>Korai 3, Athens,
 				Greece

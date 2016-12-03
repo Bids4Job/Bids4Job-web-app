@@ -23,12 +23,13 @@
 								class="form-control" id="name" placeholder="Your Name" required>
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="email" class="col-sm-2 control-label">Email</label>
 						<div class="col-sm-10">
 							<input type="email" name="email" ng-model="email"
-								class="form-control" id="email" placeholder="Your Email" required>
+								class="form-control" id="email" placeholder="Your Email"
+								required>
 						</div>
 					</div>
 
@@ -36,8 +37,8 @@
 						<label for="message" class="col-sm-2 control-label">Message</label>
 						<div class="col-sm-10">
 							<textarea type="text" rows="4" name="message"
-								class="form-control" id="message"
-								placeholder="Your Message..." maxlength="1000" required></textarea>
+								class="form-control" id="message" placeholder="Your Message..."
+								maxlength="1000" required></textarea>
 						</div>
 					</div>
 
@@ -45,7 +46,8 @@
 						<div class="col-sm-offset-2 col-sm-10">
 
 							<input type="reset" class="btn btn-warning">
-							<button type="submit" class="btn btn-success pull-right">Send It</button>
+							<button type="submit" name="submit"
+								class="btn btn-success pull-right">Send It</button>
 						</div>
 					</div>
 
